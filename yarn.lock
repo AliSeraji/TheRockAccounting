@@ -442,7 +442,7 @@
     "@emnapi/runtime" "^1.7.1"
     "@tybys/wasm-util" "^0.10.1"
 
-"@react-router/dev@7.10.1":
+"@react-router/dev@^7.10.1":
   version "7.10.1"
   resolved "https://registry.yarnpkg.com/@react-router/dev/-/dev-7.10.1.tgz#144334187b428c01f780ae0d9fda6f0a49219fb1"
   integrity sha512-kap9O8rTN6b3vxjd+0SGjhm5vqiAZHMmOX1Hc7Y4KXRVVdusn+0+hxs44cDSfbW6Z6fCLw6GXXe0Kr+DJIRezw==
@@ -483,14 +483,14 @@
   dependencies:
     "@react-router/node" "7.10.1"
 
-"@react-router/node@7.10.1":
+"@react-router/node@7.10.1", "@react-router/node@^7.10.1":
   version "7.10.1"
   resolved "https://registry.yarnpkg.com/@react-router/node/-/node-7.10.1.tgz#e5e9422c780d5fb913ea322333235990a3e82407"
   integrity sha512-RLmjlR1zQu+ve8ibI0lu91pJrXGcmfkvsrQl7z/eTc5V5FZgl0OvQVWL5JDWBlBZyzdLMQQekUOX5WcPhCP1FQ==
   dependencies:
     "@mjackson/node-fetch-server" "^0.2.0"
 
-"@react-router/serve@7.10.1":
+"@react-router/serve@^7.10.1":
   version "7.10.1"
   resolved "https://registry.yarnpkg.com/@react-router/serve/-/serve-7.10.1.tgz#7b875b052a90e000b935ea0c2e930d446d967476"
   integrity sha512-qYco7sFpbRgoKJKsCgJmFBQwaLVsLv255K8vbPodnXe13YBEzV/ugIqRCYVz2hghvlPiEKgaHh2On0s/5npn6w==
@@ -1256,7 +1256,7 @@ ipaddr.js@1.9.1:
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.9.1.tgz#bff38543eeb8984825079ff3a2a8e6cbd46781b3"
   integrity sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==
 
-isbot@^5.1.11, isbot@^5.1.31:
+isbot@^5.1.11, isbot@^5.1.32:
   version "5.1.32"
   resolved "https://registry.yarnpkg.com/isbot/-/isbot-5.1.32.tgz#a75b327460c79f07d8a5d7e3456f5fb25c84d3d1"
   integrity sha512-VNfjM73zz2IBZmdShMfAUg10prm6t7HFUQmNAEOAVS4YH92ZrZcvkMcGX6cIgBJAzWDzPent/EeAtYEHNPNPBQ==
@@ -1539,7 +1539,7 @@ postcss@^8.5.6:
     picocolors "^1.1.1"
     source-map-js "^1.2.1"
 
-prettier@^3.6.2:
+prettier@^3.6.2, prettier@^3.7.4:
   version "3.7.4"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.7.4.tgz#d2f8335d4b1cec47e1c8098645411b0c9dff9c0f"
   integrity sha512-v6UNi1+3hSlVvv8fSaoUbggEM5VErKmmpGA7Pl3HF8V6uKY7rvClBOJlH6yNwQtfTueNkGVpOv/mtWL9L4bgRA==
@@ -1586,7 +1586,7 @@ react-refresh@^0.14.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.14.2.tgz#3833da01ce32da470f1f936b9d477da5c7028bf9"
   integrity sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==
 
-react-router@7.10.1:
+react-router@^7.10.1:
   version "7.10.1"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-7.10.1.tgz#e973146ed5f10a80783fdb3f27dbe37679557a7c"
   integrity sha512-gHL89dRa3kwlUYtRQ+m8NmxGI6CgqN+k4XyGjwcFoQwwCWF6xXpOCUlDovkXClS0d0XJN/5q7kc5W3kiFEd0Yw==
@@ -1890,7 +1890,7 @@ vite-tsconfig-paths@^5.1.4:
     globrex "^0.1.2"
     tsconfck "^3.0.3"
 
-"vite@^5.0.0 || ^6.0.0 || ^7.0.0-0", vite@^7.1.7:
+"vite@^5.0.0 || ^6.0.0 || ^7.0.0-0", vite@^7.2.7:
   version "7.2.7"
   resolved "https://registry.yarnpkg.com/vite/-/vite-7.2.7.tgz#0789a4c3206081699f34a9ecca2dda594a07478e"
   integrity sha512-ITcnkFeR3+fI8P1wMgItjGrR10170d8auB4EpMLPqmx6uxElH3a/hHGQabSHKdqd4FXWO1nFIp9rRn7JQ34ACQ==
