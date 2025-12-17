@@ -44,10 +44,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <>
+    <div className="h-full flex flex-col">
       <Header />
-      <Outlet />
-    </>
+      <div className="MainWrapper">
+        <Outlet />
+      </div>
+    </div>
   );
 }
 
