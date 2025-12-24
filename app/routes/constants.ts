@@ -1,0 +1,9 @@
+export const INVOICE = '/invoice';
+export const DOC_REQUEST = '/document_request';
+export const BUYER_REGISTER = '/buyer_registration';
+export const CARGO = '/cargo';
+export const PURCHASE_REG = '/purchase_registration';
+export const PRIVATE_INVOICE = '/private_invoice';
+export const REPORTS = '/reports';
+export const INFO = '/info';
+export const WAREHOUSE = '/warehouse';

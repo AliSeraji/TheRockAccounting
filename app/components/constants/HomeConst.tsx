@@ -8,8 +8,18 @@ import {
   Shield,
   Target,
   Users,
-  Zap,
 } from 'lucide-react';
+import {
+  BUYER_REGISTER,
+  CARGO,
+  DOC_REQUEST,
+  INFO,
+  INVOICE,
+  PRIVATE_INVOICE,
+  PURCHASE_REG,
+  REPORTS,
+  WAREHOUSE,
+} from '~/routes/constants';
 
 export const dashboardItems = [
   {
@@ -18,6 +28,7 @@ export const dashboardItems = [
     icon: Settings,
     color: 'from-teal-400 to-teal-600',
     description: 'مدیریت و صدور فاکتورها',
+    to: INVOICE,
   },
   {
     title: 'درخواست سنگ',
@@ -25,6 +36,7 @@ export const dashboardItems = [
     icon: FileText,
     color: 'from-blue-400 to-blue-600',
     description: 'مدیریت اسناد و درخواست‌ها',
+    to: DOC_REQUEST,
   },
   {
     title: 'ثبت خریدار',
@@ -32,6 +44,7 @@ export const dashboardItems = [
     icon: Users,
     color: 'from-purple-400 to-purple-600',
     description: 'ثبت و مدیریت خریداران',
+    to: BUYER_REGISTER,
   },
   {
     title: 'رسید تحویل بار',
@@ -39,6 +52,7 @@ export const dashboardItems = [
     icon: Target,
     color: 'from-green-400 to-green-600',
     description: 'پیگیری و رصد بارها',
+    to: CARGO,
   },
   {
     title: 'ثبت خرید',
@@ -46,6 +60,7 @@ export const dashboardItems = [
     icon: Award,
     color: 'from-orange-400 to-orange-600',
     description: 'ثبت خریدها و معاملات',
+    to: PURCHASE_REG,
   },
   {
     title: 'صورت حساب اشخاص',
@@ -53,6 +68,7 @@ export const dashboardItems = [
     icon: DollarSign,
     color: 'from-red-400 to-red-600',
     description: 'مدیریت صورت حساب‌ها',
+    to: PRIVATE_INVOICE,
   },
   {
     title: 'گزارشات',
@@ -60,6 +76,7 @@ export const dashboardItems = [
     icon: BarChart3,
     color: 'from-indigo-400 to-indigo-600',
     description: 'گزارش‌گیری و آمار',
+    to: REPORTS,
   },
   {
     title: 'مشخصات شرکت/فروشنده',
@@ -67,6 +84,7 @@ export const dashboardItems = [
     icon: Shield,
     color: 'from-emerald-400 to-emerald-600',
     description: 'اطلاعات شرکت و فروشنده',
+    to: INFO,
   },
   {
     title: 'انبار سنگ',
@@ -74,6 +92,7 @@ export const dashboardItems = [
     icon: FileText,
     color: 'from-violet-400 to-violet-600',
     description: 'اصلاح و ویرایش انبار',
+    to: WAREHOUSE,
   },
   {
     title: 'خروج',
@@ -81,5 +100,6 @@ export const dashboardItems = [
     icon: MessageSquare,
     color: 'from-yellow-400 to-yellow-600',
     description: 'خروج از سیستم',
+    to: '/',
   },
 ];
