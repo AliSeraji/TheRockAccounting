@@ -1,17 +1,6 @@
 import { create } from 'zustand';
 import { convertToEnDigits } from './../lib/utils';
-
-export interface StoneItem {
-  id: number;
-  stoneType: string;
-  thickness: string;
-  quantity: string;
-  width: string;
-  length: string;
-  area: string;
-  price: string;
-  total: string;
-}
+import type { StoneItem } from '~/components/invoice/types';
 
 export interface InvoiceTotals {
   totalQuantity: number;

@@ -1,17 +1,5 @@
 import { TableHead, TableHeader, TableRow } from '../ui/table';
-
-const items = [
-  { label: 'ردیف', width: 'w-[5%]' },
-  { label: 'نوع سنگ', width: 'w-[15%]' },
-  { label: 'ضخامت تقریبی', width: 'w-[8%]' },
-  { label: 'تعداد', width: 'w-[7%]' },
-  { label: 'طول', width: 'w-[8%]' },
-  { label: 'عرض', width: 'w-[8%]' },
-  { label: 'متراژ (مترمربع)', width: 'w-[12%]' },
-  { label: 'بهاء', width: 'w-[12%]' },
-  { label: 'مبلغ کل (ریال)', width: 'w-[15%]' },
-  { label: 'عملیات', width: 'w-[10%]' },
-];
+import { invoiceTableItems } from './common';
 
 export function InvoiceTableHeader(): React.ReactNode {
   return (
@@ -42,7 +30,7 @@ function RowItem({
 function RowItems(): React.ReactNode {
   return (
     <>
-      {items.map((item, index) => {
+      {invoiceTableItems.map((item, index) => {
         return <RowItem key={index} title={item.label} width={item.width} />;
       })}
     </>
