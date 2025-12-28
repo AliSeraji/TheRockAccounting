@@ -6,6 +6,7 @@ export interface InvoiceTotals {
   totalQuantity: number;
   totalArea: number;
   totalAmount: number;
+  totalPaymentAmount: number;
 }
 
 export interface InvoiceDataType {
@@ -179,7 +180,7 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
     })),
 
   getTotals: () => {
-    const { items } = get();
+    const { items, discount, tax } = get();
     const totalQuantity = items.reduce(
       (sum, item) => sum + (parseFloat(convertToEnDigits(item.quantity)) || 0),
       0
@@ -192,7 +193,13 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
       (sum, item) => sum + (parseFloat(convertToEnDigits(item.total)) || 0),
       0
     );
-    return { totalQuantity, totalArea, totalAmount };
+
+    const totalPaymentAmount =
+      totalAmount -
+        parseFloat(convertToEnDigits(discount)) +
+        parseFloat(convertToEnDigits(tax)) || 0;
+
+    return { totalQuantity, totalArea, totalAmount, totalPaymentAmount };
   },
 
   getInvoiceData: () => {

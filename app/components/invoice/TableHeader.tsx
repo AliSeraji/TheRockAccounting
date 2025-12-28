@@ -4,7 +4,7 @@ import { invoiceTableItems } from './common';
 export function InvoiceTableHeader(): React.ReactNode {
   return (
     <TableHeader className="w-full">
-      <TableRow className="w-full flex flex-row overflow-x-auto bg-slate-100 text-slate-800 border border-slate-300 text-sm">
+      <TableRow className="w-full flex flex-row overflow-x-auto bg-slate-100 text-slate-800 text-sm">
         <RowItems />
       </TableRow>
     </TableHeader>

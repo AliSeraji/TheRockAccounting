@@ -12,7 +12,7 @@ import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
 import { useInvoiceStore } from '~/store/useInvoiceStore';
-import { convertToPersianDigits } from '~/lib/utils';
+import { convertToPersianDigits, persianNumberToText } from '~/lib/utils';
 import InvoiceTable from './Table';
 
 export default function InvoiceBody() {
@@ -29,7 +29,6 @@ export default function InvoiceBody() {
     discount,
     tax,
     received,
-    items,
     setInvoiceType,
     setBuyer,
     setProject,
@@ -42,10 +41,7 @@ export default function InvoiceBody() {
     setDiscount,
     setTax,
     setReceived,
-    setActiveTab,
     addItem,
-    removeItem,
-    updateItem,
     getTotals,
   } = useInvoiceStore();
 
@@ -171,10 +167,14 @@ export default function InvoiceBody() {
               <div className="border-t border-slate-200 pt-4">
                 <div className="flex justify-between items-center text-lg font-bold text-slate-800">
                   <span>مبلغ قابل پرداخت:</span>
-                  <span className="text-green-600">۱۲۳,۴۵۰,۰۰۰</span>
+                  <span className="text-green-600">
+                    {convertToPersianDigits(totals.totalPaymentAmount)}
+                  </span>
                 </div>
                 <p className="text-sm text-slate-500 mt-2">
-                  یکصد و بیست و سه میلیون و چهارصد و پنجاه هزار ریال
+                  {persianNumberToText(
+                    convertToPersianDigits(totals.totalPaymentAmount)
+                  )}
                 </p>
               </div>
             </CardContent>
@@ -188,7 +188,7 @@ export default function InvoiceBody() {
               <Button
                 onClick={addItem}
                 size="sm"
-                className="bg-slate-700 hover:bg-slate-800 gap-1"
+                className="bg-slate-700 hover:bg-slate-800 gap-1 hover:cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 افزودن ردیف
@@ -197,158 +197,6 @@ export default function InvoiceBody() {
           </CardHeader>
           <CardContent className="p-4">
             <div className="overflow-x-auto">
-              {/* <table className="w-full border-collapse">
-                <thead>
-                  <tr className="bg-slate-100 text-slate-800">
-                    <th className="border border-slate-300 p-2 text-sm">
-                      ردیف
-                    </th>
-                    <th className="border border-slate-300 p-2 text-sm">
-                      نوع سنگ
-                    </th>
-                    <th className="border border-slate-300 p-2 text-sm">
-                      ضخامت تقریبی
-                    </th>
-                    <th className="border border-slate-300 p-2 text-sm">
-                      تعداد
-                    </th>
-                    <th className="border border-slate-300 p-2 text-sm">عرض</th>
-                    <th className="border border-slate-300 p-2 text-sm">طول</th>
-                    <th className="border border-slate-300 p-2 text-sm">
-                      متراژ (مترمربع)
-                    </th>
-                    <th className="border border-slate-300 p-2 text-sm">
-                      بهاء
-                    </th>
-                    <th className="border border-slate-300 p-2 text-sm">
-                      مبلغ کل (ریال)
-                    </th>
-                    <th className="border border-slate-300 p-2 text-sm">
-                      عملیات
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {items.map((item: any, index: any) => (
-                    <tr
-                      key={item.id}
-                      className="hover:bg-slate-50 transition-colors"
-                    >
-                      <td className="border border-slate-200 p-2 text-center text-slate-700 font-medium">
-                        {index + 1}
-                      </td>
-                      <td className="border border-slate-200 p-1">
-                        <Input
-                          value={item.stoneType}
-                          onChange={(e) =>
-                            updateItem(item.id, 'stoneType', e.target.value)
-                          }
-                          className="border-0 text-center text-sm h-8"
-                          placeholder="انتخاب"
-                        />
-                      </td>
-                      <td className="border border-slate-200 p-1">
-                        <Input
-                          value={convertToPersianDigits(item.thickness)}
-                          onChange={(e) =>
-                            updateItem(item.id, 'thickness', e.target.value)
-                          }
-                          className="border-0 text-center text-sm h-8"
-                        />
-                      </td>
-                      <td className="border border-slate-200 p-1">
-                        <Input
-                          value={convertToPersianDigits(item.quantity)}
-                          onChange={(e) =>
-                            updateItem(item.id, 'quantity', e.target.value)
-                          }
-                          className="border-0 text-center text-sm h-8"
-                        />
-                      </td>
-                      <td className="border border-slate-200 p-1">
-                        <Input
-                          value={convertToPersianDigits(item.width)}
-                          onChange={(e) =>
-                            updateItem(item.id, 'width', e.target.value)
-                          }
-                          className="border-0 text-center text-sm h-8"
-                        />
-                      </td>
-                      <td className="border border-slate-200 p-1">
-                        <Input
-                          value={convertToPersianDigits(item.length)}
-                          onChange={(e) =>
-                            updateItem(item.id, 'length', e.target.value)
-                          }
-                          className="border-0 text-center text-sm h-8"
-                        />
-                      </td>
-                      <td className="border border-slate-200 p-1">
-                        <Input
-                          value={convertToPersianDigits(item.area)}
-                          onChange={(e) =>
-                            updateItem(item.id, 'area', e.target.value)
-                          }
-                          className="border-0 text-center text-sm h-8"
-                        />
-                      </td>
-                      <td className="border border-slate-200 p-1">
-                        <Input
-                          value={convertToPersianDigits(item.price)}
-                          onChange={(e) =>
-                            updateItem(item.id, 'price', e.target.value)
-                          }
-                          className="border-0 text-center text-sm h-8"
-                        />
-                      </td>
-                      <td className="border border-slate-200 p-1">
-                        <Input
-                          value={convertToPersianDigits(item.total)}
-                          onChange={(e) =>
-                            updateItem(item.id, 'total', e.target.value)
-                          }
-                          className="border-0 text-center text-sm h-8"
-                        />
-                      </td>
-                      <td className="border border-slate-200 p-1 text-center">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeItem(item.id)}
-                          className="text-red-500 hover:text-red-700 hover:bg-red-50 h-8 w-8 p-0"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-                <tfoot>
-                  <tr className="bg-slate-100 font-semibold text-slate-800">
-                    <td
-                      colSpan={3}
-                      className="border border-slate-300 p-2 text-center"
-                    >
-                      جمع فاکتور
-                    </td>
-                    <td className="border border-slate-300 p-2 text-center">
-                      {convertToPersianDigits(totals.totalQuantity) || '-'}
-                    </td>
-                    <td
-                      colSpan={2}
-                      className="border border-slate-300 p-2"
-                    ></td>
-                    <td className="border border-slate-300 p-2 text-center">
-                      {totals.totalArea || '-'}
-                    </td>
-                    <td className="border border-slate-300 p-2"></td>
-                    <td className="border border-slate-300 p-2 text-center">
-                      {totals.totalAmount || '-'}
-                    </td>
-                    <td className="border border-slate-300 p-2"></td>
-                  </tr>
-                </tfoot>
-              </table> */}
               <InvoiceTable />
             </div>
           </CardContent>
