@@ -1,40 +1,6 @@
 import { Button } from '../ui/button';
 import { Printer } from 'lucide-react';
-
-interface InvoiceData {
-  invoiceType: string;
-  buyer: string;
-  project: string;
-  address: string;
-  phone: string;
-  invoiceNumber: string;
-  invoiceDate: string;
-  description: string;
-  personalNote: string;
-  discount: string;
-  tax: string;
-  received: string;
-  items: Array<{
-    id: number;
-    stoneType: string;
-    thickness: string;
-    quantity: string;
-    width: string;
-    length: string;
-    area: string;
-    price: string;
-    total: string;
-  }>;
-  totals: {
-    totalQuantity: number;
-    totalArea: number;
-    totalAmount: number;
-  };
-}
-
-interface Props {
-  data: InvoiceData;
-}
+import type { Props } from './types';
 
 export const SalesInvoicePDF = ({ data }: Props) => {
   const handlePrint = () => {
@@ -42,7 +8,7 @@ export const SalesInvoicePDF = ({ data }: Props) => {
   };
 
   return (
-    <div className="w-full space-y-4">
+    <div className="font-vazirmatn w-full space-y-4">
       <div className="flex justify-between items-center mb-4 print:hidden px-2">
         <h2 className="text-xl font-bold text-gray-800">
           پیش‌نمایش فاکتور فروش (A4)
@@ -61,12 +27,6 @@ export const SalesInvoicePDF = ({ data }: Props) => {
         style={{ width: '210mm', minHeight: '297mm', padding: '15mm' }}
         dir="rtl"
       >
-        <div className="flex justify-end mb-4">
-          <div className="border-2 border-black p-3">
-            <Printer className="w-8 h-8 text-black" />
-          </div>
-        </div>
-
         <div className="flex justify-between items-start mb-6">
           <div className="border-2 border-black px-6 py-4 text-xl font-bold">
             Logo
@@ -82,14 +42,14 @@ export const SalesInvoicePDF = ({ data }: Props) => {
           <div className="text-left space-y-2">
             <div className="flex items-center gap-2">
               <span className="text-black">شماره:</span>
-              <span className="font-bold border-b border-black px-4">
-                {data.invoiceNumber || '۱۲۳۴'}
+              <span className="font-bold px-4 text-[red]">
+                {data.invoiceNumber}
               </span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-black">تاریخ:</span>
-              <span className="font-bold border-b border-black px-4">
-                {data.invoiceDate || '۱۴۰۴/۰۱/۰۱'}
+              <span className="font-bold  px-4 text-[green]">
+                {data.invoiceDate}
               </span>
             </div>
           </div>

@@ -451,6 +451,11 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.10.tgz#a2a1e3812d14525f725d011a73eceb41fef5bc1c"
   integrity sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==
 
+"@fontsource-variable/vazirmatn@^5.2.8":
+  version "5.2.8"
+  resolved "https://registry.yarnpkg.com/@fontsource-variable/vazirmatn/-/vazirmatn-5.2.8.tgz#d44f4bac4b4b850e2cb084b748729c0d83a0331d"
+  integrity sha512-2YzXfH4PNOeoZsBsgJgjbnm+IC2nonGyMLX3gXLm8FQrP+wpi1uGBIWYWlEzJ0lmntgdyAc3lRViHHfZWKvbog==
+
 "@hono/node-server@^1.19.7":
   version "1.19.7"
   resolved "https://registry.yarnpkg.com/@hono/node-server/-/node-server-1.19.7.tgz#ecb2d3a7af40d1d378e53ce1fc1219f199fbcd6f"
@@ -3638,6 +3643,11 @@ safe-buffer@5.2.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
+
+samim-font@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/samim-font/-/samim-font-4.0.5.tgz#e53d2982461676684438f5c822910d7dba3289f9"
+  integrity sha512-6pbs2J5SE28g86CK6SwF8A56xzSVnvo730K2nsONLbznYlWLA5nB4LcxWboKdC0K8AMzbRSjf17zK3PKFGxGFw==
 
 scheduler@^0.27.0:
   version "0.27.0"
