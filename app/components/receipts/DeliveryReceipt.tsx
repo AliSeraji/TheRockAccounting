@@ -9,7 +9,7 @@ export const DeliveryReceiptPDF = ({ data }: Props) => {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-between items-center mb-4 print:hidden">
+      <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold text-gray-800">
           پیش‌نمایش رسید تحویل بار (A5)
         </h2>
@@ -24,7 +24,7 @@ export const DeliveryReceiptPDF = ({ data }: Props) => {
 
       {/* A5 Receipt Preview */}
       <div
-        className="bg-white mx-auto shadow-2xl print:shadow-none"
+        className="group bg-white mx-auto shadow-2xl"
         style={{ width: '210mm', minHeight: '148mm', padding: '10mm' }}
         dir="rtl"
       >

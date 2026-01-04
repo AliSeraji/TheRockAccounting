@@ -9,7 +9,7 @@ export const SalesInvoicePDF = ({ data }: Props) => {
 
   return (
     <div className="font-vazirmatn w-full space-y-4">
-      <div className="flex justify-between items-center mb-4 print:hidden px-2">
+      <div className="flex justify-between items-center mb-4 px-2">
         <h2 className="text-xl font-bold text-gray-800">
           پیش‌نمایش فاکتور فروش (A4)
         </h2>

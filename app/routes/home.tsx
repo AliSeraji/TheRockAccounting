@@ -14,23 +14,20 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   return (
     <div className="h-full" dir="rtl">
-      <div className="w-full justify-center  py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Main Dashboard Grid */}
+      <div className="w-full justify-center py-8">
+        <div className="grid grid-cols-1 flex-col-reverse lg:grid-cols-4 gap-8 lg:px-0 mx-3 md:px-6">
           <div className="lg:col-span-3">
             <div className="mb-8">
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">
+              <h2 className="text-xl font-semibold text-gray-800 mb-2 mt-12">
                 داشبورد اصلی
               </h2>
-              <p className="text-gray-600">دسترسی سریع به تمام بخش‌های سیستم</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {dashboardItems.map((item, index) => (
                 <Link key={index} to={item.to}>
                   <DashboardCard
                     title={item.title}
-                    subtitle={item.subtitle}
                     icon={item.icon}
                     color={item.color}
                     description={item.description}

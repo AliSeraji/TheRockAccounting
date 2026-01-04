@@ -78,7 +78,7 @@ export default function InvoiceBody() {
                     value={convertToPersianDigits(invoiceNumber)}
                     onChange={(e) => setInvoiceNumber(e.target.value)}
                     className="border-slate-200 focus:ring-slate-400"
-                    placeholder="اتوماتیک تولید شود"
+                    placeholder="شماره فاکتور"
                   />
                 </div>
                 <div className="space-y-2">
@@ -89,7 +89,7 @@ export default function InvoiceBody() {
                     value={convertToPersianDigits(buyer)}
                     onChange={(e) => setBuyer(e.target.value)}
                     className="border-slate-200 focus:ring-slate-400"
-                    placeholder="انتخاب از دیتا ثبت شده"
+                    placeholder="درج شود"
                   />
                 </div>
                 <div className="space-y-2">
@@ -107,7 +107,7 @@ export default function InvoiceBody() {
                     value={convertToPersianDigits(project)}
                     onChange={(e) => setProject(e.target.value)}
                     className="border-slate-200 focus:ring-slate-400"
-                    placeholder="دستی درج شود"
+                    placeholder=" درج شود"
                   />
                 </div>
                 <div className="space-y-2">
@@ -215,7 +215,7 @@ export default function InvoiceBody() {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 className="border-slate-200 focus:ring-slate-400 min-h-[80px]"
-                placeholder="توضیحاتی که در قسمت فاکتور نشان می دهد اینجا درج شود که در قسمت رسید تحویل نشان داده شود"
+                placeholder="توضیحات"
               />
             </div>
             <div className="space-y-2">
@@ -226,7 +226,7 @@ export default function InvoiceBody() {
                 value={personalNote}
                 onChange={(e) => setPersonalNote(e.target.value)}
                 className="border-slate-200 focus:ring-slate-400 min-h-[80px]"
-                placeholder="توضیحات دوم (مثل شماره حساب یا کارت و هرچیز دیگه ای که هرکسی برای خودش شخصی سازی کنه) فقط در فاکتور رویت شود"
+                placeholder="توضیحات"
               />
             </div>
           </CardContent>

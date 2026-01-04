@@ -20,14 +20,14 @@ export default function Row({
   return (
     <TableRow className="w-full flex flex-row hover:bg-slate-50 transition-colors">
       <TableCell className="w-[5%] border border-slate-200 p-2 text-center text-slate-700 font-medium">
-        {index + 1}
+        {convertToPersianDigits(index + 1)}
       </TableCell>
       <TableCell className="w-[15%] border border-slate-200 p-1">
         <Input
           value={rowItem.stoneType}
           onChange={(e) => update(rowItem.id, 'stoneType', e.target.value)}
           className="border-0 text-center text-sm h-8"
-          placeholder="انتخاب"
+          placeholder="درج شود"
         />
       </TableCell>
       <TableCell className="w-[8%] border border-slate-200 p-1">
