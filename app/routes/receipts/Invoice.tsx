@@ -12,10 +12,7 @@ export const Invoice = () => {
   const invoiceData = getInvoiceData();
 
   return (
-    <div
-      className="h-full flex flex-col relative bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50"
-      dir="rtl"
-    >
+    <div className="h-full flex flex-col relative" dir="rtl">
       <InvoiceHeader />
 
       <div className="w-full flex flex-col items-center overflow-auto pt-34">
