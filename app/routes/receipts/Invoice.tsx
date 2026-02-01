@@ -5,6 +5,7 @@ import { RequestFormPDF } from '~/components/receipts/RequestFrom';
 import InvoiceHeader from '~/components/invoice/header';
 import InvoiceBody from '~/components/invoice/content';
 import { useInvoiceStore } from '~/store/useInvoiceStore';
+import DeliveryReceipt from '~/components/receipts/delivery';
 
 export const Invoice = () => {
   const { activeTab, setActiveTab, getInvoiceData } = useInvoiceStore();
@@ -57,7 +58,8 @@ export const Invoice = () => {
             </TabsContent>
 
             <TabsContent value="delivery">
-              <DeliveryReceiptPDF data={invoiceData} />
+              {/* <DeliveryReceiptPDF data={invoiceData} /> */}
+              <DeliveryReceipt />
             </TabsContent>
 
             <TabsContent value="request">
