@@ -4,17 +4,11 @@ export default function ReceiptHeader({
   date,
   invoiceNumber,
 }: {
-  date: string;
-  invoiceNumber: string;
+  date?: string;
+  invoiceNumber?: string;
 }): React.ReactNode {
   return (
     <>
-      <div className="flex justify-end mb-2 no-print">
-        <div className="border-2 border-gray-400 p-2 rounded">
-          <Printer className="w-6 h-6 text-gray-600" />
-        </div>
-      </div>
-
       <div className="flex justify-between items-start mb-4">
         <div className="border-2 border-gray-600 px-4 py-3 text-lg font-bold">
           Logo
@@ -31,13 +25,13 @@ export default function ReceiptHeader({
           <div className="flex items-center gap-2">
             <span className="text-gray-600">شماره:</span>
             <span className="font-bold border-b border-gray-400 px-3">
-              {invoiceNumber}
+              {invoiceNumber || ''}
             </span>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-gray-600">تاریخ:</span>
             <span className="font-bold border-b border-gray-400 px-3">
-              {date}
+              {date || ''}
             </span>
           </div>
         </div>

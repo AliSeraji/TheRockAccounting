@@ -20,6 +20,7 @@ export interface InvoiceDataType {
   discount: string;
   tax: string;
   received: string;
+  companyName?: string;
   items: StoneItem[];
   totals: InvoiceTotals;
 }
@@ -55,6 +56,7 @@ export interface InvoiceState {
   setTax: (value: string) => void;
   setReceived: (value: string) => void;
   setActiveTab: (value: string) => void;
+  setCompanyName: (value?: string) => void;
 
   addItem: () => void;
   removeItem: (id: number) => void;

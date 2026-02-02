@@ -1,8 +1,9 @@
 import { Printer } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 import ReceiptPage from './receipt';
+import type { Props } from '../types';
 
-export default function DeliveryReceipt(): React.ReactNode {
+export default function DeliveryReceipt({ data }: Props): React.ReactNode {
   return (
     <div className="space-y-4">
       <div className="flex flex-row mx-70 justify-between items-center mb-4 no-print">
@@ -14,7 +15,7 @@ export default function DeliveryReceipt(): React.ReactNode {
           چاپ
         </Button>
       </div>
-      <ReceiptPage />
+      <ReceiptPage data={data} />
     </div>
   );
 }

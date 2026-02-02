@@ -59,7 +59,7 @@ export const Invoice = () => {
 
             <TabsContent value="delivery">
               {/* <DeliveryReceiptPDF data={invoiceData} /> */}
-              <DeliveryReceipt />
+              <DeliveryReceipt data={invoiceData} />
             </TabsContent>
 
             <TabsContent value="request">
