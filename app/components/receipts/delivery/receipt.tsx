@@ -1,4 +1,5 @@
 import type { Props } from '../types';
+import InfoBox from './InfoBox';
 import ReceiptHeader from './ReceiptHeader';
 
 export default function ReceiptPage({ data }: Props): React.ReactNode {
@@ -14,6 +15,13 @@ export default function ReceiptPage({ data }: Props): React.ReactNode {
       <ReceiptHeader
         date={data.invoiceDate}
         invoiceNumber={data.invoiceNumber}
+        companyName={data?.buyer}
+      />
+
+      <InfoBox
+        buyer={data.buyer}
+        project={data.project}
+        address={data.address}
       />
     </div>
   );

@@ -32,7 +32,6 @@ const initialState = {
   received: '',
   activeTab: 'invoice',
   items: initialItems,
-  companyName: '',
 };
 
 export const useInvoiceStore = create<InvoiceState>((set, get) => ({
@@ -51,7 +50,6 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
   setTax: (value) => set({ tax: value }),
   setReceived: (value) => set({ received: value }),
   setActiveTab: (value) => set({ activeTab: value }),
-  setCompanyName: (value) => set({ companyName: value }),
 
   addItem: () =>
     set((state) => {
@@ -156,7 +154,6 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
       tax: state.tax,
       received: state.received,
       items: state.items,
-      companyName: state.companyName,
       totals: state.getTotals(),
     };
   },

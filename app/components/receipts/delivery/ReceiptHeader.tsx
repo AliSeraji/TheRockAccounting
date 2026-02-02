@@ -1,11 +1,14 @@
 import { Printer } from 'lucide-react';
+import { convertToPersianDigits } from '~/lib/utils';
 
 export default function ReceiptHeader({
   date,
   invoiceNumber,
+  companyName,
 }: {
   date?: string;
   invoiceNumber?: string;
+  companyName?: string;
 }): React.ReactNode {
   return (
     <>
@@ -15,7 +18,9 @@ export default function ReceiptHeader({
         </div>
 
         <div className="text-center flex-1 mx-6">
-          <h1 className="text-xl font-bold text-gray-900">شرکت man</h1>
+          <h1 className="text-xl font-bold text-gray-900">
+            شرکت {companyName}
+          </h1>
           <h2 className="text-lg font-bold mt-1 text-gray-800">
             رسید تحویل بار
           </h2>
@@ -24,15 +29,13 @@ export default function ReceiptHeader({
         <div className="text-left space-y-1 text-sm">
           <div className="flex items-center gap-2">
             <span className="text-gray-600">شماره:</span>
-            <span className="font-bold border-b border-gray-400 px-3">
-              {invoiceNumber || ''}
+            <span className="font-bold border-gray-400 px-3">
+              {convertToPersianDigits(invoiceNumber || '')}
             </span>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-gray-600">تاریخ:</span>
-            <span className="font-bold border-b border-gray-400 px-3">
-              {date || ''}
-            </span>
+            <span className="font-bold border-gray-400 px-3">{date || ''}</span>
           </div>
         </div>
       </div>

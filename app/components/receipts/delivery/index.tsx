@@ -2,8 +2,13 @@ import { Printer } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 import ReceiptPage from './receipt';
 import type { Props } from '../types';
+import { useMemo } from 'react';
 
 export default function DeliveryReceipt({ data }: Props): React.ReactNode {
+  const lines = useMemo(() => {
+    return data.items.length / 5;
+  }, [data.items]);
+
   return (
     <div className="space-y-4">
       <div className="flex flex-row mx-70 justify-between items-center mb-4 no-print">
