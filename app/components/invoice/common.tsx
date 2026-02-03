@@ -15,3 +15,13 @@ export const invoiceTableItems: InvoiceTableItem[] = [
   { label: 'مبلغ کل (ریال)', width: 'w-[20%]' },
   { label: 'عملیات', width: 'w-[5%]' },
 ];
+
+export const deliveryTableItems: InvoiceTableItem[] = [
+  { label: 'ردیف', width: 'w-[5%]' },
+  { label: 'نوع سنگ', width: 'w-[15%]' },
+  { label: 'ضخامت تقریبی', width: 'w-[8%]' },
+  { label: 'طول (متر)', width: 'w-[8%]' },
+  { label: 'عرض (سانتی متر)', width: 'w-[20%]' },
+  { label: 'تعداد', width: 'w-[5%]' },
+  { label: 'متراژ', width: 'w-[5%]' },
+];
