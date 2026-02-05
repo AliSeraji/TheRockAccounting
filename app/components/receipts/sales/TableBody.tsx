@@ -28,7 +28,7 @@ export default function SalesTableBody({
             {convertToPersianDigits(item.quantity)}
           </TableCell>
           <TableCell className="border-2 border-gray-400 p-2 text-sm text-center">
-            ${convertToPersianDigits(item.width)}
+            {convertToPersianDigits(item.width)}
           </TableCell>
           <TableCell className="border-2 border-gray-400 p-2 text-sm text-center">
             {convertToPersianDigits(item.length)}

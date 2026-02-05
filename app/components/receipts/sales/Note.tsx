@@ -12,7 +12,7 @@ export default function SalesNote({
   received,
 }: Props): React.ReactNode {
   return (
-    <div className="border-2 border-black p-4 mb-6 bg-gray-50">
+    <div className="border-2 border-gray-400 rounded-lg p-4 mb-6 bg-gray-50">
       <div className="flex gap-8">
         <div className="flex-1">
           <p className="text-sm leading-relaxed text-gray-700">
@@ -24,15 +24,15 @@ export default function SalesNote({
         <div className="space-y-2 text-left min-w-30">
           <div className="flex justify-between">
             <span className="text-black">تخفیف</span>
-            <span className="font-semibold">{discount || ''}</span>
+            <span className="font-semibold">{discount || '*'}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-black">مالیات</span>
-            <span className="font-semibold">{tax || ''}</span>
+            <span className="font-semibold">{tax || '*'}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-black">دریافتی</span>
-            <span className="font-semibold">{received || ''}</span>
+            <span className="font-semibold">{received || '*'}</span>
           </div>
         </div>
       </div>

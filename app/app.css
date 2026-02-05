@@ -161,11 +161,82 @@ body {
 }
 
 @media print {
+  /* Hide everything on the page */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Reset body and html for print */
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+
+  /* Show only the receipt */
+  .print-receipt,
+  .print-receipt * {
+    visibility: visible;
+  }
+
+  /* Position receipt at top of page */
+  .print-receipt {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-shadow: none !important;
+  }
+
   .no-print {
     display: none !important;
   }
 
-  .print-content {
-    display: block;
+  /* Common receipt page styles */
+  .receipt-page {
+    page-break-after: always;
+    break-after: page;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .receipt-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  [data-slot='table-container'] {
+    overflow: visible !important;
+  }
+
+  /* A4 receipt pages (sales invoices) */
+  .receipt-page-a4 {
+    width: 210mm !important;
+    min-height: unset !important;
+    padding: 15mm !important;
+  }
+
+  /* A5 landscape receipt pages (delivery receipts) */
+  .receipt-page-a5 {
+    width: 100% !important;
+    max-width: 200mm !important;
+    height: 138mm !important;
+    min-height: unset !important;
+    padding: 3mm 5mm !important;
+    overflow: hidden !important;
+  }
+
+  .receipt-page-a5 table {
+    font-size: 11px !important;
   }
 }

@@ -2,9 +2,10 @@ import type { ReceiptProps } from '~/components/invoice/common';
 import SalesInfoBox from './InfoBox';
 import SalesReceiptHeader from './ReceiptHeader';
 import SalesTable from './Table';
-import PriceBox from './FInalBox';
+
 import SalesNote from './Note';
 import SalesSignature from './Signature';
+import PriceBox from './FInalBox';
 
 export default function SalesReceiptsPage({
   data,
@@ -16,7 +17,7 @@ export default function SalesReceiptsPage({
 }: ReceiptProps): React.ReactNode {
   return (
     <div
-      className="bg-white mx-auto shadow-2xl print:shadow-none"
+      className="receipt-page receipt-page-a4 bg-white mx-auto shadow-2xl print:shadow-none"
       style={{ width: '210mm', minHeight: '297mm', padding: '15mm' }}
       dir="rtl"
     >

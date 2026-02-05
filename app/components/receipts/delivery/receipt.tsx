@@ -15,7 +15,7 @@ export default function ReceiptPage({
 }: ReceiptProps): React.ReactNode {
   return (
     <div
-      className="receipt-page bg-white mx-auto shadow-2xl mb-8"
+      className="receipt-page receipt-page-a5 bg-white mx-auto shadow-2xl mb-8"
       style={{
         width: '200mm',
         minHeight: '138mm',

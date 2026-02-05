@@ -6,7 +6,7 @@ export default function PriceBox({
   total: number;
 }): React.ReactNode {
   return (
-    <div className="border-2 border-black p-4 mb-8">
+    <div className="border-2 border-gray-400 rounded-lg p-4 mb-8">
       <div className="flex justify-between items-center">
         <div>
           <span className="font-bold text-black">مبلغ قابل پرداخت</span>

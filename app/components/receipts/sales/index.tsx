@@ -2,7 +2,7 @@ import { Printer } from 'lucide-react';
 import { useMemo } from 'react';
 import { Button } from '~/components/ui/button';
 import type { Props } from '../types';
-import SalesReceiptsPage from './SalesREceiptPage';
+import SalesReceiptsPage from './SalesReceiptPage';
 
 const ITEMS_PER_PAGE = 7;
 
@@ -22,38 +22,41 @@ export default function SalesInvoice({ data }: Props): React.ReactNode {
   }, [data.items]);
 
   const handlePrint = () => {
+    const style = document.createElement('style');
+    style.id = 'print-page-size';
+    style.textContent =
+      '@media print { @page { size: A4; margin: 0; } html, body { width: 210mm !important; height: 297mm !important; } }';
+    document.head.appendChild(style);
     window.print();
+    style.remove();
   };
   return (
-    <>
-      <style></style>
-      <div className="font-vazirmatn w-full space-y-4">
-        <div className="flex max-w-7xl justify-between items-center mb-4 px-2">
-          <h2 className="text-xl font-bold text-gray-800">
-            پیش‌نمایش فاکتور فروش (A4)
-          </h2>
-          <Button
-            onClick={handlePrint}
-            className="bg-gray-800 hover:bg-gray-900 gap-2"
-          >
-            <Printer className="w-4 h-4" />
-            چاپ
-          </Button>
-        </div>
-        <div>
-          {pages.map((page) => (
-            <SalesReceiptsPage
-              key={page.pageNumber}
-              data={data}
-              items={page.items}
-              startIndex={page.startIndex}
-              isLastPage={page.isLastPage}
-              pageNumber={page.pageNumber}
-              totalPages={pages.length}
-            />
-          ))}
-        </div>
+    <div className="font-vazirmatn w-full space-y-4">
+      <div className="flex max-w-7xl justify-between items-center mb-4 px-2 no-print">
+        <h2 className="text-xl font-bold text-gray-800">
+          پیش‌نمایش فاکتور فروش (A4)
+        </h2>
+        <Button
+          onClick={handlePrint}
+          className="bg-gray-800 hover:bg-gray-900 gap-2"
+        >
+          <Printer className="w-4 h-4" />
+          چاپ
+        </Button>
       </div>
-    </>
+      <div className="print-receipt space-y-8 print:space-y-0">
+        {pages.map((page) => (
+          <SalesReceiptsPage
+            key={page.pageNumber}
+            data={data}
+            items={page.items}
+            startIndex={page.startIndex}
+            isLastPage={page.isLastPage}
+            pageNumber={page.pageNumber}
+            totalPages={pages.length}
+          />
+        ))}
+      </div>
+    </div>
   );
 }

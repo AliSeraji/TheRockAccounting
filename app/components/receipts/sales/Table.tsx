@@ -1,6 +1,6 @@
 import { Table } from '~/components/ui/table';
 import SalesTableHeader from './TableHeader';
-import SalesTableBody from './TableRow';
+import SalesTableBody from './TableBody';
 import SalesTableFooter from './Footer';
 import type { InvoiceDataType, InvoiceTotals } from '~/store/types';
 

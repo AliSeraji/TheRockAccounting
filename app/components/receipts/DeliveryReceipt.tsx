@@ -8,71 +8,7 @@ export const DeliveryReceiptPDF = ({ data }: Props) => {
   };
 
   return (
-    <>
-      {/* Print Styles */}
-      <style>{`
-        @media print {
-          /* Hide everything on the page */
-          body * {
-            visibility: hidden;
-          }
-
-          /* Show only the receipt */
-          #delivery-receipt,
-          #delivery-receipt * {
-            visibility: visible;
-          }
-
-          /* Position receipt at top-left */
-          #delivery-receipt {
-            position: absolute;
-            top: 0;
-            right: 0;
-            left: 0;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            box-shadow: none !important;
-          }
-
-          /* A5 landscape page setup */
-          @page {
-            size: A5 landscape;
-            margin: 8mm;
-          }
-
-          /* Each .receipt-page becomes its own printed page */
-          .receipt-page {
-            page-break-after: always;
-            break-after: page;
-            width: 100%;
-            min-height: auto;
-            padding: 0 !important;
-            margin: 0 !important;
-            box-shadow: none !important;
-            border: none !important;
-          }
-
-          /* Avoid unnecessary break on the last page */
-          .receipt-page:last-child {
-            page-break-after: auto;
-            break-after: auto;
-          }
-
-          /* Hide the print button and screen-only header */
-          .no-print {
-            display: none !important;
-          }
-
-          /* Ensure table rows don't split across pages */
-          tr {
-            page-break-inside: avoid;
-            break-inside: avoid;
-          }
-        }
-      `}</style>
-
-      <div className="space-y-4">
+      <div className="font-vazirmatn space-y-4">
         {/* Screen-only header */}
         <div className="flex justify-between items-center mb-4 no-print">
           <h2 className="text-xl font-bold text-gray-800">
@@ -87,9 +23,9 @@ export const DeliveryReceiptPDF = ({ data }: Props) => {
           </Button>
         </div>
 
-        <div id="delivery-receipt" dir="rtl">
+        <div className="print-receipt" dir="rtl">
           <div
-            className="receipt-page bg-white mx-auto shadow-2xl mb-8"
+            className="receipt-page receipt-page-a5 bg-white mx-auto shadow-2xl mb-8"
             style={{
               width: '210mm',
               minHeight: '148mm',
@@ -234,6 +170,5 @@ export const DeliveryReceiptPDF = ({ data }: Props) => {
           </div>
         </div>
       </div>
-    </>
   );
 };

@@ -8,7 +8,7 @@ export const RequestFormPDF = ({ data }: Props) => {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="font-vazirmatn space-y-4">
       <div className="flex justify-between items-center mb-4 ">
         <h2 className="text-xl font-bold text-gray-800">
           پیش‌نمایش درخواست سنگ (A5)

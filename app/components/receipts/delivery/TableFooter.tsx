@@ -13,7 +13,7 @@ export const DeliveryTableFooter = ({
       <TableRow className="bg-gray-100 font-bold">
         <TableCell
           colSpan={6}
-          className="border-2 border-gray-500 p-1.5 text-left"
+          className="border-2 border-gray-500 p-1.5 text-center"
         >
           متراژ کل
         </TableCell>
