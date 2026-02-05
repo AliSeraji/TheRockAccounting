@@ -6,6 +6,7 @@ import InvoiceHeader from '~/components/invoice/header';
 import InvoiceBody from '~/components/invoice/content';
 import { useInvoiceStore } from '~/store/useInvoiceStore';
 import DeliveryReceipt from '~/components/receipts/delivery';
+import SalesInvoice from '~/components/receipts/sales';
 
 export const Invoice = () => {
   const { activeTab, setActiveTab, getInvoiceData } = useInvoiceStore();
@@ -54,11 +55,11 @@ export const Invoice = () => {
             </TabsContent>
 
             <TabsContent value="sales">
-              <SalesInvoicePDF data={invoiceData} />
+              {/* <SalesInvoicePDF data={invoiceData} /> */}
+              <SalesInvoice data={invoiceData} />
             </TabsContent>
 
             <TabsContent value="delivery">
-              {/* <DeliveryReceiptPDF data={invoiceData} /> */}
               <DeliveryReceipt data={invoiceData} />
             </TabsContent>
 

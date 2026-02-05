@@ -60,7 +60,6 @@ export default function DeliveryReceipt({ data }: Props): React.ReactNode {
             box-shadow: none !important;
           }
 
-          /* A5 landscape with minimal margins */
           @page {
             size: 210mm 148mm;
             margin: 5mm;
@@ -89,18 +88,15 @@ export default function DeliveryReceipt({ data }: Props): React.ReactNode {
             display: none !important;
           }
 
-          /* Prevent table rows from splitting */
           tr {
             page-break-inside: avoid;
             break-inside: avoid;
           }
 
-          /* Scale down table if needed */
           table {
             font-size: 11px !important;
           }
 
-          /* Remove overflow from table container */
           [data-slot="table-container"] {
             overflow: visible !important;
           }

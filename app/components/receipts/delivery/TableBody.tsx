@@ -1,9 +1,9 @@
 import { TableBody, TableCell, TableRow } from '~/components/ui/table';
-import type { InvoiceData } from '../types';
 import { convertToPersianDigits } from '~/lib/utils';
+import type { InvoiceDataType } from '~/store/types';
 
 interface DeliveryTableBodyProps {
-  items: InvoiceData['items'];
+  items: InvoiceDataType['items'];
   startIndex: number;
 }
 

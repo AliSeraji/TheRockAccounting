@@ -1,18 +1,9 @@
-import type { InvoiceData } from '../types';
 import InfoBox from './InfoBox';
 import { Note } from './Note';
 import ReceiptHeader from './ReceiptHeader';
 import { Signature } from './Signature';
 import ReceiptTable from './Table';
-
-interface ReceiptPageProps {
-  data: InvoiceData;
-  items: InvoiceData['items'];
-  startIndex: number;
-  isLastPage: boolean;
-  pageNumber: number;
-  totalPages: number;
-}
+import { type ReceiptProps } from './../../invoice/common';
 
 export default function ReceiptPage({
   data,
@@ -21,7 +12,7 @@ export default function ReceiptPage({
   isLastPage,
   pageNumber,
   totalPages,
-}: ReceiptPageProps): React.ReactNode {
+}: ReceiptProps): React.ReactNode {
   return (
     <div
       className="receipt-page bg-white mx-auto shadow-2xl mb-8"

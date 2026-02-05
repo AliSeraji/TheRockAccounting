@@ -2,10 +2,10 @@ import { Table } from '~/components/ui/table';
 import { DeliveryTableHeader } from './Header';
 import { DeliveryTableBody } from './TableBody';
 import { DeliveryTableFooter } from './TableFooter';
-import type { InvoiceData } from '../types';
+import type { InvoiceDataType } from '~/store/types';
 
 interface ReceiptTableProps {
-  items: InvoiceData['items'];
+  items: InvoiceDataType['items'];
   startIndex: number;
   isLastPage: boolean;
   totalArea: number;

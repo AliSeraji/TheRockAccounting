@@ -1,4 +1,14 @@
-import type { StoneItem } from '~/components/invoice/types';
+export interface StoneItem {
+  id: number;
+  stoneType: string;
+  thickness: string;
+  quantity: string;
+  width: string;
+  length: string;
+  area: string;
+  price: string;
+  total: string;
+}
 
 export interface InvoiceTotals {
   totalQuantity: number;
@@ -20,7 +30,6 @@ export interface InvoiceDataType {
   discount: string;
   tax: string;
   received: string;
-  companyName?: string;
   items: StoneItem[];
   totals: InvoiceTotals;
 }

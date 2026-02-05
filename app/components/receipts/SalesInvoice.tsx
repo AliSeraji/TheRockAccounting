@@ -33,7 +33,7 @@ export const SalesInvoicePDF = ({ data }: Props) => {
           </div>
 
           <div className="text-center flex-1 mx-8">
-            <h1 className="text-2xl font-bold text-black">شرکت man</h1>
+            <h1 className="text-2xl font-bold text-black">شرکت {data.buyer}</h1>
             <h2 className="text-xl font-bold mt-2 text-black">
               {data.invoiceType || 'فاکتور فروش'}
             </h2>
