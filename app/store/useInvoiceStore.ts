@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { convertToEnDigits } from './../lib/utils';
-import type { StoneItem } from '~/components/invoice/types';
-import type { InvoiceState } from './types';
+import type { InvoiceState, StoneItem } from './types';
 
 const initialItems: StoneItem[] = [
   {
@@ -63,13 +62,13 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
           {
             id: newId,
             stoneType: '',
-            thickness: '0',
-            quantity: '0',
-            width: '0',
-            length: '0',
-            area: '0',
-            price: '0',
-            total: '0',
+            thickness: '-',
+            quantity: '-',
+            width: '-',
+            length: '-',
+            area: '-',
+            price: '-',
+            total: '-',
           },
         ],
       };
@@ -116,7 +115,7 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
     })),
 
   getTotals: () => {
-    const { items, discount, tax } = get();
+    const { items, discount, tax, received } = get();
     const totalQuantity = items.reduce(
       (sum, item) => sum + (parseFloat(convertToEnDigits(item.quantity)) || 0),
       0
@@ -130,10 +129,14 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
       0
     );
 
+    const discountAmount =
+      (parseFloat(convertToEnDigits(discount)) * totalAmount) / 100;
+
     const totalPaymentAmount =
       totalAmount -
-        parseFloat(convertToEnDigits(discount)) +
-        parseFloat(convertToEnDigits(tax)) || 0;
+        discountAmount +
+        parseFloat(convertToEnDigits(tax)) -
+        parseFloat(received) || 0;
 
     return { totalQuantity, totalArea, totalAmount, totalPaymentAmount };
   },

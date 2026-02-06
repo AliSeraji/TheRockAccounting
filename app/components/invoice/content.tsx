@@ -14,6 +14,18 @@ import { Button } from '../ui/button';
 import { useInvoiceStore } from '~/store/useInvoiceStore';
 import { convertToPersianDigits, persianNumberToText } from '~/lib/utils';
 import InvoiceTable from './Table';
+import { useState, useEffect, lazy, Suspense } from 'react';
+
+type DayValue =
+  | {
+      year: number;
+      month: number;
+      day: number;
+    }
+  | null
+  | undefined;
+
+const PersianDatePicker = lazy(() => import('./PersianDatePicker.client'));
 
 export default function InvoiceBody() {
   const {
@@ -47,12 +59,29 @@ export default function InvoiceBody() {
 
   const totals = getTotals();
 
+  const [selectedDay, setSelectedDay] = useState<DayValue>(null);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const formatDate = (day: DayValue): string => {
+    if (!day) return '';
+    return `${day.year}/${day.month}/${day.day}`;
+  };
+
+  const handleDateChange = (value: DayValue) => {
+    setSelectedDay(value);
+    setInvoiceDate(formatDate(value));
+  };
+
   return (
     <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div className="w-full lg:col-span-2 space-y-6">
         <div className="w-full grid grid-cols-1 items-center lg:grid-cols-3 gap-6">
-          <Card className="border-slate-200 bg-white/90 backdrop-blur col-span-2">
-            <CardHeader className="bg-gradient-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
+          <Card className="border-slate-200 bg-white/90 backdrop-blur col-span-2 relative z-9">
+            <CardHeader className="bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
               <CardTitle className="text-slate-800 flex items-center gap-2">
                 <FileText className="w-5 h-5" />
                 اطلاعات فاکتور
@@ -77,7 +106,7 @@ export default function InvoiceBody() {
                   <Input
                     value={convertToPersianDigits(invoiceNumber)}
                     onChange={(e) => setInvoiceNumber(e.target.value)}
-                    className="border-slate-200 focus:ring-slate-400"
+                    className="border-slate-200 rounded-lg focus:ring-slate-400"
                     placeholder="شماره فاکتور"
                   />
                 </div>
@@ -88,25 +117,45 @@ export default function InvoiceBody() {
                   <Input
                     value={convertToPersianDigits(buyer)}
                     onChange={(e) => setBuyer(e.target.value)}
-                    className="border-slate-200 focus:ring-slate-400"
+                    className="border-slate-200 rounded-lg focus:ring-slate-400"
                     placeholder="درج شود"
                   />
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-col space-y-2">
                   <Label className="text-slate-700">تاریخ</Label>
-                  <Input
-                    value={convertToPersianDigits(invoiceDate)}
-                    onChange={(e) => setInvoiceDate(e.target.value)}
-                    className="border-slate-200 focus:ring-slate-400"
-                    placeholder="تاریخ روز"
-                  />
+                  {isClient ? (
+                    <Suspense
+                      fallback={
+                        <Input
+                          value={convertToPersianDigits(invoiceDate)}
+                          readOnly
+                          className="border-slate-200 rounded-lg focus:ring-slate-400 cursor-pointer"
+                          placeholder="تاریخ روز"
+                        />
+                      }
+                    >
+                      <PersianDatePicker
+                        value={selectedDay}
+                        onChange={handleDateChange}
+                        displayValue={invoiceDate}
+                        placeholder="تاریخ روز"
+                      />
+                    </Suspense>
+                  ) : (
+                    <Input
+                      value={convertToPersianDigits(invoiceDate)}
+                      readOnly
+                      className="border-slate-200 rounded-lg focus:ring-slate-400 cursor-pointer"
+                      placeholder="تاریخ روز"
+                    />
+                  )}
                 </div>
                 <div className="space-y-2">
                   <Label className="text-slate-700">پروژه</Label>
                   <Input
                     value={convertToPersianDigits(project)}
                     onChange={(e) => setProject(e.target.value)}
-                    className="border-slate-200 focus:ring-slate-400"
+                    className="border-slate-200 rounded-lg focus:ring-slate-400"
                     placeholder=" درج شود"
                   />
                 </div>
@@ -115,7 +164,7 @@ export default function InvoiceBody() {
                   <Input
                     value={convertToPersianDigits(phone)}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="border-slate-200 focus:ring-slate-400"
+                    className="border-slate-200 rounded-lg focus:ring-slate-400"
                     placeholder="شماره تلفن"
                   />
                 </div>
@@ -124,7 +173,7 @@ export default function InvoiceBody() {
                   <Input
                     value={convertToPersianDigits(address)}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="border-slate-200 focus:ring-slate-400"
+                    className="border-slate-200 rounded-lg focus:ring-slate-400"
                     placeholder="دستی درج شود"
                   />
                 </div>
@@ -133,34 +182,34 @@ export default function InvoiceBody() {
           </Card>
 
           <Card className="border-slate-200 bg-white/90 backdrop-blur col-span-1">
-            <CardHeader className="p-5 bg-gradient-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
+            <CardHeader className="p-5 bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
               <CardTitle className="text-slate-800">خلاصه مالی</CardTitle>
             </CardHeader>
             <CardContent className="p-6 space-y-4">
               <div className="space-y-2">
                 <Label className="text-slate-700">تخفیف</Label>
                 <Input
-                  value={discount}
+                  value={convertToPersianDigits(discount)}
                   onChange={(e) => setDiscount(e.target.value)}
-                  className="border-slate-200 focus:ring-slate-400"
+                  className="border-slate-200 rounded-lg focus:ring-slate-400"
                   placeholder="مبلغ تخفیف"
                 />
               </div>
               <div className="space-y-2">
                 <Label className="text-slate-700">مالیات</Label>
                 <Input
-                  value={tax}
+                  value={convertToPersianDigits(tax)}
                   onChange={(e) => setTax(e.target.value)}
-                  className="border-slate-200 focus:ring-slate-400"
+                  className="border-slate-200 rounded-lg focus:ring-slate-400"
                   placeholder="مبلغ مالیات"
                 />
               </div>
               <div className="space-y-2">
                 <Label className="text-slate-700">دریافتی</Label>
                 <Input
-                  value={received}
+                  value={convertToPersianDigits(received)}
                   onChange={(e) => setReceived(e.target.value)}
-                  className="border-slate-200 focus:ring-slate-400"
+                  className="border-slate-200 rounded-lg focus:ring-slate-400"
                   placeholder="مبلغ دریافتی"
                 />
               </div>
@@ -214,7 +263,7 @@ export default function InvoiceBody() {
               <Textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="border-slate-200 focus:ring-slate-400 min-h-[80px]"
+                className="border-slate-200 focus:ring-slate-400 focus-visible:ring-offset-0 min-h-20"
                 placeholder="توضیحات"
               />
             </div>
@@ -225,7 +274,7 @@ export default function InvoiceBody() {
               <Textarea
                 value={personalNote}
                 onChange={(e) => setPersonalNote(e.target.value)}
-                className="border-slate-200 focus:ring-slate-400 min-h-[80px]"
+                className="border-slate-200 focus:ring-slate-400 focus-visible:ring-offset-0 min-h-20"
                 placeholder="توضیحات"
               />
             </div>
