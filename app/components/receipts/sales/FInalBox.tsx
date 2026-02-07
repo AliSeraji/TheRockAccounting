@@ -6,17 +6,19 @@ export default function PriceBox({
   total: number;
 }): React.ReactNode {
   return (
-    <div className="border-2 border-gray-400 rounded-lg p-4 mb-8">
+    <div className="border-2 border-gray-400 rounded-lg p-2 mb-2">
       <div className="flex justify-between items-center">
         <div>
-          <span className="font-bold text-black">مبلغ قابل پرداخت</span>
+          <span className="font-bold text-gray-800 text-xs">
+            مبلغ قابل پرداخت
+          </span>
         </div>
         <div className="text-center">
-          <span className="text-sm text-black">
+          <span className="text-xs text-gray-800">
             {persianNumberToText(convertToPersianDigits(total))}
           </span>
         </div>
-        <div className="text-xl font-bold text-black">
+        <div className="text-xs font-bold text-gray-800">
           {convertToPersianDigits(total)}
         </div>
       </div>

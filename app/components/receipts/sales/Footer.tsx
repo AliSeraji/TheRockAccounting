@@ -8,7 +8,7 @@ export default function SalesTableFooter({
   totals?: InvoiceTotals;
 }): React.ReactNode {
   return (
-    <TableFooter>
+    <TableFooter className="text-xs">
       <TableRow className="font-bold">
         <TableCell
           colSpan={3}

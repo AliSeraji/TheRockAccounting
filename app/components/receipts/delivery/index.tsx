@@ -4,9 +4,9 @@ import { Button } from '~/components/ui/button';
 import type { Props } from '../types';
 import ReceiptPage from './receipt';
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 10;
 
-export default function DeliveryReceipt({ data }: Props): React.ReactNode { 
+export default function DeliveryReceipt({ data }: Props): React.ReactNode {
   const pages = useMemo(() => {
     const totalPages = Math.ceil(data.items.length / ITEMS_PER_PAGE);
     return Array.from({ length: totalPages }, (_, pageIndex) => {
@@ -27,7 +27,7 @@ export default function DeliveryReceipt({ data }: Props): React.ReactNode {
     const style = document.createElement('style');
     style.id = 'print-page-size';
     style.textContent =
-      '@media print { @page { size: 210mm 148mm; margin: 5mm; } html, body { width: 210mm !important; height: 148mm !important; } }';
+      '@media print { @page { size: 148mm 210mm; margin: 5mm; } html, body { width: 148mm !important; height: 210mm !important; } }';
     document.head.appendChild(style);
     window.print();
     style.remove();

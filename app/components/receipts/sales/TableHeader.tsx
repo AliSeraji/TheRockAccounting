@@ -14,7 +14,7 @@ export default function SalesTableHeader({
         {items.map((item) => (
           <TableHead
             key={item.label}
-            className={`border-2 border-gray-500 p-2 text-sm text-center ${item.width}`}
+            className={`border-2 border-gray-500 p-2 text-xs text-center ${item.width}`}
           >
             {item.label}
           </TableHead>

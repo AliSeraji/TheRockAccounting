@@ -35,10 +35,10 @@ export default function Row({
       <TableCell className="w-[15%] border-x-[0.5px] border-slate-200 p-1">
         {numericCell(INVOICE_ROW_FIELDS.STONE_TYPE)}
       </TableCell>
-      <TableCell className="w-[8%] border-x-[0.5px] border-slate-200 p-1">
+      <TableCell className="w-[10%] border-x-[0.5px] border-slate-200 p-1">
         {numericCell(INVOICE_ROW_FIELDS.THICKNESS)}
       </TableCell>
-      <TableCell className="w-[7%] border-x-[0.5px] border-slate-200 p-1">
+      <TableCell className="w-[5%] border-x-[0.5px] border-slate-200 p-1">
         {numericCell(INVOICE_ROW_FIELDS.QUANTITY)}
       </TableCell>
       <TableCell className="w-[8%] border-x-[0.5px] border-slate-200 p-1">

@@ -36,15 +36,15 @@ export default function PersianNumericInput({
     (e: React.ChangeEvent<HTMLInputElement>) => {
       let raw = normalize(e.target.value.trim());
 
-      if (raw === '') {
+      if (raw === '' || raw === '-') {
         setLocalValue(null);
-        onChange('');
+        onChange('-');
         return;
       }
 
       if (raw === '.') raw = '0.';
       if (raw === '-.') raw = '-0.';
-
+      if (!allowNegative && raw.startsWith('-', 0)) raw = raw.replace(/^-/, '');
       const pattern = allowNegative ? /^-?\d*\.?\d*$/ : /^\d*\.?\d*$/;
       if (!pattern.test(raw)) return;
 

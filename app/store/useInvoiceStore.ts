@@ -6,13 +6,13 @@ const initialItems: StoneItem[] = [
   {
     id: 1,
     stoneType: '',
-    thickness: '0',
-    quantity: '0',
-    width: '0',
-    length: '0',
-    area: '0',
-    price: '0',
-    total: '0',
+    thickness: '-',
+    quantity: '-',
+    width: '-',
+    length: '-',
+    area: '-',
+    price: '-',
+    total: '-',
   },
 ];
 

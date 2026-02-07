@@ -4,7 +4,7 @@ import { Button } from '~/components/ui/button';
 import type { Props } from '../types';
 import SalesReceiptsPage from './SalesReceiptPage';
 
-const ITEMS_PER_PAGE = 7;
+const ITEMS_PER_PAGE = 15;
 
 export default function SalesInvoice({ data }: Props): React.ReactNode {
   const pages = useMemo(() => {
@@ -32,7 +32,7 @@ export default function SalesInvoice({ data }: Props): React.ReactNode {
   };
   return (
     <div className="font-vazirmatn w-full space-y-4">
-      <div className="flex max-w-7xl justify-between items-center mb-4 px-2 no-print">
+      <div className="flex max-w-7xl justify-between items-center mb-2 px-2 no-print">
         <h2 className="text-xl font-bold text-gray-800">
           پیش‌نمایش فاکتور فروش (A4)
         </h2>

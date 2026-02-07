@@ -34,10 +34,10 @@ function Footer(): React.ReactNode {
   const totals = getTotals();
   return (
     <TableRow className="w-full flex flex-row bg-slate-100 font-semibold text-slate-800">
-      <TableCell className="w-[28%] border border-slate-300 p-2 text-center">
+      <TableCell className="w-[30%] border border-slate-300 p-2 text-center">
         جمع فاکتور
       </TableCell>
-      <TableCell className="w-[7%] border border-slate-300 p-2 text-center">
+      <TableCell className="w-[5%] border border-slate-300 p-2 text-center">
         {convertToPersianDigits(totals.totalQuantity) || '-'}
       </TableCell>
       <TableCell className="w-[16%] border border-slate-300 p-2" />

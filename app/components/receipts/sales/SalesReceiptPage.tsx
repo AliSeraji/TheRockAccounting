@@ -6,6 +6,7 @@ import SalesTable from './Table';
 import SalesNote from './Note';
 import SalesSignature from './Signature';
 import PriceBox from './FinalBox';
+import { convertToPersianDigits } from '~/lib/utils';
 
 export default function SalesReceiptsPage({
   data,
@@ -54,7 +55,8 @@ export default function SalesReceiptsPage({
       <SalesSignature />
 
       <div className="text-center text-xs text-gray-500 mt-4">
-        صفحه {pageNumber} از {totalPages}
+        صفحه {convertToPersianDigits(pageNumber)} از{' '}
+        {convertToPersianDigits(totalPages)}
       </div>
     </div>
   );

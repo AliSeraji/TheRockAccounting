@@ -3,7 +3,7 @@ import { SalesInvoicePDF } from '~/components/receipts/SalesInvoice';
 import { DeliveryReceiptPDF } from '~/components/receipts/DeliveryReceipt';
 import { RequestFormPDF } from '~/components/receipts/RequestFrom';
 import InvoiceHeader from '~/components/invoice/header';
-import InvoiceBody from '~/components/invoice/content';
+import InvoiceBody from '~/components/invoice';
 import { useInvoiceStore } from '~/store/useInvoiceStore';
 import DeliveryReceipt from '~/components/receipts/delivery';
 import SalesInvoice from '~/components/receipts/sales';

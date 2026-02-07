@@ -14,7 +14,7 @@ export const DeliveryTableHeader = ({
         {items.map((item) => (
           <TableHead
             key={item.label}
-            className={`border-2 border-gray-500 p-1.5 ${item.width} text-center`}
+            className={`border-2 border-gray-500 p-1 ${item.width} text-center text-[10px]`}
           >
             {item.label}
           </TableHead>

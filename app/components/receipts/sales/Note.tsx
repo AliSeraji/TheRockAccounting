@@ -12,16 +12,16 @@ export default function SalesNote({
   received,
 }: Props): React.ReactNode {
   return (
-    <div className="border-2 border-gray-400 rounded-lg p-4 mb-6 bg-gray-50">
+    <div className="border-2 border-gray-400 rounded-lg p-4 mb-2 bg-gray-50">
       <div className="flex gap-8">
         <div className="flex-1">
-          <p className="text-sm leading-relaxed text-gray-700">
+          <p className="text-xs leading-relaxed text-gray-700">
             <span className="font-bold text-black">توضیحات: </span>
             {description ||
               'سنگ های فوق طبق متراژ سفارش دهنده و خریدار بارگیری و تا تسویه حساب کامل نزد فریدار امانت می باشد. لازم به ذکر است فرستنده و کارخانه هیچ تعهدی در قبال پرداخت کرایه و تخلیه نداشته و به عهده گیرنده می باشد.'}
           </p>
         </div>
-        <div className="space-y-2 text-left min-w-30">
+        <div className="space-y-2 text-left min-w-30 text-xs">
           <div className="flex justify-between">
             <span className="text-black">تخفیف</span>
             <span className="font-semibold">{discount || '*'}</span>

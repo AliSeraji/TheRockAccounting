@@ -12,23 +12,27 @@ export default function SalesInfoBox({
   address,
 }: Props): React.ReactNode {
   return (
-    <div className="border-2 border-gray-400 rounded-lg p-3 mb-4 bg-gray-50">
-      <div className="grid grid-cols-2 gap-4">
-        <div className="flex items-center gap-2">
-          <span className="text-black">نام شرکت/خانم/آقای:</span>
-          <span className="font-semibold flex-1 pb-1">{buyer || ''}</span>
+    <div className="border-2 border-gray-400 rounded-lg p-2 pb-1 mb-4 bg-gray-50 text-xs">
+      <div className="grid grid-cols-1 gap-4">
+        <div className="flex items-start gap-2">
+          <span className="text-gray-800">نام شرکت/خانم/آقای:</span>
+          <span className=" flex-1 pb-1">{buyer || ''}</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-black">تلفن:</span>
-          <span className="font-semibold flex-1  pb-1">{phone}</span>
+        <div className="grid grid-cols-2">
+          <div className="flex items-start gap-2">
+            <span className="text-gray-800">پروژه:</span>
+            <span className=" flex-1 pb-1">{project}</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="text-gray-800">تلفن:</span>
+            <span className=" flex-1 pb-1">{phone}</span>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-black">پروژه:</span>
-          <span className="font-semibold flex-1  pb-1">{project}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-black">آدرس:</span>
-          <span className="font-semibold flex-1  pb-1">{address}</span>
+        <div className="flex items-start gap-2">
+          <span className="text-gray-800">آدرس:</span>
+          <span className=" flex-1 text-start wrap-break-word overflow-hidden">
+            {address}
+          </span>
         </div>
       </div>
     </div>

@@ -226,14 +226,16 @@ body {
     padding: 15mm !important;
   }
 
-  /* A5 landscape receipt pages (delivery receipts) */
+  /* A5 portrait receipt pages (delivery receipts) */
   .receipt-page-a5 {
     width: 100% !important;
-    max-width: 200mm !important;
-    height: 138mm !important;
+    max-width: 148mm !important;
+    height: 200mm !important;
     min-height: unset !important;
-    padding: 3mm 5mm !important;
+    padding: 5mm 5mm !important;
     overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   .receipt-page-a5 table {

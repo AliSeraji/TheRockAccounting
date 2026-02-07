@@ -18,7 +18,7 @@ export default function SalesTable({
   totals,
 }: SalesTableProps): React.ReactNode {
   return (
-    <Table className="w-full border-collapse mb-4 text-sm">
+    <Table className="w-full border-collapse mb-2">
       <SalesTableHeader />
       <SalesTableBody rowItems={items} startIndex={startIndex} />
       {isLastPage && <SalesTableFooter totals={totals} />}

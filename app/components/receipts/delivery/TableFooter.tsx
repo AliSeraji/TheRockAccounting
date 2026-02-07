@@ -10,14 +10,14 @@ export const DeliveryTableFooter = ({
 }: DeliveryTableFooterProps): React.ReactNode => {
   return (
     <TableFooter>
-      <TableRow className="bg-gray-100 font-bold">
+      <TableRow className="bg-gray-100 font-bold text-xs">
         <TableCell
           colSpan={6}
-          className="border-2 border-gray-500 p-1.5 text-center"
+          className="border-2 border-gray-500 p-1 text-center"
         >
           متراژ کل
         </TableCell>
-        <TableCell className="border-2 border-gray-500 p-1.5 text-center">
+        <TableCell className="border-2 border-gray-500 p-1 text-center">
           {convertToPersianDigits(totalArea.toString())}
         </TableCell>
       </TableRow>
