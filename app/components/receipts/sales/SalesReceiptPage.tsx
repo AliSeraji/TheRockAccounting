@@ -5,7 +5,7 @@ import SalesTable from './Table';
 
 import SalesNote from './Note';
 import SalesSignature from './Signature';
-import PriceBox from './FInalBox';
+import PriceBox from './FinalBox';
 
 export default function SalesReceiptsPage({
   data,
