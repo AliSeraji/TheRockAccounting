@@ -4,8 +4,11 @@ import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';
 
 export default function ExplanationCard(): React.ReactNode {
-  const { description, setDescription, personalNote, setPersonalNote } =
-    useInvoiceStore();
+  const description = useInvoiceStore((state) => state.description);
+  const setDescription = useInvoiceStore((state) => state.setDescription);
+  const personalNote = useInvoiceStore((state) => state.personalNote);
+  const setPersonalNote = useInvoiceStore((state) => state.setPersonalNote);
+
   return (
     <Card className="border-slate-200 bg-white/90 backdrop-blur">
       <CardHeader className="bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">

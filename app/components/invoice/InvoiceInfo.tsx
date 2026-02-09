@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from '../ui/select';
 import { Input } from '../ui/input';
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, memo, Suspense, useEffect, useState } from 'react';
 import { convertToPersianDigits } from '~/lib/utils';
 import { useInvoiceStore } from '~/store/useInvoiceStore';
 
@@ -24,23 +24,21 @@ type DayValue =
 
 const PersianDatePicker = lazy(() => import('./PersianDatePicker.client'));
 
-export default function InvoiceInfo(): React.ReactNode {
-  const {
-    invoiceType,
-    setInvoiceType,
-    invoiceNumber,
-    setInvoiceNumber,
-    buyer,
-    setBuyer,
-    invoiceDate,
-    setInvoiceDate,
-    project,
-    setProject,
-    phone,
-    setPhone,
-    address,
-    setAddress,
-  } = useInvoiceStore();
+const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
+  const invoiceType = useInvoiceStore((state) => state.invoiceType);
+  const setInvoiceType = useInvoiceStore((state) => state.setInvoiceType);
+  const invoiceNumber = useInvoiceStore((state) => state.invoiceNumber);
+  const setInvoiceNumber = useInvoiceStore((state) => state.setInvoiceNumber);
+  const buyer = useInvoiceStore((state) => state.buyer);
+  const setBuyer = useInvoiceStore((state) => state.setBuyer);
+  const invoiceDate = useInvoiceStore((state) => state.invoiceDate);
+  const setInvoiceDate = useInvoiceStore((state) => state.setInvoiceDate);
+  const project = useInvoiceStore((state) => state.project);
+  const setProject = useInvoiceStore((state) => state.setProject);
+  const phone = useInvoiceStore((state) => state.phone);
+  const setPhone = useInvoiceStore((state) => state.setPhone);
+  const address = useInvoiceStore((state) => state.address);
+  const setAddress = useInvoiceStore((state) => state.setAddress);
 
   const [selectedDay, setSelectedDay] = useState<DayValue>(null);
   const [isClient, setIsClient] = useState(false);
@@ -159,4 +157,6 @@ export default function InvoiceInfo(): React.ReactNode {
       </CardContent>
     </Card>
   );
-}
+});
+
+export default InvoiceInfo;

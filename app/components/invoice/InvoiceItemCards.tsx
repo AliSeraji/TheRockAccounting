@@ -5,7 +5,8 @@ import InvoiceTable from './Table';
 import { useInvoiceStore } from '~/store/useInvoiceStore';
 
 export default function InvoiceItemsCard(): React.ReactNode {
-  const { addItem } = useInvoiceStore();
+  const addItem = useInvoiceStore((state) => state.addItem);
+
   return (
     <Card className="border-slate-200 bg-white/90 backdrop-blur">
       <CardHeader className="bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">

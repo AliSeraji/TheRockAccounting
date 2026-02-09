@@ -9,7 +9,9 @@ import DeliveryReceipt from '~/components/receipts/delivery';
 import SalesInvoice from '~/components/receipts/sales';
 
 export const Invoice = () => {
-  const { activeTab, setActiveTab, getInvoiceData } = useInvoiceStore();
+  const activeTab = useInvoiceStore((state) => state.activeTab);
+  const setActiveTab = useInvoiceStore((state) => state.setActiveTab);
+  const getInvoiceData = useInvoiceStore((state) => state.getInvoiceData);
 
   const invoiceData = getInvoiceData();
 

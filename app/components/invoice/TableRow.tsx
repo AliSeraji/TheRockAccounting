@@ -6,8 +6,9 @@ import { Button } from '../ui/button';
 import type { StoneItem } from '~/store/types';
 import PersianNumericInput from './PersianNumericInput';
 import { INVOICE_ROW_FIELDS, type InvoiceRowField } from './types';
+import { memo } from 'react';
 
-export default function Row({
+const Row = memo(function Row({
   rowItem,
   index,
   update,
@@ -18,12 +19,17 @@ export default function Row({
   update: (id: number, field: InvoiceRowField, value: string) => void;
   remove: (id: number) => void;
 }): React.ReactNode {
-  const numericCell = (field: InvoiceRowField, readOnly: boolean = false) => (
+  const numericCell = (
+    field: InvoiceRowField,
+    readOnly: boolean = false,
+    isPrice: boolean = false
+  ) => (
     <PersianNumericInput
       value={String(rowItem[field])}
       onChange={(v) => update(rowItem.id, field, v)}
       className={`border-0 text-center focus-visible:ring-offset-3 text-sm h-8 ${readOnly ? 'cursor-default' : 'cursor-text'}`}
       readOnly={readOnly}
+      isPrice={isPrice}
     />
   );
 
@@ -51,10 +57,10 @@ export default function Row({
         {numericCell(INVOICE_ROW_FIELDS.AREA, true)}
       </TableCell>
       <TableCell className="w-[12%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(INVOICE_ROW_FIELDS.PRICE)}
+        {numericCell(INVOICE_ROW_FIELDS.PRICE, false, true)}
       </TableCell>
       <TableCell className="w-[20%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(INVOICE_ROW_FIELDS.TOTAL, true)}
+        {numericCell(INVOICE_ROW_FIELDS.TOTAL, true, true)}
       </TableCell>
       <TableCell className="w-[5%] border-x-[0.5px] border-l-2 border-slate-200 p-1 text-center">
         <Button
@@ -68,4 +74,6 @@ export default function Row({
       </TableCell>
     </TableRow>
   );
-}
+});
+
+export default Row;

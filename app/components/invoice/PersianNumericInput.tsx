@@ -5,10 +5,11 @@ import {
   convertToPersianDigits,
   convertToEnDigits,
   cleanTrailingZeros,
+  formatRialAmount,
 } from '~/lib/utils';
 
 const normalize = (str: string): string =>
-  convertToEnDigits(str).replace(/\//g, '.');
+  convertToEnDigits(str).replace(/\//g, '.').replace(/[,٬]/g, '');
 
 const toPersianDisplay = (str: string): string => convertToPersianDigits(str);
 
@@ -19,6 +20,7 @@ interface PersianNumericInputProps {
   placeholder?: string;
   allowNegative?: boolean;
   readOnly: boolean;
+  isPrice: boolean;
 }
 
 export default function PersianNumericInput({
@@ -28,6 +30,7 @@ export default function PersianNumericInput({
   placeholder,
   allowNegative = false,
   readOnly = false,
+  isPrice = false,
 }: PersianNumericInputProps) {
   const [localValue, setLocalValue] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -73,8 +76,14 @@ export default function PersianNumericInput({
   );
   const displayValue =
     localValue !== null
-      ? toPersianDisplay(localValue)
-      : toPersianDisplay(readOnly ? cleanTrailingZeros(value) : value);
+      ? isPrice
+        ? formatRialAmount(toPersianDisplay(localValue))
+        : toPersianDisplay(localValue)
+      : isPrice
+        ? formatRialAmount(
+            toPersianDisplay(readOnly ? cleanTrailingZeros(value) : value)
+          )
+        : toPersianDisplay(readOnly ? cleanTrailingZeros(value) : value);
 
   return (
     <Input

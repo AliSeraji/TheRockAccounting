@@ -48,7 +48,7 @@ export interface InvoiceState {
   tax: string;
   received: string;
   activeTab: string;
-
+  totals: InvoiceTotals;
   items: StoneItem[];
 
   setInvoiceType: (value: string) => void;
@@ -64,12 +64,10 @@ export interface InvoiceState {
   setTax: (value: string) => void;
   setReceived: (value: string) => void;
   setActiveTab: (value: string) => void;
-
   addItem: () => void;
   removeItem: (id: number) => void;
   updateItem: (id: number, field: keyof StoneItem, value: string) => void;
 
-  getTotals: () => InvoiceTotals;
   getInvoiceData: () => InvoiceDataType;
 
   resetInvoice: () => void;
