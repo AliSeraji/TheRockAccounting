@@ -1,4 +1,4 @@
-import { Printer } from 'lucide-react';
+import type React from 'react';
 import { convertToPersianDigits } from '~/lib/utils';
 
 export default function ReceiptHeader({

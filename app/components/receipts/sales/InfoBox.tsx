@@ -1,3 +1,6 @@
+import type React from 'react';
+import { convertToPersianDigits } from '~/lib/utils';
+
 interface Props {
   buyer: string;
   phone: string;
@@ -16,22 +19,28 @@ export default function SalesInfoBox({
       <div className="grid grid-cols-1 gap-4">
         <div className="flex items-start gap-2">
           <span className="text-gray-800">نام شرکت/خانم/آقای:</span>
-          <span className=" flex-1 pb-1">{buyer || ''}</span>
+          <span className=" flex-1 pb-1">
+            {convertToPersianDigits(buyer || '')}
+          </span>
         </div>
         <div className="grid grid-cols-2">
           <div className="flex items-start gap-2">
             <span className="text-gray-800">پروژه:</span>
-            <span className=" flex-1 pb-1">{project}</span>
+            <span className=" flex-1 pb-1">
+              {convertToPersianDigits(project || '')}
+            </span>
           </div>
           <div className="flex items-start gap-2">
             <span className="text-gray-800">تلفن:</span>
-            <span className=" flex-1 pb-1">{phone}</span>
+            <span className=" flex-1 pb-1">
+              {convertToPersianDigits(phone)}
+            </span>
           </div>
         </div>
         <div className="flex items-start gap-2">
           <span className="text-gray-800">آدرس:</span>
           <span className=" flex-1 text-start wrap-break-word overflow-hidden">
-            {address}
+            {convertToPersianDigits(address || '')}
           </span>
         </div>
       </div>

@@ -1,6 +1,4 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
-import { SalesInvoicePDF } from '~/components/receipts/SalesInvoice';
-import { DeliveryReceiptPDF } from '~/components/receipts/DeliveryReceipt';
 import { RequestFormPDF } from '~/components/receipts/RequestFrom';
 import InvoiceHeader from '~/components/invoice/header';
 import InvoiceBody from '~/components/invoice';

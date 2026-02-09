@@ -127,7 +127,7 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
           parseFloat(convertToEnDigits(width)) *
           parseFloat(convertToEnDigits(length)) *
           parseFloat(convertToEnDigits(quantity));
-        updatedItem.area = area > 0 ? area.toFixed(2) : '0';
+        updatedItem.area = area > 0 ? area.toString() : '0';
       }
 
       if (['width', 'length', 'quantity', 'area', 'price'].includes(field)) {
@@ -137,7 +137,7 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
         const total =
           parseFloat(convertToEnDigits(area)) *
           parseFloat(convertToEnDigits(price));
-        updatedItem.total = total > 0 ? total.toFixed(2) : '0';
+        updatedItem.total = total > 0 ? total.toString() : '0';
       }
 
       return updatedItem;

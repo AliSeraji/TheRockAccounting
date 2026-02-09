@@ -1,8 +1,9 @@
-import { ArrowRight, FileText, Printer } from 'lucide-react';
+import { ArrowRight, FileText } from 'lucide-react';
 import { Link } from 'react-router';
 import { Button } from '../ui/button';
+import type React from 'react';
 
-export default function InvoiceHeader() {
+export default function InvoiceHeader(): React.ReactNode {
   return (
     <header className="w-full p-0 bg-white/90 backdrop-blur-md border-b border-slate-200 fixed left-0 right-0 top-18 shadow-sm h-18 z-40">
       <div className="px-6 py-4">

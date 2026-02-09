@@ -1,3 +1,4 @@
+import type React from 'react';
 import { Printer } from 'lucide-react';
 import { useMemo } from 'react';
 import { Button } from '~/components/ui/button';

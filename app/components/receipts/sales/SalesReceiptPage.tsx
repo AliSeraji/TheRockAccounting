@@ -1,3 +1,4 @@
+import type React from 'react';
 import type { ReceiptProps } from '~/components/invoice/common';
 import SalesInfoBox from './InfoBox';
 import SalesReceiptHeader from './ReceiptHeader';
@@ -5,7 +6,7 @@ import SalesTable from './Table';
 
 import SalesNote from './Note';
 import SalesSignature from './Signature';
-import PriceBox from './FinalBox';
+import PriceBox from './PriceBox';
 import { convertToPersianDigits } from '~/lib/utils';
 
 export default function SalesReceiptsPage({

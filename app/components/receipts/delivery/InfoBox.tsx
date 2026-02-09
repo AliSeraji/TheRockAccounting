@@ -1,3 +1,6 @@
+import type React from 'react';
+import { convertToPersianDigits } from '~/lib/utils';
+
 export default function InfoBox({
   buyer,
   project,
@@ -14,16 +17,20 @@ export default function InfoBox({
           <span className="text-gray-800 whitespace-nowrap">
             نام شرکت/خانم/آقای:
           </span>
-          <span className="font-semibold flex-1 pb-1">{buyer || ''}</span>
+          <span className="font-semibold flex-1 pb-1">
+            {convertToPersianDigits(buyer || '')}
+          </span>
         </div>
         <div className="flex gap-2">
           <span className="text-gray-800">پروژه:</span>
-          <span className="font-semibold flex-1 pb-1">{project || ''}</span>
+          <span className="font-semibold flex-1 pb-1">
+            {convertToPersianDigits(project || '')}
+          </span>
         </div>
         <div className="flex gap-1 col-span-2">
           <span className="text-gray-800">آدرس:</span>
           <span className="text-gray-800 flex-1 wrap-break-word overflow-hidden">
-            {address || ''}
+            {convertToPersianDigits(address || '')}
           </span>
         </div>
       </div>

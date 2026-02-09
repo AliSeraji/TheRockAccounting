@@ -1,3 +1,4 @@
+import type React from 'react';
 import { Table } from '~/components/ui/table';
 import SalesTableHeader from './TableHeader';
 import SalesTableBody from './TableBody';

@@ -1,3 +1,4 @@
+import type React from 'react';
 import { convertToPersianDigits, persianNumberToText } from '~/lib/utils';
 
 export default function PriceBox({

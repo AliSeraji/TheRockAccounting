@@ -1,3 +1,4 @@
+import type React from 'react';
 import { useInvoiceStore } from '~/store/useInvoiceStore';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Label } from '../ui/label';

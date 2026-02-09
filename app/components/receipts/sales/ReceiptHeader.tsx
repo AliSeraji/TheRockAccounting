@@ -1,3 +1,4 @@
+import type React from 'react';
 import { convertToPersianDigits } from '~/lib/utils';
 
 interface Props {

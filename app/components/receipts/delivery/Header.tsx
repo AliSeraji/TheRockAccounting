@@ -1,3 +1,4 @@
+import type React from 'react';
 import { deliveryTableItems } from '~/components/invoice/common';
 import { TableHead, TableHeader, TableRow } from '~/components/ui/table';
 

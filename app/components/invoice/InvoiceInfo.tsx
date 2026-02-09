@@ -1,3 +1,4 @@
+import type React from 'react';
 import { FileText } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Label } from '../ui/label';
@@ -10,7 +11,7 @@ import {
 } from '../ui/select';
 import { Input } from '../ui/input';
 import { lazy, memo, Suspense, useEffect, useState } from 'react';
-import { convertToPersianDigits } from '~/lib/utils';
+import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
 import { useInvoiceStore } from '~/store/useInvoiceStore';
 
 type DayValue =
@@ -83,7 +84,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             <Label className="text-slate-700">شماره</Label>
             <Input
               value={convertToPersianDigits(invoiceNumber)}
-              onChange={(e) => setInvoiceNumber(e.target.value)}
+              onChange={(e) => setInvoiceNumber(e.target.value.trim())}
               className="border-slate-200 rounded-lg focus:ring-slate-400"
               placeholder="شماره فاکتور"
             />
@@ -130,7 +131,9 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             <Label className="text-slate-700">پروژه</Label>
             <Input
               value={convertToPersianDigits(project)}
-              onChange={(e) => setProject(e.target.value)}
+              onChange={(e) =>
+                setProject(convertToEnDigits(e.target.value.trim()))
+              }
               className="border-slate-200 rounded-lg focus:ring-slate-400"
               placeholder=" درج شود"
             />
@@ -139,7 +142,9 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             <Label className="text-slate-700">تلفن</Label>
             <Input
               value={convertToPersianDigits(phone)}
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) =>
+                setPhone(convertToEnDigits(e.target.value.trim()))
+              }
               className="border-slate-200 rounded-lg focus:ring-slate-400"
               placeholder="شماره تلفن"
             />
@@ -148,7 +153,9 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             <Label className="text-slate-700">آدرس</Label>
             <Input
               value={convertToPersianDigits(address)}
-              onChange={(e) => setAddress(e.target.value)}
+              onChange={(e) =>
+                setAddress(convertToEnDigits(e.target.value.trim()))
+              }
               className="border-slate-200 rounded-lg focus:ring-slate-400"
               placeholder="دستی درج شود"
             />

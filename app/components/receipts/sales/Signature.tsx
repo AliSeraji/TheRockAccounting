@@ -1,3 +1,5 @@
+import type React from 'react';
+
 export default function SalesSignature(): React.ReactNode {
   return (
     <div className="flex justify-between mt-12 pt-4">

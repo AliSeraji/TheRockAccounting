@@ -1,6 +1,11 @@
-import type { InvoiceTotals, StoneItem } from "./types";
+import type { InvoiceTotals, StoneItem } from './types';
 
-export function computeTotals(items: StoneItem[], discount: string, tax: string, received: string): InvoiceTotals {
+export function computeTotals(
+  items: StoneItem[],
+  discount: string,
+  tax: string,
+  received: string
+): InvoiceTotals {
   const totalQuantity = items.reduce(
     (sum, item) => sum + (parseFloat(item.quantity) || 0),
     0
@@ -14,8 +19,7 @@ export function computeTotals(items: StoneItem[], discount: string, tax: string,
     0
   );
 
-  const discountAmount =
-    (parseFloat(discount || '0') * totalAmount) / 100;
+  const discountAmount = (parseFloat(discount || '0') * totalAmount) / 100;
 
   const taxAmount = (parseFloat(tax || '0') * totalAmount) / 100;
 

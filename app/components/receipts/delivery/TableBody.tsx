@@ -1,3 +1,4 @@
+import type React from 'react';
 import { TableBody, TableCell, TableRow } from '~/components/ui/table';
 import { convertToPersianDigits } from '~/lib/utils';
 import type { InvoiceDataType } from '~/store/types';

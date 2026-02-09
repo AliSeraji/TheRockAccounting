@@ -1,3 +1,5 @@
+import type React from 'react';
+
 export const Signature = (): React.ReactNode => {
   return (
     <div className="flex justify-center mt-6">

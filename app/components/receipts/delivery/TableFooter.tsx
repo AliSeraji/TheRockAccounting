@@ -1,3 +1,4 @@
+import type React from 'react';
 import { TableCell, TableFooter, TableRow } from '~/components/ui/table';
 import { convertToPersianDigits } from '~/lib/utils';
 
