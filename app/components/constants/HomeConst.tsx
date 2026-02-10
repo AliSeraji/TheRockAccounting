@@ -20,7 +20,7 @@ import {
 
 export const dashboardItems = [
   {
-    title: 'فاکتور فروش',
+    title: 'صدور فاکتور',
     icon: FileCheck2,
     color: 'from-teal-400 to-teal-600',
     description: 'مدیریت و صدور فاکتورها',
