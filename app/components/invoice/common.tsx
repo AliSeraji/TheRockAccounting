@@ -8,10 +8,10 @@ export type InvoiceTableItem = {
 export const invoiceTableItems: InvoiceTableItem[] = [
   { label: 'ردیف', width: 'w-[5%]' },
   { label: 'نوع سنگ', width: 'w-[15%]' },
-  { label: 'ضخامت تقریبی (متر)', width: 'w-[10%]' },
+  { label: 'قطر (سانتی متر)', width: 'w-[10%]' },
   { label: 'تعداد', width: 'w-[5%]' },
-  { label: 'طول (متر)', width: 'w-[8%]' },
   { label: 'عرض (متر)', width: 'w-[8%]' },
+  { label: 'طول (متر)', width: 'w-[8%]' },
   { label: 'متراژ (مترمربع)', width: 'w-[12%]' },
   { label: 'بهاء (ریال)', width: 'w-[12%]' },
   { label: 'مبلغ کل (ریال)', width: 'w-[20%]' },
@@ -21,9 +21,9 @@ export const invoiceTableItems: InvoiceTableItem[] = [
 export const deliveryTableItems: InvoiceTableItem[] = [
   { label: 'ردیف', width: 'w-[5%]' },
   { label: 'نوع سنگ', width: 'w-[15%]' },
-  { label: '(متر) ضخامت تقریبی', width: 'w-[8%]' },
-  { label: 'طول (متر)', width: 'w-[8%]' },
-  { label: 'عرض (سانتی متر)', width: 'w-[20%]' },
+  { label: '(سانتی متر) قطر', width: 'w-[8%]' },
+  { label: 'عرض (متر)', width: 'w-[8%]' },
+  { label: 'طول (سانتی متر)', width: 'w-[20%]' },
   { label: 'تعداد', width: 'w-[5%]' },
   { label: 'متراژ (مترمربع)', width: 'w-[5%]' },
 ];
@@ -31,10 +31,10 @@ export const deliveryTableItems: InvoiceTableItem[] = [
 export const salesTableItems: InvoiceTableItem[] = [
   { label: 'ردیف', width: 'w-[5%]' },
   { label: 'نوع سنگ', width: 'w-[15%]' },
-  { label: 'ضخامت تقریبی (متر)', width: 'w-[8%]' },
+  { label: 'قطر (سانتی متر)', width: 'w-[8%]' },
   { label: 'تعداد', width: 'w-[5%]' },
-  { label: 'طول (متر)', width: 'w-[8%]' },
   { label: 'عرض (متر)', width: 'w-[8%]' },
+  { label: 'طول (متر)', width: 'w-[8%]' },
   { label: 'متراژ (مترمربع)', width: 'w-[12%]' },
   { label: 'بهاء (ریال)', width: 'w-[12%]' },
   { label: 'مبلغ کل (ریال)', width: 'w-[20%]' },

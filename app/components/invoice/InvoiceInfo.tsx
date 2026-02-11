@@ -84,8 +84,11 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             <Label className="text-slate-700">شماره</Label>
             <Input
               value={convertToPersianDigits(invoiceNumber)}
-              onChange={(e) => { 
-                const val = convertToEnDigits(e.target.value.trim()).replace(/[^0-9]/g, '');
+              onChange={(e) => {
+                const val = convertToEnDigits(e.target.value.trim()).replace(
+                  /[^0-9]/g,
+                  ''
+                );
                 console.log(val);
                 setInvoiceNumber(val);
               }}
@@ -94,7 +97,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             />
           </div>
           <div className="space-y-2">
-            <Label className="text-slate-700">خریدار شرکت/خانم/آقای</Label>
+            <Label className="text-slate-700">نام شخص حقیقی / حقوقی:</Label>
             <Input
               value={convertToPersianDigits(buyer)}
               onChange={(e) => setBuyer(e.target.value)}
@@ -148,12 +151,11 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
               value={convertToPersianDigits(phone)}
               onChange={(e) => {
                 const value = convertToEnDigits(e.target.value.trim()).replace(
-                  /[^0-9]/g,
+                  /[^0-9]-/g,
                   ''
                 );
                 setPhone(value);
               }}
-              maxLength={11}
               className="border-slate-200 rounded-lg focus:ring-slate-400"
               placeholder="شماره تلفن"
             />

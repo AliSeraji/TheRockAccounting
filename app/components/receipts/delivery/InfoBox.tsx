@@ -15,7 +15,7 @@ export default function InfoBox({
       <div className="flex flex-col gap-1">
         <div className="flex gap-2">
           <span className="text-gray-800 whitespace-nowrap">
-            نام شرکت/خانم/آقای:
+            نام شخص حقیقی / حقوقی:
           </span>
           <span className="font-semibold flex-1 pb-1">
             {convertToPersianDigits(buyer || '')}
