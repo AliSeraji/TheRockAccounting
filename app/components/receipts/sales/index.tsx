@@ -4,23 +4,12 @@ import { useMemo } from 'react';
 import { Button } from '~/components/ui/button';
 import type { Props } from '../types';
 import SalesReceiptsPage from './SalesReceiptPage';
+import { receiptPager } from '~/helper/helper';
 
 const ITEMS_PER_PAGE = 15;
 
 export default function SalesInvoice({ data }: Props): React.ReactNode {
-  const pages = useMemo(() => {
-    const totalPages = Math.ceil(data.items.length / ITEMS_PER_PAGE);
-    return Array.from({ length: totalPages }, (_, pageIndex) => {
-      const startIndex = pageIndex * ITEMS_PER_PAGE;
-      const endIndex = startIndex + ITEMS_PER_PAGE;
-      return {
-        items: data.items.slice(startIndex, endIndex),
-        startIndex,
-        pageNumber: pageIndex + 1,
-        isLastPage: pageIndex === totalPages - 1,
-      };
-    });
-  }, [data.items]);
+  const pages = useMemo(() => receiptPager(data, ITEMS_PER_PAGE), [data.items]);
 
   const handlePrint = () => {
     const style = document.createElement('style');
