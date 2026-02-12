@@ -1,5 +1,9 @@
 import type React from 'react';
-import { convertToPersianDigits, persianNumberToText } from '~/lib/utils';
+import {
+  convertToPersianDigits,
+  formatRialAmount,
+  persianNumberToText,
+} from '~/lib/utils';
 
 export default function PriceBox({
   total,
@@ -20,7 +24,7 @@ export default function PriceBox({
           </span>
         </div>
         <div className="text-xs font-bold text-gray-800">
-          {convertToPersianDigits(total)}
+          {'ریال ' + formatRialAmount(convertToPersianDigits(total))}
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import type React from 'react';
-import { convertToPersianDigits } from '~/lib/utils';
+import { convertToPersianDigits, formatRialAmount } from '~/lib/utils';
 
 interface Props {
   description: string;
@@ -28,19 +28,20 @@ export default function SalesNote({
           <div className="flex justify-between">
             <span className="text-black">تخفیف</span>
             <span className="font-semibold">
-              {convertToPersianDigits(discount || '*')}
+              {'% ' + convertToPersianDigits(discount || '*')}
             </span>
           </div>
           <div className="flex justify-between">
             <span className="text-black">مالیات</span>
             <span className="font-semibold">
-              {convertToPersianDigits(tax || '*')}
+              {'% ' + convertToPersianDigits(tax || '*')}
             </span>
           </div>
           <div className="flex justify-between">
             <span className="text-black">دریافتی</span>
             <span className="font-semibold">
-              {convertToPersianDigits(received || '*')}
+              {'ریال ' +
+                formatRialAmount(convertToPersianDigits(received || '*'))}
             </span>
           </div>
         </div>

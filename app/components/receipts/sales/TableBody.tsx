@@ -1,6 +1,6 @@
 import type React from 'react';
 import { TableBody, TableCell, TableRow } from '~/components/ui/table';
-import { convertToPersianDigits } from '~/lib/utils';
+import { convertToPersianDigits, formatRialAmount } from '~/lib/utils';
 import type { InvoiceDataType } from '~/store/types';
 
 interface SalesTableRowProps {
@@ -38,10 +38,10 @@ export default function SalesTableBody({
             {convertToPersianDigits(item.area)}
           </TableCell>
           <TableCell className="border-2 border-gray-400 p-2 text-sm text-center">
-            {convertToPersianDigits(item.price)}
+            {formatRialAmount(convertToPersianDigits(item.price))}
           </TableCell>
           <TableCell className="border-2 border-gray-400 p-2 text-sm text-center">
-            {convertToPersianDigits(item.total)}
+            {formatRialAmount(convertToPersianDigits(item.total))}
           </TableCell>
         </TableRow>
       ))}
