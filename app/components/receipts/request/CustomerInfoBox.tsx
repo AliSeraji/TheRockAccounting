@@ -15,28 +15,32 @@ export default function CustomerInfoBox({
   address,
 }: CustomerInfoBoxProps): ReactNode {
   return (
-    <div className="border-2 border-gray-400 rounded-lg p-3 mb-4 bg-gray-50 text-[10px]">
-      <div className="grid grid-cols-2 gap-3">
-        <div className="flex items-center gap-2">
-          <span className="text-gray-600"> نام شخص حقیقی / حقوقی:</span>
-          <span className="font-semibold flex-1 pb-1">{buyer || ''}</span>
+    <div className="border-2 border-gray-400 rounded-lg p-2 pb-1 mb-4 bg-gray-50 text-xs">
+      <div className="flex flex-col gap-1">
+        <div className="flex flex-row w-full ">
+          <div className="flex flex-row min-w-4/6 w-auto items-start gap-1">
+            <span className="text-gray-800">نام شخص حقیقی / حقوقی:</span>
+            <span className=" flex-1 pb-1">
+              {convertToPersianDigits(buyer || '')}
+            </span>
+          </div>
+          <div className="flex flex-row w-auto items-start gap-1">
+            <span className="text-gray-800">تلفن:</span>
+            <span className=" flex-1 pb-1">
+              {convertToPersianDigits(phone)}
+            </span>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-gray-600">تلفن:</span>
-          <span className="font-semibold flex-1 pb-1">
-            {convertToPersianDigits(phone)}
+        <div className="flex items-start gap-1">
+          <span className="text-gray-800">پروژه:</span>
+          <span className=" flex-1 pb-1">
+            {convertToPersianDigits(project || '')}
           </span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-gray-600">پروژه:</span>
-          <span className="font-semibold flex-1 pb-1">
-            {convertToPersianDigits(project)}
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-gray-600">آدرس:</span>
-          <span className="font-semibold flex-1 pb-1">
-            {convertToPersianDigits(address)}
+        <div className="flex items-start gap-1">
+          <span className="text-gray-800">آدرس:</span>
+          <span className=" flex-1 text-start wrap-break-word overflow-hidden">
+            {convertToPersianDigits(address || '')}
           </span>
         </div>
       </div>

@@ -5,8 +5,9 @@ import { useInvoiceStore } from '~/store/useInvoiceStore';
 import DeliveryReceipt from '~/components/receipts/delivery';
 import SalesInvoice from '~/components/receipts/sales';
 import RequestProduct from '~/components/receipts/request';
+import type { ReactNode } from 'react';
 
-export const Invoice = () => {
+export const Invoice = (): ReactNode => {
   const activeTab = useInvoiceStore((state) => state.activeTab);
   const setActiveTab = useInvoiceStore((state) => state.setActiveTab);
   const getInvoiceData = useInvoiceStore((state) => state.getInvoiceData);
@@ -17,7 +18,7 @@ export const Invoice = () => {
     <div className="h-full flex flex-col relative" dir="rtl">
       <InvoiceHeader />
 
-      <div className="w-full flex flex-col items-center overflow-auto pt-34">
+      <div className="w-full flex flex-col items-center overflow-auto pt-16">
         <div className="w-full py-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} dir="rtl">
             <TabsList

@@ -16,6 +16,7 @@ import {
   INVOICE,
   PRIVATE_INVOICE,
   PURCHASE_REG,
+  RECEIPT_ISSUE,
 } from '~/routes/constants';
 
 export const dashboardItems = [
@@ -24,7 +25,7 @@ export const dashboardItems = [
     icon: FileCheck2,
     color: 'from-teal-400 to-teal-600',
     description: 'مدیریت و صدور فاکتورها',
-    to: INVOICE,
+    to: RECEIPT_ISSUE,
   },
   {
     title: 'کالاو انبار',
