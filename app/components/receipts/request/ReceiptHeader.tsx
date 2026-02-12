@@ -17,13 +17,13 @@ export default function RequestReceiptHeader({ data }: Props): ReactNode {
       <div className="text-left space-y-1 text-sm">
         <div className="flex items-center gap-2">
           <span className="text-gray-600">شماره:</span>
-          <span className="font-bold border-b border-gray-400 px-3">
+          <span className="font-bold  px-3">
             {convertToPersianDigits(data.invoiceNumber) || ''}
           </span>
         </div>
         <div className="flex items-center gap-2">
           <span className="text-gray-600">تاریخ:</span>
-          <span className="font-bold border-b border-gray-400 px-3">
+          <span className="font-bold px-3">
             {convertToPersianDigits(data.invoiceDate) || ''}
           </span>
         </div>
