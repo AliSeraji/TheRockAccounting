@@ -5,7 +5,11 @@ import { useInvoiceStore } from '~/store/useInvoiceStore';
 import Row from './TableRow';
 import { convertToPersianDigits, formatRialAmount } from '~/lib/utils';
 
-export default function InvoiceTable(): React.ReactNode {
+export default function InvoiceTable({
+  addItem,
+}: {
+  addItem: () => void;
+}): React.ReactNode {
   const items = useInvoiceStore((state) => state.items);
   const updateItem = useInvoiceStore((state) => state.updateItem);
   const removeItem = useInvoiceStore((state) => state.removeItem);
@@ -22,6 +26,7 @@ export default function InvoiceTable(): React.ReactNode {
               index={index}
               update={updateItem}
               remove={removeItem}
+              addItem={addItem}
             />
           );
         })}

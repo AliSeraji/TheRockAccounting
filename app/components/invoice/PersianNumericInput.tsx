@@ -21,6 +21,8 @@ interface PersianNumericInputProps {
   allowNegative?: boolean;
   readOnly: boolean;
   isPrice: boolean;
+  addItem?: () => void;
+  removeItem?: () => void;
 }
 
 export default function PersianNumericInput({
@@ -31,6 +33,8 @@ export default function PersianNumericInput({
   allowNegative = false,
   readOnly = false,
   isPrice = false,
+  addItem,
+  removeItem,
 }: PersianNumericInputProps) {
   const [localValue, setLocalValue] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -98,6 +102,10 @@ export default function PersianNumericInput({
       dir="ltr"
       readOnly={readOnly}
       tabIndex={readOnly ? -1 : undefined}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' && addItem) addItem();
+        if (e.key === 'Backspace' && removeItem) removeItem();
+      }}
     />
   );
 }

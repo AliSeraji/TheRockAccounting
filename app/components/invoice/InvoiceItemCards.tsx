@@ -24,7 +24,7 @@ export default function InvoiceItemsCard(): React.ReactNode {
       </CardHeader>
       <CardContent className="p-4">
         <div className="overflow-x-auto">
-          <InvoiceTable />
+          <InvoiceTable addItem={addItem} />
         </div>
       </CardContent>
     </Card>

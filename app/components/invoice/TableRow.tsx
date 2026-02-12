@@ -7,17 +7,20 @@ import type { StoneItem } from '~/store/types';
 import PersianNumericInput from './PersianNumericInput';
 import { INVOICE_ROW_FIELDS, type InvoiceRowField } from './types';
 import { memo } from 'react';
+import { Input } from '../ui/input';
 
 const Row = memo(function Row({
   rowItem,
   index,
   update,
   remove,
+  addItem,
 }: {
   rowItem: StoneItem;
   index: number;
   update: (id: number, field: InvoiceRowField, value: string) => void;
   remove: (id: number) => void;
+  addItem: () => void;
 }): React.ReactNode {
   const numericCell = (
     field: InvoiceRowField,
@@ -30,6 +33,8 @@ const Row = memo(function Row({
       className={`border-0 text-center focus-visible:ring-offset-3 text-sm h-8 ${readOnly ? 'cursor-default' : 'cursor-text'}`}
       readOnly={readOnly}
       isPrice={isPrice}
+      addItem={isPrice ? addItem : undefined}
+      removeItem={isPrice ? () => remove(rowItem.id) : undefined}
     />
   );
 
@@ -39,7 +44,15 @@ const Row = memo(function Row({
         {convertToPersianDigits(index + 1)}
       </TableCell>
       <TableCell className="w-[15%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(INVOICE_ROW_FIELDS.STONE_TYPE)}
+        <Input
+          value={convertToPersianDigits(
+            String(rowItem[INVOICE_ROW_FIELDS.STONE_TYPE])
+          )}
+          onChange={(v) =>
+            update(rowItem.id, INVOICE_ROW_FIELDS.STONE_TYPE, v.target.value)
+          }
+          className={`border-0 text-center focus-visible:ring-offset-3 text-sm h-8 cursor-text}`}
+        />
       </TableCell>
       <TableCell className="w-[10%] border-x-[0.5px] border-slate-200 p-1">
         {numericCell(INVOICE_ROW_FIELDS.THICKNESS)}
