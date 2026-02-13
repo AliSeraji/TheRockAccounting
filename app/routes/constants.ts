@@ -9,3 +9,4 @@ export const PRIVATE_INVOICE = '/private_invoice';
 export const REPORTS = '/reports';
 export const INFO = '/info';
 export const WAREHOUSE = '/warehouse';
+export const SETTINGS = '/settings';

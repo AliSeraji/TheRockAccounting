@@ -5,11 +5,14 @@ import { Button } from '~/components/ui/button';
 import type { Props } from '../types';
 import SalesReceiptsPage from './SalesReceiptPage';
 import { receiptPager } from '~/helper/helper';
+import { useSettingsStore } from '~/store/useSettingsStore';
 
 const ITEMS_PER_PAGE = 15;
 
 export default function SalesInvoice({ data }: Props): React.ReactNode {
   const pages = useMemo(() => receiptPager(data, ITEMS_PER_PAGE), [data.items]);
+  const logo = useSettingsStore((state) => state.logo);
+  const companyName = useSettingsStore((state) => state.companyName);
 
   return (
     <div className="font-vazirmatn w-full space-y-4">
@@ -23,6 +26,8 @@ export default function SalesInvoice({ data }: Props): React.ReactNode {
             isLastPage={page.isLastPage}
             pageNumber={page.pageNumber}
             totalPages={pages.length}
+            logo={logo}
+            companyName={companyName}
           />
         ))}
       </div>

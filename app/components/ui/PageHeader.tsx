@@ -14,7 +14,10 @@ export default function PageHeader({
   icon: ReactNode;
 }): ReactNode {
   return (
-    <header className="w-full h-auto bg-white/50 backdrop-blur-md border-b border-slate-200 fixed left-0 right-0 top-18 z-40">
+    <header
+      className="h-auto bg-white/50 backdrop-blur-md border border-white/60 fixed top-20 left-4 right-4 z-40 rounded-2xl shadow-lg shadow-slate-200/50
+"
+    >
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-3">
           <Link

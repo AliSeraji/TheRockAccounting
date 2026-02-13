@@ -4,11 +4,14 @@ import { Button } from '~/components/ui/button';
 import type { Props } from '../types';
 import { receiptPager } from '~/helper/helper';
 import RequestReceiptPage from './RequestReceiptPage';
+import { useSettingsStore } from '~/store/useSettingsStore';
 
 const ITEMS_PER_PAGE = 8;
 
 export default function RequestProduct({ data }: Props): ReactNode {
   const pages = useMemo(() => receiptPager(data, ITEMS_PER_PAGE), [data.items]);
+  const logo = useSettingsStore((state) => state.logo);
+  const companyName = useSettingsStore((state) => state.companyName);
   const totalPages = pages.length;
 
   return (
@@ -23,6 +26,8 @@ export default function RequestProduct({ data }: Props): ReactNode {
             isLastPage={page.isLastPage}
             pageNumber={page.pageNumber}
             totalPages={totalPages}
+            logo={logo}
+            companyName={companyName}
           />
         ))}
       </div>

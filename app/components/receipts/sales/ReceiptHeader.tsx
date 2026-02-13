@@ -2,26 +2,28 @@ import type React from 'react';
 import { convertToPersianDigits } from '~/lib/utils';
 
 interface Props {
-  buyer: string;
+  companyName: string;
   invoiceType: string;
   invoiceNumber: string;
   invoiceDate: string;
+  logo: string | null;
 }
 
 export default function SalesReceiptHeader({
-  buyer,
   invoiceType,
   invoiceNumber,
   invoiceDate,
+  logo,
+  companyName,
 }: Props): React.ReactNode {
   return (
     <div className="flex justify-between items-start mb-2">
-      <div className="border-2 border-black px-6 py-4 text-base font-bold">
-        Logo
+      <div className=" text-base font-bold">
+        <img src={logo || undefined} className="w-10 h-10 object-fit" />
       </div>
 
       <div className="text-center flex-1 mx-4">
-        <h1 className="text-base font-bold text-black">شرکت {buyer}</h1>
+        <h1 className="text-base font-bold text-black">شرکت {companyName}</h1>
         <h2 className="text-sm font-bold mt-2 text-black">
           {invoiceType || 'فاکتور فروش'}
         </h2>

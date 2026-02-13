@@ -16,6 +16,8 @@ export default function SalesReceiptsPage({
   isLastPage,
   pageNumber,
   totalPages,
+  logo,
+  companyName,
 }: ReceiptProps): React.ReactNode {
   return (
     <div
@@ -24,10 +26,11 @@ export default function SalesReceiptsPage({
       dir="rtl"
     >
       <SalesReceiptHeader
-        buyer={data.buyer}
         invoiceType={data.invoiceType}
         invoiceNumber={data.invoiceNumber}
         invoiceDate={data.invoiceDate}
+        companyName={companyName}
+        logo={logo}
       />
 
       <SalesInfoBox

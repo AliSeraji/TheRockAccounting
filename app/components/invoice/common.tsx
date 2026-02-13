@@ -67,4 +67,6 @@ export interface ReceiptProps {
   isLastPage: boolean;
   pageNumber: number;
   totalPages: number;
+  logo: string | null;
+  companyName: string;
 }

@@ -10,9 +10,10 @@ export default function RequestReceiptPage({
   data,
   items,
   startIndex,
-  isLastPage,
   pageNumber,
   totalPages,
+  logo,
+  companyName,
 }: ReceiptProps): ReactNode {
   return (
     <div
@@ -24,7 +25,7 @@ export default function RequestReceiptPage({
       }}
       dir="rtl"
     >
-      <RequestReceiptHeader data={data} />
+      <RequestReceiptHeader data={data} logo={logo} companyName={companyName} />
       <CustomerInfoBox
         buyer={data.buyer}
         phone={data.phone}

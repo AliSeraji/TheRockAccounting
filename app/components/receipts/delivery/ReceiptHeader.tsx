@@ -5,16 +5,18 @@ export default function ReceiptHeader({
   date,
   invoiceNumber,
   companyName,
+  logo,
 }: {
   date?: string;
   invoiceNumber?: string;
   companyName?: string;
+  logo: string | null;
 }): React.ReactNode {
   return (
     <>
       <div className="flex justify-between items-start mb-4">
-        <div className="border-2 border-gray-600 px-4 py-3 text-sm font-bold">
-          Logo
+        <div className=" text-sm font-bold">
+          <img src={logo || undefined} className="w-10 h-10 object-fit" />
         </div>
 
         <div className="text-center flex-1 mx-6">
