@@ -1,18 +1,13 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
 import InvoiceHeader from '~/components/invoice/header';
 import InvoiceBody from '~/components/invoice';
-import { useInvoiceStore } from '~/store/useInvoiceStore';
-import DeliveryReceipt from '~/components/receipts/delivery';
-import SalesInvoice from '~/components/receipts/sales';
-import RequestProduct from '~/components/receipts/request';
-import type { ReactNode } from 'react';
+import { Button } from '~/components/ui/button';
+import { FileText, Truck, PackageSearch, Receipt } from 'lucide-react';
+import { useState, type ReactNode } from 'react';
+import { ReceiptType } from '~/components/receipts/types';
+import ReceiptOutputDialog from '~/components/receipts/dialogs/receiptOutputDialog';
 
 export const Invoice = (): ReactNode => {
-  const activeTab = useInvoiceStore((state) => state.activeTab);
-  const setActiveTab = useInvoiceStore((state) => state.setActiveTab);
-  const getInvoiceData = useInvoiceStore((state) => state.getInvoiceData);
-
-  const invoiceData = getInvoiceData();
+  const [openReceipt, setOpenReceipt] = useState<ReceiptType>(null);
 
   return (
     <div className="h-full flex flex-col relative" dir="rtl">
@@ -20,55 +15,35 @@ export const Invoice = (): ReactNode => {
 
       <div className="w-full flex flex-col items-center overflow-auto pt-16">
         <div className="w-full py-6">
-          <Tabs value={activeTab} onValueChange={setActiveTab} dir="rtl">
-            <TabsList
-              className="grid grid-cols-4 mb-8 bg-white/80 border border-slate-200 gap-1"
-              dir="rtl"
+          <InvoiceBody />
+
+          <div className="font-vazirmatn flex flex-wrap items-center justify-center gap-4 mt-8 pb-8">
+            <Button
+              onClick={() => setOpenReceipt(ReceiptType.Sales)}
+              className="gap-2 bg-linear-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
             >
-              <TabsTrigger
-                value="invoice"
-                className="data-[state=active]:bg-slate-700 hover:bg-slate-400 data-[state=active]:text-white"
-              >
-                ورود اطلاعات
-              </TabsTrigger>
-              <TabsTrigger
-                value="sales"
-                className="data-[state=active]:bg-slate-700 hover:bg-slate-400 data-[state=active]:text-white"
-              >
-                فاکتور فروش
-              </TabsTrigger>
-              <TabsTrigger
-                value="delivery"
-                className="data-[state=active]:bg-slate-700 hover:bg-slate-400 data-[state=active]:text-white"
-              >
-                رسید تحویل بار
-              </TabsTrigger>
-              <TabsTrigger
-                value="request"
-                className="data-[state=active]:bg-slate-700 hover:bg-slate-400 data-[state=active]:text-white"
-              >
-                درخواست سنگ
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="invoice">
-              <InvoiceBody />
-            </TabsContent>
-
-            <TabsContent value="sales">
-              <SalesInvoice data={invoiceData} />
-            </TabsContent>
-
-            <TabsContent value="delivery">
-              <DeliveryReceipt data={invoiceData} />
-            </TabsContent>
-
-            <TabsContent value="request">
-              <RequestProduct data={invoiceData} />
-            </TabsContent>
-          </Tabs>
+              <FileText className="w-4 h-4" />
+              فاکتور فروش
+            </Button>
+            <Button
+              onClick={() => setOpenReceipt(ReceiptType.Delivery)}
+              className="gap-2 bg-linear-to-r from-teal-500 to-teal-700 hover:from-teal-600 hover:to-teal-800 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
+            >
+              <Truck className="w-4 h-4" />
+              رسید تحویل بار
+            </Button>
+            <Button
+              onClick={() => setOpenReceipt(ReceiptType.Request)}
+              className="gap-2 bg-linear-to-r from-orange-500 to-orange-700 hover:from-orange-600 hover:to-orange-800 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
+            >
+              <PackageSearch className="w-4 h-4" />
+              درخواست سنگ
+            </Button>
+          </div>
         </div>
       </div>
+
+      <ReceiptOutputDialog open={openReceipt}  onChangeReceipt={setOpenReceipt} />
     </div>
   );
 };

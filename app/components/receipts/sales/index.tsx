@@ -11,29 +11,8 @@ const ITEMS_PER_PAGE = 15;
 export default function SalesInvoice({ data }: Props): React.ReactNode {
   const pages = useMemo(() => receiptPager(data, ITEMS_PER_PAGE), [data.items]);
 
-  const handlePrint = () => {
-    const style = document.createElement('style');
-    style.id = 'print-page-size';
-    style.textContent =
-      '@media print { @page { size: A4; margin: 0; } html, body { width: 210mm !important; height: 297mm !important; } }';
-    document.head.appendChild(style);
-    window.print();
-    style.remove();
-  };
   return (
     <div className="font-vazirmatn w-full space-y-4">
-      <div className="flex max-w-7xl justify-between items-center mb-2 px-2 no-print">
-        <h2 className="text-xl font-bold text-gray-800">
-          پیش‌نمایش فاکتور فروش (A4)
-        </h2>
-        <Button
-          onClick={handlePrint}
-          className="bg-gray-800 hover:bg-gray-900 gap-2"
-        >
-          <Printer className="w-4 h-4" />
-          چاپ
-        </Button>
-      </div>
       <div className="print-receipt space-y-8 print:space-y-0">
         {pages.map((page) => (
           <SalesReceiptsPage
