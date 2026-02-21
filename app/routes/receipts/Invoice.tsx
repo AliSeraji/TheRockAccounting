@@ -23,27 +23,30 @@ export const Invoice = (): ReactNode => {
               className="gap-2 bg-linear-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
             >
               <FileText className="w-4 h-4" />
-              فاکتور فروش
+              نمایش فاکتور
             </Button>
             <Button
               onClick={() => setOpenReceipt(ReceiptType.Delivery)}
               className="gap-2 bg-linear-to-r from-teal-500 to-teal-700 hover:from-teal-600 hover:to-teal-800 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
             >
               <Truck className="w-4 h-4" />
-              رسید تحویل بار
+              نمایش رسید تحویل بار
             </Button>
-            <Button
+            {/* <Button
               onClick={() => setOpenReceipt(ReceiptType.Request)}
               className="gap-2 bg-linear-to-r from-orange-500 to-orange-700 hover:from-orange-600 hover:to-orange-800 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
             >
               <PackageSearch className="w-4 h-4" />
               درخواست سنگ
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>
 
-      <ReceiptOutputDialog open={openReceipt}  onChangeReceipt={setOpenReceipt} />
+      <ReceiptOutputDialog
+        open={openReceipt}
+        onChangeReceipt={setOpenReceipt}
+      />
     </div>
   );
 };

@@ -11,11 +11,11 @@ import {
 import {
   BUYER_REGISTER,
   CARGO,
-  DOC_REQUEST,
   PRIVATE_INVOICE,
   PURCHASE_REG,
   RECEIPT_ISSUE,
   SETTINGS,
+  WAREHOUSE,
 } from '~/routes/constants';
 
 export const dashboardItems = [
@@ -31,7 +31,7 @@ export const dashboardItems = [
     icon: FileText,
     color: 'from-blue-400 to-blue-600',
     description: 'مدیریت کالاها و انبار داری',
-    to: DOC_REQUEST,
+    to: WAREHOUSE,
   },
   {
     title: 'مشتریان',
