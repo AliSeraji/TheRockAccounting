@@ -53,8 +53,8 @@ export default function Settings(): ReactNode {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6 space-y-4">
-            <div className="space-y-2">
-              <Label className="text-slate-700">نام شرکت</Label>
+            <div className="flex flex-col space-y-2">
+              <Label className="text-slate-700 pr-2">نام شرکت</Label>
               <Input
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
