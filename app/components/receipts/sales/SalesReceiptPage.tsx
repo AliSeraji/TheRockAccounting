@@ -8,6 +8,7 @@ import SalesNote from './Note';
 import SalesSignature from './Signature';
 import PriceBox from './PriceBox';
 import { convertToPersianDigits } from '~/lib/utils';
+import { AdditionalNote } from './AdditionalNote';
 
 export default function SalesReceiptsPage({
   data,
@@ -22,7 +23,7 @@ export default function SalesReceiptsPage({
   return (
     <div
       className="receipt-page receipt-page-a4 bg-white mx-auto shadow-2xl print:shadow-none"
-      style={{ width: '210mm', minHeight: '297mm', padding: '15mm' }}
+      style={{ width: '210mm', minHeight: '297mm', padding: '10mm' }}
       dir="rtl"
     >
       <SalesReceiptHeader
@@ -47,8 +48,9 @@ export default function SalesReceiptsPage({
         totals={data.totals}
       />
 
+      <AdditionalNote additionalNote={data.additionalNote} />
+
       <SalesNote
-        description={data.description}
         discount={data.discount}
         tax={data.tax}
         received={data.received}

@@ -10,6 +10,31 @@
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-vazirmatn: 'Vazirmatn Variable', sans-serif;
   --font-samim: 'Samim', sans-serif;
+
+  --animate-slide-from-left: calendar-slide-from-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --animate-slide-from-right: calendar-slide-from-right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes calendar-slide-from-left {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes calendar-slide-from-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 html,
@@ -216,9 +241,9 @@ body {
   }
 
   .receipt-page-a4 {
-    width: 210mm !important;
-    min-height: unset !important;
-    padding: 15mm !important;
+    width: 100% !important;
+    min-height: 297mm !important;
+    padding: 10mm !important;
   }
 
   .receipt-page-a5 {

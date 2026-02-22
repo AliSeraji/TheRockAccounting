@@ -1,7 +1,7 @@
 import InvoiceHeader from '~/components/invoice/header';
 import InvoiceBody from '~/components/invoice';
 import { Button } from '~/components/ui/button';
-import { FileText, Truck, PackageSearch, Receipt } from 'lucide-react';
+import { FileText, Truck } from 'lucide-react';
 import { useState, type ReactNode } from 'react';
 import { ReceiptType } from '~/components/receipts/types';
 import ReceiptOutputDialog from '~/components/receipts/dialogs/receiptOutputDialog';

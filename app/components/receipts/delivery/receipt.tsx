@@ -6,6 +6,7 @@ import { Signature } from './Signature';
 import ReceiptTable from './Table';
 import { type ReceiptProps } from './../../invoice/common';
 import { convertToPersianDigits } from '~/lib/utils';
+import { AdditionalNote } from './AdditionalNote';
 
 export default function ReceiptPage({
   data,
@@ -45,6 +46,8 @@ export default function ReceiptPage({
         isLastPage={isLastPage}
         totalArea={data.totals.totalArea}
       />
+
+      <AdditionalNote additionalNote={data.secondAdditionalNote} />
 
       <Note />
       <Signature />

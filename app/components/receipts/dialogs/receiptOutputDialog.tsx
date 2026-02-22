@@ -21,14 +21,14 @@ export default function ReceiptOutputDialog({
   onChangeReceipt: (open: ReceiptType) => void;
 }): ReactNode {
   const getInvoiceData = useInvoiceStore((state) => state.getInvoiceData);
-  const invoiceData = getInvoiceData();
+  const invoiceData = getInvoiceData(); 
 
   const handlePrint = () => {
     let pageCss = '';
     switch (open) {
       case ReceiptType.Sales:
         pageCss =
-          '@page { size: A4; margin: 0; } html, body { width: 210mm !important; height: 297mm !important; }';
+          '@page { size: A4; margin: 0; } html, body { width: 100% !important; height: 297mm !important; }';
         break;
       case ReceiptType.Delivery:
       case ReceiptType.Request:

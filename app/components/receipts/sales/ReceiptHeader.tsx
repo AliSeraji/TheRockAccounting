@@ -31,13 +31,13 @@ export default function SalesReceiptHeader({
 
       <div className="text-left space-y-2 text-sm">
         <div className="flex items-center gap-1">
-          <span className="text-black">شماره:</span>
+          <span className="text-black text-xs">شماره:</span>
           <span className="px-1 text-slate-700">
             {convertToPersianDigits(invoiceNumber)}
           </span>
         </div>
         <div className="flex items-center gap-0.5">
-          <span className="text-black">تاریخ:</span>
+          <span className="text-black text-xs">تاریخ:</span>
           <span className="px-1 text-slate-700">
             {convertToPersianDigits(invoiceDate)}
           </span>

@@ -25,8 +25,8 @@ export interface InvoiceDataType {
   phone: string;
   invoiceNumber: string;
   invoiceDate: string;
-  description: string;
-  personalNote: string;
+  secondAdditionalNote: string;
+  additionalNote: string;
   discount: string;
   tax: string;
   received: string;
@@ -42,8 +42,8 @@ export interface InvoiceState {
   phone: string;
   invoiceNumber: string;
   invoiceDate: string;
-  description: string;
-  personalNote: string;
+  secondAdditionalNote: string;
+  additionalNote: string;
   discount: string;
   tax: string;
   received: string;
@@ -58,8 +58,8 @@ export interface InvoiceState {
   setPhone: (value: string) => void;
   setInvoiceNumber: (value: string) => void;
   setInvoiceDate: (value: string) => void;
-  setDescription: (value: string) => void;
-  setPersonalNote: (value: string) => void;
+  setSecondAdditionalNote: (value: string) => void;
+  setAdditionalNote: (value: string) => void;
   setDiscount: (value: string) => void;
   setTax: (value: string) => void;
   setReceived: (value: string) => void;
