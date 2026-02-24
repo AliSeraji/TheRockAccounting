@@ -8,7 +8,7 @@ export const ReceiptIssueHeader = (): ReactNode => {
     <PageHeader
       icon={<Home className="w-5 h-5 text-white" />}
       link={HOME}
-      currentPage="مدیریت و صدور فاکتورها"
+      currentPage="فاکتور فروش"
       lastPage="داشبورد اصلی"
     />
   );

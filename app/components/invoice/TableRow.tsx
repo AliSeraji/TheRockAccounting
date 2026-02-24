@@ -1,7 +1,7 @@
 import type React from 'react';
 import { TableCell, TableRow } from '../ui/table';
 import { convertToPersianDigits } from '~/lib/utils';
-import { Trash2 } from 'lucide-react';
+import { Table, Trash2 } from 'lucide-react';
 import { Button } from '../ui/button';
 import type { StoneItem } from '~/store/types';
 import PersianNumericInput from './PersianNumericInput';
@@ -40,10 +40,21 @@ const Row = memo(function Row({
 
   return (
     <TableRow className="w-full flex flex-row hover:bg-slate-50 transition-colors">
-      <TableCell className="w-[5%] border-x-[0.5px] border-r-2 border-slate-200 p-2 text-center text-slate-700 font-medium">
+      <TableCell className="w-[3%] border-x-[0.5px] border-r border-slate-200 p-2 text-center text-slate-700 font-medium">
         {convertToPersianDigits(index + 1)}
       </TableCell>
-      <TableCell className="w-[15%] border-x-[0.5px] border-slate-200 p-1">
+      <TableCell className="w-[6%] border-x-[0.5px] border-slate-200 p-1">
+        <Input
+          value={convertToPersianDigits(
+            String(rowItem[INVOICE_ROW_FIELDS.STONE_CODE])
+          )}
+          onChange={(v) =>
+            update(rowItem.id, INVOICE_ROW_FIELDS.STONE_CODE, v.target.value)
+          }
+          className={`border-0 text-center focus-visible:ring-offset-3 text-sm h-8 cursor-text p-1}`}
+        />
+      </TableCell>
+      <TableCell className="w-[11%] border-x-[0.5px] border-slate-200 p-1">
         <Input
           value={convertToPersianDigits(
             String(rowItem[INVOICE_ROW_FIELDS.STONE_TYPE])
@@ -75,7 +86,7 @@ const Row = memo(function Row({
       <TableCell className="w-[20%] border-x-[0.5px] border-slate-200 p-1">
         {numericCell(INVOICE_ROW_FIELDS.TOTAL, true, true)}
       </TableCell>
-      <TableCell className="w-[5%] border-x-[0.5px] border-l-2 border-slate-200 p-1 text-center">
+      <TableCell className="w-[5%] border-x-[0.5px] border-l border-slate-200 p-1 text-center">
         <Button
           variant="ghost"
           size="sm"

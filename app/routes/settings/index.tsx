@@ -56,7 +56,7 @@ export default function Settings(): ReactNode {
             <div className="flex flex-col space-y-2">
               <Label className="text-slate-700 pr-2">نام شرکت</Label>
               <Input
-                value={companyName}
+                value={companyName} 
                 onChange={(e) => setCompanyName(e.target.value)}
                 className="border-slate-200 rounded-lg focus:ring-slate-400 max-w-100"
                 placeholder="شرکت شما"

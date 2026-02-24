@@ -70,7 +70,11 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label className="text-slate-700">عنوان</Label>
-            <Select value={invoiceType} onValueChange={setInvoiceType}>
+            <Select
+              value={invoiceType}
+              onValueChange={setInvoiceType}
+              dir="rtl"
+            >
               <SelectTrigger className="border-slate-200 focus:ring-slate-400 focus:ring-offset-0">
                 <SelectValue placeholder="انتخاب نوع فاکتور" />
               </SelectTrigger>

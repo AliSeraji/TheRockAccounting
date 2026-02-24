@@ -20,10 +20,10 @@ import {
 
 export const dashboardItems = [
   {
-    title: 'صدور فاکتور',
+    title: 'فاکتور فروش',
     icon: FileCheck2,
     color: 'from-teal-400 to-teal-600',
-    description: 'مدیریت و صدور فاکتورها',
+    description: 'مدیریت فاکتورهای فروش',
     to: RECEIPT_ISSUE,
   },
   {

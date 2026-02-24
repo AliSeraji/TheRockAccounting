@@ -6,8 +6,9 @@ export type InvoiceTableItem = {
 };
 
 export const invoiceTableItems: InvoiceTableItem[] = [
-  { label: 'ردیف', width: 'w-[5%]' },
-  { label: 'نوع سنگ', width: 'w-[15%]' },
+  { label: 'ردیف', width: 'w-[3%]' },
+  { label: 'کد', width: 'w-[6%]' },
+  { label: 'نوع سنگ', width: 'w-[11%]' },
   { label: 'قطر (سانتی متر)', width: 'w-[10%]' },
   { label: 'تعداد', width: 'w-[5%]' },
   { label: 'عرض (متر)', width: 'w-[8%]' },

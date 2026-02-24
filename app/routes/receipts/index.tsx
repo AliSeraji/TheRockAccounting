@@ -14,7 +14,7 @@ import { ReceiptIssueHeader } from '~/components/receipt_issue/header';
 
 const receiptManagementItems = [
   {
-    title: 'صدور فاکتور',
+    title: 'صدور فاکتور جدید',
     icon: FileText,
     color: 'from-teal-400 to-teal-600',
     description: 'ایجاد و صدور فاکتور جدید',

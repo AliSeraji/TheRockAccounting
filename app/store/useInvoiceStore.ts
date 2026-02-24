@@ -7,6 +7,7 @@ const initialItems: StoneItem[] = [
   {
     id: 1,
     stoneType: '-',
+    stoneCode: '-',
     thickness: '-',
     quantity: '-',
     width: '-',
@@ -90,6 +91,7 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
           {
             id: newId,
             stoneType: '',
+            stoneCode: '',
             thickness: '-',
             quantity: '-',
             width: '-',

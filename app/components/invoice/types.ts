@@ -2,6 +2,7 @@ import type { StoneItem } from '~/store/types';
 
 export const INVOICE_ROW_FIELDS = {
   STONE_TYPE: 'stoneType',
+  STONE_CODE: 'stoneCode',
   THICKNESS: 'thickness',
   QUANTITY: 'quantity',
   WIDTH: 'width',

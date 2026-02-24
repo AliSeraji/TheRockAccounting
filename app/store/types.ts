@@ -1,6 +1,7 @@
 export interface StoneItem {
   id: number;
   stoneType: string;
+  stoneCode: string;
   thickness: string;
   quantity: string;
   width: string;
