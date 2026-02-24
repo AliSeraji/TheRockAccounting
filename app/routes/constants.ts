@@ -1,4 +1,6 @@
-export const INVOICE = '/invoice';
+export const HOME = '/';
+export const RECEIPT_ISSUE = '/issue_receipt';
+export const INVOICE = '/issue_receipt/invoice';
 export const DOC_REQUEST = '/document_request';
 export const BUYER_REGISTER = '/buyer_registration';
 export const CARGO = '/cargo';
@@ -7,3 +9,4 @@ export const PRIVATE_INVOICE = '/private_invoice';
 export const REPORTS = '/reports';
 export const INFO = '/info';
 export const WAREHOUSE = '/warehouse';
+export const SETTINGS = '/settings';

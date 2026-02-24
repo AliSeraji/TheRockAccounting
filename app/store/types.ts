@@ -1,4 +1,15 @@
-import type { StoneItem } from '~/components/invoice/types';
+export interface StoneItem {
+  id: number;
+  stoneType: string;
+  stoneCode: string;
+  thickness: string;
+  quantity: string;
+  width: string;
+  length: string;
+  area: string;
+  price: string;
+  total: string;
+}
 
 export interface InvoiceTotals {
   totalQuantity: number;
@@ -15,8 +26,8 @@ export interface InvoiceDataType {
   phone: string;
   invoiceNumber: string;
   invoiceDate: string;
-  description: string;
-  personalNote: string;
+  secondAdditionalNote: string;
+  additionalNote: string;
   discount: string;
   tax: string;
   received: string;
@@ -32,14 +43,13 @@ export interface InvoiceState {
   phone: string;
   invoiceNumber: string;
   invoiceDate: string;
-  description: string;
-  personalNote: string;
+  secondAdditionalNote: string;
+  additionalNote: string;
   discount: string;
   tax: string;
   received: string;
   activeTab: string;
-  companyName?: string;
-
+  totals: InvoiceTotals;
   items: StoneItem[];
 
   setInvoiceType: (value: string) => void;
@@ -49,18 +59,16 @@ export interface InvoiceState {
   setPhone: (value: string) => void;
   setInvoiceNumber: (value: string) => void;
   setInvoiceDate: (value: string) => void;
-  setDescription: (value: string) => void;
-  setPersonalNote: (value: string) => void;
+  setSecondAdditionalNote: (value: string) => void;
+  setAdditionalNote: (value: string) => void;
   setDiscount: (value: string) => void;
   setTax: (value: string) => void;
   setReceived: (value: string) => void;
   setActiveTab: (value: string) => void;
-
   addItem: () => void;
   removeItem: (id: number) => void;
   updateItem: (id: number, field: keyof StoneItem, value: string) => void;
 
-  getTotals: () => InvoiceTotals;
   getInvoiceData: () => InvoiceDataType;
 
   resetInvoice: () => void;

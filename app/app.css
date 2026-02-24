@@ -10,6 +10,31 @@
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-vazirmatn: 'Vazirmatn Variable', sans-serif;
   --font-samim: 'Samim', sans-serif;
+
+  --animate-slide-from-left: calendar-slide-from-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --animate-slide-from-right: calendar-slide-from-right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes calendar-slide-from-left {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes calendar-slide-from-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 html,
@@ -36,7 +61,7 @@ body {
 .MainWrapper {
   max-width: 1280px;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 72px);
   justify-content: center;
   margin: auto auto;
 }
@@ -161,11 +186,91 @@ body {
 }
 
 @media print {
+  body * {
+    visibility: hidden;
+  }
+
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+
+  .print-receipt,
+  .print-receipt * {
+    visibility: visible;
+  }
+
+  .print-receipt {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-shadow: none !important;
+    font-family: 'Vazirmatn Variable', sans-serif !important;
+  }
+
   .no-print {
     display: none !important;
   }
 
-  .print-content {
-    display: block;
+  .receipt-page {
+    page-break-after: always;
+    break-after: page;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
   }
+
+  .receipt-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  [data-slot='table-container'] {
+    overflow: visible !important;
+  }
+
+  .receipt-page-a4 {
+    width: 100% !important;
+    min-height: 297mm !important;
+    padding: 10mm !important;
+  }
+
+  .receipt-page-a5 {
+    width: 100% !important;
+    max-width: 148mm !important;
+    height: 200mm !important;
+    min-height: unset !important;
+    padding: 5mm 5mm !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .receipt-page-a5 table {
+    font-size: 11px !important;
+  }
+}
+
+.date-picker-wrapper {
+  position: relative;
+  overflow: visible !important;
+}
+
+.date-picker-wrapper .Calendar {
+  position: absolute;
+  top: -10px;
+  right: -190px;
+  bottom: 100px;
+  z-index: 10000;
 }

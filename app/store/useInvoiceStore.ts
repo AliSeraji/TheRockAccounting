@@ -1,21 +1,29 @@
 import { create } from 'zustand';
 import { convertToEnDigits } from './../lib/utils';
-import type { StoneItem } from '~/components/invoice/types';
-import type { InvoiceState } from './types';
+import type { InvoiceState, InvoiceTotals, StoneItem } from './types';
+import { computeTotals } from './helper';
 
 const initialItems: StoneItem[] = [
   {
     id: 1,
-    stoneType: '',
-    thickness: '0',
-    quantity: '0',
-    width: '0',
-    length: '0',
-    area: '0',
-    price: '0',
-    total: '0',
+    stoneType: '-',
+    stoneCode: '-',
+    thickness: '-',
+    quantity: '-',
+    width: '-',
+    length: '-',
+    area: '-',
+    price: '-',
+    total: '-',
   },
 ];
+
+const initialTotals: InvoiceTotals = {
+  totalQuantity: 0,
+  totalArea: 0,
+  totalAmount: 0,
+  totalPaymentAmount: 0,
+};
 
 const initialState = {
   invoiceType: 'پیش فاکتور',
@@ -25,14 +33,14 @@ const initialState = {
   phone: '',
   invoiceNumber: '',
   invoiceDate: '',
-  description: '',
-  personalNote: '',
-  discount: '',
-  tax: '',
-  received: '',
+  secondAdditionalNote: '',
+  additionalNote: '',
+  discount: '0',
+  tax: '0',
+  received: '0',
   activeTab: 'invoice',
   items: initialItems,
-  companyName: '',
+  totals: initialTotals,
 };
 
 export const useInvoiceStore = create<InvoiceState>((set, get) => ({
@@ -45,12 +53,31 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
   setPhone: (value) => set({ phone: value }),
   setInvoiceNumber: (value) => set({ invoiceNumber: value }),
   setInvoiceDate: (value) => set({ invoiceDate: value }),
-  setDescription: (value) => set({ description: value }),
-  setPersonalNote: (value) => set({ personalNote: value }),
-  setDiscount: (value) => set({ discount: value }),
-  setTax: (value) => set({ tax: value }),
-  setReceived: (value) => set({ received: value }),
+  setSecondAdditionalNote: (value) => set({ secondAdditionalNote: value }),
+  setAdditionalNote: (value) => set({ additionalNote: value }),
   setActiveTab: (value) => set({ activeTab: value }),
+
+  setDiscount: (value) => {
+    const { tax, received, items } = get();
+    set({
+      discount: value,
+      totals: computeTotals(items, value, tax, received),
+    });
+  },
+  setTax: (value) => {
+    const { discount, received, items } = get();
+    set({
+      tax: value,
+      totals: computeTotals(items, discount, value, received),
+    });
+  },
+  setReceived: (value) => {
+    const { discount, tax, items } = get();
+    set({
+      received: value,
+      totals: computeTotals(items, discount, tax, value),
+    });
+  },
 
   addItem: () =>
     set((state) => {
@@ -64,79 +91,63 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
           {
             id: newId,
             stoneType: '',
-            thickness: '0',
-            quantity: '0',
-            width: '0',
-            length: '0',
-            area: '0',
-            price: '0',
-            total: '0',
+            stoneCode: '',
+            thickness: '-',
+            quantity: '-',
+            width: '-',
+            length: '-',
+            area: '-',
+            price: '-',
+            total: '-',
           },
         ],
       };
     }),
 
-  removeItem: (id) =>
-    set((state) => {
-      if (state.items.length > 1) {
-        return { items: state.items.filter((item) => item.id !== id) };
+  removeItem: (id) => {
+    const { items, discount, tax, received } = get();
+    if (items.length <= 1) return;
+    const newItems = items.filter((item) => item.id !== id);
+    set({
+      items: newItems,
+      totals: computeTotals(newItems, discount, tax, received),
+    });
+  },
+
+  updateItem: (id, field, value) => {
+    const { items, discount, tax, received } = get();
+    const newItems = items.map((item) => {
+      if (item.id !== id) return item;
+      let updatedItem = { ...item, [field]: value };
+
+      if (['width', 'length', 'quantity'].includes(field)) {
+        const width = updatedItem.width || '0';
+        const length = updatedItem.length || '0';
+        const quantity = updatedItem.quantity || '0';
+
+        const area =
+          parseFloat(convertToEnDigits(width)) *
+          parseFloat(convertToEnDigits(length)) *
+          parseFloat(convertToEnDigits(quantity));
+        updatedItem.area = area > 0 ? area.toFixed(2).toString() : '0';
       }
-      return state;
-    }),
 
-  updateItem: (id, field, value) =>
-    set((state) => ({
-      items: state.items.map((item) => {
-        if (item.id !== id) return item;
-        let updatedItem = { ...item, [field]: value };
+      if (['width', 'length', 'quantity', 'area', 'price'].includes(field)) {
+        const area = updatedItem.area || 0;
+        const price = updatedItem.price || 0;
 
-        if (['width', 'length', 'quantity'].includes(field)) {
-          const width = updatedItem.width || '0';
-          const length = updatedItem.length || '0';
-          const quantity = updatedItem.quantity || '0';
+        const total =
+          parseFloat(convertToEnDigits(area)) *
+          parseFloat(convertToEnDigits(price));
+        updatedItem.total = total > 0 ? total.toFixed(0).toString() : '0';
+      }
 
-          const area =
-            parseFloat(convertToEnDigits(width)) *
-            parseFloat(convertToEnDigits(length)) *
-            parseFloat(convertToEnDigits(quantity));
-          updatedItem.area = area > 0 ? area.toFixed(2) : '0';
-        }
-
-        if (['width', 'length', 'quantity', 'area', 'price'].includes(field)) {
-          const area = updatedItem.area || 0;
-          const price = updatedItem.price || 0;
-
-          const total =
-            parseFloat(convertToEnDigits(area)) *
-            parseFloat(convertToEnDigits(price));
-          updatedItem.total = total > 0 ? total.toFixed(2) : '0';
-        }
-
-        return updatedItem;
-      }),
-    })),
-
-  getTotals: () => {
-    const { items, discount, tax } = get();
-    const totalQuantity = items.reduce(
-      (sum, item) => sum + (parseFloat(convertToEnDigits(item.quantity)) || 0),
-      0
-    );
-    const totalArea = items.reduce(
-      (sum, item) => sum + (parseFloat(convertToEnDigits(item.area)) || 0),
-      0
-    );
-    const totalAmount = items.reduce(
-      (sum, item) => sum + (parseFloat(convertToEnDigits(item.total)) || 0),
-      0
-    );
-
-    const totalPaymentAmount =
-      totalAmount -
-        parseFloat(convertToEnDigits(discount)) +
-        parseFloat(convertToEnDigits(tax)) || 0;
-
-    return { totalQuantity, totalArea, totalAmount, totalPaymentAmount };
+      return updatedItem;
+    });
+    set({
+      items: newItems,
+      totals: computeTotals(newItems, discount, tax, received),
+    });
   },
 
   getInvoiceData: () => {
@@ -149,13 +160,13 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
       phone: state.phone,
       invoiceNumber: state.invoiceNumber,
       invoiceDate: state.invoiceDate,
-      description: state.description,
-      personalNote: state.personalNote,
+      secondAdditionalNote: state.secondAdditionalNote,
+      additionalNote: state.additionalNote,
       discount: state.discount,
       tax: state.tax,
       received: state.received,
       items: state.items,
-      totals: state.getTotals(),
+      totals: state.totals,
     };
   },
 

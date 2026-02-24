@@ -11,11 +11,11 @@ import {
 import {
   BUYER_REGISTER,
   CARGO,
-  DOC_REQUEST,
-  INFO,
-  INVOICE,
   PRIVATE_INVOICE,
   PURCHASE_REG,
+  RECEIPT_ISSUE,
+  SETTINGS,
+  WAREHOUSE,
 } from '~/routes/constants';
 
 export const dashboardItems = [
@@ -23,15 +23,15 @@ export const dashboardItems = [
     title: 'فاکتور فروش',
     icon: FileCheck2,
     color: 'from-teal-400 to-teal-600',
-    description: 'مدیریت و صدور فاکتورها',
-    to: INVOICE,
+    description: 'مدیریت فاکتورهای فروش',
+    to: RECEIPT_ISSUE,
   },
   {
     title: 'کالاو انبار',
     icon: FileText,
     color: 'from-blue-400 to-blue-600',
     description: 'مدیریت کالاها و انبار داری',
-    to: DOC_REQUEST,
+    to: WAREHOUSE,
   },
   {
     title: 'مشتریان',
@@ -66,7 +66,7 @@ export const dashboardItems = [
     icon: Settings,
     color: 'from-emerald-400 to-emerald-600',
     description: 'تنظیمات و پیکربندی سیستم',
-    to: INFO,
+    to: SETTINGS,
   },
   {
     title: 'خروج',

@@ -1,34 +1,13 @@
-export interface InvoiceData {
-  invoiceType: string;
-  buyer: string;
-  project: string;
-  address: string;
-  phone: string;
-  invoiceNumber: string;
-  invoiceDate: string;
-  description: string;
-  personalNote: string;
-  discount: string;
-  tax: string;
-  received: string;
-  items: Array<{
-    id: number;
-    stoneType: string;
-    thickness: string;
-    quantity: string;
-    width: string;
-    length: string;
-    area: string;
-    price: string;
-    total: string;
-  }>;
-  totals: {
-    totalQuantity: number;
-    totalArea: number;
-    totalAmount: number;
-  };
-}
+import type { InvoiceDataType } from '~/store/types';
 
 export interface Props {
-  data: InvoiceData;
+  data: InvoiceDataType;
 }
+
+export const ReceiptType = {
+  Sales: 'sales',
+  Delivery: 'delivery',
+  Request: 'request',
+} as const;
+
+export type ReceiptType = (typeof ReceiptType)[keyof typeof ReceiptType] | null;

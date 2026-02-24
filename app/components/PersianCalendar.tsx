@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Calendar } from 'lucide-react';
+import { Calendar, ChevronRight, ChevronLeft } from 'lucide-react';
 import {
   format,
   startOfMonth,
@@ -18,6 +18,8 @@ import { convertToPersianDigits } from '~/lib/utils';
 export const PersianCalendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [slideDir, setSlideDir] = useState<'left' | 'right'>('left');
+  const [animKey, setAnimKey] = useState(0);
 
   const persianDays = ['ش', 'ی', 'د', 'س', 'چ', 'پ', 'ج'];
 
@@ -88,10 +90,14 @@ export const PersianCalendar = () => {
   const todayPersianWeekday = format(today, 'EEEE', { locale: faIR });
 
   const goToPreviousMonth = () => {
+    setSlideDir('right');
+    setAnimKey((k) => k + 1);
     setCurrentDate((prev) => subMonths(prev, 1));
   };
 
   const goToNextMonth = () => {
+    setSlideDir('left');
+    setAnimKey((k) => k + 1);
     setCurrentDate((prev) => addMonths(prev, 1));
   };
 
@@ -113,9 +119,9 @@ export const PersianCalendar = () => {
         <div className="flex items-center justify-between mb-2">
           <button
             onClick={goToNextMonth}
-            className="p-1 hover:bg-white/20 rounded-lg transition-colors"
+            className="p-1 hover:bg-white/20 rounded-lg transition-colors hover:cursor-pointer"
           >
-            {/* <ChevronRight className="w-5 h-5" /> */}
+            <ChevronRight className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-2">
             <Calendar className="w-5 h-5" />
@@ -123,9 +129,9 @@ export const PersianCalendar = () => {
           </div>
           <button
             onClick={goToPreviousMonth}
-            className="p-1 hover:bg-white/20 rounded-lg transition-colors"
+            className="p-1 hover:bg-white/20 rounded-lg transition-colors hover:cursor-pointer"
           >
-            {/* <ChevronLeft className="w-5 h-5" /> */}
+            <ChevronLeft className="w-5 h-5" />
           </button>
         </div>
         <div className="text-center">
@@ -139,50 +145,60 @@ export const PersianCalendar = () => {
       </div>
 
       <div className="p-4">
-        <div className="grid grid-cols-7 gap-1 mb-2">
-          {persianDays.map((day, index) => (
-            <div
-              key={index}
-              className="text-center text-sm font-semibold text-gray-600 py-2"
-            >
-              {day}
-            </div>
-          ))}
-        </div>
+        <div
+          key={animKey}
+          className={
+            slideDir === 'left'
+              ? 'animate-slide-from-left'
+              : 'animate-slide-from-right'
+          }
+        >
+          <div className="grid grid-cols-7 gap-1 mb-2">
+            {persianDays.map((day, index) => (
+              <div
+                key={index}
+                className="text-center text-sm font-semibold text-gray-600 py-2"
+              >
+                {day}
+              </div>
+            ))}
+          </div>
 
-        <div className="space-y-1">
-          {calendarData.map((week, weekIndex) => (
-            <div key={weekIndex} className="grid grid-cols-7 gap-1">
-              {week.map((day, dayIndex) => (
-                <div
-                  key={dayIndex}
-                  className="aspect-square flex items-center justify-center"
-                >
-                  {day && (
-                    <button
-                      onClick={() => handleDayClick(day)}
-                      className={`
+          <div className="space-y-1">
+            {calendarData.map((week, weekIndex) => (
+              <div key={weekIndex} className="grid grid-cols-7 gap-1">
+                {week.map((day, dayIndex) => (
+                  <div
+                    key={dayIndex}
+                    className="aspect-square flex items-center justify-center"
+                  >
+                    {day && (
+                      <button
+                        onClick={() => handleDayClick(day)}
+                        className={`
                         w-8 h-8 rounded-lg text-sm font-medium transition-all duration-200
                         ${
                           isToday(day)
-                            ? 'bg-gradient-to-br from-teal-500 to-blue-500 text-white shadow-md'
+                            ? 'bg-linear-to-br from-teal-500 to-blue-500 text-white shadow-md'
                             : selectedDate && isSameDay(day, selectedDate)
                               ? 'bg-teal-100 text-teal-700 ring-2 ring-teal-500'
                               : !isSameMonth(day, currentDate)
                                 ? 'text-gray-400'
                                 : 'text-gray-700 hover:bg-gray-100'
                         }
+                        ${isToday(day) ? 'hover:cursor-default' : 'hover:cursor-pointer'}
                       `}
-                    >
-                      {convertToPersianDigits(
-                        format(day, 'd', { locale: faIR })
-                      )}
-                    </button>
-                  )}
-                </div>
-              ))}
-            </div>
-          ))}
+                      >
+                        {convertToPersianDigits(
+                          format(day, 'd', { locale: faIR })
+                        )}
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="mt-4 pt-4 border-t border-gray-100">

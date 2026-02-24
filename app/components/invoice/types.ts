@@ -1,28 +1,16 @@
-export type InvoiceDataType = {
-  invoiceType: string;
-  buyer: string;
-  project: string;
-  address: string;
-  phone: string;
-  invoiceNumber: string;
-  invoiceDate: string;
-  description: string;
-  personalNote: string;
-  discount: string;
-  tax: string;
-  received: string;
-  items: StoneItem[];
-  totals: { totalQuantity: number; totalArea: number; totalAmount: number };
-};
+import type { StoneItem } from '~/store/types';
 
-export interface StoneItem {
-  id: number;
-  stoneType: string;
-  thickness: string;
-  quantity: string;
-  width: string;
-  length: string;
-  area: string;
-  price: string;
-  total: string;
-}
+export const INVOICE_ROW_FIELDS = {
+  STONE_TYPE: 'stoneType',
+  STONE_CODE: 'stoneCode',
+  THICKNESS: 'thickness',
+  QUANTITY: 'quantity',
+  WIDTH: 'width',
+  LENGTH: 'length',
+  AREA: 'area',
+  PRICE: 'price',
+  TOTAL: 'total',
+} as const satisfies Record<string, keyof StoneItem>;
+
+export type InvoiceRowField =
+  (typeof INVOICE_ROW_FIELDS)[keyof typeof INVOICE_ROW_FIELDS];

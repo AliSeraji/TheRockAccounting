@@ -98,7 +98,7 @@ export function numberToWords(num: number): string {
     baseIndex++;
   }
 
-  return parts.join(' و ');
+  return parts.join(' و ') + ' ریال';
 }
 
 export function formatNumber(num: number): string {
@@ -107,7 +107,9 @@ export function formatNumber(num: number): string {
 
 export function convertToPersianDigits(num: string | number): string {
   const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-  return String(num).replace(/\d/g, (digit) => persianDigits[Number(digit)]);
+  return String(num)
+    .replace(/\d/g, (digit) => persianDigits[Number(digit)])
+    .replace(/\./g, '/');
 }
 
 export function convertToEnDigits(num: string | number): string {
@@ -123,3 +125,15 @@ export function persianNumberToText(num: string | number): string {
   if (isNaN(parsed)) return '';
   return numberToWords(parsed);
 }
+
+export const cleanTrailingZeros = (str: string): string => {
+  if (str.includes('.') && !str.endsWith('.')) {
+    return str.replace(/\.?0+$/, '');
+  }
+  return str;
+};
+
+export const formatRialAmount = (num: string | number): string => {
+  const newNum = typeof num === 'number' ? convertToPersianDigits(num) : num;
+  return newNum.replace(/(?<=[۰-۹])(?=([۰-۹]{3})+(?![۰-۹]))/g, '٬');
+};
