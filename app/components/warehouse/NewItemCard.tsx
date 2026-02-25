@@ -1,14 +1,41 @@
-import type { ReactNode } from 'react';
+import { memo, useCallback, type Dispatch, type SetStateAction, type ReactNode } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Package, Plus, Save, Trash2 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
+import { formFields } from './constants';
+import type { WarehouseItem } from '~/store/warehouse/types';
+import FormField from './FormField';
 
-export default function NewItemCard({}:{
-    
-}): ReactNode {
+interface NewItemCardProps {
+  selectedId: number | null;
+  handleNew: () => void;
+  handleSave: () => void;
+  handleDelete: () => void;
+  form: WarehouseItem;
+  setForm: Dispatch<SetStateAction<WarehouseItem>>;
+  selectedItem: any;
+}
+
+const NewItemCard = memo(function NewItemCard({
+  selectedId,
+  handleNew,
+  handleSave,
+  handleDelete,
+  form,
+  setForm,
+  selectedItem,
+}: NewItemCardProps): ReactNode {
+  
+  const handleChange = useCallback(
+    (field: keyof WarehouseItem, value: string) => {
+      setForm((prev) => ({ ...prev, [field]: value }));
+    },
+    [setForm]
+  );
+
   return (
     <Card className="w-full border-slate-200 bg-white/90 backdrop-blur">
       <CardHeader className="bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
@@ -48,16 +75,15 @@ export default function NewItemCard({}:{
       <CardContent className="p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
           {formFields.map(({ label, key, type, placeholder }) => (
-            <div key={key} className="flex flex-col space-y-2">
-              <Label className="text-slate-700 pr-1">{label}</Label>
-              <Input
-                type={type ?? 'text'}
-                value={form[key]}
-                onChange={(e) => handleChange(key, e.target.value)}
-                placeholder={placeholder}
-                className="border-slate-200 rounded-lg focus:ring-slate-400"
-              />
-            </div>
+            <FormField
+              key={key}
+              label={label}
+              fieldKey={key}
+              value={form[key] as string}
+              type={type}
+              placeholder={placeholder}
+              onChange={handleChange}
+            />
           ))}
 
           <div className="flex flex-col space-y-2">
@@ -82,4 +108,6 @@ export default function NewItemCard({}:{
       </CardContent>
     </Card>
   );
-}
+});
+
+export default NewItemCard;

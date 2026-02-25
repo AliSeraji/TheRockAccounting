@@ -1,5 +1,3 @@
-import { Interface } from "readline";
-
 export type WarehouseItem = {
   id: number;
   code: string;
@@ -13,13 +11,12 @@ export type WarehouseItem = {
   purchasePrice: string;
   salePrice: string;
   notes: string;
-  timestamp: string;
+  date: string;
 };
-
 
 export interface WarehouseState {
   items: WarehouseItem[];
-  addItem:(item: WarehouseItem) => void;
-  updateItem:(id: number, field: keyof WarehouseItem, value: string) => void;
-  removeItem:(id: number) => void;
+  addItem: (item: WarehouseItem) => void;
+  updateItem: (id: number, item: WarehouseItem) => void;
+  removeItem: (id: number) => void;
 }

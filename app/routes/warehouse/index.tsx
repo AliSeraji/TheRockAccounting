@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useState, useMemo, type ReactNode, type SetStateAction } from 'react';
 import PageHeader from '~/components/ui/PageHeader';
 import { HOME } from '../constants';
 import { Home, Package, Plus, Save, Trash2 } from 'lucide-react';
@@ -7,97 +7,46 @@ import { Label } from '~/components/ui/label';
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
 import { Button } from '~/components/ui/button';
-import stonesData from '~/dummy_data/stones.json';
 import type { WarehouseItem } from '~/store/warehouse/types';
-
-const emptyForm = {
-  code: '',
-  category: '',
-  categoryName: '',
-  name: '',
-  diameter: '',
-  length: '',
-  width: '',
-  area: '',
-  purchasePrice: '',
-  salePrice: '',
-  notes: '',
-};
-
-const formFields: {
-  label: string;
-  key: keyof typeof emptyForm;
-  type?: string;
-  placeholder?: string;
-}[] = [
-  { label: 'کد', key: 'code', placeholder: 'کد محصول' },
-  { label: 'نام محصول', key: 'name', placeholder: 'نوع سنگ' },
-  { label: 'قطر', key: 'diameter', placeholder: 'به سانتی متر' },
-  { label: 'طول', key: 'length', placeholder: 'به متر' },
-  { label: 'عرض', key: 'width', placeholder: 'به متر' },
-  { label: 'متراژ', key: 'area', placeholder: 'به متر' },
-  {
-    label: 'قیمت خرید',
-    key: 'purchasePrice',
-    type: 'number',
-    placeholder: 'به ریال',
-  },
-  {
-    label: 'قیمت فروش',
-    key: 'salePrice',
-    type: 'number',
-    placeholder: 'به ریال',
-  },
-];
-
-const categoryColors: Record<string, string> = {
-  TRM: 'bg-amber-100 text-amber-800',
-  TRV: 'bg-orange-100 text-orange-800',
-  TNX: 'bg-yellow-100 text-yellow-800',
-  CHN: 'bg-sky-100 text-sky-800',
-  STN: 'bg-slate-100 text-slate-700',
-  GRN: 'bg-emerald-100 text-emerald-800',
-  LMS: 'bg-lime-100 text-lime-800',
-  LMN: 'bg-teal-100 text-teal-800',
-  MRM: 'bg-pink-100 text-pink-800',
-  MRT: 'bg-purple-100 text-purple-800',
-};
-
-const initialItems: WarehouseItem[] = stonesData.map((stone, index) => ({
-  ...stone,
-  id: index + 1,
-  timestamp: '',
-}));
+import {
+  categoryColors,
+  emptyForm,
+  formFields,
+} from '~/components/warehouse/constants';
+import { useWarehouseStore } from '~/store/warehouse/useWarehouse';
+import NewItemCard from '~/components/warehouse/NewItemCard';
 
 export default function Warehouse(): ReactNode {
-  const [items, setItems] = useState<WarehouseItem[]>(initialItems);
+  const items = useWarehouseStore((state) => state.items);
+  const addItem = useWarehouseStore((state) => state.addItem);
+  const updateItem = useWarehouseStore((state) => state.updateItem);
+  const removeItem = useWarehouseStore((state) => state.removeItem);
+
   const [form, setForm] = useState(emptyForm);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [search, setSearch] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
 
-  const getCurrentTimestamp = () => new Date().toLocaleString('fa-IR');
+  const getCurrentTimestamp = () =>
+    new Date().toLocaleString('fa-IR').slice(0, 9);
 
   const handleChange = (field: keyof typeof emptyForm, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSave = () => {
-    if (!form.name.trim()) return;
-
+    for (let [key, value] of Object.entries(form)) {
+      if (key === 'date') continue;
+      if (!value) {
+        console.log('Missing field:', key);
+        alert('لطفاً تمام فیلدها را پر کنید');
+        return;
+      }
+    }
     if (selectedId !== null) {
-      setItems((prev) =>
-        prev.map((item) =>
-          item.id === selectedId
-            ? { ...item, ...form, timestamp: getCurrentTimestamp() }
-            : item
-        )
-      );
+      updateItem(selectedId, { ...form, date: getCurrentTimestamp() });
     } else {
-      setItems((prev) => [
-        ...prev,
-        { id: Date.now(), ...form, timestamp: getCurrentTimestamp() },
-      ]);
+      addItem({ ...form, date: getCurrentTimestamp() });
     }
 
     setForm(emptyForm);
@@ -106,7 +55,7 @@ export default function Warehouse(): ReactNode {
 
   const handleDelete = () => {
     if (selectedId === null) return;
-    setItems((prev) => prev.filter((item) => item.id !== selectedId));
+    removeItem(selectedId);
     setForm(emptyForm);
     setSelectedId(null);
   };
@@ -119,6 +68,7 @@ export default function Warehouse(): ReactNode {
   const handleSelectItem = (item: WarehouseItem) => {
     setSelectedId(item.id);
     setForm({
+      id: item.id,
       code: item.code,
       category: item.category,
       categoryName: item.categoryName,
@@ -130,23 +80,33 @@ export default function Warehouse(): ReactNode {
       purchasePrice: item.purchasePrice,
       salePrice: item.salePrice,
       notes: item.notes,
+      date: item.date,
     });
   };
 
   const selectedItem = items.find((i) => i.id === selectedId);
 
-  const categories = Array.from(
-    new Map(items.map((i) => [i.category, i.categoryName])).entries()
+  const categories = useMemo(
+    () =>
+      Array.from(
+        new Map(items.map((i) => [i.category, i.categoryName])).entries()
+      ),
+    [items]
   );
 
-  const filteredItems = items.filter((item) => {
-    const matchSearch =
-      !search ||
-      item.name.includes(search) ||
-      item.code.toLowerCase().includes(search.toLowerCase());
-    const matchCategory = !filterCategory || item.category === filterCategory;
-    return matchSearch && matchCategory;
-  });
+  const filteredItems = useMemo(
+    () =>
+      items.filter((item) => {
+        const matchSearch =
+          !search ||
+          item.name.includes(search) ||
+          item.code.toLowerCase().includes(search.toLowerCase());
+        const matchCategory =
+          !filterCategory || item.category === filterCategory;
+        return matchSearch && matchCategory;
+      }),
+    [items, search, filterCategory]
+  );
 
   return (
     <div
@@ -161,78 +121,15 @@ export default function Warehouse(): ReactNode {
       />
 
       <div className="w-full flex flex-col items-center overflow-auto pt-16 gap-6 px-4">
-        <Card className="w-full border-slate-200 bg-white/90 backdrop-blur">
-          <CardHeader className="bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <CardTitle className="text-slate-800 font-semibold text-lg flex items-center gap-2">
-                <Package className="w-5 h-5 text-teal-600" />
-                {selectedId !== null ? 'ویرایش محصول' : 'ایجاد محصول جدید'}
-              </CardTitle>
-
-              <div className="flex flex-wrap gap-2">
-                <Button
-                  onClick={handleNew}
-                  className="gap-2 bg-linear-to-r from-teal-500 to-teal-700 hover:from-teal-600 hover:to-teal-800 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
-                >
-                  <Plus className="w-4 h-4" />
-                  ایجاد محصول جدید
-                </Button>
-                <Button
-                  onClick={handleSave}
-                  className="gap-2 bg-linear-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
-                >
-                  <Save className="w-4 h-4" />
-                  ذخیره
-                </Button>
-                <Button
-                  onClick={handleDelete}
-                  disabled={selectedId === null}
-                  variant="destructive"
-                  className="gap-2 hover:cursor-pointer disabled:opacity-40"
-                >
-                  <Trash2 className="w-4 h-4" />
-                  حذف
-                </Button>
-              </div>
-            </div>
-          </CardHeader>
-
-          <CardContent className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-              {formFields.map(({ label, key, type, placeholder }) => (
-                <div key={key} className="flex flex-col space-y-2">
-                  <Label className="text-slate-700 pr-1">{label}</Label>
-                  <Input
-                    type={type ?? 'text'}
-                    value={form[key]}
-                    onChange={(e) => handleChange(key, e.target.value)}
-                    placeholder={placeholder}
-                    className="border-slate-200 rounded-lg focus:ring-slate-400"
-                  />
-                </div>
-              ))}
-
-              <div className="flex flex-col space-y-2">
-                <Label className="text-slate-700 pr-1">زمان ثبت/ویرایش</Label>
-                <Input
-                  readOnly
-                  value={selectedItem?.timestamp ?? '—'}
-                  className="border-slate-200 rounded-lg bg-slate-50 text-slate-400 cursor-default"
-                />
-              </div>
-
-              <div className="flex flex-col space-y-2 md:col-span-2 xl:col-span-4">
-                <Label className="text-slate-700 pr-1">توضیحات</Label>
-                <Textarea
-                  value={form.notes}
-                  onChange={(e) => handleChange('notes', e.target.value)}
-                  placeholder="توضیحات محصول را وارد کنید..."
-                  className="border-slate-200 rounded-lg focus:ring-slate-400 min-h-24 resize-none"
-                />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <NewItemCard
+          selectedId={selectedId}
+          handleNew={handleNew}
+          handleSave={handleSave}
+          handleDelete={handleDelete}
+          form={form}
+          setForm={setForm}
+          selectedItem={selectedItem}
+        />
 
         <Card className="w-full border-slate-200 bg-white/90 backdrop-blur mb-6">
           <CardHeader className="bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
@@ -356,7 +253,7 @@ export default function Warehouse(): ReactNode {
                           {item.notes || '—'}
                         </td>
                         <td className="px-4 py-3 text-slate-400 text-xs whitespace-nowrap">
-                          {item.timestamp || '—'}
+                          {item.date || '—'}
                         </td>
                       </tr>
                     ))}
