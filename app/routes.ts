@@ -11,6 +11,6 @@ export default [
   route(RECEIPT_ISSUE, 'routes/receipts/index.tsx'),
   route(INVOICE, 'routes/receipts/Invoice.tsx'),
   route(SETTINGS, 'routes/settings/index.tsx'),
-  route(WAREHOUSE, 'routes/ware-house/index.tsx'),
+  route(WAREHOUSE, 'routes/warehouse/index.tsx'),
   route('*', 'routes/not-found.tsx'),
 ] satisfies RouteConfig;
