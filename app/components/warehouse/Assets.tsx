@@ -5,6 +5,14 @@ import WarehouseTable from './table/WarehouseTable';
 import { convertToPersianDigits } from '~/lib/utils';
 import type { WarehouseItem } from '~/store/warehouse/types';
 import { Package } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select';
 
 interface AssetProps {
   assets: WarehouseItem[];
@@ -66,34 +74,43 @@ export default function WareHouseAssets({
   return (
     <Card className="w-full border-slate-200 bg-white/90 backdrop-blur mb-6">
       <CardHeader className="bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <CardTitle className="text-slate-800 font-semibold text-lg">
+        <div className="flex flex-row w-full items-center justify-between gap-3">
+          <CardTitle className="w-full text-slate-800 font-semibold text-lg">
             لیست محصولات انبار
             <span className="mr-2 text-sm font-normal text-slate-400">
-              ({filteredItems.length} از {convertToPersianDigits(assets.length)}{' '}
-              محصول)
+              ({convertToPersianDigits(filteredItems.length)} از{' '}
+              {convertToPersianDigits(assets.length)} محصول)
             </span>
           </CardTitle>
 
-          <div className="flex flex-wrap gap-2 items-center">
+          <div className="flex flex-row justify-end w-full gap-2">
             <Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="جستجو..."
               className="w-40 border-slate-200 rounded-lg text-sm"
             />
-            <select
-              value={filterCategory}
-              onChange={(e) => setFilterCategory(e.target.value)}
-              className="border border-slate-200 rounded-lg text-sm px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-1 focus:ring-slate-400"
-            >
-              <option value="">همه دسته‌ها</option>
-              {categories.map(([cat, catName]) => (
-                <option key={cat} value={cat}>
-                  {cat} — {catName}
-                </option>
-              ))}
-            </select>
+            <Select value={filterCategory} onValueChange={setFilterCategory}>
+              <SelectTrigger
+                dir="rtl"
+                className="flex flex-row max-w-41 border border-slate-200 rounded-lg text-sm px-3 py-1.5 bg-white text-slate-700 hover:cursor-pointer focus:ring-0 focus:ring-offset-0 focus:border-slate-400 focus:border-2"
+              >
+                <SelectValue placeholder={'همه دسته ها'} />
+              </SelectTrigger>
+              <SelectContent dir="rtl">
+                <SelectGroup>
+                  {categories.map(([cat, catName]) => (
+                    <SelectItem
+                      key={cat}
+                      value={cat}
+                      className="hover:cursor-pointer"
+                    >
+                      {cat} — {catName}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
         </div>
       </CardHeader>

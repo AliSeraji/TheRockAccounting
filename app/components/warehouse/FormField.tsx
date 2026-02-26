@@ -26,7 +26,7 @@ const FormField = memo(function FormField({
   placeholder,
   onChange,
 }: FormFieldProps): ReactNode {
-  const [localValue, setLocalValue] = useState<string | null>(null);
+  const [localValue, setLocalValue] = useState<string | null>(value);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const normalize = (str: string): string =>
