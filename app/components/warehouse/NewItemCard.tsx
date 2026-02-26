@@ -1,4 +1,10 @@
-import { memo, useCallback, type Dispatch, type SetStateAction, type ReactNode } from 'react';
+import {
+  memo,
+  useCallback,
+  type Dispatch,
+  type SetStateAction,
+  type ReactNode,
+} from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Package, Plus, Save, Trash2 } from 'lucide-react';
 import { Button } from '../ui/button';
@@ -16,7 +22,6 @@ interface NewItemCardProps {
   handleDelete: () => void;
   form: WarehouseItem;
   setForm: Dispatch<SetStateAction<WarehouseItem>>;
-  selectedItem: any;
 }
 
 const NewItemCard = memo(function NewItemCard({
@@ -26,15 +31,18 @@ const NewItemCard = memo(function NewItemCard({
   handleDelete,
   form,
   setForm,
-  selectedItem,
 }: NewItemCardProps): ReactNode {
-  
+  const getCurrentTimestamp = () =>
+    new Date().toLocaleString('fa-IR').slice(0, 9);
+
   const handleChange = useCallback(
     (field: keyof WarehouseItem, value: string) => {
       setForm((prev) => ({ ...prev, [field]: value }));
     },
     [setForm]
   );
+
+  console.log(form);
 
   return (
     <Card className="w-full border-slate-200 bg-white/90 backdrop-blur">
@@ -90,7 +98,8 @@ const NewItemCard = memo(function NewItemCard({
             <Label className="text-slate-700 pr-1">زمان ثبت/ویرایش</Label>
             <Input
               readOnly
-              value={selectedItem?.timestamp ?? '—'}
+              onSelect={() => null}
+              value={getCurrentTimestamp()}
               className="border-slate-200 rounded-lg bg-slate-50 text-slate-400 cursor-default"
             />
           </div>

@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useCallback, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Input } from '../ui/input';
 import {
   convertToPersianDigits,
@@ -39,45 +39,39 @@ export default function PersianNumericInput({
   const [localValue, setLocalValue] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      let raw = normalize(e.target.value.trim());
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let raw = normalize(e.target.value.trim());
 
-      if (raw === '' || raw === '-') {
-        setLocalValue(null);
-        onChange('-');
-        return;
-      }
+    if (raw === '' || raw === '-') {
+      setLocalValue(null);
+      onChange('-');
+      return;
+    }
 
-      if (raw === '.') raw = '0.';
-      if (raw === '-.') raw = '-0.';
-      if (!allowNegative && raw.startsWith('-', 0)) raw = raw.replace(/^-/, '');
-      const pattern = allowNegative ? /^-?\d*\.?\d*$/ : /^\d*\.?\d*$/;
-      if (!pattern.test(raw)) return;
+    if (raw === '.') raw = '0.';
+    if (raw === '-.') raw = '-0.';
+    if (!allowNegative && raw.startsWith('-', 0)) raw = raw.replace(/^-/, '');
+    const pattern = allowNegative ? /^-?\d*\.?\d*$/ : /^\d*\.?\d*$/;
+    if (!pattern.test(raw)) return;
 
-      raw = raw.replace(/^(-?)0+(\d)/, (_, sign, digit) =>
-        digit === '.' ? `${sign}0${digit}` : `${sign}${digit}`
-      );
+    raw = raw.replace(/^(-?)0+(\d)/, (_, sign, digit) =>
+      digit === '.' ? `${sign}0${digit}` : `${sign}${digit}`
+    );
 
-      setLocalValue(raw);
-      onChange(raw);
-    },
-    [onChange, allowNegative]
-  );
+    setLocalValue(raw);
+    onChange(raw);
+  };
 
-  const handleBlur = useCallback(() => {
+  const handleBlur = () => {
     setLocalValue(null);
-  }, []);
+  };
 
-  const handleFocus = useCallback(
-    (e: React.FocusEvent<HTMLInputElement>) => {
-      setLocalValue(value);
-      requestAnimationFrame(() => {
-        e.target.select();
-      });
-    },
-    [value]
-  );
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    setLocalValue(value);
+    requestAnimationFrame(() => {
+      e.target.select();
+    });
+  };
   const displayValue =
     localValue !== null
       ? isPrice

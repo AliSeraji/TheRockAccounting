@@ -1,5 +1,11 @@
 import type { WarehouseItem } from '~/store/warehouse/types';
 
+export enum FieldTypes {
+  PRICE,
+  NUMBER,
+  TEXT,
+}
+
 export const emptyForm: WarehouseItem = {
   id: 0,
   code: '',
@@ -19,28 +25,72 @@ export const emptyForm: WarehouseItem = {
 export const formFields: {
   label: string;
   key: keyof typeof emptyForm;
-  type?: string;
+  type?: FieldTypes;
   placeholder?: string;
 }[] = [
-  { label: 'کد', key: 'code', placeholder: 'کد محصول' },
-  { label: 'دسته‌بندی', key: 'categoryName', placeholder: '  دسته‌بندی' },
-  { label: 'نام محصول', key: 'name', placeholder: 'نوع سنگ' },
-  { label: 'قطر', key: 'diameter', placeholder: 'به سانتی متر' },
-  { label: 'طول', key: 'length', placeholder: 'به متر' },
-  { label: 'عرض', key: 'width', placeholder: 'به متر' },
-  { label: 'متراژ', key: 'area', placeholder: 'به متر' },
+  { label: 'کد', key: 'code', type: FieldTypes.TEXT, placeholder: 'کد محصول' },
+  {
+    label: 'دسته‌بندی',
+    key: 'categoryName',
+    type: FieldTypes.TEXT,
+    placeholder: '  دسته‌بندی',
+  },
+  {
+    label: 'نام محصول',
+    key: 'name',
+    type: FieldTypes.TEXT,
+    placeholder: 'نوع سنگ',
+  },
+  {
+    label: 'قطر',
+    key: 'diameter',
+    type: FieldTypes.NUMBER,
+    placeholder: 'به سانتی متر',
+  },
+  {
+    label: 'طول',
+    key: 'length',
+    type: FieldTypes.NUMBER,
+    placeholder: 'به متر',
+  },
+  {
+    label: 'عرض',
+    key: 'width',
+    type: FieldTypes.NUMBER,
+    placeholder: 'به متر',
+  },
+  {
+    label: 'متراژ',
+    key: 'area',
+    type: FieldTypes.NUMBER,
+    placeholder: 'به متر',
+  },
   {
     label: 'قیمت خرید',
     key: 'purchasePrice',
-    type: 'number',
+    type: FieldTypes.PRICE,
     placeholder: 'به ریال',
   },
   {
     label: 'قیمت فروش',
     key: 'salePrice',
-    type: 'number',
+    type: FieldTypes.PRICE,
     placeholder: 'به ریال',
   },
+];
+
+export const warehouseColumns = [
+  'کد',
+  'دسته‌بندی',
+  'نام محصول',
+  'قطر',
+  'طول',
+  'عرض',
+  'متراژ',
+  'قیمت خرید',
+  'قیمت فروش',
+  'توضیحات',
+  'زمان ثبت/ویرایش',
 ];
 
 export const categoryColors: Record<string, string> = {
