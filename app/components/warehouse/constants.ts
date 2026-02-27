@@ -1,30 +1,16 @@
 import type { WarehouseItem } from '~/store/warehouse/types';
+import type { emptyItem } from '~/store/warehouse/useWarehouse';
 
 export enum FieldTypes {
   PRICE,
   NUMBER,
   TEXT,
+  CALCULATED,
 }
-
-export const emptyForm: WarehouseItem = {
-  id: 0,
-  code: '',
-  category: '',
-  categoryName: '',
-  name: '',
-  diameter: '',
-  length: '',
-  width: '',
-  area: '',
-  purchasePrice: '',
-  salePrice: '',
-  notes: '',
-  date: '',
-};
 
 export const formFields: {
   label: string;
-  key: keyof typeof emptyForm;
+  key: keyof typeof emptyItem;
   type?: FieldTypes;
   placeholder?: string;
 }[] = [
@@ -60,9 +46,15 @@ export const formFields: {
     placeholder: 'به متر',
   },
   {
+    label: 'تعداد',
+    key: 'quantity',
+    type: FieldTypes.NUMBER,
+    placeholder: 'تعداد موجود',
+  },
+  {
     label: 'متراژ',
     key: 'area',
-    type: FieldTypes.NUMBER,
+    type: FieldTypes.CALCULATED,
     placeholder: 'به متر',
   },
   {
@@ -89,6 +81,7 @@ export const warehouseColumns = [
   'متراژ',
   'قیمت خرید',
   'قیمت فروش',
+  'تعداد',
   'توضیحات',
   'زمان ثبت/ویرایش',
 ];

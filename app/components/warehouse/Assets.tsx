@@ -1,9 +1,8 @@
-import { useCallback, useMemo, useState, type ReactNode } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Input } from '../ui/input';
 import WarehouseTable from './table/WarehouseTable';
 import { convertToPersianDigits } from '~/lib/utils';
-import type { WarehouseItem } from '~/store/warehouse/types';
 import { Package } from 'lucide-react';
 import {
   Select,
@@ -13,20 +12,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
+import { useWarehouseStore } from '~/store/warehouse/useWarehouse';
 
-interface AssetProps {
-  assets: WarehouseItem[];
-  setForm: (item: WarehouseItem) => void;
-  setSelectedId: (num: Number | null) => void;
-  selectedId: number | null;
-}
-
-export default function WareHouseAssets({
-  assets,
-  setForm,
-  setSelectedId,
-  selectedId,
-}: AssetProps): ReactNode {
+export default function WareHouseAssets(): ReactNode {
+  const assets = useWarehouseStore((state) => state.items);
   const [search, setSearch] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
 
@@ -52,24 +41,15 @@ export default function WareHouseAssets({
     [assets, search, filterCategory]
   );
 
-  const handleSelectItem = useCallback((item: WarehouseItem) => {
-    setSelectedId(item.id);
-    setForm({
-      id: item.id,
-      code: item.code,
-      category: item.category,
-      categoryName: item.categoryName,
-      name: item.name,
-      diameter: item.diameter,
-      length: item.length,
-      width: item.width,
-      area: item.area,
-      purchasePrice: item.purchasePrice,
-      salePrice: item.salePrice,
-      notes: item.notes,
-      date: item.date,
-    });
-  }, []);
+  // useEffect(() => {
+  //   if (form.length && form.width && form.quantity) {
+  //     const area =
+  //       parseFloat(form.length) *
+  //       parseFloat(form.width) *
+  //       parseFloat(form.quantity);
+  //     setForm((prev) => ({ ...prev, area: area.toString() }));
+  //   }
+  // }, [form.length, form.width, form.quantity, setForm]);
 
   return (
     <Card className="w-full border-slate-200 bg-white/90 backdrop-blur mb-6">
@@ -122,11 +102,7 @@ export default function WareHouseAssets({
             <p className="text-sm">هیچ محصولی یافت نشد</p>
           </div>
         ) : (
-          <WarehouseTable
-            items={filteredItems}
-            selectedId={selectedId}
-            onSelectItem={handleSelectItem}
-          />
+          <WarehouseTable items={filteredItems} />
         )}
       </CardContent>
     </Card>

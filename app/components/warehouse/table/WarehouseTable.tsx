@@ -6,14 +6,10 @@ import WarehouseTableRow from './TableRow';
 
 interface WarehouseTableProps {
   items: WarehouseItem[];
-  selectedId: number | null;
-  onSelectItem: (item: WarehouseItem) => void;
 }
 
 export default function WarehouseTable({
   items,
-  selectedId,
-  onSelectItem,
 }: WarehouseTableProps): ReactNode {
   return (
     <Table className="w-full text-sm">
@@ -23,9 +19,7 @@ export default function WarehouseTable({
           <WarehouseTableRow
             key={item.id}
             item={item}
-            isSelected={item.id === selectedId}
             isEven={idx % 2 === 0}
-            onSelect={onSelectItem}
           />
         ))}
       </TableBody>

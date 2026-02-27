@@ -1,4 +1,11 @@
-import { memo, useCallback, useRef, useState, type ReactNode } from 'react';
+import {
+  memo,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import type { WarehouseItem } from '~/store/warehouse/types';
@@ -26,8 +33,16 @@ const FormField = memo(function FormField({
   placeholder,
   onChange,
 }: FormFieldProps): ReactNode {
-  const [localValue, setLocalValue] = useState<string | null>(value);
+  const [localValue, setLocalValue] = useState<string | null>(
+    convertToPersianDigits(value)
+  );
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (type === FieldTypes.PRICE) {
+      setLocalValue(formatRialAmount(convertToPersianDigits(value)));
+    } else setLocalValue(convertToPersianDigits(value));
+  }, [value, type]);
 
   const normalize = (str: string): string =>
     convertToEnDigits(str).replace(/\//g, '.').replace(/[,٬]/g, '');
@@ -78,6 +93,7 @@ const FormField = memo(function FormField({
     <div className="flex flex-col space-y-2">
       <Label className="text-slate-700 pr-1">{label}</Label>
       <Input
+        readOnly={type === FieldTypes.CALCULATED}
         ref={inputRef}
         value={localValue ?? ''}
         onChange={handleChange}

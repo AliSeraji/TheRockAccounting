@@ -10,12 +10,19 @@ export type WarehouseItem = {
   area: string;
   purchasePrice: string;
   salePrice: string;
+  quantity: string;
   notes: string;
   date: string;
 };
 
 export interface WarehouseState {
   items: WarehouseItem[];
+  selectedItem: WarehouseItem;
+  updateSelectedItem: (
+    field: keyof WarehouseItem,
+    value: string | number
+  ) => void;
+  setSelectedItem: (item: WarehouseItem) => void;
   addItem: (item: WarehouseItem) => void;
   updateItem: (id: number, item: WarehouseItem) => void;
   removeItem: (id: number) => void;

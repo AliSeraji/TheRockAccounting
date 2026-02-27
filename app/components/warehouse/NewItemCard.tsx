@@ -1,10 +1,4 @@
-import {
-  memo,
-  useCallback,
-  type Dispatch,
-  type SetStateAction,
-  type ReactNode,
-} from 'react';
+import { memo, useCallback, type ReactNode, useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Package, Plus, Save, Trash2 } from 'lucide-react';
 import { Button } from '../ui/button';
@@ -14,32 +8,61 @@ import { Textarea } from '../ui/textarea';
 import { formFields } from './constants';
 import type { WarehouseItem } from '~/store/warehouse/types';
 import FormField from './FormField';
+import { emptyItem, useWarehouseStore } from '~/store/warehouse/useWarehouse';
 
-interface NewItemCardProps {
-  selectedId: number | null;
-  handleNew: () => void;
-  handleSave: () => void;
-  handleDelete: () => void;
-  form: WarehouseItem;
-  setForm: Dispatch<SetStateAction<WarehouseItem>>;
-}
+function NewItemCard(): ReactNode {
+  const items = useWarehouseStore((state) => state.items);
+  const addItem = useWarehouseStore((state) => state.addItem);
+  const updateItem = useWarehouseStore((state) => state.updateItem);
+  const removeItem = useWarehouseStore((state) => state.removeItem);
+  const selectedItem = useWarehouseStore((state) => state.selectedItem);
+  const setSelectedItem = useWarehouseStore((state) => state.setSelectedItem);
+  const updateSelectedItem = useWarehouseStore(
+    (state) => state.updateSelectedItem
+  );
 
-const NewItemCard = memo(function NewItemCard({
-  selectedId,
-  handleNew,
-  handleSave,
-  handleDelete,
-  form,
-  setForm,
-}: NewItemCardProps): ReactNode {
   const getCurrentTimestamp = () =>
     new Date().toLocaleString('fa-IR').slice(0, 9);
 
+  const handleSave = () => {
+    if (!selectedItem) return;
+    for (let [key, value] of Object.entries(selectedItem)) {
+      if (key === 'date' || key === 'id') continue;
+      if (!value) {
+        console.log('Missing field:', key);
+        alert('لطفاً تمام فیلدها را پر کنید');
+        return;
+      }
+    }
+    if (selectedItem?.id !== null) {
+      updateItem(selectedItem?.id, {
+        ...selectedItem,
+        date: getCurrentTimestamp(),
+      });
+    } else {
+      const newId =
+        items.length > 0 ? Math.max(...items.map((i) => i.id)) + 1 : 1;
+      addItem({ ...selectedItem, id: newId, date: getCurrentTimestamp() });
+    }
+
+    setSelectedItem(emptyItem);
+  };
+
+  const handleDelete = () => {
+    if (!selectedItem) return;
+    removeItem(selectedItem?.id);
+    setSelectedItem(emptyItem);
+  };
+
+  const handleNew = () => {
+    setSelectedItem(emptyItem);
+  };
+
   const handleChange = useCallback(
     (field: keyof WarehouseItem, value: string) => {
-      setForm((prev) => ({ ...prev, [field]: value }));
+      updateSelectedItem(field, value);
     },
-    [setForm]
+    [updateSelectedItem]
   );
 
   return (
@@ -48,7 +71,7 @@ const NewItemCard = memo(function NewItemCard({
         <div className="flex flex-wrap items-center justify-between gap-3">
           <CardTitle className="text-slate-800 font-semibold text-lg flex items-center gap-2">
             <Package className="w-5 h-5 text-teal-600" />
-            {selectedId !== null ? 'ویرایش محصول' : 'ایجاد محصول جدید'}
+            {selectedItem?.id !== null ? 'ویرایش محصول' : 'ایجاد محصول جدید'}
           </CardTitle>
 
           <div className="flex flex-wrap gap-2">
@@ -68,7 +91,7 @@ const NewItemCard = memo(function NewItemCard({
             </Button>
             <Button
               onClick={handleDelete}
-              disabled={selectedId === null}
+              disabled={selectedItem?.id === null}
               variant="destructive"
               className="gap-2 hover:cursor-pointer disabled:opacity-40"
             >
@@ -85,7 +108,7 @@ const NewItemCard = memo(function NewItemCard({
               key={key}
               label={label}
               fieldKey={key}
-              value={form[key] as string}
+              value={selectedItem[key] as string}
               type={type}
               placeholder={placeholder}
               onChange={handleChange}
@@ -105,7 +128,7 @@ const NewItemCard = memo(function NewItemCard({
           <div className="flex flex-col space-y-2 md:col-span-2 xl:col-span-4">
             <Label className="text-slate-700 pr-1">توضیحات</Label>
             <Textarea
-              value={form.notes}
+              value={selectedItem.notes}
               onChange={(e) => handleChange('notes', e.target.value)}
               placeholder="توضیحات محصول را وارد کنید..."
               className="border-slate-200 rounded-lg focus:ring-slate-400 min-h-24 resize-none"
@@ -115,6 +138,6 @@ const NewItemCard = memo(function NewItemCard({
       </CardContent>
     </Card>
   );
-});
+}
 
 export default NewItemCard;
