@@ -33,11 +33,11 @@ const WarehouseTableRow = memo(function WarehouseTableRow({
         {item.code || '—'}
       </TableCell>
       <TableCell className="px-4 py-3">
-        {item.categoryName ? (
+        {item.category ? (
           <span
             className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${categoryColors[item.category] ?? 'bg-slate-100 text-slate-600'}`}
           >
-            {item.categoryName}
+            {item.category}
           </span>
         ) : (
           '—'

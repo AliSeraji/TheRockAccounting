@@ -6,7 +6,6 @@ export const emptyItem: WarehouseItem = {
   id: -1,
   code: '',
   category: '',
-  categoryName: '',
   name: '',
   diameter: '',
   length: '',
@@ -20,13 +19,13 @@ export const emptyItem: WarehouseItem = {
 };
 
 const initialState = {
-  selectedItem: emptyItem,
   items: warehouseData.map((item, index) => ({
     ...item,
     id: index + 1,
     quantity: '',
     date: '',
   })),
+  selectedItem: emptyItem,
 };
 
 export const useWarehouseStore = create<WarehouseState>((set, get) => ({

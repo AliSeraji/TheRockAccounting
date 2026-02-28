@@ -17,7 +17,7 @@ export const formFields: {
   { label: 'کد', key: 'code', type: FieldTypes.TEXT, placeholder: 'کد محصول' },
   {
     label: 'دسته‌بندی',
-    key: 'categoryName',
+    key: 'category',
     type: FieldTypes.TEXT,
     placeholder: '  دسته‌بندی',
   },
@@ -87,14 +87,14 @@ export const warehouseColumns = [
 ];
 
 export const categoryColors: Record<string, string> = {
-  TRM: 'bg-amber-100 text-amber-800',
-  TRV: 'bg-orange-100 text-orange-800',
-  TNX: 'bg-yellow-100 text-yellow-800',
-  CHN: 'bg-sky-100 text-sky-800',
-  STN: 'bg-slate-100 text-slate-700',
-  GRN: 'bg-emerald-100 text-emerald-800',
-  LMS: 'bg-lime-100 text-lime-800',
-  LMN: 'bg-teal-100 text-teal-800',
-  MRM: 'bg-pink-100 text-pink-800',
-  MRT: 'bg-purple-100 text-purple-800',
+  ترامیت: 'bg-amber-100 text-amber-800',
+  تراورتن: 'bg-orange-100 text-orange-800',
+  تونکسیت: 'bg-yellow-100 text-yellow-800',
+  چینی: 'bg-sky-100 text-sky-800',
+  سنگ: 'bg-slate-100 text-slate-700',
+  گرانیت: 'bg-emerald-100 text-emerald-800',
+  لایمستون: 'bg-lime-100 text-lime-800',
+  لیمون: 'bg-teal-100 text-teal-800',
+  مرمر: 'bg-pink-100 text-pink-800',
+  مارتیت: 'bg-purple-100 text-purple-800',
 };

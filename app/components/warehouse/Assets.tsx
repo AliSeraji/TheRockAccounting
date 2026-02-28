@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Input } from '../ui/input';
 import WarehouseTable from './table/WarehouseTable';
@@ -16,14 +16,13 @@ import { useWarehouseStore } from '~/store/warehouse/useWarehouse';
 
 export default function WareHouseAssets(): ReactNode {
   const assets = useWarehouseStore((state) => state.items);
+  const PAGE_SIZE = 20;
   const [search, setSearch] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
 
   const categories = useMemo(
-    () =>
-      Array.from(
-        new Map(assets.map((i) => [i.category, i.categoryName])).entries()
-      ),
+    () => Array.from(new Set(assets.map((i) => i.category))),
     [assets]
   );
 
@@ -41,15 +40,15 @@ export default function WareHouseAssets(): ReactNode {
     [assets, search, filterCategory]
   );
 
-  // useEffect(() => {
-  //   if (form.length && form.width && form.quantity) {
-  //     const area =
-  //       parseFloat(form.length) *
-  //       parseFloat(form.width) *
-  //       parseFloat(form.quantity);
-  //     setForm((prev) => ({ ...prev, area: area.toString() }));
-  //   }
-  // }, [form.length, form.width, form.quantity, setForm]);
+  const totalPages = Math.ceil(filteredItems.length / PAGE_SIZE);
+  const paginatedItems = useMemo(
+    () => filteredItems.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE),
+    [filteredItems, currentPage]
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, filterCategory]);
 
   return (
     <Card className="w-full border-slate-200 bg-white/90 backdrop-blur mb-6">
@@ -70,7 +69,7 @@ export default function WareHouseAssets(): ReactNode {
               placeholder="جستجو..."
               className="w-40 border-slate-200 rounded-lg text-sm"
             />
-            <Select value={filterCategory} onValueChange={setFilterCategory}>
+            <Select value={filterCategory || 'all'} onValueChange={(v) => setFilterCategory(v === 'all' ? '' : v)}>
               <SelectTrigger
                 dir="rtl"
                 className="flex flex-row max-w-41 border border-slate-200 rounded-lg text-sm px-3 py-1.5 bg-white text-slate-700 hover:cursor-pointer focus:ring-0 focus:ring-offset-0 focus:border-slate-400 focus:border-2"
@@ -79,13 +78,19 @@ export default function WareHouseAssets(): ReactNode {
               </SelectTrigger>
               <SelectContent dir="rtl">
                 <SelectGroup>
-                  {categories.map(([cat, catName]) => (
+                  <SelectItem
+                    value="all"
+                    className="hover:cursor-pointer"
+                  >
+                    همه دسته‌ها
+                  </SelectItem>
+                  {categories.map((cat) => (
                     <SelectItem
                       key={cat}
                       value={cat}
                       className="hover:cursor-pointer"
                     >
-                      {cat} — {catName}
+                      {cat}
                     </SelectItem>
                   ))}
                 </SelectGroup>
@@ -102,7 +107,12 @@ export default function WareHouseAssets(): ReactNode {
             <p className="text-sm">هیچ محصولی یافت نشد</p>
           </div>
         ) : (
-          <WarehouseTable items={filteredItems} />
+          <WarehouseTable
+            items={paginatedItems}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            setCurrentPage={setCurrentPage}
+          />
         )}
       </CardContent>
     </Card>

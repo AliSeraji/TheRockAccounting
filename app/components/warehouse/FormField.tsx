@@ -1,11 +1,4 @@
-import {
-  memo,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  type ReactNode,
-} from 'react';
+import { memo, useEffect, useRef, useState, type ReactNode } from 'react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import type { WarehouseItem } from '~/store/warehouse/types';
@@ -41,6 +34,8 @@ const FormField = memo(function FormField({
   useEffect(() => {
     if (type === FieldTypes.PRICE) {
       setLocalValue(formatRialAmount(convertToPersianDigits(value)));
+    } else if (type === FieldTypes.TEXT) {
+      setLocalValue(value);
     } else setLocalValue(convertToPersianDigits(value));
   }, [value, type]);
 
@@ -81,6 +76,9 @@ const FormField = memo(function FormField({
         onChange(fieldKey, price);
         break;
       case FieldTypes.TEXT:
+        setLocalValue(e.target.value);
+        onChange(fieldKey, e.target.value);
+        break;
       default:
         const text = e.target.value.trim();
         setLocalValue(convertToPersianDigits(text));

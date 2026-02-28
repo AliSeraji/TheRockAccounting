@@ -2,7 +2,6 @@ export type WarehouseItem = {
   id: number;
   code: string;
   category: string;
-  categoryName: string;
   name: string;
   diameter: string;
   length: string;
