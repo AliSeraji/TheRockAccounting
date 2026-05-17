@@ -9,7 +9,7 @@ export interface SettingsState {
   getSettings: () => { companyName: string; logo: string | null };
   resetSettings: () => void;
 }
-
+ 
 const initialState = {
   companyName: '',
   logo: null,

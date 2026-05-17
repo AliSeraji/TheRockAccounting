@@ -42,7 +42,11 @@ export default function WareHouseAssets(): ReactNode {
 
   const totalPages = Math.ceil(filteredItems.length / PAGE_SIZE);
   const paginatedItems = useMemo(
-    () => filteredItems.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE),
+    () =>
+      filteredItems.slice(
+        (currentPage - 1) * PAGE_SIZE,
+        currentPage * PAGE_SIZE
+      ),
     [filteredItems, currentPage]
   );
 
@@ -69,7 +73,10 @@ export default function WareHouseAssets(): ReactNode {
               placeholder="جستجو..."
               className="w-40 border-slate-200 rounded-lg text-sm"
             />
-            <Select value={filterCategory || 'all'} onValueChange={(v) => setFilterCategory(v === 'all' ? '' : v)}>
+            <Select
+              value={filterCategory || 'all'}
+              onValueChange={(v) => setFilterCategory(v === 'all' ? '' : v)}
+            >
               <SelectTrigger
                 dir="rtl"
                 className="flex flex-row max-w-41 border border-slate-200 rounded-lg text-sm px-3 py-1.5 bg-white text-slate-700 hover:cursor-pointer focus:ring-0 focus:ring-offset-0 focus:border-slate-400 focus:border-2"
@@ -78,10 +85,7 @@ export default function WareHouseAssets(): ReactNode {
               </SelectTrigger>
               <SelectContent dir="rtl">
                 <SelectGroup>
-                  <SelectItem
-                    value="all"
-                    className="hover:cursor-pointer"
-                  >
+                  <SelectItem value="all" className="hover:cursor-pointer">
                     همه دسته‌ها
                   </SelectItem>
                   {categories.map((cat) => (
