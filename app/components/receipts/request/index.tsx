@@ -4,7 +4,7 @@ import { Button } from '~/components/ui/button';
 import type { Props } from '../types';
 import { receiptPager } from '~/helper/helper';
 import RequestReceiptPage from './RequestReceiptPage';
-import { useSettingsStore } from '~/store/useSettingsStore';
+import { useSettingsStore } from '~/store/settings/useSettingStore';
 
 const ITEMS_PER_PAGE = 8;
 
@@ -27,7 +27,7 @@ export default function RequestProduct({ data }: Props): ReactNode {
             pageNumber={page.pageNumber}
             totalPages={totalPages}
             logo={logo}
-            companyName={companyName}
+            companyName={companyName || ''}
           />
         ))}
       </div>

@@ -21,7 +21,7 @@ export const createCompanySection: StateCreator<
   [],
   [],
   CompanyInfoState
-> = (set) => ({
+> = (set, get) => ({
   ...initialCompany,
   setField: (key, value) => set({ [key]: value } as Partial<CompanyData>),
 });

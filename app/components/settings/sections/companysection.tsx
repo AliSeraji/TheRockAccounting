@@ -68,7 +68,7 @@ const CompanySection = (): React.ReactNode => {
   };
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5" dir="rtl">
       <Card className="w-full bg-white/90 backdrop-blur border-slate-200">
         <CardHeader className="flex-row justify-between bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
           <CardTitle className="text-slate-800 font-semibold text-lg flex items-center gap-2">
@@ -224,7 +224,7 @@ const CompanySection = (): React.ReactNode => {
 
       {/* ── Contact ── */}
       <Card className="w-full bg-white/90 backdrop-blur border-slate-200">
-        <CardHeader className="bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
+        <CardHeader className="flex flex-row items-center justify-between bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
           <CardTitle className="text-slate-800 font-semibold text-lg flex items-center gap-2">
             <Phone className="w-5 h-5 text-teal-600" />
             اطلاعات تماس
@@ -290,9 +290,9 @@ const CompanySection = (): React.ReactNode => {
                   value={address ?? ''}
                   onChange={(e) => setField('address', e.target.value)}
                   rows={2}
-                  className="rounded-lg"
+                  className="rounded-lg ring-0"
                 />
-                <FieldDescription className="text-slate-400 text-xs">
+                <FieldDescription className="flex flex-row text-slate-400 text-xs justify-start">
                   در فوتر فاکتورها چاپ خواهد شد
                 </FieldDescription>
               </Field>
