@@ -1,23 +1,9 @@
 import { create } from 'zustand';
-import type { CompanyData, CompanyInfoState } from './types';
+import type { SettingStore } from './types';
+import { createSidebarState } from './sections/sidebarState';
+import { createCompanySection } from './sections/company';
 
-const initialState: CompanyData = {
-  companyName: '',
-  logo: null,
-  brandName: '',
-  taxId: '',
-  regNumber: '',
-  postalCode: '',
-  phone: '',
-  mobile: '',
-  logoError: '',
-  email: '',
-  website: '',
-  address: '',
-};
-
-export const useSettingsStore = create<CompanyInfoState>((set) => ({
-  ...initialState,
-  setField: (key, value) =>
-    set({ [key]: value } as Pick<CompanyData, typeof key>),
+export const useSettingsStore = create<SettingStore>()((...state) => ({
+  ...createCompanySection(...state),
+  ...createSidebarState(...state),
 }));

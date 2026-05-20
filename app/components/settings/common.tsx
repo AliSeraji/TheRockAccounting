@@ -61,12 +61,15 @@ const ACCENTS: AccentMap = {
   },
 };
 // Used for the danger-zone gradient — kept separate so it isn't a selectable accent.
-const DANGER: { from: string; to: string } = { from: '#fb7185', to: '#e11d48' };
+export const DANGER: { from: string; to: string } = {
+  from: '#fb7185',
+  to: '#e11d48',
+};
 // Default accent for the settings module. Matches the dashboard's teal vibe.
-const ACCENT: Accent = ACCENTS.teal;
+export const ACCENT: Accent = ACCENTS.teal;
 
 // ── Section list ────────────────────────────────────────────────────────────
-const SETTINGS_SECTIONS: SettingsSectionDescriptor[] = [
+export const SETTINGS_SECTIONS: SettingsSectionDescriptor[] = [
   {
     id: 'company',
     title: 'اطلاعات شرکت',
@@ -109,7 +112,7 @@ type IconComponent = React.FC<
   React.SVGProps<SVGSVGElement> & { className?: string }
 >;
 
-const ICONS_BY_NAME: Record<string, IconComponent> = {
+export const ICONS_BY_NAME: Record<string, IconComponent> = {
   Building2,
   FileText,
   Hash,
