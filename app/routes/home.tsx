@@ -17,7 +17,7 @@ export default function Home() {
       <div className="w-full justify-center py-8">
         <div className="grid grid-cols-1 flex-col-reverse lg:grid-cols-4 gap-8 lg:px-0 mx-3 md:px-6">
           <div className="lg:col-span-3">
-            <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-6">
               {dashboardItems.map((item, index) => (
                 <Link key={index} to={item.to}>
                   <DashboardCard

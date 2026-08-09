@@ -61,21 +61,21 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
   return (
     <Card className="border-slate-200 bg-white/90 backdrop-blur col-span-2 relative z-9">
       <CardHeader className="bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
-        <CardTitle className="text-slate-800 flex items-center gap-2">
+        <CardTitle className="text-slate-800 flex items-center gap-2 text-sm lg:text-lg">
           <FileText className="w-5 h-5" />
           اطلاعات فاکتور
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-6">
+      <CardContent className="p-6 space-y-4 text-xs lg:text-lg">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label className="text-slate-700">عنوان</Label>
+          <div className="flex flex-col space-y-2">
+            <Label className="text-slate-700 pr-1">عنوان</Label>
             <Select
               value={invoiceType}
               onValueChange={setInvoiceType}
               dir="rtl"
             >
-              <SelectTrigger className="border-slate-200 focus:ring-slate-400 focus:ring-offset-0">
+              <SelectTrigger className="border-slate-200 focus:ring-slate-400 focus:ring-offset-0 text-xs lg:text-lg">
                 <SelectValue placeholder="انتخاب نوع فاکتور" />
               </SelectTrigger>
               <SelectContent>
@@ -84,8 +84,8 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
               </SelectContent>
             </Select>
           </div>
-          <div className="space-y-2">
-            <Label className="text-slate-700">شماره</Label>
+          <div className="flex flex-col space-y-2">
+            <Label className="text-slate-700 pr-1">شماره</Label>
             <Input
               value={convertToPersianDigits(invoiceNumber)}
               onChange={(e) => {
@@ -96,28 +96,30 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
                 console.log(val);
                 setInvoiceNumber(val);
               }}
-              className="border-slate-200 rounded-lg focus:ring-slate-400"
+              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-lg"
               placeholder="شماره فاکتور"
             />
           </div>
-          <div className="space-y-2">
-            <Label className="text-slate-700">نام شخص حقیقی / حقوقی:</Label>
+          <div className="flex flex-col space-y-2">
+            <Label className="text-slate-700 pr-1">
+              نام شخص حقیقی / حقوقی:
+            </Label>
             <Input
               value={convertToPersianDigits(buyer)}
               onChange={(e) => setBuyer(e.target.value)}
-              className="border-slate-200 rounded-lg focus:ring-slate-400"
+              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-lg"
               placeholder="درج شود"
             />
           </div>
           <div className="flex flex-col space-y-2">
-            <Label className="text-slate-700">تاریخ</Label>
+            <Label className="text-slate-700 pr-1">تاریخ</Label>
             {isClient ? (
               <Suspense
                 fallback={
                   <Input
                     value={convertToPersianDigits(invoiceDate)}
                     readOnly
-                    className="border-slate-200 rounded-lg focus:ring-slate-400 cursor-pointer"
+                    className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 cursor-pointer placeholder:text-xs lg:placeholder:text-lg"
                     placeholder="تاریخ روز"
                   />
                 }
@@ -133,24 +135,24 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
               <Input
                 value={convertToPersianDigits(invoiceDate)}
                 readOnly
-                className="border-slate-200 rounded-lg focus:ring-slate-400 cursor-pointer"
+                className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 cursor-pointer placeholder:text-xs lg:placeholder:text-lg"
                 placeholder="تاریخ روز"
               />
             )}
           </div>
-          <div className="space-y-2">
-            <Label className="text-slate-700">پروژه</Label>
+          <div className="flex flex-col space-y-2 ">
+            <Label className="text-slate-700 pr-1">پروژه</Label>
             <Input
               value={convertToPersianDigits(project)}
               onChange={(e) =>
                 setProject(convertToEnDigits(e.target.value.trim()))
               }
-              className="border-slate-200 rounded-lg focus:ring-slate-400"
+              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-lg"
               placeholder=" درج شود"
             />
           </div>
-          <div className="space-y-2">
-            <Label className="text-slate-700">تلفن</Label>
+          <div className="flex flex-col space-y-2">
+            <Label className="text-slate-700 pr-1">تلفن</Label>
             <Input
               value={convertToPersianDigits(phone)}
               onChange={(e) => {
@@ -160,18 +162,18 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
                 );
                 setPhone(value);
               }}
-              className="border-slate-200 rounded-lg focus:ring-slate-400"
+              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-lg"
               placeholder="شماره تلفن"
             />
           </div>
-          <div className="space-y-2 md:col-span-2">
-            <Label className="text-slate-700">آدرس</Label>
+          <div className="flex flex-col space-y-2 md:col-span-2">
+            <Label className="text-slate-700 pr-1">آدرس</Label>
             <Input
               value={convertToPersianDigits(address)}
               onChange={(e) =>
                 setAddress(convertToEnDigits(e.target.value.trim()))
               }
-              className="border-slate-200 rounded-lg focus:ring-slate-400"
+              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-lg"
               placeholder="دستی درج شود"
             />
           </div>

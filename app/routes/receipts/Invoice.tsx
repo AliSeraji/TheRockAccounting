@@ -13,7 +13,7 @@ export const Invoice = (): ReactNode => {
     <div className="h-full flex flex-col relative" dir="rtl">
       <InvoiceHeader />
 
-      <div className="w-full flex flex-col items-center overflow-auto pt-16">
+      <div className="w-full flex flex-col items-center overflow-auto pt-16 px-2 md:px-0">
         <div className="w-full py-6">
           <InvoiceBody />
 
