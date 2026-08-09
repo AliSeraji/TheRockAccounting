@@ -14,9 +14,12 @@ export function InvoiceTableHeader({
         {items.map((item) => (
           <TableHead
             key={item.label}
-            className={`flex flex-row w-full h-full justify-center border p-3 border-slate-300 text-xs ${item.width}`}
+            title={item.label}
+            className={`flex flex-row w-full h-full justify-center items-center border p-2.5 lg:p-3 border-slate-300 text-xs overflow-hidden text-ellipsis whitespace-nowrap ${item.width}`}
           >
-            {item.label}
+            <span className="block w-full text-center overflow-hidden text-ellipsis whitespace-nowrap">
+              {item.label}
+            </span>
           </TableHead>
         ))}
       </TableRow>

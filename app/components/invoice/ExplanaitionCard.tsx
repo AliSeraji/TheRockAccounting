@@ -17,11 +17,13 @@ export default function ExplanationCard(): React.ReactNode {
   return (
     <Card className="border-slate-200 bg-white/90 backdrop-blur">
       <CardHeader className="bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
-        <CardTitle className="text-slate-800">توضیحات</CardTitle>
+        <CardTitle className="text-slate-800 text-sm lg:text-lg">
+          توضیحات
+        </CardTitle>
       </CardHeader>
-      <CardContent className="p-6 space-y-4">
-        <div className="space-y-2">
-          <Label className="text-slate-700">توضیحات (فقط در فاکتور)</Label>
+      <CardContent className="p-6 space-y-4 text-xs lg:text-lg ">
+        <div className="space-y-2 flex flex-col">
+          <Label className="text-slate-700 pr-1">توضیحات (فقط در فاکتور)</Label>
           <Textarea
             value={additionalNote}
             onChange={(e) => setAdditionalNote(e.target.value)}
@@ -29,8 +31,8 @@ export default function ExplanationCard(): React.ReactNode {
             placeholder="توضیحات"
           />
         </div>
-        <div className="space-y-2">
-          <Label className="text-slate-700">
+        <div className="flex flex-col space-y-2">
+          <Label className="text-slate-700 pr-1">
             توضیحات (نمایش در رسید تحویل)
           </Label>
           <Textarea

@@ -75,7 +75,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
               onValueChange={setInvoiceType}
               dir="rtl"
             >
-              <SelectTrigger className="border-slate-200 focus:ring-slate-400 focus:ring-offset-0 text-xs lg:text-lg">
+              <SelectTrigger className="border-slate-200 focus:ring-slate-400 focus:ring-offset-0 text-xs lg:text-sm">
                 <SelectValue placeholder="انتخاب نوع فاکتور" />
               </SelectTrigger>
               <SelectContent>
@@ -96,7 +96,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
                 console.log(val);
                 setInvoiceNumber(val);
               }}
-              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-lg"
+              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs md:placeholder:text-sm"
               placeholder="شماره فاکتور"
             />
           </div>
@@ -107,7 +107,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             <Input
               value={convertToPersianDigits(buyer)}
               onChange={(e) => setBuyer(e.target.value)}
-              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-lg"
+              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs md:placeholder:text-sm"
               placeholder="درج شود"
             />
           </div>
@@ -119,7 +119,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
                   <Input
                     value={convertToPersianDigits(invoiceDate)}
                     readOnly
-                    className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 cursor-pointer placeholder:text-xs lg:placeholder:text-lg"
+                    className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 cursor-pointer placeholder:text-xs lg:placeholder:text-sm"
                     placeholder="تاریخ روز"
                   />
                 }
@@ -135,7 +135,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
               <Input
                 value={convertToPersianDigits(invoiceDate)}
                 readOnly
-                className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 cursor-pointer placeholder:text-xs lg:placeholder:text-lg"
+                className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 cursor-pointer placeholder:text-xs lg:placeholder:text-sm"
                 placeholder="تاریخ روز"
               />
             )}
@@ -147,7 +147,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
               onChange={(e) =>
                 setProject(convertToEnDigits(e.target.value.trim()))
               }
-              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-lg"
+              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-sm"
               placeholder=" درج شود"
             />
           </div>
@@ -162,7 +162,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
                 );
                 setPhone(value);
               }}
-              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-lg"
+              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-sm"
               placeholder="شماره تلفن"
             />
           </div>
@@ -173,7 +173,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
               onChange={(e) =>
                 setAddress(convertToEnDigits(e.target.value.trim()))
               }
-              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-lg"
+              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-sm"
               placeholder="دستی درج شود"
             />
           </div>

@@ -137,3 +137,4 @@ export const formatRialAmount = (num: string | number): string => {
   const newNum = typeof num === 'number' ? convertToPersianDigits(num) : num;
   return newNum.replace(/(?<=[۰-۹])(?=([۰-۹]{3})+(?![۰-۹]))/g, '٬');
 };
+
