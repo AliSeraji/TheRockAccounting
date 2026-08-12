@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import type { Props } from '../types';
 import ReceiptPage from './receipt';
 import { receiptPager } from '~/helper/helper';
-import { useSettingsStore } from '~/store/useSettingsStore';
+import { useSettingsStore } from '~/store/settings/useSettingStore';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -27,7 +27,7 @@ export default function DeliveryReceipt({ data }: Props): React.ReactNode {
             pageNumber={page.pageNumber}
             totalPages={totalPages}
             logo={logo}
-            companyName={companyName}
+            companyName={companyName || ''}
           />
         ))}
       </div>

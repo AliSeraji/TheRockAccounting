@@ -1,7 +1,7 @@
 import type React from 'react';
 import { TableCell, TableRow } from '../ui/table';
 import { convertToPersianDigits } from '~/lib/utils';
-import { Table, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { Button } from '../ui/button';
 import type { StoneItem } from '~/store/types';
 import PersianNumericInput from './PersianNumericInput';

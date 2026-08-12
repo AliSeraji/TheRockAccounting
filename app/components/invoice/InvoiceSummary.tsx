@@ -92,13 +92,15 @@ const InvoiceSummary = memo(function InvoiceSummary(): React.ReactNode {
   );
 
   return (
-    <Card className="border-slate-200 bg-white/90 backdrop-blur col-span-1">
+    <Card className=" border-slate-200 bg-white/90 backdrop-blur lg:col-span-1 col-span-2">
       <CardHeader className="p-5 bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
-        <CardTitle className="text-slate-800">خلاصه مالی</CardTitle>
+        <CardTitle className="text-slate-800 text-sm lg:text-lg">
+          خلاصه مالی
+        </CardTitle>
       </CardHeader>
-      <CardContent className="p-6 space-y-4">
-        <div className="space-y-2">
-          <Label className="text-slate-700">تخفیف</Label>
+      <CardContent className="p-6 space-y-4 text-xs lg:text-lg">
+        <div className="flex flex-col space-y-2">
+          <Label className="text-slate-700 pr-1">تخفیف</Label>
           <Input
             value={handlePercentageDisplay(discount)}
             onChange={handleDiscountChange}
@@ -106,8 +108,8 @@ const InvoiceSummary = memo(function InvoiceSummary(): React.ReactNode {
             placeholder="مبلغ تخفیف"
           />
         </div>
-        <div className="space-y-2">
-          <Label className="text-slate-700">مالیات</Label>
+        <div className="flex flex-col space-y-2">
+          <Label className="text-slate-700 pr-1">مالیات</Label>
           <Input
             value={handlePercentageDisplay(tax)}
             onChange={handleTaxChange}
@@ -115,8 +117,8 @@ const InvoiceSummary = memo(function InvoiceSummary(): React.ReactNode {
             placeholder="مبلغ مالیات"
           />
         </div>
-        <div className="space-y-2">
-          <Label className="text-slate-700">دریافتی</Label>
+        <div className="flex flex-col space-y-2">
+          <Label className="text-slate-700 pr-1">دریافتی</Label>
           <Input
             value={formatRialAmount(convertToPersianDigits(received))}
             onChange={handleReceivedChange}
@@ -124,8 +126,8 @@ const InvoiceSummary = memo(function InvoiceSummary(): React.ReactNode {
             placeholder="مبلغ دریافتی"
           />
         </div>
-        <div className="border-t border-slate-200 pt-4">
-          <div className="flex justify-between items-center text-lg font-bold text-slate-800">
+        <div className="border-t border-slate-200 pt-4 ">
+          <div className="flex justify-between items-center text-base lg:text-lg font-bold text-slate-800">
             <span>مبلغ قابل پرداخت:</span>
             <span className="text-green-600">
               {formatRialAmount(convertToPersianDigits(totalPaymentAmount))}

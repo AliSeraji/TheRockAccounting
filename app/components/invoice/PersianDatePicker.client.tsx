@@ -32,7 +32,7 @@ export default function PersianDatePicker({
           ref={ref as React.Ref<HTMLInputElement>}
           value={convertToPersianDigits(displayValue)}
           readOnly
-          className="border-slate-200 rounded-lg focus:ring-slate-400 cursor-pointer"
+          className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 cursor-pointer placeholder:text-xs lg:placeholder:text-sm"
           placeholder={placeholder}
         />
       )}

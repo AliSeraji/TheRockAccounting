@@ -59,13 +59,13 @@ const receiptManagementItems = [
 
 export const ReceiptIssue = (): ReactNode => {
   return (
-    <div className="flex flex-col justify-center h-full" dir="rtl">
-      <div className="flex w-full justify-center py-8">
-        <div className="flex mx-3 md:px-6 lg:px-0 justify-center">
-          <ReceiptIssueHeader />
-          <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-12  pt-16">
+    <div className="h-full flex flex-col relative justify-center" dir="rtl">
+      <ReceiptIssueHeader />
+      <div className="max-h-full overflow-auto pt-20 md:pt-0 px-2">
+        <div className="flex justify-center pb-5">
+          <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-2 lg:gap-6">
             {receiptManagementItems.map((item, index) => (
-              <Link key={index} to={item.to}>
+              <Link key={index + item.title} to={item.to}>
                 <DashboardCard
                   title={item.title}
                   icon={item.icon}

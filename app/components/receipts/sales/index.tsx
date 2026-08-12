@@ -5,7 +5,7 @@ import { Button } from '~/components/ui/button';
 import type { Props } from '../types';
 import SalesReceiptsPage from './SalesReceiptPage';
 import { receiptPager } from '~/helper/helper';
-import { useSettingsStore } from '~/store/useSettingsStore';
+import { useSettingsStore } from '~/store/settings/useSettingStore';
 
 const ITEMS_PER_PAGE = 15;
 
@@ -27,7 +27,7 @@ export default function SalesInvoice({ data }: Props): React.ReactNode {
             pageNumber={page.pageNumber}
             totalPages={pages.length}
             logo={logo}
-            companyName={companyName}
+            companyName={companyName || ''}
           />
         ))}
       </div>
