@@ -6,7 +6,7 @@ import {
   Hash,
   Database,
   Palette,
-  AlertTriangle,
+  ShieldAlert,
 } from 'lucide-react';
 import type { Accent, AccentMap, SettingsSectionDescriptor } from './types';
 import { useId } from 'react';
@@ -68,6 +68,11 @@ export const DANGER: { from: string; to: string } = {
   from: '#fb7185',
   to: '#e11d48',
 };
+
+export const ALERT: { from: string; to: string } = {
+  from: '#fbbf24',
+  to: '#d97706',
+};
 // Default accent for the settings module. Matches the dashboard's teal vibe.
 export const ACCENT: Accent = ACCENTS.teal;
 
@@ -105,9 +110,9 @@ export const SETTINGS_SECTIONS: SettingsSectionDescriptor[] = [
   // },
   {
     id: 'danger',
-    title: 'منطقه خطر',
+    title: 'امنیت و حریم خصوصی',
     desc: 'بازنشانی و حذف اطلاعات',
-    iconName: 'AlertTriangle',
+    iconName: 'ShieldAlert',
   },
 ];
 
@@ -121,7 +126,7 @@ export const ICONS_BY_NAME: Record<string, IconComponent> = {
   Hash,
   Database,
   Palette,
-  AlertTriangle,
+  ShieldAlert,
 };
 
 interface SectionCardProps {
