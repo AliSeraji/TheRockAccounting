@@ -298,7 +298,7 @@ export function ToggleRow({
       <div className="flex-1">
         <Label
           htmlFor={id}
-          className="text-sm font-medium text-slate-800 cursor-pointer"
+          className="text-xs lg:text-sm font-medium text-slate-800 cursor-pointer"
         >
           {label}
         </Label>
