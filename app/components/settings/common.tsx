@@ -6,9 +6,12 @@ import {
   Hash,
   Database,
   Palette,
-  AlertTriangle,
+  ShieldAlert,
 } from 'lucide-react';
 import type { Accent, AccentMap, SettingsSectionDescriptor } from './types';
+import { useId } from 'react';
+import { Label } from '../ui/label';
+import { Switch } from '../ui/switch';
 
 const ACCENTS: AccentMap = {
   teal: {
@@ -65,6 +68,11 @@ export const DANGER: { from: string; to: string } = {
   from: '#fb7185',
   to: '#e11d48',
 };
+
+export const ALERT: { from: string; to: string } = {
+  from: '#fbbf24',
+  to: '#d97706',
+};
 // Default accent for the settings module. Matches the dashboard's teal vibe.
 export const ACCENT: Accent = ACCENTS.teal;
 
@@ -94,17 +102,17 @@ export const SETTINGS_SECTIONS: SettingsSectionDescriptor[] = [
     desc: 'ذخیره، بازیابی و انتقال داده‌ها',
     iconName: 'Database',
   },
-  {
-    id: 'appearance',
-    title: 'ظاهر برنامه',
-    desc: 'فونت، تم و فشردگی نمایش',
-    iconName: 'Palette',
-  },
+  // {
+  //   id: 'appearance',
+  //   title: 'ظاهر برنامه',
+  //   desc: 'فونت، تم و فشردگی نمایش',
+  //   iconName: 'Palette',
+  // },
   {
     id: 'danger',
-    title: 'منطقه خطر',
+    title: 'امنیت و حریم خصوصی',
     desc: 'بازنشانی و حذف اطلاعات',
-    iconName: 'AlertTriangle',
+    iconName: 'ShieldAlert',
   },
 ];
 
@@ -118,7 +126,7 @@ export const ICONS_BY_NAME: Record<string, IconComponent> = {
   Hash,
   Database,
   Palette,
-  AlertTriangle,
+  ShieldAlert,
 };
 
 interface SectionCardProps {
@@ -271,30 +279,40 @@ function Segmented<T extends string>({
   );
 }
 
-interface ToggleRowProps {
+export interface ToggleRowProps {
   label: string;
   hint?: string;
   checked: boolean;
   onCheckedChange: (next: boolean) => void;
-  accent?: Accent;
 }
 
-const ToggleRow: React.FC<ToggleRowProps> = ({
+export function ToggleRow({
   label,
   hint,
   checked,
   onCheckedChange,
-  accent = ACCENT,
-}) => (
-  <div className="flex items-start justify-between gap-4 rounded-xl border border-slate-200/70 bg-white/60 p-3 hover:bg-white transition">
-    <div className="flex-1">
-      <div className="text-sm font-medium text-slate-800">{label}</div>
-      {hint && <div className="text-xs text-slate-500 mt-0.5">{hint}</div>}
+}: ToggleRowProps): React.ReactNode {
+  const id = useId();
+  return (
+    <div className="flex items-center justify-between gap-4 rounded-xl border border-slate-200/70 bg-white/60 p-3 hover:bg-white transition">
+      <div className="flex-1">
+        <Label
+          htmlFor={id}
+          className="text-sm font-medium text-slate-800 cursor-pointer"
+        >
+          {label}
+        </Label>
+        {hint && <p className="text-xs text-slate-500 mt-0.5">{hint}</p>}
+      </div>
+      <Switch
+        id={id}
+        checked={checked}
+        onCheckedChange={onCheckedChange}
+        className={cn(
+          'data-[state=checked]:bg-emerald-600 data-[state=unchecked]:bg-slate-300 cursor-pointer'
+        )}
+        dir="ltr"
+      />
     </div>
-    <Toggle
-      checked={checked}
-      onCheckedChange={onCheckedChange}
-      accent={accent}
-    />
-  </div>
-);
+  );
+}

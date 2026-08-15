@@ -9,11 +9,9 @@ import {
 } from '~/components/ui/card';
 import { Field } from '~/components/ui/field';
 import { Input } from '~/components/ui/input';
-import { Label } from '~/components/ui/label';
 import { Select } from '~/components/ui/select';
-import { Switch } from '~/components/ui/switch';
 import { Textarea } from '~/components/ui/textarea';
-import { cn } from '~/lib/utils';
+import { ToggleRow } from '../common';
 
 export default function InvoiceSection(): ReactNode {
   const [showLogo, setShowLogo] = useState(false);
@@ -127,44 +125,6 @@ export default function InvoiceSection(): ReactNode {
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
-}
-
-interface ToggleRowProps {
-  label: string;
-  hint?: string;
-  checked: boolean;
-  onCheckedChange: (next: boolean) => void;
-}
-
-function ToggleRow({
-  label,
-  hint,
-  checked,
-  onCheckedChange,
-}: ToggleRowProps): ReactNode {
-  const id = useId();
-  return (
-    <div className="flex items-start justify-between gap-4 rounded-xl border border-slate-200/70 bg-white/60 p-3 hover:bg-white transition">
-      <div className="flex-1">
-        <Label
-          htmlFor={id}
-          className="text-sm font-medium text-slate-800 cursor-pointer"
-        >
-          {label}
-        </Label>
-        {hint && <p className="text-xs text-slate-500 mt-0.5">{hint}</p>}
-      </div>
-      <Switch
-        id={id}
-        checked={checked}
-        onCheckedChange={onCheckedChange}
-        className={cn(
-          'data-[state=checked]:bg-emerald-600 data-[state=unchecked]:bg-slate-300 cursor-pointer'
-        )}
-        dir="ltr"
-      />
     </div>
   );
 }
