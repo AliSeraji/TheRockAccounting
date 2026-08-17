@@ -19,10 +19,10 @@ export default function InvoiceSection(): ReactNode {
   const [showPageNumbers, setShowPageNumbers] = useState(false);
 
   return (
-    <div className="flex flex-col gap-5 w-full lg:min-w-157.5">
+    <div className="flex flex-col gap-5 w-full lg:min-w-157.5 px-2">
       <Card className="w-full bg-white/90 backdrop-blur border-slate-200">
         <CardHeader className="flex flex-row items-center justify-between bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
-          <CardTitle className="text-slate-800 font-semibold text-lg flex items-center gap-2">
+          <CardTitle className="text-slate-800 font-semibold text-xs lg:text-sm whitespace-nowrap flex items-center gap-2">
             <FileText className="w-5 h-5 text-blue-600" />
             پیش‌فرض‌های فاکتور
           </CardTitle>
@@ -79,7 +79,7 @@ export default function InvoiceSection(): ReactNode {
       {/* ── Print / Layout ── */}
       <Card className="w-full bg-white/90 backdrop-blur border-slate-200">
         <CardHeader className="flex flex-row items-center justify-between bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
-          <CardTitle className="text-slate-800 font-semibold text-lg flex items-center gap-2">
+          <CardTitle className="text-slate-800 font-semibold text-xs lg:text-sm flex items-center gap-2">
             <Printer className="w-5 h-5 text-blue-600" />
             چاپ و قالب رسید
           </CardTitle>
@@ -103,7 +103,7 @@ export default function InvoiceSection(): ReactNode {
               </Field>
             </div>
 
-            <div className="col-span-2 flex flex-col gap-3">
+            <div className="col-span-2 flex flex-col gap-3 text-xs lg:text-sm">
               <ToggleRow
                 label="نمایش لوگو در رسید"
                 hint="لوگوی شرکت در سربرگ هر فاکتور چاپی نمایش داده شود"

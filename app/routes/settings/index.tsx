@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from 'motion/react';
 import PageHeader from '~/components/ui/PageHeader';
 import { HOME } from '../constants';
 import { Home } from 'lucide-react';
-import CompanySection from '~/components/settings/sections/companysection';
 import SettingsSidebar from '~/components/settings/Tablist';
 import SettingsMobileTablist from '~/components/settings/Tablist/mobile';
 import { useSettingsStore } from '~/store/settings/useSettingStore';
@@ -13,6 +12,7 @@ import NumberingSection from '~/components/settings/sections/NumberingSection';
 import { BackupSection } from '~/components/settings/sections/Backup';
 import { DangerSection } from '~/components/settings/sections/Privacy';
 import { useIsMobile } from '~/hooks/use-mobile';
+import CompanySection from '~/components/settings/sections/company/CompanySection';
 
 const SECTION_COMPONENTS: Record<string, () => ReactNode> = {
   company: () => <CompanySection />,
@@ -64,22 +64,24 @@ export default function Settings(): ReactNode {
   const isMobile = useIsMobile();
 
   return (
-    <div className="flex flex-col h-full  relative" dir="rtl">
+    <div className="flex flex-col h-full relative" dir="rtl">
       <PageHeader
         lastPage={'داشبورد اصلی'}
         currentPage={'تنظیمات'}
         link={HOME}
         icon={<Home className="w-5 h-5 text-white" />}
       />
-      <div className="w-full min-w-0 flex flex-col md:flex-row items-stretch md:items-center overflow-y-auto overflow-x-hidden pt-24 pb-8 gap-5">
+      <div className="w-full min-w-0 flex flex-col md:flex-row items-stretch md:items-center overflow-y-auto overflow-x-hidden pt-20 lg:pt-24 pb-6 gap-5">
         {isMobile ? (
-          <SettingsMobileTablist />
+          <div className="sticky top-0 z-30">
+            <SettingsMobileTablist />
+          </div>
         ) : (
-          <div className="flex flex-col justify-center h-full ">
+          <div className="flex flex-col justify-center h-full">
             <SettingsSidebar />
           </div>
         )}
-        <div className="pt-14 flex-1 min-w-0 w-full overflow-auto">
+        <div className="lg:pt-14 flex-1 min-w-0 w-full">
           <AnimatedSection />
         </div>
       </div>
