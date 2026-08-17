@@ -12,7 +12,7 @@ import NumberingSection from '~/components/settings/sections/NumberingSection';
 import { BackupSection } from '~/components/settings/sections/Backup';
 import { DangerSection } from '~/components/settings/sections/Privacy';
 import { useIsMobile } from '~/hooks/use-mobile';
-import CompanySection from '~/components/settings/sections/company/companysection';
+import CompanySection from '~/components/settings/sections/company/CompanySection';
 
 const SECTION_COMPONENTS: Record<string, () => ReactNode> = {
   company: () => <CompanySection />,
