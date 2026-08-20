@@ -42,29 +42,29 @@ const NumberingSection = (): ReactNode => {
     String(Number(nextNumber) || 1).padStart(4, '0');
 
   return (
-    <div className="flex flex-col gap-5" dir="rtl">
+    <div className="flex flex-col gap-5 px-2 lg:px-0" dir="rtl">
       <Card className="w-full bg-white/90 backdrop-blur border-slate-200">
-        <CardHeader className="bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
-          <CardTitle className="text-slate-800 font-semibold text-lg flex items-center gap-2">
+        <CardHeader className="flex-row justify-between bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
+          <CardTitle className="text-slate-800 font-semibold text-xs md:text-sm flex items-center gap-2 whitespace-nowrap">
             <Hash className="w-5 h-5 text-indigo-600" />
             شماره‌گذاری فاکتورها
           </CardTitle>
-          <CardDescription className="text-slate-500 text-xs pr-7">
+          <CardDescription className="text-slate-500 text-[10px] md:text-xs pr-7 flex items-center">
             قالب شماره‌ای که روی هر فاکتور جدید درج می‌شود
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-6">
-          <div className="grid grid-cols-2 gap-x-4 gap-y-4">
+        <CardContent className="p-5">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div className="col-span-2 md:col-span-1">
               <Field>
-                <FieldLabel className="text-slate-700 pr-2">
+                <FieldLabel className="text-slate-700 pr-2 text-xs lg:text-sm">
                   پیشوند شماره فاکتور
                 </FieldLabel>
                 <Input
                   value={invoicePrefix}
                   onChange={(e) => setField('invoicePrefix', e.target.value)}
                   placeholder="INV"
-                  className="rounded-lg"
+                  className="rounded-lg text-xs lg:text-sm"
                 />
                 <FieldDescription className="text-slate-400 text-xs">
                   مثلاً INV یا فاک
@@ -73,23 +73,23 @@ const NumberingSection = (): ReactNode => {
             </div>
             <div className="col-span-2 md:col-span-1">
               <Field>
-                <FieldLabel className="text-slate-700 pr-2">
+                <FieldLabel className="text-slate-700 pr-2 text-xs lg:text-sm">
                   شماره شروع فاکتور بعدی
                 </FieldLabel>
                 <Input
                   value={nextNumber}
                   onChange={(e) => setField('nextNumber', e.target.value)}
                   placeholder="۱"
-                  className="rounded-lg"
+                  className="rounded-lg text-xs lg:text-sm"
                 />
               </Field>
             </div>
             <div className="col-span-2">
-              <div className="rounded-xl border border-slate-200 bg-linear-to-l from-slate-50 to-white px-4 py-3 flex items-center justify-between">
-                <div className="text-xs text-slate-500">
+              <div className="rounded-xl border border-slate-200 bg-linear-to-l from-slate-50 to-white px-4 py-3 flex items-center justify-between gap-3">
+                <div className="text-[10px] md:text-xs text-slate-500">
                   پیش‌نمایش شماره فاکتور بعدی
                 </div>
-                <code className="font-mono text-base font-bold text-slate-800 px-3 py-1 rounded-md bg-white border border-slate-200">
+                <code className="font-mono text-xs md:text-base font-bold text-slate-800 px-3 py-1 rounded-md bg-white border border-slate-200">
                   {preview}
                 </code>
               </div>
@@ -99,27 +99,27 @@ const NumberingSection = (): ReactNode => {
       </Card>
 
       <Card className="w-full bg-white/90 backdrop-blur border-slate-200">
-        <CardHeader className="bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
-          <CardTitle className="text-slate-800 font-semibold text-lg flex items-center gap-2">
+        <CardHeader className="flex-row justify-between bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
+          <CardTitle className="text-slate-800 font-semibold text-xs md:text-sm flex items-center gap-2 whitespace-nowrap">
             <Calendar className="w-5 h-5 text-indigo-600" />
             سال مالی و تقویم
           </CardTitle>
-          <CardDescription className="text-slate-500 text-xs pr-7">
+          <CardDescription className="text-slate-500 text-[10px] md:text-xs pr-7 flex items-center">
             دوره مالی فعال و تقویم پیش‌فرض گزارش‌ها
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-6">
-          <div className="grid grid-cols-2 gap-x-4 gap-y-4">
+        <CardContent className="p-5">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div className="col-span-2 md:col-span-1">
               <Field>
-                <FieldLabel className="text-slate-700 pr-2">
+                <FieldLabel className="text-slate-700 pr-2 text-xs lg:text-sm">
                   سال مالی جاری
                 </FieldLabel>
                 <Select
                   value={fiscalYear}
                   onValueChange={(v) => setField('fiscalYear', v)}
                 >
-                  <SelectTrigger className="rounded-lg">
+                  <SelectTrigger className="rounded-lg text-xs lg:text-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -132,14 +132,14 @@ const NumberingSection = (): ReactNode => {
             </div>
             <div className="col-span-2 md:col-span-1">
               <Field>
-                <FieldLabel className="text-slate-700 pr-2">
+                <FieldLabel className="text-slate-700 pr-2 text-xs lg:text-sm">
                   ماه آغاز سال مالی
                 </FieldLabel>
                 <Select
                   value={fiscalStart}
                   onValueChange={(v) => setField('fiscalStart', v)}
                 >
-                  <SelectTrigger className="rounded-lg">
+                  <SelectTrigger className="rounded-lg text-xs lg:text-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -152,14 +152,14 @@ const NumberingSection = (): ReactNode => {
             </div>
             <div className="col-span-2">
               <Field>
-                <FieldLabel className="text-slate-700 pr-2">
+                <FieldLabel className="text-slate-700 pr-2 text-xs lg:text-sm">
                   تقویم گزارش‌ها
                 </FieldLabel>
                 <Select
                   value={calendar}
                   onValueChange={(v) => setField('calendar', v as CalendarKind)}
                 >
-                  <SelectTrigger className="rounded-lg">
+                  <SelectTrigger className="rounded-lg text-xs lg:text-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
