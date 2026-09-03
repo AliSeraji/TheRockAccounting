@@ -1,7 +1,9 @@
-import { memo, type ReactNode } from 'react';
+import { memo, useCallback, type ReactNode } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { Field, FieldLabel } from '~/components/ui/field';
 import { Input } from '~/components/ui/input';
+import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
+import type { CompanyData } from '~/store/settings/types';
 import { useSettingsStore } from '~/store/settings/useSettingStore';
 
 const IdentityInput = memo(function IdentityInput(): ReactNode {
@@ -17,6 +19,16 @@ const IdentityInput = memo(function IdentityInput(): ReactNode {
     );
 
   const setField = useSettingsStore((s) => s.setField);
+
+  //just use for handling numeric fields
+  const handleNumericFieldChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, fieldName: keyof CompanyData) => {
+      const parsed = parseFloat(convertToEnDigits(e.target.value));
+      setField(fieldName, Number.isNaN(parsed) ? '' : parsed.toString());
+    },
+    []
+  );
+
   return (
     <div className="col-span-12 lg:col-span-8 grid grid-cols-2 gap-x-4 gap-y-4 content-start">
       <div className="col-span-2">
@@ -49,8 +61,8 @@ const IdentityInput = memo(function IdentityInput(): ReactNode {
             شناسه ملی / اقتصادی
           </FieldLabel>
           <Input
-            value={taxId ?? ''}
-            onChange={(e) => setField('taxId', e.target.value)}
+            value={convertToPersianDigits(taxId ?? '')}
+            onChange={(e) => handleNumericFieldChange(e, 'taxId')}
             className="rounded-lg text-xs lg:text-sm"
           />
         </Field>
@@ -61,8 +73,8 @@ const IdentityInput = memo(function IdentityInput(): ReactNode {
             شماره ثبت
           </FieldLabel>
           <Input
-            value={regNumber ?? ''}
-            onChange={(e) => setField('regNumber', e.target.value)}
+            value={convertToPersianDigits(regNumber ?? '')}
+            onChange={(e) => handleNumericFieldChange(e, 'regNumber')}
             className="rounded-lg text-xs lg:text-sm"
           />
         </Field>
@@ -73,8 +85,8 @@ const IdentityInput = memo(function IdentityInput(): ReactNode {
             کد پستی
           </FieldLabel>
           <Input
-            value={postalCode ?? ''}
-            onChange={(e) => setField('postalCode', e.target.value)}
+            value={convertToPersianDigits(postalCode ?? '')}
+            onChange={(e) => handleNumericFieldChange(e, 'postalCode')}
             className="rounded-lg text-xs lg:text-sm"
           />
         </Field>

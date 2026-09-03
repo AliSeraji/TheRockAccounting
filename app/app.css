@@ -11,8 +11,10 @@
   --font-vazirmatn: 'Vazirmatn Variable', sans-serif;
   --font-samim: 'Samim', sans-serif;
 
-  --animate-slide-from-left: calendar-slide-from-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --animate-slide-from-right: calendar-slide-from-right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --animate-slide-from-left: calendar-slide-from-left 0.3s
+    cubic-bezier(0.4, 0, 0.2, 1);
+  --animate-slide-from-right: calendar-slide-from-right 0.3s
+    cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes calendar-slide-from-left {

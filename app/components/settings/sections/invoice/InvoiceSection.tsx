@@ -20,6 +20,15 @@ import { Textarea } from '~/components/ui/textarea';
 import { ToggleRow } from '../../common';
 import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
 
+const DUE_TIME_OPTIONS = [
+  { value: '0', label: 'همان روز' },
+  { value: '7', label: 'یک هفته' },
+  { value: '15', label: 'یک ماه' },
+  { value: '30', label: 'دو ماه' },
+  { value: '60', label: 'سه ماه' },
+  { value: '90', label: 'چهار ماه' },
+];
+
 export default function InvoiceSection(): ReactNode {
   const [showLogo, setShowLogo] = useState(false);
   const [showSignature, setShowSignature] = useState(false);
@@ -83,12 +92,17 @@ export default function InvoiceSection(): ReactNode {
                 <FieldLabel className="text-slate-700 text-xs lg:text-sm">
                   مالیات بر ارزش افزوده (%)
                 </FieldLabel>
-                <Input
-                  className="rounded-xl"
-                  value={convertToPersianDigits(taxRate)}
-                  onChange={updateTaxRate}
-                  aria-invalid={taxRateError ? true : undefined}
-                />
+                <div className="relative">
+                  <Input
+                    className="rounded-xl pl-8"
+                    value={convertToPersianDigits(taxRate)}
+                    onChange={updateTaxRate}
+                    aria-invalid={taxRateError ? true : undefined}
+                  />
+                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs lg:text-sm">
+                    ٪
+                  </span>
+                </div>
                 <FieldError>{taxRateError}</FieldError>
               </Field>
             </div>
@@ -97,12 +111,17 @@ export default function InvoiceSection(): ReactNode {
                 <FieldLabel className="text-slate-700 text-xs lg:text-sm">
                   تخفیف پیش‌فرض (%)
                 </FieldLabel>
-                <Input
-                  className="rounded-xl"
-                  value={convertToPersianDigits(discountRate)}
-                  onChange={updateDiscountRate}
-                  placeholder="۰"
-                />
+                <div className="relative">
+                  <Input
+                    className="rounded-xl pl-8"
+                    value={convertToPersianDigits(discountRate)}
+                    onChange={updateDiscountRate}
+                    placeholder="۰"
+                  />
+                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs lg:text-sm">
+                    ٪
+                  </span>
+                </div>
               </Field>
             </div>
             <div className="col-span-2 md:col-span-1">
@@ -115,17 +134,19 @@ export default function InvoiceSection(): ReactNode {
                   onValueChange={updateDefaultDueDays}
                   dir="rtl"
                 >
-                  <SelectTrigger className="border-slate-200 focus:ring-slate-400 focus:ring-offset-0 text-xs lg:text-sm">
+                  <SelectTrigger className="cursor-pointer border-slate-200 focus:ring-slate-400 focus:ring-offset-0 text-xs lg:text-sm">
                     <SelectValue placeholder="انتخاب مهلت پرداخت" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="0">همان روز</SelectItem>
-                    <SelectItem value="7">یک هفته</SelectItem>
-                    <SelectItem value="15">یک ماه</SelectItem>
-                    <SelectItem value="30">دو ماه</SelectItem>
-                    <SelectItem value="60">سه ماه</SelectItem>
-                    <SelectItem value="90">چهار ماه</SelectItem>
-                    <SelectItem value="180">شش ماه</SelectItem>
+                  <SelectContent className="text-xs lg:text-sm cursor-pointer">
+                    {DUE_TIME_OPTIONS.map((option) => (
+                      <SelectItem
+                        key={option.value}
+                        value={option.value}
+                        className="text-xs lg:text-sm cursor-pointer"
+                      >
+                        {option.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </Field>
