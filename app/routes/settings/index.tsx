@@ -8,7 +8,7 @@ import SettingsMobileTablist from '~/components/settings/Tablist/mobile';
 import { useSettingsStore } from '~/store/settings/useSettingStore';
 import InvoiceSection from '~/components/settings/sections/invoice/InvoiceSection';
 import { SETTINGS_SECTIONS } from '~/components/settings/common';
-import NumberingSection from '~/components/settings/sections/NumberingSection';
+import NumberingSection from '~/components/settings/sections/numbering-section/NumberingSection';
 import { BackupSection } from '~/components/settings/sections/Backup';
 import { DangerSection } from '~/components/settings/sections/Privacy';
 import { useIsMobile } from '~/hooks/use-mobile';

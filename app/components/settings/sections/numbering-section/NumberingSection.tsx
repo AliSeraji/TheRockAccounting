@@ -20,6 +20,7 @@ import {
 import { useSettingsStore } from '~/store/settings/useSettingStore';
 import type { CalendarKind, NumberingData } from '~/store/settings/types';
 import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
+import { Months } from './common';
 
 const NumberingSection = (): ReactNode => {
   const { invoicePrefix, nextNumber, fiscalYear, fiscalStart, calendar } =
@@ -127,7 +128,7 @@ const NumberingSection = (): ReactNode => {
                   value={fiscalYear}
                   onValueChange={(v) => setField('fiscalYear', v)}
                 >
-                  <SelectTrigger className="rounded-lg text-xs lg:text-sm">
+                  <SelectTrigger className="rounded-lg text-xs lg:text-sm focus:ring-offset-0">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -147,13 +148,19 @@ const NumberingSection = (): ReactNode => {
                   value={fiscalStart}
                   onValueChange={(v) => setField('fiscalStart', v)}
                 >
-                  <SelectTrigger className="rounded-lg text-xs lg:text-sm">
+                  <SelectTrigger className="rounded-lg text-xs lg:text-sm focus:ring-offset-0">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="1">فروردین</SelectItem>
-                    <SelectItem value="7">مهر</SelectItem>
-                    <SelectItem value="10">دی</SelectItem>
+                    {Months.map((month) => (
+                      <SelectItem
+                        key={month.value}
+                        value={month.value}
+                        className="text-xs lg:text-sm hover:cursor-pointer"
+                      >
+                        {month.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </Field>
@@ -167,7 +174,7 @@ const NumberingSection = (): ReactNode => {
                   value={calendar}
                   onValueChange={(v) => setField('calendar', v as CalendarKind)}
                 >
-                  <SelectTrigger className="rounded-lg text-xs lg:text-sm">
+                  <SelectTrigger className="rounded-lg text-xs lg:text-sm focus:ring-offset-0">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
