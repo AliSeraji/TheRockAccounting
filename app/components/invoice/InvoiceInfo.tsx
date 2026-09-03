@@ -93,7 +93,6 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
                   /[^0-9]/g,
                   ''
                 );
-                console.log(val);
                 setInvoiceNumber(val);
               }}
               className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs md:placeholder:text-sm"

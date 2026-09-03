@@ -1,5 +1,5 @@
 import { Phone } from 'lucide-react';
-import { memo, type ReactNode } from 'react';
+import { memo, useCallback, type ReactNode } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import {
   Card,
@@ -11,6 +11,8 @@ import {
 import { Field, FieldDescription, FieldLabel } from '~/components/ui/field';
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
+import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
+import type { CompanyData } from '~/store/settings/types';
 import { useSettingsStore } from '~/store/settings/useSettingStore';
 
 const ContactInfo = memo(function ContactInfo(): ReactNode {
@@ -30,7 +32,17 @@ const ContactInfo = memo(function ContactInfo(): ReactNode {
       logoError: s.logoError,
     }))
   );
+
   const setField = useSettingsStore((s) => s.setField);
+
+  const handleNumericFieldChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, fieldName: keyof CompanyData) => {
+      const parsed = parseFloat(convertToEnDigits(e.target.value));
+      setField(fieldName, Number.isNaN(parsed) ? '' : parsed.toString());
+    },
+    []
+  );
+
   return (
     <Card className="w-full bg-white/90 backdrop-blur border-slate-200">
       <CardHeader className="flex flex-row items-center justify-between bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
@@ -50,8 +62,8 @@ const ContactInfo = memo(function ContactInfo(): ReactNode {
                 شماره تلفن
               </FieldLabel>
               <Input
-                value={phone ?? ''}
-                onChange={(e) => setField('phone', e.target.value)}
+                value={convertToPersianDigits(phone || '') ?? ''}
+                onChange={(e) => handleNumericFieldChange(e, 'phone')}
                 className="rounded-lg text-xs lg:text-sm"
               />
             </Field>
@@ -62,8 +74,8 @@ const ContactInfo = memo(function ContactInfo(): ReactNode {
                 شماره همراه
               </FieldLabel>
               <Input
-                value={mobile ?? ''}
-                onChange={(e) => setField('mobile', e.target.value)}
+                value={convertToPersianDigits(mobile || '') ?? ''}
+                onChange={(e) => handleNumericFieldChange(e, 'mobile')}
                 className="rounded-lg text-xs lg:text-sm"
               />
             </Field>

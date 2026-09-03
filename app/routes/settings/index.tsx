@@ -6,9 +6,9 @@ import { Home } from 'lucide-react';
 import SettingsSidebar from '~/components/settings/Tablist';
 import SettingsMobileTablist from '~/components/settings/Tablist/mobile';
 import { useSettingsStore } from '~/store/settings/useSettingStore';
-import InvoiceSection from '~/components/settings/sections/InvoiceSection';
+import InvoiceSection from '~/components/settings/sections/invoice/InvoiceSection';
 import { SETTINGS_SECTIONS } from '~/components/settings/common';
-import NumberingSection from '~/components/settings/sections/NumberingSection';
+import NumberingSection from '~/components/settings/sections/numbering-section/NumberingSection';
 import { BackupSection } from '~/components/settings/sections/Backup';
 import { DangerSection } from '~/components/settings/sections/Privacy';
 import { useIsMobile } from '~/hooks/use-mobile';
@@ -71,17 +71,17 @@ export default function Settings(): ReactNode {
         link={HOME}
         icon={<Home className="w-5 h-5 text-white" />}
       />
-      <div className="w-full min-w-0 flex flex-col md:flex-row items-stretch md:items-center overflow-y-auto overflow-x-hidden pt-20 lg:pt-24 pb-6 gap-5">
+      <div className="w-full min-w-0 flex flex-col md:flex-row md:items-stretch flex-1 min-h-0 overflow-y-auto md:overflow-hidden overflow-x-hidden pt-20 lg:pt-24 pb-6 gap-5">
         {isMobile ? (
           <div className="sticky top-0 z-30">
             <SettingsMobileTablist />
           </div>
         ) : (
-          <div className="flex flex-col justify-center h-full">
+          <div className="flex flex-col justify-center h-full shrink-0">
             <SettingsSidebar />
           </div>
         )}
-        <div className="lg:pt-14 flex-1 min-w-0 w-full">
+        <div className="lg:pt-14 flex-1 min-w-0 min-h-0 w-full md:h-full md:overflow-y-auto">
           <AnimatedSection />
         </div>
       </div>

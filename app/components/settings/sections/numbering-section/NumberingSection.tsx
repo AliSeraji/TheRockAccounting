@@ -1,5 +1,5 @@
 import { Calendar, Hash } from 'lucide-react';
-import type { ReactNode } from 'react';
+import { useCallback, type ReactNode } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import {
   Card,
@@ -8,11 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '~/components/ui/card';
-import {
-  Field,
-  FieldDescription,
-  FieldLabel,
-} from '~/components/ui/field';
+import { Field, FieldDescription, FieldLabel } from '~/components/ui/field';
 import { Input } from '~/components/ui/input';
 import {
   Select,
@@ -22,7 +18,9 @@ import {
   SelectValue,
 } from '~/components/ui/select';
 import { useSettingsStore } from '~/store/settings/useSettingStore';
-import type { CalendarKind } from '~/store/settings/types';
+import type { CalendarKind, NumberingData } from '~/store/settings/types';
+import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
+import { Months } from './common';
 
 const NumberingSection = (): ReactNode => {
   const { invoicePrefix, nextNumber, fiscalYear, fiscalStart, calendar } =
@@ -40,6 +38,17 @@ const NumberingSection = (): ReactNode => {
   const preview =
     `${invoicePrefix || 'INV'}-${fiscalYear || '1404'}-` +
     String(Number(nextNumber) || 1).padStart(4, '0');
+
+  const handleNumericFieldChange = useCallback(
+    (
+      e: React.ChangeEvent<HTMLInputElement>,
+      fieldName: keyof NumberingData
+    ) => {
+      const parsed = parseFloat(convertToEnDigits(e.target.value));
+      setField(fieldName, Number.isNaN(parsed) ? '' : parsed.toString());
+    },
+    []
+  );
 
   return (
     <div className="flex flex-col gap-5 px-2 lg:px-0" dir="rtl">
@@ -77,9 +86,9 @@ const NumberingSection = (): ReactNode => {
                   شماره شروع فاکتور بعدی
                 </FieldLabel>
                 <Input
-                  value={nextNumber}
-                  onChange={(e) => setField('nextNumber', e.target.value)}
-                  placeholder="۱"
+                  value={convertToPersianDigits(nextNumber)}
+                  onChange={(e) => handleNumericFieldChange(e, 'nextNumber')}
+                  placeholder={convertToPersianDigits('147')}
                   className="rounded-lg text-xs lg:text-sm"
                 />
               </Field>
@@ -119,7 +128,7 @@ const NumberingSection = (): ReactNode => {
                   value={fiscalYear}
                   onValueChange={(v) => setField('fiscalYear', v)}
                 >
-                  <SelectTrigger className="rounded-lg text-xs lg:text-sm">
+                  <SelectTrigger className="rounded-lg text-xs lg:text-sm focus:ring-offset-0">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -139,13 +148,19 @@ const NumberingSection = (): ReactNode => {
                   value={fiscalStart}
                   onValueChange={(v) => setField('fiscalStart', v)}
                 >
-                  <SelectTrigger className="rounded-lg text-xs lg:text-sm">
+                  <SelectTrigger className="rounded-lg text-xs lg:text-sm focus:ring-offset-0">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="1">فروردین</SelectItem>
-                    <SelectItem value="7">مهر</SelectItem>
-                    <SelectItem value="10">دی</SelectItem>
+                    {Months.map((month) => (
+                      <SelectItem
+                        key={month.value}
+                        value={month.value}
+                        className="text-xs lg:text-sm hover:cursor-pointer"
+                      >
+                        {month.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </Field>
@@ -159,7 +174,7 @@ const NumberingSection = (): ReactNode => {
                   value={calendar}
                   onValueChange={(v) => setField('calendar', v as CalendarKind)}
                 >
-                  <SelectTrigger className="rounded-lg text-xs lg:text-sm">
+                  <SelectTrigger className="rounded-lg text-xs lg:text-sm focus:ring-offset-0">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
