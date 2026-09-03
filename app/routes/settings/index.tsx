@@ -6,7 +6,7 @@ import { Home } from 'lucide-react';
 import SettingsSidebar from '~/components/settings/Tablist';
 import SettingsMobileTablist from '~/components/settings/Tablist/mobile';
 import { useSettingsStore } from '~/store/settings/useSettingStore';
-import InvoiceSection from '~/components/settings/sections/InvoiceSection';
+import InvoiceSection from '~/components/settings/sections/invoice/InvoiceSection';
 import { SETTINGS_SECTIONS } from '~/components/settings/common';
 import NumberingSection from '~/components/settings/sections/NumberingSection';
 import { BackupSection } from '~/components/settings/sections/Backup';

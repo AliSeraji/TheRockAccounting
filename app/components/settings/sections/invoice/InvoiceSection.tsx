@@ -1,5 +1,5 @@
 import { FileText, Printer } from 'lucide-react';
-import { useId, useState, type ReactNode } from 'react';
+import { useCallback, useId, useState, type ReactNode } from 'react';
 import {
   Card,
   CardContent,
@@ -7,16 +7,62 @@ import {
   CardHeader,
   CardTitle,
 } from '~/components/ui/card';
-import { Field } from '~/components/ui/field';
+import { Field, FieldError, FieldLabel } from '~/components/ui/field';
 import { Input } from '~/components/ui/input';
-import { Select } from '~/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '~/components/ui/select';
 import { Textarea } from '~/components/ui/textarea';
-import { ToggleRow } from '../common';
+import { ToggleRow } from '../../common';
+import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
 
 export default function InvoiceSection(): ReactNode {
   const [showLogo, setShowLogo] = useState(false);
   const [showSignature, setShowSignature] = useState(false);
   const [showPageNumbers, setShowPageNumbers] = useState(false);
+  const [taxRate, setTaxRate] = useState<number>(0);
+  const [defaultDueDays, setDefaultDueDays] = useState<number>(0);
+  const [discountRate, setDiscountRate] = useState<number>(0);
+  const [note, setNote] = useState<string>('');
+
+  const updateTaxRate = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const parsed = parseFloat(convertToEnDigits(e.target.value));
+      setTaxRate(Number.isNaN(parsed) ? 0 : parsed);
+    },
+    [setTaxRate]
+  );
+
+  const updateDefaultDueDays = useCallback((value: string) => {
+    const parsed = parseInt(value, 10);
+    setDefaultDueDays(Number.isNaN(parsed) ? 0 : parsed);
+  }, []);
+
+  const updateDiscountRate = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const parsed = parseFloat(convertToEnDigits(e.target.value));
+      setDiscountRate(Number.isNaN(parsed) ? 0 : parsed);
+    },
+    [setDiscountRate]
+  );
+
+  const updateNote = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setNote(e.target.value || '');
+    },
+    [setNote]
+  );
+
+  const taxRateError =
+    taxRate > 100
+      ? 'مالیات نمی‌تواند بیشتر از ۱۰۰ درصد باشد'
+      : taxRate < 0
+        ? 'مالیات نمی‌تواند منفی باشد'
+        : null;
 
   return (
     <div className="flex flex-col gap-5 w-full lg:min-w-157.5 px-2">
@@ -33,43 +79,63 @@ export default function InvoiceSection(): ReactNode {
         <CardContent className="p-6">
           <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <div className="col-span-2 md:col-span-1 ">
-              <Field>
+              <Field data-invalid={taxRateError ? true : undefined}>
+                <FieldLabel className="text-slate-700 text-xs lg:text-sm">
+                  مالیات بر ارزش افزوده (%)
+                </FieldLabel>
                 <Input
                   className="rounded-xl"
-                  value={''}
-                  onChange={() => {}}
-                  placeholder="۹"
+                  value={convertToPersianDigits(taxRate)}
+                  onChange={updateTaxRate}
+                  aria-invalid={taxRateError ? true : undefined}
                 />
+                <FieldError>{taxRateError}</FieldError>
               </Field>
             </div>
             <div className="col-span-2 md:col-span-1">
               <Field>
+                <FieldLabel className="text-slate-700 text-xs lg:text-sm">
+                  تخفیف پیش‌فرض (%)
+                </FieldLabel>
                 <Input
                   className="rounded-xl"
-                  value={''}
-                  onChange={() => {}}
+                  value={convertToPersianDigits(discountRate)}
+                  onChange={updateDiscountRate}
                   placeholder="۰"
                 />
               </Field>
             </div>
             <div className="col-span-2 md:col-span-1">
               <Field>
+                <FieldLabel className="text-slate-700 text-xs lg:text-sm">
+                  مهلت پرداخت پیش‌فرض (روز)
+                </FieldLabel>
                 <Select
-                  value={''}
-                  onValueChange={() => {}}
-                  //   options={[
-                  //     { value: '0', label: 'نقدی — همان روز' },
-                  //     { value: '7', label: '۷ روز' },
-                  //     { value: '15', label: '۱۵ روز' },
-                  //     { value: '30', label: '۳۰ روز' },
-                  //     { value: '60', label: '۶۰ روز' },
-                  //   ]}
-                />
+                  value={String(defaultDueDays)}
+                  onValueChange={updateDefaultDueDays}
+                  dir="rtl"
+                >
+                  <SelectTrigger className="border-slate-200 focus:ring-slate-400 focus:ring-offset-0 text-xs lg:text-sm">
+                    <SelectValue placeholder="انتخاب مهلت پرداخت" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="0">همان روز</SelectItem>
+                    <SelectItem value="7">یک هفته</SelectItem>
+                    <SelectItem value="15">یک ماه</SelectItem>
+                    <SelectItem value="30">دو ماه</SelectItem>
+                    <SelectItem value="60">سه ماه</SelectItem>
+                    <SelectItem value="90">چهار ماه</SelectItem>
+                    <SelectItem value="180">شش ماه</SelectItem>
+                  </SelectContent>
+                </Select>
               </Field>
             </div>
             <div className="col-span-2">
               <Field>
-                <Textarea value={''} onChange={() => {}} rows={3} />
+                <FieldLabel className="text-slate-700 text-xs lg:text-sm">
+                  یادداشت پیش‌فرض
+                </FieldLabel>
+                <Textarea value={note} onChange={updateNote} rows={3} />
               </Field>
             </div>
           </div>

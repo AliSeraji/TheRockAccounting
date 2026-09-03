@@ -30,7 +30,9 @@ const ContactInfo = memo(function ContactInfo(): ReactNode {
       logoError: s.logoError,
     }))
   );
+
   const setField = useSettingsStore((s) => s.setField);
+
   return (
     <Card className="w-full bg-white/90 backdrop-blur border-slate-200">
       <CardHeader className="flex flex-row items-center justify-between bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
