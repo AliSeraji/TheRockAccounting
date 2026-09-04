@@ -9,7 +9,7 @@ import {
   FileCheck2,
 } from 'lucide-react';
 import {
-  BUYER_REGISTER,
+  CUSTOMER_REGISTER,
   CARGO,
   PRIVATE_INVOICE,
   PURCHASE_REG,
@@ -38,7 +38,7 @@ export const dashboardItems = [
     icon: Users,
     color: 'from-purple-400 to-purple-600',
     description: 'ثبت و مدیریت مشتریان',
-    to: BUYER_REGISTER,
+    to: CUSTOMER_REGISTER,
   },
   {
     title: 'حساب داری',
