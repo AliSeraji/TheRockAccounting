@@ -34,12 +34,6 @@ export const RECEIPT_SECTIONS: ReceiptSectionDescriptor[] = [
     iconName: 'Printer',
   },
   {
-    id: 'archive',
-    title: 'بایگانی فاکتورها',
-    desc: 'مشاهده و مدیریت فاکتورهای بایگانی شده',
-    iconName: 'ArchiveRestore',
-  },
-  {
     id: 'list',
     title: 'لیست فاکتورها',
     desc: 'مشاهده لیست کامل فاکتورها',
