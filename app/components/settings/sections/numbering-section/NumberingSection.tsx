@@ -20,7 +20,7 @@ import {
 import { useSettingsStore } from '~/store/settings/useSettingStore';
 import type { CalendarKind, NumberingData } from '~/store/settings/types';
 import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
-import { Months } from './common';
+import { Months, Years } from './common';
 
 const NumberingSection = (): ReactNode => {
   const { invoicePrefix, nextNumber, fiscalYear, fiscalStart, calendar } =
@@ -132,9 +132,15 @@ const NumberingSection = (): ReactNode => {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="1403">۱۴۰۳</SelectItem>
-                    <SelectItem value="1404">۱۴۰۴</SelectItem>
-                    <SelectItem value="1405">۱۴۰۵</SelectItem>
+                    {Years.map((year) => (
+                      <SelectItem
+                        key={year.value}
+                        value={year.value}
+                        className="text-xs lg:text-sm hover:cursor-pointer"
+                      >
+                        {year.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </Field>
