@@ -90,7 +90,7 @@ const ContactSection = memo(function ContactSection({
               value={customer.address}
               onChange={(e) => onChange('address', e.target.value)}
               placeholder="نشانی کامل پستی"
-              className="min-h-[42px] rounded-lg border-slate-200 text-xs lg:text-sm resize-none focus-visible:ring-slate-400"
+              className="min-h-10.5 rounded-lg border-slate-200 text-xs lg:text-sm resize-none focus-visible:ring-slate-400"
             />
           </Field>
         </div>

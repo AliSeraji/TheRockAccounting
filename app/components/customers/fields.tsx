@@ -83,17 +83,11 @@ export const TextField = memo(function TextField({
 });
 
 interface DigitsFieldProps extends Omit<TextFieldProps, 'dir'> {
-  /** حداکثر تعداد ارقام مجاز */
   maxLength?: number;
-  /** پیشوند ثابت و غیرقابل ویرایش، مانند IR در شماره شبا */
   prefix?: string;
-  /** فاصله‌گذاری هر ۴ رقم، برای شماره کارت */
   grouped?: boolean;
 }
 
-/**
- * ورودی عددی: مقدار با ارقام انگلیسی نگه‌داری و با ارقام فارسی نمایش داده می‌شود.
- */
 export const DigitsField = memo(function DigitsField({
   label,
   value,
