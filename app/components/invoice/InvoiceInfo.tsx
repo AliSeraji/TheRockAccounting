@@ -85,7 +85,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             </Select>
           </div>
           <div className="flex flex-col space-y-2">
-            <Label className="text-slate-700 pr-1">شماره</Label>
+            <Label className="text-slate-700 pr-1">شماره فاکتور</Label>
             <Input
               value={convertToPersianDigits(invoiceNumber)}
               onChange={(e) => {
@@ -96,7 +96,6 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
                 setInvoiceNumber(val);
               }}
               className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs md:placeholder:text-sm"
-              placeholder="شماره فاکتور"
             />
           </div>
           <div className="flex flex-col space-y-2">
@@ -107,7 +106,6 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
               value={convertToPersianDigits(buyer)}
               onChange={(e) => setBuyer(e.target.value)}
               className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs md:placeholder:text-sm"
-              placeholder="درج شود"
             />
           </div>
           <div className="flex flex-col space-y-2">
@@ -119,7 +117,6 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
                     value={convertToPersianDigits(invoiceDate)}
                     readOnly
                     className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 cursor-pointer placeholder:text-xs lg:placeholder:text-sm"
-                    placeholder="تاریخ روز"
                   />
                 }
               >
@@ -127,7 +124,6 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
                   value={selectedDay}
                   onChange={handleDateChange}
                   displayValue={invoiceDate}
-                  placeholder="تاریخ روز"
                 />
               </Suspense>
             ) : (
@@ -135,7 +131,6 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
                 value={convertToPersianDigits(invoiceDate)}
                 readOnly
                 className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 cursor-pointer placeholder:text-xs lg:placeholder:text-sm"
-                placeholder="تاریخ روز"
               />
             )}
           </div>
@@ -143,11 +138,9 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             <Label className="text-slate-700 pr-1">پروژه</Label>
             <Input
               value={convertToPersianDigits(project)}
-              onChange={(e) =>
-                setProject(convertToEnDigits(e.target.value.trim()))
-              }
+              onChange={(e) => setProject(convertToEnDigits(e.target.value))}
               className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-sm"
-              placeholder=" درج شود"
+              placeholder=" پروژه مشتری"
             />
           </div>
           <div className="flex flex-col space-y-2">
@@ -162,7 +155,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
                 setPhone(value);
               }}
               className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-sm"
-              placeholder="شماره تلفن"
+              placeholder="مشتری "
             />
           </div>
           <div className="flex flex-col space-y-2 md:col-span-2">
@@ -173,7 +166,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
                 setAddress(convertToEnDigits(e.target.value.trim()))
               }
               className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-sm"
-              placeholder="دستی درج شود"
+              placeholder="آدرس دریافت کننده "
             />
           </div>
         </div>

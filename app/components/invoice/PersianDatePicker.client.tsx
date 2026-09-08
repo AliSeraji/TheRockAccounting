@@ -16,7 +16,7 @@ export default function PersianDatePicker({
   value,
   onChange,
   displayValue,
-  placeholder = 'تاریخ روز',
+  placeholder = '',
 }: PersianDatePickerProps) {
   return (
     <DatePicker

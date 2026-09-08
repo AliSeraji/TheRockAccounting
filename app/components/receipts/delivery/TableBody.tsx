@@ -19,7 +19,7 @@ export const DeliveryTableBody = ({
           <TableCell className="border-2 border-gray-400 p-1.5 text-center text-xs">
             {convertToPersianDigits(startIndex + index + 1)}
           </TableCell>
-          <TableCell className="border-2 border-gray-400 p-1.5 text-center text-xs">
+          <TableCell className="whitespace-normal wrap-break-word border-2 border-gray-400 p-1.5 text-center text-xs">
             {item.stoneType || ''}
           </TableCell>
           <TableCell className="border-2 border-gray-400 p-1.5 text-center text-xs">
