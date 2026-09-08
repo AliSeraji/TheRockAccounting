@@ -19,7 +19,7 @@ export default function SalesTableBody({
           <TableCell className="border-2 border-gray-400 p-2 text-sm text-center">
             {convertToPersianDigits(startIndex + index + 1)}
           </TableCell>
-          <TableCell className="border-2 border-gray-400 p-2 text-sm text-center">
+          <TableCell className="whitespace-normal wrap-break-word border-2 border-gray-400 p-2 text-sm text-center">
             {item.stoneType}
           </TableCell>
           <TableCell className="border-2 border-gray-400 p-2 text-sm text-center">
