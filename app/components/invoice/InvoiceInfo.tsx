@@ -149,7 +149,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
               value={convertToPersianDigits(phone)}
               onChange={(e) => {
                 const value = convertToEnDigits(e.target.value.trim()).replace(
-                  /[^0-9]-/g,
+                  /[^0-9]/g,
                   ''
                 );
                 setPhone(value);
@@ -162,9 +162,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             <Label className="text-slate-700 pr-1">آدرس</Label>
             <Input
               value={convertToPersianDigits(address)}
-              onChange={(e) =>
-                setAddress(convertToEnDigits(e.target.value.trim()))
-              }
+              onChange={(e) => setAddress(convertToEnDigits(e.target.value))}
               className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-sm"
               placeholder="آدرس دریافت کننده "
             />
