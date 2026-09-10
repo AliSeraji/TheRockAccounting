@@ -51,7 +51,7 @@ const ContactInfo = memo(function ContactInfo(): ReactNode {
           اطلاعات تماس
         </CardTitle>
         <CardDescription className="text-slate-500 text-xs pr-7 ">
-          در فاکتورها، رسیدها و گزارش‌ها استفاده می‌شود
+          در فاکتورها، رسیدها نمایش داده می‌شود
         </CardDescription>
       </CardHeader>
       <CardContent className="p-6">

@@ -3,6 +3,7 @@ import { TableRow, TableCell } from '~/components/ui/table';
 import type { WarehouseItem } from '~/store/warehouse/types';
 import { categoryColors } from '../constants';
 import { useWarehouseStore } from '~/store/warehouse/useWarehouse';
+import { convertToPersianDigits } from '~/lib/utils';
 
 interface WarehouseTableRowProps {
   item: WarehouseItem;
@@ -44,36 +45,42 @@ const WarehouseTableRow = memo(function WarehouseTableRow({
         )}
       </TableCell>
       <TableCell className="px-4 py-3 font-medium text-slate-800 whitespace-nowrap">
-        {item.name}
+        {convertToPersianDigits(item.name)}
       </TableCell>
       <TableCell className="px-4 py-3 text-slate-600">
-        {item.diameter || '—'}
+        {convertToPersianDigits(item.diameter || '—')}
       </TableCell>
       <TableCell className="px-4 py-3 text-slate-600">
-        {item.length || '—'}
+        {convertToPersianDigits(item.length || '—')}
       </TableCell>
       <TableCell className="px-4 py-3 text-slate-600">
-        {item.width || '—'}
+        {convertToPersianDigits(item.width || '—')}
       </TableCell>
       <TableCell className="px-4 py-3 text-slate-600">
-        {item.area || '—'}
+        {convertToPersianDigits(item.area || '—')}
       </TableCell>
       <TableCell className="px-4 py-3 text-slate-600">
-        {item.purchasePrice
-          ? Number(item.purchasePrice).toLocaleString('fa-IR')
-          : '—'}
+        {convertToPersianDigits(
+          item.purchasePrice
+            ? Number(item.purchasePrice).toLocaleString('fa-IR')
+            : '—'
+        )}
       </TableCell>
       <TableCell className="px-4 py-3 text-slate-600">
-        {item.salePrice ? Number(item.salePrice).toLocaleString('fa-IR') : '—'}
+        {convertToPersianDigits(
+          item.salePrice ? Number(item.salePrice).toLocaleString('fa-IR') : '—'
+        )}
       </TableCell>
       <TableCell className="px-4 py-3 text-slate-600">
-        {item.quantity ? Number(item.quantity).toLocaleString('fa-IR') : '—'}
+        {convertToPersianDigits(
+          item.quantity ? Number(item.quantity).toLocaleString('fa-IR') : '—'
+        )}
       </TableCell>
       <TableCell className="px-4 py-3 text-slate-500 max-w-48 truncate">
-        {item.notes || '—'}
+        {convertToPersianDigits(item.notes || '—')}
       </TableCell>
       <TableCell className="px-4 py-3 text-slate-400 text-xs whitespace-nowrap">
-        {item.date || '—'}
+        {convertToPersianDigits(item.date || '—')}
       </TableCell>
     </TableRow>
   );

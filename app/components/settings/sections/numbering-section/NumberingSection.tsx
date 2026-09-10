@@ -72,12 +72,10 @@ const NumberingSection = (): ReactNode => {
                 <Input
                   value={invoicePrefix}
                   onChange={(e) => setField('invoicePrefix', e.target.value)}
-                  placeholder="INV"
+                  placeholder=""
                   className="rounded-lg text-xs lg:text-sm"
                 />
-                <FieldDescription className="text-slate-400 text-xs">
-                  مثلاً INV یا فاک
-                </FieldDescription>
+                <FieldDescription className="text-slate-400 text-xs"></FieldDescription>
               </Field>
             </div>
             <div className="col-span-2 md:col-span-1">
