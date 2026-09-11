@@ -11,10 +11,20 @@ export interface StoneItem {
   total: string;
 }
 
+export interface ServiceItem {
+  id: number;
+  serviceType: string;
+  quantity: string;
+  unitPrice: string;
+  total: string;
+  description: string;
+}
+
 export interface InvoiceTotals {
   totalQuantity: number;
   totalArea: number;
   totalAmount: number;
+  totalServicesAmount: number;
   totalPaymentAmount: number;
 }
 
@@ -32,6 +42,7 @@ export interface InvoiceDataType {
   tax: string;
   received: string;
   items: StoneItem[];
+  services: ServiceItem[];
   totals: InvoiceTotals;
 }
 
@@ -51,6 +62,7 @@ export interface InvoiceState {
   activeTab: string;
   totals: InvoiceTotals;
   items: StoneItem[];
+  services: ServiceItem[];
 
   setInvoiceType: (value: string) => void;
   setBuyer: (value: string) => void;
@@ -68,6 +80,9 @@ export interface InvoiceState {
   addItem: () => void;
   removeItem: (id: number) => void;
   updateItem: (id: number, field: keyof StoneItem, value: string) => void;
+  addService: () => void;
+  removeService: (id: number) => void;
+  updateService: (id: number, field: keyof ServiceItem, value: string) => void;
 
   getInvoiceData: () => InvoiceDataType;
 

@@ -1,5 +1,6 @@
 import type { WarehouseItem } from '~/store/warehouse/types';
 import type { emptyItem } from '~/store/warehouse/useWarehouse';
+import type { WarehouseTableItem } from './table/types';
 
 export enum FieldTypes {
   PRICE,
@@ -71,19 +72,17 @@ export const formFields: {
   },
 ];
 
-export const warehouseColumns = [
-  'کد',
-  'دسته‌بندی',
-  'نام محصول',
-  'قطر',
-  'طول',
-  'عرض',
-  'متراژ',
-  'قیمت خرید',
-  'قیمت فروش',
-  'تعداد',
-  'توضیحات',
-  'زمان ثبت/ویرایش',
+export const warehouseColumns: WarehouseTableItem[] = [
+  { label: 'کد', width: 'w-[10%]' },
+  { label: 'دسته‌بندی', width: 'w-[15%]' },
+  { label: 'نام محصول', width: 'w-[20%]' },
+  { label: 'قطر', width: 'w-[5%]' },
+  { label: 'طول', width: 'w-[5%]' },
+  { label: 'عرض', width: 'w-[10%]' },
+  { label: 'متراژ', width: 'w-[10%]' },
+  { label: 'قیمت خرید', width: 'w-[10%]' },
+  { label: 'قیمت فروش', width: 'w-[10%]' },
+  { label: 'تعداد', width: 'w-[5%]' },
 ];
 
 export const categoryColors: Record<string, string> = {

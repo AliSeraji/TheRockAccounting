@@ -1,5 +1,6 @@
 import type React from 'react';
 import type { ReceiptProps } from '~/components/invoice/common';
+import type { ServiceItem } from '~/store/types';
 import SalesInfoBox from './InfoBox';
 import SalesReceiptHeader from './ReceiptHeader';
 import SalesTable from './Table';
@@ -9,17 +10,27 @@ import SalesSignature from './Signature';
 import PriceBox from './PriceBox';
 import { convertToPersianDigits } from '~/lib/utils';
 import { AdditionalNote } from './AdditionalNote';
+import SalesServicesTable from './ServicesTable';
+
+interface SalesReceiptPageProps extends ReceiptProps {
+  services: ServiceItem[];
+  serviceStartIndex: number;
+  showItemsFooter: boolean;
+}
 
 export default function SalesReceiptsPage({
   data,
   items,
   startIndex,
   isLastPage,
+  services,
+  serviceStartIndex,
+  showItemsFooter,
   pageNumber,
   totalPages,
   logo,
   companyName,
-}: ReceiptProps): React.ReactNode {
+}: SalesReceiptPageProps): React.ReactNode {
   return (
     <div
       className="receipt-page receipt-page-a4 bg-white mx-auto shadow-2xl print:shadow-none"
@@ -41,12 +52,23 @@ export default function SalesReceiptsPage({
         address={data.address}
       />
 
-      <SalesTable
-        items={items}
-        startIndex={startIndex}
-        isLastPage={isLastPage}
-        totals={data.totals}
-      />
+      {items.length > 0 && (
+        <SalesTable
+          items={items}
+          startIndex={startIndex}
+          isLastPage={showItemsFooter}
+          totals={data.totals}
+        />
+      )}
+
+      {services.length > 0 && (
+        <SalesServicesTable
+          services={services}
+          startIndex={serviceStartIndex}
+          isLastPage={isLastPage}
+          totalServicesAmount={data.totals.totalServicesAmount}
+        />
+      )}
 
       <AdditionalNote additionalNote={data.additionalNote} />
 

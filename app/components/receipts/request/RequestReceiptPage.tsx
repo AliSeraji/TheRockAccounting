@@ -5,16 +5,22 @@ import CustomerInfoBox from './CustomerInfoBox';
 import UpperTable from './UpperTable/Table';
 import LowerTable from './LowerTable/Table';
 import { convertToPersianDigits } from '~/lib/utils';
+import type { ServiceItem } from '~/store/types';
+
+interface RequestReceiptPageProps extends ReceiptProps {
+  services: ServiceItem[];
+}
 
 export default function RequestReceiptPage({
   data,
   items,
+  services,
   startIndex,
   pageNumber,
   totalPages,
   logo,
   companyName,
-}: ReceiptProps): ReactNode {
+}: RequestReceiptPageProps): ReactNode {
   return (
     <div
       className="receipt-page receipt-page-a5 bg-white mx-auto shadow-2xl print:shadow-none mb-4"
@@ -33,8 +39,10 @@ export default function RequestReceiptPage({
         address={data.address}
       />
 
-      <UpperTable items={items} startIndex={startIndex} />
-      <LowerTable items={items} startIdx={startIndex} />
+      {items.length > 0 && <UpperTable items={items} startIndex={startIndex} />}
+      {services.length > 0 && (
+        <LowerTable services={services} startIdx={startIndex} />
+      )}
 
       <div className="text-center text-[10px] text-gray-500 mt-2">
         صفحه {convertToPersianDigits(pageNumber)} از{' '}

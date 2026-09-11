@@ -1,6 +1,11 @@
 import { create } from 'zustand';
 import { convertToEnDigits } from './../lib/utils';
-import type { InvoiceState, InvoiceTotals, StoneItem } from './types';
+import type {
+  InvoiceState,
+  InvoiceTotals,
+  ServiceItem,
+  StoneItem,
+} from './types';
 import { computeTotals } from './helper';
 
 const initialItems: StoneItem[] = [
@@ -18,10 +23,22 @@ const initialItems: StoneItem[] = [
   },
 ];
 
+const initialServices: ServiceItem[] = [
+  {
+    id: 1,
+    serviceType: '',
+    quantity: '-',
+    unitPrice: '-',
+    total: '-',
+    description: '',
+  },
+];
+
 const initialTotals: InvoiceTotals = {
   totalQuantity: 0,
   totalArea: 0,
   totalAmount: 0,
+  totalServicesAmount: 0,
   totalPaymentAmount: 0,
 };
 
@@ -40,6 +57,7 @@ const initialState = {
   received: '0',
   activeTab: 'invoice',
   items: initialItems,
+  services: initialServices,
   totals: initialTotals,
 };
 
@@ -58,24 +76,24 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
   setActiveTab: (value) => set({ activeTab: value }),
 
   setDiscount: (value) => {
-    const { tax, received, items } = get();
+    const { tax, received, items, services } = get();
     set({
       discount: value,
-      totals: computeTotals(items, value, tax, received),
+      totals: computeTotals(items, services, value, tax, received),
     });
   },
   setTax: (value) => {
-    const { discount, received, items } = get();
+    const { discount, received, items, services } = get();
     set({
       tax: value,
-      totals: computeTotals(items, discount, value, received),
+      totals: computeTotals(items, services, discount, value, received),
     });
   },
   setReceived: (value) => {
-    const { discount, tax, items } = get();
+    const { discount, tax, items, services } = get();
     set({
       received: value,
-      totals: computeTotals(items, discount, tax, value),
+      totals: computeTotals(items, services, discount, tax, value),
     });
   },
 
@@ -105,17 +123,17 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
     }),
 
   removeItem: (id) => {
-    const { items, discount, tax, received } = get();
+    const { items, services, discount, tax, received } = get();
     if (items.length <= 1) return;
     const newItems = items.filter((item) => item.id !== id);
     set({
       items: newItems,
-      totals: computeTotals(newItems, discount, tax, received),
+      totals: computeTotals(newItems, services, discount, tax, received),
     });
   },
 
   updateItem: (id, field, value) => {
-    const { items, discount, tax, received } = get();
+    const { items, services, discount, tax, received } = get();
     const newItems = items.map((item) => {
       if (item.id !== id) return item;
       let updatedItem = { ...item, [field]: value };
@@ -146,7 +164,59 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
     });
     set({
       items: newItems,
-      totals: computeTotals(newItems, discount, tax, received),
+      totals: computeTotals(newItems, services, discount, tax, received),
+    });
+  },
+
+  addService: () =>
+    set((state) => {
+      const newId =
+        state.services.length > 0
+          ? Math.max(...state.services.map((s) => s.id)) + 1
+          : 1;
+      return {
+        services: [
+          ...state.services,
+          {
+            id: newId,
+            serviceType: '',
+            quantity: '-',
+            unitPrice: '-',
+            total: '-',
+            description: '',
+          },
+        ],
+      };
+    }),
+
+  removeService: (id) => {
+    const { items, services, discount, tax, received } = get();
+    if (services.length <= 1) return;
+    const newServices = services.filter((service) => service.id !== id);
+    set({
+      services: newServices,
+      totals: computeTotals(items, newServices, discount, tax, received),
+    });
+  },
+
+  updateService: (id, field, value) => {
+    const { items, services, discount, tax, received } = get();
+    const newServices = services.map((service) => {
+      if (service.id !== id) return service;
+      const updatedService = { ...service, [field]: value };
+
+      if (['quantity', 'unitPrice'].includes(field)) {
+        const total =
+          parseFloat(convertToEnDigits(updatedService.quantity || '0')) *
+          parseFloat(convertToEnDigits(updatedService.unitPrice || '0'));
+        updatedService.total = total > 0 ? total.toFixed(0).toString() : '0';
+      }
+
+      return updatedService;
+    });
+    set({
+      services: newServices,
+      totals: computeTotals(items, newServices, discount, tax, received),
     });
   },
 
@@ -166,6 +236,7 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
       tax: state.tax,
       received: state.received,
       items: state.items,
+      services: state.services,
       totals: state.totals,
     };
   },

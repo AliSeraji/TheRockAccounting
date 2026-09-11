@@ -19,15 +19,11 @@ export default function WarehouseTable({
   setCurrentPage,
 }: WarehouseTableProps): ReactNode {
   return (
-    <Table className="w-full text-sm">
+    <Table className="flex flex-col w-[unset] text-sm">
       <WarehouseTableHeader />
-      <TableBody>
+      <TableBody className="w-full flex flex-col gap-2 p-2">
         {items.map((item, idx) => (
-          <WarehouseTableRow
-            key={item.id}
-            item={item}
-            isEven={idx % 2 === 0}
-          />
+          <WarehouseTableRow key={item.id} item={item} />
         ))}
       </TableBody>
       <TFoot>

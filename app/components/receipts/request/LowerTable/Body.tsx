@@ -1,20 +1,20 @@
 import type { ReactNode } from 'react';
 import { TableBody } from '~/components/ui/table';
-import type { InvoiceDataType } from '~/store/types';
+import type { ServiceItem } from '~/store/types';
 import Row from './Row';
 
 export default function Body({
-  items,
+  services,
   startIdx,
 }: {
-  items: InvoiceDataType['items'];
+  services: ServiceItem[];
   startIdx: number;
 }): ReactNode {
   return (
     <TableBody>
-      {items.map((item, idx) => {
-        return <Row key={item.id} item={item} index={startIdx + idx + 1} />;
-      })}
+      {services.map((service, idx) => (
+        <Row key={service.id} service={service} index={startIdx + idx + 1} />
+      ))}
     </TableBody>
   );
 }

@@ -2,14 +2,17 @@ import { Printer } from 'lucide-react';
 import { useMemo, type ReactNode } from 'react';
 import { Button } from '~/components/ui/button';
 import type { Props } from '../types';
-import { receiptPager } from '~/helper/helper';
+import { requestReceiptPager } from '~/helper/helper';
 import RequestReceiptPage from './RequestReceiptPage';
 import { useSettingsStore } from '~/store/settings/useSettingStore';
 
 const ITEMS_PER_PAGE = 8;
 
 export default function RequestProduct({ data }: Props): ReactNode {
-  const pages = useMemo(() => receiptPager(data, ITEMS_PER_PAGE), [data.items]);
+  const pages = useMemo(
+    () => requestReceiptPager(data, ITEMS_PER_PAGE),
+    [data.items, data.services]
+  );
   const logo = useSettingsStore((state) => state.logo);
   const companyName = useSettingsStore((state) => state.companyName);
   const totalPages = pages.length;
@@ -22,6 +25,7 @@ export default function RequestProduct({ data }: Props): ReactNode {
             key={page.pageNumber}
             data={data}
             items={page.items}
+            services={page.services}
             startIndex={page.startIndex}
             isLastPage={page.isLastPage}
             pageNumber={page.pageNumber}
