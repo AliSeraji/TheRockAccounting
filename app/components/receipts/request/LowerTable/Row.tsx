@@ -1,13 +1,13 @@
 import type { ReactNode } from 'react';
 import { TableCell, TableRow } from '~/components/ui/table';
 import { convertToPersianDigits } from '~/lib/utils';
-import type { StoneItem } from '~/store/types';
+import type { ServiceItem } from '~/store/types';
 
 export default function Row({
-  item,
+  service,
   index,
 }: {
-  item: StoneItem;
+  service: ServiceItem;
   index: number;
 }): ReactNode {
   return (
@@ -15,17 +15,14 @@ export default function Row({
       <TableCell className="border-2 border-gray-400 p-1 text-center text-[10px]">
         {convertToPersianDigits(index)}
       </TableCell>
-      <TableCell className="border-2 border-gray-400 p-1 text-center text-[10px]">
-        {}
+      <TableCell className="whitespace-normal wrap-break-word border-2 border-gray-400 p-1 text-center text-[10px]">
+        {service.serviceType}
       </TableCell>
       <TableCell className="border-2 border-gray-400 p-1 text-center text-[10px]">
-        {convertToPersianDigits(item.area)}
+        {convertToPersianDigits(service.quantity)}
       </TableCell>
-      <TableCell className="border-2 border-gray-400 p-1 text-center text-[10px]">
-        {}
-      </TableCell>
-      <TableCell className="border-2 border-gray-400 p-1 text-center text-[10px]">
-        {}
+      <TableCell className="whitespace-normal wrap-break-word border-2 border-gray-400 p-1 text-center text-[10px]">
+        {service.description}
       </TableCell>
     </TableRow>
   );

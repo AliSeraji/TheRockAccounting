@@ -4,13 +4,16 @@ import { useMemo } from 'react';
 import { Button } from '~/components/ui/button';
 import type { Props } from '../types';
 import SalesReceiptsPage from './SalesReceiptPage';
-import { receiptPager } from '~/helper/helper';
+import { salesReceiptPager } from '~/helper/helper';
 import { useSettingsStore } from '~/store/settings/useSettingStore';
 
 const ITEMS_PER_PAGE = 15;
 
 export default function SalesInvoice({ data }: Props): React.ReactNode {
-  const pages = useMemo(() => receiptPager(data, ITEMS_PER_PAGE), [data.items]);
+  const pages = useMemo(
+    () => salesReceiptPager(data, ITEMS_PER_PAGE),
+    [data.items, data.services]
+  );
   const logo = useSettingsStore((state) => state.logo);
   const companyName = useSettingsStore((state) => state.companyName);
 
@@ -23,6 +26,9 @@ export default function SalesInvoice({ data }: Props): React.ReactNode {
             data={data}
             items={page.items}
             startIndex={page.startIndex}
+            services={page.services}
+            serviceStartIndex={page.serviceStartIndex}
+            showItemsFooter={page.showItemsFooter}
             isLastPage={page.isLastPage}
             pageNumber={page.pageNumber}
             totalPages={pages.length}

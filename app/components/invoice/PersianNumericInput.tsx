@@ -99,6 +99,7 @@ export default function PersianNumericInput({
       onKeyDown={(e) => {
         if (e.key === 'Enter' && addItem) addItem();
         if (e.key === 'Backspace' && removeItem) removeItem();
+        if (e.key === 'Delete' && removeItem) removeItem();
       }}
     />
   );

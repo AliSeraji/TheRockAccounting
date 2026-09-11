@@ -55,10 +55,9 @@ export const requestUpperTableItems: InvoiceTableItem[] = [
 
 export const requestLowerTableItems: InvoiceTableItem[] = [
   { label: 'ردیف', width: 'w-[5%]' },
-  { label: 'شرح خدمات', width: 'w-[50%]' },
-  { label: 'متراژ (مترمربع)', width: 'w-[8%]' },
-  { label: 'واحد', width: 'w-[5%]' },
-  { label: 'توضیحات', width: 'w-[32%]' },
+  { label: 'شرح خدمات', width: 'w-[45%]' },
+  { label: 'مقدار', width: 'w-[10%]' },
+  { label: 'توضیحات', width: 'w-[40%]' },
 ];
 
 export interface ReceiptProps {

@@ -164,7 +164,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
               value={convertToPersianDigits(address)}
               onChange={(e) => setAddress(convertToEnDigits(e.target.value))}
               className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-sm"
-              placeholder="آدرس دریافت کننده "
+              placeholder="آدرس تحویل بار "
             />
           </div>
         </div>

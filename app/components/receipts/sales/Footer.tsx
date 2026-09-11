@@ -28,7 +28,7 @@ export default function SalesTableFooter({
           {convertToPersianDigits(totals?.totalArea || '')}
         </TableCell>
         <TableCell className="border-2 border-gray-400 p-2"></TableCell>
-        <TableCell className="border-2 border-gray-400 p-2 text-center">
+        <TableCell className="border-2 border-gray-400 p-2 text-center rounded-bl-lg">
           {formatRialAmount(convertToPersianDigits(totals?.totalAmount || ''))}
         </TableCell>
       </TableRow>

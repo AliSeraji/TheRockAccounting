@@ -2,6 +2,7 @@ import InvoiceInfo from './InvoiceInfo';
 import InvoiceSummary from './InvoiceSummary';
 import ExplanationCard from './ExplanaitionCard';
 import InvoiceItemsCard from './InvoiceItemCards';
+import InvoiceServices from './services/InvoiceServices';
 
 export default function InvoiceBody() {
   return (
@@ -12,6 +13,7 @@ export default function InvoiceBody() {
           <InvoiceSummary />
         </div>
         <InvoiceItemsCard />
+        <InvoiceServices />
         <ExplanationCard />
       </div>
     </div>
