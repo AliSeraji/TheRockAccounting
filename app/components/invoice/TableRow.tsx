@@ -8,6 +8,7 @@ import PersianNumericInput from './PersianNumericInput';
 import { INVOICE_ROW_FIELDS, type InvoiceRowField } from './types';
 import { memo } from 'react';
 import { Input } from '../ui/input';
+import StoneTypeInput from './StoneTypeInput';
 
 const Row = memo(function Row({
   rowItem,
@@ -55,7 +56,15 @@ const Row = memo(function Row({
         />
       </TableCell>
       <TableCell className="w-[11%] border-x-[0.5px] border-slate-200 p-1">
-        <Input
+        <StoneTypeInput
+          value={convertToPersianDigits(
+            String(rowItem[INVOICE_ROW_FIELDS.STONE_TYPE])
+          )}
+          id={rowItem.id}
+          field={INVOICE_ROW_FIELDS.STONE_TYPE}
+          onChange={(id, field, value) => update(id, field, value)}
+        />
+        {/* <Input
           value={convertToPersianDigits(
             String(rowItem[INVOICE_ROW_FIELDS.STONE_TYPE])
           )}
@@ -63,7 +72,7 @@ const Row = memo(function Row({
             update(rowItem.id, INVOICE_ROW_FIELDS.STONE_TYPE, v.target.value)
           }
           className={`border-0 text-center focus-visible:ring-offset-3 text-sm h-8 cursor-text}`}
-        />
+        /> */}
       </TableCell>
       <TableCell className="w-[10%] border-x-[0.5px] border-slate-200 p-1">
         {numericCell(INVOICE_ROW_FIELDS.THICKNESS)}

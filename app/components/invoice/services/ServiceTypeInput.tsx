@@ -1,7 +1,7 @@
 import type React from 'react';
 import { useRef, useState } from 'react';
 import { Input } from '../../ui/input';
-import { Popover, PopoverAnchor, PopoverContent } from '../../ui/popover';
+import { Popover } from '../../ui/popover';
 import { cn } from '~/lib/utils';
 import { SERVICE_OPTIONS } from './types';
 
@@ -40,38 +40,36 @@ export default function ServiceTypeInput({
     } else if (e.key === 'Enter') {
       e.preventDefault();
       select(options[highlighted]);
+    } else if (e.key === 'Escape') {
+      setOpen(false);
     }
   };
 
   return (
-    <Popover open={open && options.length > 0} onOpenChange={setOpen}>
-      <PopoverAnchor asChild>
-        <Input
-          ref={inputRef}
-          value={value}
-          onChange={(e) => {
-            onChange(e.target.value);
-            setHighlighted(0);
-            setOpen(true);
-          }}
-          onFocus={() => {
-            setHighlighted(0);
-            setOpen(true);
-          }}
-          onBlur={() => setOpen(false)}
-          onKeyDown={handleKeyDown}
-          placeholder="انتخاب یا نوشتن خدمت"
-          className="border-0 text-center focus-visible:ring-offset-3 text-sm h-8 cursor-text"
-        />
-      </PopoverAnchor>
-      <PopoverContent
-        align="start"
-        onOpenAutoFocus={(e) => e.preventDefault()}
-        onCloseAutoFocus={(e) => e.preventDefault()}
-        onInteractOutside={(e) => {
-          if (e.target === inputRef.current) e.preventDefault();
+    <>
+      <Input
+        ref={inputRef}
+        value={value}
+        onChange={(e) => {
+          onChange(e.target.value);
+          setHighlighted(0);
+          setOpen(true);
         }}
-        className="w-(--radix-popover-trigger-width) p-1 border-slate-200"
+        onFocus={() => {
+          setHighlighted(0);
+          setOpen(true);
+        }}
+        onBlur={() => setOpen(false)}
+        onKeyDown={handleKeyDown}
+        placeholder="انتخاب یا نوشتن خدمت"
+        className="border-0 text-center focus-visible:ring-offset-3 text-sm h-8 cursor-text"
+      />
+      <Popover
+        triggerRef={inputRef}
+        isOpen={open && options.length > 0}
+        onOpenChange={setOpen}
+        isNonModal
+        className="w-(--trigger-width) gap-0 p-1"
       >
         {options.map((option, index) => (
           <button
@@ -89,7 +87,7 @@ export default function ServiceTypeInput({
             {option}
           </button>
         ))}
-      </PopoverContent>
-    </Popover>
+      </Popover>
+    </>
   );
 }
