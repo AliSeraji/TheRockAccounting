@@ -39,7 +39,7 @@ export default function TableFooter({
   if (totalPages <= 1) return null;
 
   return (
-    <TableRow className="border-t border-slate-200">
+    <TableRow className="flex flex-row w-full justify-center border-t border-slate-200">
       <TableCell colSpan={12} className="py-3">
         <Pagination dir="rtl">
           <PaginationContent>
