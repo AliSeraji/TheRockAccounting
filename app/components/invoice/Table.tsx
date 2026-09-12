@@ -27,6 +27,7 @@ export default function InvoiceTable({
               update={updateItem}
               remove={removeItem}
               addItem={addItem}
+              isNewRow={index === items.length - 1}
             />
           );
         })}
@@ -40,18 +41,18 @@ function Footer(): React.ReactNode {
   const totals = useInvoiceStore((state) => state.totals);
   return (
     <TableRow className="w-full flex flex-row bg-slate-100 font-semibold text-slate-800">
-      <TableCell className="w-[30%] border border-slate-300 p-2 text-center">
+      <TableCell className="w-[34%] border border-slate-300 p-2 text-center">
         جمع فاکتور
       </TableCell>
-      <TableCell className="w-[5%] border border-slate-300 p-2 text-center">
+      <TableCell className="w-[7%] border border-slate-300 p-2 text-center">
         {convertToPersianDigits(totals.totalQuantity) || '-'}
       </TableCell>
-      <TableCell className="w-[16%] border border-slate-300 p-2" />
-      <TableCell className="w-[12%] border border-slate-300 p-2 text-center">
+      <TableCell className="w-[14%] border border-slate-300 p-2" />
+      <TableCell className="w-[10%] border border-slate-300 p-2 text-center">
         {convertToPersianDigits(totals.totalArea) || '-'}
       </TableCell>
       <TableCell className="w-[12%] border border-slate-300 p-2" />
-      <TableCell className="w-[20%] border border-slate-300 p-2 text-center">
+      <TableCell className="w-[18%] border border-slate-300 p-2 text-center">
         {formatRialAmount(convertToPersianDigits(totals.totalAmount)) || '-'}
       </TableCell>
       <TableCell className="w-[5%] border border-slate-300 p-2" />

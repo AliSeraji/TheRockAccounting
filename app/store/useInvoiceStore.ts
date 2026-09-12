@@ -11,15 +11,15 @@ import { computeTotals } from './helper';
 const initialItems: StoneItem[] = [
   {
     id: 1,
-    stoneType: '-',
-    stoneCode: '-',
-    thickness: '-',
-    quantity: '-',
-    width: '-',
-    length: '-',
-    area: '-',
-    price: '-',
-    total: '-',
+    stoneType: '',
+    stoneCode: '',
+    thickness: '',
+    quantity: '',
+    width: '',
+    length: '',
+    area: '',
+    price: '',
+    total: '',
   },
 ];
 
@@ -27,9 +27,9 @@ const initialServices: ServiceItem[] = [
   {
     id: 1,
     serviceType: '',
-    quantity: '-',
-    unitPrice: '-',
-    total: '-',
+    quantity: '',
+    unitPrice: '',
+    total: '',
     description: '',
   },
 ];

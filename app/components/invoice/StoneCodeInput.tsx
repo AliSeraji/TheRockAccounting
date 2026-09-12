@@ -1,26 +1,24 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import type { InvoiceRowField } from './types';
 import { Popover, PopoverTrigger } from '../ui/popover';
 import { Input } from '../ui/input';
 import { useWarehouseStore } from '~/store/warehouse/useWarehouse';
-import type { InvoiceRowField } from './types';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { cn } from '~/lib/utils';
 
-interface StoneTypeInputProps {
+interface StoneCodeInputProps {
   value: string;
   id: number;
   field: InvoiceRowField;
   onChange: (id: number, field: InvoiceRowField, value: string) => void;
-  ref: React.Ref<HTMLInputElement> | null;
 }
 
-export default function StoneTypeInput({
+export default function StoneCodeInput({
   value,
   id,
   field,
   onChange,
-  ref,
-}: StoneTypeInputProps): React.ReactNode {
+}: StoneCodeInputProps): ReactNode {
   const [open, setOpen] = useState(false);
   const [highlighted, setHighlighted] = useState(0);
   const [canScrollUp, setCanScrollUp] = useState(false);
@@ -36,7 +34,7 @@ export default function StoneTypeInput({
     () =>
       query
         ? stones.filter((stone) =>
-            stone.name.toLowerCase().includes(query.toLowerCase())
+            stone.code.toLowerCase().includes(query.toLowerCase())
           )
         : stones,
     [stones, query]
@@ -77,7 +75,7 @@ export default function StoneTypeInput({
       moveHighlight((highlighted - 1 + options.length) % options.length);
     } else if (e.key === 'Enter') {
       e.preventDefault();
-      select(options[highlighted].name);
+      select(options[highlighted].code);
     } else if (e.key === 'Escape') {
       setOpen(false);
     }
@@ -86,11 +84,7 @@ export default function StoneTypeInput({
   return (
     <PopoverTrigger>
       <Input
-        ref={(el) => {
-          inputRef.current = el;
-          if (typeof ref === 'function') ref(el);
-          else if (ref) ref.current = el;
-        }}
+        ref={inputRef}
         value={value}
         onChange={(e) => {
           onChange(id, field, e.target.value);
@@ -126,15 +120,15 @@ export default function StoneTypeInput({
                 }}
                 type="button"
                 onMouseDown={(e) => e.preventDefault()}
-                onClick={() => select(stone.name)}
+                onClick={() => select(stone.code)}
                 onMouseEnter={() => setHighlighted(idx)}
                 className={cn(
                   'w-full shrink-0 rounded-sm px-2 py-1.5 text-sm text-right text-slate-700 hover:cursor-pointer',
                   idx === highlighted && 'bg-slate-100 text-slate-900',
-                  value === stone.name && 'font-semibold'
+                  value === stone.code && 'font-semibold'
                 )}
               >
-                {stone.name}
+                {stone.code}
               </button>
             ))}
           </div>
