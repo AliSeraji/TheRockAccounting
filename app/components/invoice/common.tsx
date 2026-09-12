@@ -7,15 +7,15 @@ export type InvoiceTableItem = {
 
 export const invoiceTableItems: InvoiceTableItem[] = [
   { label: 'ردیف', width: 'w-[3%]' },
-  { label: 'کد', width: 'w-[6%]' },
-  { label: 'نوع سنگ', width: 'w-[11%]' },
-  { label: 'قطر (سانتی متر)', width: 'w-[10%]' },
-  { label: 'تعداد', width: 'w-[5%]' },
-  { label: 'عرض (متر)', width: 'w-[8%]' },
-  { label: 'طول (متر)', width: 'w-[8%]' },
-  { label: 'متراژ (مترمربع)', width: 'w-[12%]' },
+  { label: 'کد', width: 'w-[9%]' },
+  { label: 'نوع سنگ', width: 'w-[15%]' },
+  { label: 'قطر (سانتی متر)', width: 'w-[7%]' },
+  { label: 'تعداد', width: 'w-[7%]' },
+  { label: 'عرض (متر)', width: 'w-[7%]' },
+  { label: 'طول (متر)', width: 'w-[7%]' },
+  { label: 'متراژ (مترمربع)', width: 'w-[10%]' },
   { label: 'بهاء (ریال)', width: 'w-[12%]' },
-  { label: 'مبلغ کل (ریال)', width: 'w-[20%]' },
+  { label: 'مبلغ کل (ریال)', width: 'w-[18%]' },
   { label: 'عملیات', width: 'w-[5%]' },
 ];
 
