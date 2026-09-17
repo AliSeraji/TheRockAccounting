@@ -1,0 +1,57 @@
+{
+  "shape": "package",
+  "projectId": "845d872d-f344-4888-ac15-2b101dc453a1",
+  "pkg": "rock-fact",
+  "globalName": "RockFact",
+  "buildCmd": "yarn build && node .design-sync/gen-types.mjs",
+  "srcDir": "app/components",
+  "readmeHeader": ".design-sync/conventions.md",
+  "cssEntry": "build/client/assets/root-CGCNGZqe.css",
+  "extraFonts": [
+    "node_modules/samim-font/dist/font-face.css",
+    "node_modules/@fontsource-variable/vazirmatn/index.css"
+  ],
+  "extraEntries": ["./.design-sync/default-exports.ts"],
+  "overrides": {
+    "Table": { "cardMode": "column" },
+    "Dialog": { "cardMode": "single", "viewport": "720x520" }
+  },
+  "dtsPropsFor": {
+    "FieldLabel": "  htmlFor?: string;\n  className?: string;\n  id?: string;\n  style?: React.CSSProperties;\n  children?: React.ReactNode;\n  asChild?: boolean;\n  ref?: React.Ref<HTMLLabelElement>;",
+    "SidebarInput": "  className?: string;\n  id?: string;\n  style?: React.CSSProperties;\n  ref?: React.Ref<HTMLInputElement>;",
+    "SidebarSeparator": "  orientation?: \"horizontal\" | \"vertical\";\n  decorative?: boolean;\n  className?: string;\n  id?: string;\n  style?: React.CSSProperties;\n  asChild?: boolean;\n  ref?: React.Ref<HTMLDivElement>;",
+    "SidebarTrigger": "  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;\n  asChild?: boolean;\n  className?: string;\n  id?: string;\n  style?: React.CSSProperties;\n  children?: React.ReactNode;\n  size?: \"default\" | \"sm\" | \"lg\" | \"icon\";\n  variant?: \"link\" | \"default\" | \"destructive\" | \"outline\" | \"secondary\" | \"ghost\";"
+  },
+  "componentSrcMap": {
+    "Header": null,
+    "Body": null,
+    "Row": null,
+    "InvoiceSection": null,
+    "AdditionalNote": null,
+
+    "AppHeader": "app/components/header.tsx",
+    "InvoiceTableRow": "app/components/invoice/TableRow.tsx",
+    "SettingsInvoiceSection": "app/components/settings/sections/invoice/InvoiceSection.tsx",
+    "ReceiptIssueInvoiceSection": "app/components/receipt_issue/sections/InvoiceSection.tsx",
+    "WarehouseTableFooter": "app/components/warehouse/table/TableFooter.tsx",
+    "RequestLowerTableBody": "app/components/receipts/request/LowerTable/Body.tsx",
+    "RequestLowerTableHeader": "app/components/receipts/request/LowerTable/Header.tsx",
+    "RequestLowerTableRow": "app/components/receipts/request/LowerTable/Row.tsx",
+    "RequestUpperTableBody": "app/components/receipts/request/UpperTable/Body.tsx",
+    "RequestUpperTableHeader": "app/components/receipts/request/UpperTable/Header.tsx",
+    "RequestUpperTableRow": "app/components/receipts/request/UpperTable/Row.tsx",
+    "DeliveryAdditionalNote": "app/components/receipts/delivery/AdditionalNote.tsx",
+    "SalesAdditionalNote": "app/components/receipts/sales/AdditionalNote.tsx",
+
+    "Table": "app/components/ui/table.tsx",
+    "TableHeader": "app/components/ui/table.tsx",
+    "TableBody": "app/components/ui/table.tsx",
+    "TableFooter": "app/components/ui/table.tsx",
+    "TableRow": "app/components/ui/table.tsx",
+
+    "InfoBox": "app/components/receipts/delivery/InfoBox.tsx",
+    "Note": "app/components/receipts/delivery/Note.tsx",
+    "ReceiptHeader": "app/components/receipts/delivery/ReceiptHeader.tsx",
+    "Signature": "app/components/receipts/delivery/Signature.tsx"
+  }
+}
