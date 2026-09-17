@@ -11,14 +11,14 @@ export function InvoiceTableHeader({
   return (
     <TableHeader className="w-full">
       <TableRow className="w-full flex flex-row overflow-x-auto bg-slate-100 text-slate-800">
-        {items.map((item) => (
+        {items.map((item, index) => (
           <TableHead
-            key={item.label}
+            key={item.label || index}
             title={item.label}
             className={`flex flex-row w-full h-full justify-center items-center border p-2.5 lg:p-3 border-slate-300 text-xs overflow-hidden text-ellipsis whitespace-nowrap ${item.width}`}
           >
             <span className="block w-full text-center overflow-hidden text-ellipsis whitespace-nowrap">
-              {item.label}
+              {item.label?.trim() ? item.label : '\u00A0'}
             </span>
           </TableHead>
         ))}

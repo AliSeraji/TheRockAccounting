@@ -14,6 +14,10 @@ const initialCompany: CompanyData = {
   address: '',
   logo: null,
   logoError: '',
+  bankAccountAddress: '',
+  cardNum: '',
+  bankIban: '',
+  ownerName: '',
 };
 
 export const createCompanySection: StateCreator<

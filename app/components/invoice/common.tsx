@@ -16,7 +16,7 @@ export const invoiceTableItems: InvoiceTableItem[] = [
   { label: 'متراژ (مترمربع)', width: 'w-[10%]' },
   { label: 'بهاء (ریال)', width: 'w-[12%]' },
   { label: 'مبلغ کل (ریال)', width: 'w-[18%]' },
-  { label: 'عملیات', width: 'w-[5%]' },
+  { label: ' ', width: 'w-[5%]' },
 ];
 
 export const deliveryTableItems: InvoiceTableItem[] = [
