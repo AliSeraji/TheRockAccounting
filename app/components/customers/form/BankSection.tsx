@@ -11,7 +11,7 @@ const BankSection = memo(function BankSection({
   return (
     <section>
       <SectionTitle
-        icon={<Landmark className="w-4 h-4 text-teal-600" />}
+        icon={<Landmark className="w-4 h-4 text-brand-600" />}
         title="اطلاعات بانکی"
         description="برای ثبت دریافت و پرداخت‌های این شخص"
       />

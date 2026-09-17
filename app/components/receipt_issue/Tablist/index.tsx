@@ -5,39 +5,41 @@ import { ACCENT, ICONS_BY_NAME, RECEIPT_SECTIONS } from '../common';
 import type { ReceiptSectionDescriptor } from '../types';
 import { useReceiptIssueStore } from '~/store/receipt_issue/useReceiptIssueStore';
 
-export default function ReceiptIssueSidebar(): ReactNode {
+export default function ReceiptIssueTablist(): ReactNode {
   const activeId = useReceiptIssueStore((state) => state.activeSection.id);
   const onSelect = useReceiptIssueStore((state) => state.setActiveSection);
   return (
-    <aside className="w-72 self-start">
+    <nav className="w-full min-w-0">
       <Tabs
         value={activeId}
         onValueChange={onSelect}
-        orientation="vertical"
+        orientation="horizontal"
+        dir="rtl"
         className={cn(
-          'rounded-2xl border border-slate-200/70 bg-white/85 backdrop-blur-md overflow-hidden',
-          'shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]'
+          'flex items-stretch rounded-2xl border border-slate-200/70 bg-white/85 backdrop-blur-md overflow-hidden',
+          'shadow-[0_1px_2px_rgba(51,43,34,0.04),0_8px_24px_-12px_rgba(51,43,34,0.08)]'
         )}
       >
-        <div className="px-4 py-3 border-b border-slate-200/70 bg-linear-to-l from-slate-50 to-white">
-          <div className="flex flex-row justify-center text-[11px] uppercase tracking-wider text-slate-400 font-semibold">
-            مدیریت فاکتور فروش
-          </div>
-        </div>
-        <TabsList className="p-2 flex flex-col items-stretch gap-0.5 h-auto bg-transparent rounded-none">
+        <TabsList
+          className={cn(
+            'flex-1 min-w-0 p-2 flex flex-row items-stretch justify-start gap-1 h-auto bg-transparent rounded-none',
+            'overflow-x-auto overscroll-x-contain'
+          )}
+        >
           {RECEIPT_SECTIONS.map((s: ReceiptSectionDescriptor) => {
             const Icn = ICONS_BY_NAME[s.iconName];
             const isActive = activeId === s.id;
             const chipBg = isActive
               ? `linear-gradient(135deg, ${ACCENT.from}, ${ACCENT.to})`
-              : '#f1f5f9';
+              : '#f2ede4';
             return (
               <TabsTrigger
                 key={s.id}
                 value={s.id}
                 className={cn(
-                  'group relative flex items-center justify-start gap-3 px-3 py-2.5 rounded-xl text-right h-auto whitespace-normal transition',
-                  'data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:border data-[state=active]:border-slate-200/70',
+                  'group relative flex flex-1 min-w-fit xl:min-w-0 items-center justify-start gap-2.5 px-3 py-2.5 rounded-xl text-right h-auto transition',
+                  'border border-transparent',
+                  'data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:border-slate-200/70',
                   'data-[state=inactive]:hover:bg-slate-50'
                 )}
               >
@@ -45,30 +47,32 @@ export default function ReceiptIssueSidebar(): ReactNode {
                   className="w-9 h-9 rounded-lg flex items-center justify-center transition shrink-0"
                   style={{
                     background: chipBg,
-                    color: isActive ? 'white' : '#475569',
+                    color: isActive ? 'white' : '#6b6257',
                   }}
                 >
                   <Icn className="w-4 h-4" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm font-semibold text-slate-800">
+                  <div className="text-sm font-semibold text-slate-800 whitespace-nowrap">
                     {s.title}
                   </div>
-                  <div className="text-[11px] text-slate-500 truncate">
+                  <div className="hidden xl:block text-[11px] text-slate-500 truncate">
                     {s.desc}
                   </div>
                 </div>
-                {isActive && (
-                  <div
-                    className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-l-full"
-                    style={{ background: ACCENT.to }}
-                  />
-                )}
+                <div
+                  className={cn(
+                    'absolute bottom-0 left-1/2 -translate-x-1/2 h-1 rounded-t-full',
+                    'transition-[width,opacity] duration-300 ease-out',
+                    isActive ? 'w-[80%] opacity-100' : 'w-0 opacity-0'
+                  )}
+                  style={{ background: ACCENT.to }}
+                />
               </TabsTrigger>
             );
           })}
         </TabsList>
       </Tabs>
-    </aside>
+    </nav>
   );
 }

@@ -10,8 +10,8 @@ import {
 import type { ReceiptSectionDescriptor } from './types';
 
 export const ACCENT: { from: string; to: string } = {
-  from: '#2dd4bf',
-  to: '#0d9488',
+  from: '#c6a469',
+  to: '#96733a',
 };
 
 export const RECEIPT_SECTIONS: ReceiptSectionDescriptor[] = [

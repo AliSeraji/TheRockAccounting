@@ -17,7 +17,7 @@ export default function SettingsMobileTablist(): ReactNode {
         orientation="horizontal"
         className={cn(
           'w-[unset] min-w-0 rounded-2xl border border-slate-200/70 bg-white/85 backdrop-blur-md inset-0',
-          'shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]'
+          'shadow-[0_1px_2px_rgba(51,43,34,0.04),0_8px_24px_-12px_rgba(51,43,34,0.08)]'
         )}
       >
         <TabsList
@@ -34,7 +34,7 @@ export default function SettingsMobileTablist(): ReactNode {
             const gradient = isDanger ? ALERT : ACCENT;
             const chipBg = isActive
               ? `linear-gradient(135deg, ${gradient.from}, ${gradient.to})`
-              : '#f1f5f9';
+              : '#f2ede4';
             return (
               <TabsTrigger
                 key={s.id}
@@ -54,7 +54,7 @@ export default function SettingsMobileTablist(): ReactNode {
                       ? 'white'
                       : isDanger
                         ? ALERT.from
-                        : '#475569',
+                        : '#6b6257',
                   }}
                 >
                   <Icn className="w-4 h-4" />

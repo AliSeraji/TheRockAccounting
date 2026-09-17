@@ -24,7 +24,7 @@ export default function PageHeader({
             <ArrowRight className="w-5 h-5 text-slate-600" />
           </Link>
           <div className="w-px h-6 bg-slate-200" />
-          <div className="w-9 h-9 rounded-lg bg-linear-to-br from-teal-400 to-teal-600 flex items-center justify-center shadow-sm">
+          <div className="w-9 h-9 rounded-lg bg-gold-gradient flex items-center justify-center shadow-sm">
             {icon}
           </div>
           <div className="flex flex-col">

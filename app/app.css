@@ -15,6 +15,57 @@
     cubic-bezier(0.4, 0, 0.2, 1);
   --animate-slide-from-right: calendar-slide-from-right 0.3s
     cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Brand — gold & bronze, taken from the logo and invoice design */
+  --color-brand-50: #fdfaf4; /* cream light */
+  --color-brand-100: #f9f2e6; /* cream mid */
+  --color-brand-200: #f1e4ce; /* cream deep */
+  --color-brand-300: #e8d3a2; /* gold highlight */
+  --color-brand-400: #d9c08a; /* gold light — hairlines, dividers */
+  --color-brand-500: #c6a469; /* gold warm return */
+  --color-brand-600: #b08b45; /* gold accent — titles, icons, bullets */
+  --color-brand-700: #a8823f; /* bronze — table headers, totals bar */
+  --color-brand-800: #96733a; /* bronze dark — grand-total row */
+  --color-brand-900: #8c6239; /* gold shadow */
+  --color-brand-950: #5e4126;
+
+  /* Neutrals — slate & gray are remapped to warm tones so every existing
+     slate-* / gray-* class matches the brand instead of reading blue. */
+  --color-slate-50: #f9f6f1;
+  --color-slate-100: #f2ede4;
+  --color-slate-200: #e6ddcd; /* border */
+  --color-slate-300: #d4c9b7;
+  --color-slate-400: #aba08f;
+  --color-slate-500: #877c6e;
+  --color-slate-600: #6b6257; /* text secondary */
+  --color-slate-700: #544b41;
+  --color-slate-800: #40372d;
+  --color-slate-900: #332b22; /* text primary */
+  --color-slate-950: #211b15;
+
+  --color-gray-50: var(--color-slate-50);
+  --color-gray-100: var(--color-slate-100);
+  --color-gray-200: var(--color-slate-200);
+  --color-gray-300: var(--color-slate-300);
+  --color-gray-400: var(--color-slate-400);
+  --color-gray-500: var(--color-slate-500);
+  --color-gray-600: var(--color-slate-600);
+  --color-gray-700: var(--color-slate-700);
+  --color-gray-800: var(--color-slate-800);
+  --color-gray-900: var(--color-slate-900);
+  --color-gray-950: var(--color-slate-950);
+}
+
+/* Metallic gold, matching the logo */
+@utility bg-gold-gradient {
+  background-image: linear-gradient(
+    135deg,
+    #e8d3a2 0%,
+    #b98f49 22%,
+    #8c6239 48%,
+    #c6a469 72%,
+    #e6d3a6 100%
+  );
 }
 
 @keyframes calendar-slide-from-left {
@@ -41,7 +92,7 @@
 
 html,
 body {
-  @apply bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50;
+  @apply bg-white;
   max-width: 100%;
   height: 100%;
   font-family: 'Samim', sans-serif;
@@ -111,37 +162,37 @@ body {
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  --background: #ffffff;
+  --foreground: #332b22;
+  --card: #ffffff;
+  --card-foreground: #332b22;
+  --popover: #ffffff;
+  --popover-foreground: #332b22;
+  --primary: #96733a;
+  --primary-foreground: #ffffff;
+  --secondary: #f4eee4;
+  --secondary-foreground: #332b22;
+  --muted: #f7f4ee;
+  --muted-foreground: #6b6257;
+  --accent: #f4eee4;
+  --accent-foreground: #332b22;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --border: #e6ddcd;
+  --input: #e6ddcd;
+  --ring: #d9c08a;
+  --chart-1: #a8823f;
+  --chart-2: #d9c08a;
+  --chart-3: #8c6239;
+  --chart-4: #c6a469;
+  --chart-5: #6b6257;
+  --sidebar: #f7f4ee;
+  --sidebar-foreground: #332b22;
+  --sidebar-primary: #96733a;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f4eee4;
+  --sidebar-accent-foreground: #332b22;
+  --sidebar-border: #e6ddcd;
+  --sidebar-ring: #d9c08a;
 }
 
 .dark {

@@ -43,7 +43,7 @@ export const BackupSection = (): ReactNode => {
       <Card className="w-full bg-white/90 backdrop-blur border-slate-200">
         <CardHeader className="flex-row justify-between bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
           <CardTitle className="text-slate-800 font-semibold text-xs md:text-sm flex items-center gap-2 whitespace-nowrap">
-            <Database className="w-5 h-5 text-emerald-600" />
+            <Database className="w-5 h-5 text-brand-600" />
             پشتیبان‌گیری
           </CardTitle>
           <CardDescription className="text-slate-500 text-[10px] md:text-xs pr-7 flex items-center">
@@ -56,7 +56,7 @@ export const BackupSection = (): ReactNode => {
             <div className="col-span-3 md:col-span-2 rounded-xl border border-slate-200 bg-white p-4 flex flex-col gap-3">
               <div className="flex flex-col md:flex-row md:items-center gap-3">
                 <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center shrink-0">
                     <Download className="w-5 h-5" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -68,7 +68,7 @@ export const BackupSection = (): ReactNode => {
                     </div>
                   </div>
                 </div>
-                <Button className="gap-2 bg-linear-to-r from-emerald-500 to-emerald-700 hover:from-emerald-600 hover:to-emerald-800 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer text-xs lg:text-sm w-full md:w-auto">
+                <Button className="gap-2 bg-linear-to-r from-brand-700 to-brand-900 hover:from-brand-800 hover:to-brand-950 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer text-xs lg:text-sm w-full md:w-auto">
                   <Download className="w-4 h-4" />
                   دریافت پشتیبان
                 </Button>
@@ -84,7 +84,7 @@ export const BackupSection = (): ReactNode => {
 
             <div className="col-span-3 md:col-span-1 rounded-xl border border-slate-200 bg-white p-4">
               <div className="text-xs lg:text-sm font-semibold text-slate-800 mb-3 flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <ShieldCheck className="w-4 h-4 text-brand-600" />
                 پشتیبان‌گیری خودکار
               </div>
               <ToggleRow
@@ -120,7 +120,7 @@ export const BackupSection = (): ReactNode => {
       <Card className="w-full bg-white/90 backdrop-blur border-slate-200">
         <CardHeader className="flex-row justify-between bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
           <CardTitle className="text-slate-800 font-semibold text-xs md:text-sm flex items-center gap-2 whitespace-nowrap">
-            <Upload className="w-5 h-5 text-emerald-600" />
+            <Upload className="w-5 h-5 text-brand-600" />
             بازیابی از فایل
           </CardTitle>
           <CardDescription className="text-slate-500 text-[10px] md:text-xs pr-7 flex items-center">

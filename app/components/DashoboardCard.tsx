@@ -42,7 +42,7 @@ export const DashboardCard = ({
         </p>
 
         <div className="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="w-2 h-2 bg-linear-to-br from-teal-400 to-blue-400 rounded-full"></div>
+          <div className="w-2 h-2 bg-linear-to-br from-brand-400 to-brand-700 rounded-full"></div>
         </div>
       </div>
 

@@ -10,7 +10,7 @@ const StatusSection = memo(function StatusSection({
   return (
     <section>
       <SectionTitle
-        icon={<ToggleRight className="w-4 h-4 text-teal-600" />}
+        icon={<ToggleRight className="w-4 h-4 text-brand-600" />}
         title="وضعیت حساب"
         description="تعیین می‌کند این شخص در کدام فرم‌ها قابل انتخاب باشد"
       />

@@ -20,7 +20,7 @@ export default function PlaceholderSection({
       <div
         className={cn(
           'rounded-2xl border border-slate-200/70 bg-white/85 backdrop-blur-md overflow-hidden',
-          'shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]'
+          'shadow-[0_1px_2px_rgba(51,43,34,0.04),0_8px_24px_-12px_rgba(51,43,34,0.08)]'
         )}
       >
         <div className="flex items-center gap-3 px-5 py-3.5 border-b border-slate-200/70 bg-linear-to-l from-slate-50 to-white">

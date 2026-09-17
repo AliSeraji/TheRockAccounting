@@ -17,7 +17,7 @@ export default function ReceiptIssueMobileTablist(): ReactNode {
         orientation="horizontal"
         className={cn(
           'w-[unset] min-w-0 rounded-2xl border border-slate-200/70 bg-white/85 backdrop-blur-md inset-0',
-          'shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]'
+          'shadow-[0_1px_2px_rgba(51,43,34,0.04),0_8px_24px_-12px_rgba(51,43,34,0.08)]'
         )}
       >
         <TabsList
@@ -32,7 +32,7 @@ export default function ReceiptIssueMobileTablist(): ReactNode {
             const isActive = activeId === s.id;
             const chipBg = isActive
               ? `linear-gradient(135deg, ${ACCENT.from}, ${ACCENT.to})`
-              : '#f1f5f9';
+              : '#f2ede4';
             return (
               <TabsTrigger
                 key={s.id}
@@ -48,7 +48,7 @@ export default function ReceiptIssueMobileTablist(): ReactNode {
                   className="w-8 h-8 rounded-lg flex items-center justify-center transition"
                   style={{
                     background: chipBg,
-                    color: isActive ? 'white' : '#475569',
+                    color: isActive ? 'white' : '#6b6257',
                   }}
                 >
                   <Icn className="w-4 h-4" />

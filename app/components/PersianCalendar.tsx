@@ -115,7 +115,7 @@ export const PersianCalendar = () => {
       className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden"
       dir="rtl"
     >
-      <div className="bg-gradient-to-r from-teal-500 to-blue-500 p-4 text-white">
+      <div className="bg-linear-to-r from-brand-700 to-brand-900 p-4 text-white">
         <div className="flex items-center justify-between mb-2">
           <button
             onClick={goToNextMonth}
@@ -179,9 +179,9 @@ export const PersianCalendar = () => {
                         w-8 h-8 rounded-lg text-sm font-medium transition-all duration-200
                         ${
                           isToday(day)
-                            ? 'bg-linear-to-br from-teal-500 to-blue-500 text-white shadow-md'
+                            ? 'bg-linear-to-br from-brand-600 to-brand-900 text-white shadow-md'
                             : selectedDate && isSameDay(day, selectedDate)
-                              ? 'bg-teal-100 text-teal-700 ring-2 ring-teal-500'
+                              ? 'bg-brand-100 text-brand-900 ring-2 ring-brand-600'
                               : !isSameMonth(day, currentDate)
                                 ? 'text-gray-400'
                                 : 'text-gray-700 hover:bg-gray-100'

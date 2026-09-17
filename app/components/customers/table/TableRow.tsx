@@ -28,9 +28,9 @@ const CustomersTableRow = memo(function CustomersTableRow({
   return (
     <TableRow
       onClick={() => setSelectedCustomer(customer)}
-      className={`border-b border-slate-100 hover:bg-teal-50 transition-colors cursor-pointer ${
+      className={`border-b border-slate-100 hover:bg-brand-50 transition-colors cursor-pointer ${
         isSelected
-          ? 'bg-teal-50 ring-1 ring-inset ring-teal-300'
+          ? 'bg-brand-100 ring-1 ring-inset ring-brand-400'
           : isEven
             ? 'bg-white'
             : 'bg-slate-50/50'

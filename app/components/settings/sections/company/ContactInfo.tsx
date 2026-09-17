@@ -47,7 +47,7 @@ const ContactInfo = memo(function ContactInfo(): ReactNode {
     <Card className="w-full bg-white/90 backdrop-blur border-slate-200">
       <CardHeader className="flex flex-row items-center justify-between bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
         <CardTitle className="text-slate-800 font-semibold text-xs lg:text-lg flex items-center gap-2 whitespace-nowrap">
-          <Phone className="w-5 h-5 text-teal-600" />
+          <Phone className="w-5 h-5 text-brand-600" />
           اطلاعات تماس
         </CardTitle>
         <CardDescription className="text-slate-500 text-xs pr-7 ">

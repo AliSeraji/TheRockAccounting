@@ -18,7 +18,7 @@ const CompanySection = (): React.ReactNode => {
       <Card className="w-full bg-white/90 backdrop-blur border-slate-200">
         <CardHeader className="flex-row justify-between bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
           <CardTitle className="text-slate-800 font-semibold  text-xs md:text-sm flex items-center gap-2 whitespace-nowrap">
-            <Building2 className="w-5 h-5 text-teal-600" />
+            <Building2 className="w-5 h-5 text-brand-600" />
             هویت شرکت
           </CardTitle>
           <CardDescription

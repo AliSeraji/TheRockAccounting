@@ -134,9 +134,9 @@ export default function CustomerForm(): ReactNode {
       className={cn(
         'w-full bg-white/90 backdrop-blur transition-colors',
         isEditing
-          ? 'border-teal-300'
+          ? 'border-brand-400'
           : formActive
-            ? 'border-emerald-300'
+            ? 'border-brand-300'
             : 'border-slate-200'
       )}
     >
@@ -144,9 +144,9 @@ export default function CustomerForm(): ReactNode {
         className={cn(
           'rounded-t-lg border-b',
           isEditing
-            ? 'bg-linear-to-r from-teal-50 to-slate-50 border-teal-200'
+            ? 'bg-linear-to-r from-brand-200 to-slate-50 border-brand-300'
             : formActive
-              ? 'bg-linear-to-r from-emerald-50 to-slate-50 border-emerald-200'
+              ? 'bg-linear-to-r from-brand-100 to-slate-50 border-brand-200'
               : 'bg-linear-to-r from-slate-100 to-slate-50 border-slate-200'
         )}
       >
@@ -155,18 +155,18 @@ export default function CustomerForm(): ReactNode {
             <CardTitle className="text-slate-800 font-semibold text-lg flex items-center gap-2">
               {isEditing ? (
                 <>
-                  <Pencil className="w-5 h-5 text-teal-600" />
+                  <Pencil className="w-5 h-5 text-brand-600" />
                   ویرایش شخص
                 </>
               ) : (
                 <>
-                  <UsersRound className="w-5 h-5 text-emerald-600" />
+                  <UsersRound className="w-5 h-5 text-brand-600" />
                   {formActive ? 'ثبت شخص جدید' : 'مدیریت اشخاص'}
                 </>
               )}
             </CardTitle>
             {isEditing && (
-              <span className="text-sm text-teal-700">
+              <span className="text-sm text-brand-900">
                 {selectedCustomer.businessName} ({selectedCustomer.code})
               </span>
             )}
@@ -176,14 +176,14 @@ export default function CustomerForm(): ReactNode {
             <div className="flex flex-wrap gap-2">
               <Button
                 onClick={handleNew}
-                className="gap-2 bg-linear-to-r from-teal-500 to-teal-700 hover:from-teal-600 hover:to-teal-800 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
+                className="gap-2 bg-linear-to-r from-brand-700 to-brand-900 hover:from-brand-800 hover:to-brand-950 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 شخص جدید
               </Button>
               <Button
                 onClick={handleSave}
-                className="gap-2 bg-linear-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
+                className="gap-2 bg-linear-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-slate-950 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
               >
                 <Save className="w-4 h-4" />
                 ذخیره
@@ -296,7 +296,7 @@ export default function CustomerForm(): ReactNode {
             </div>
             <Button
               onClick={handleNew}
-              className="gap-2 mt-2 bg-linear-to-r from-teal-500 to-teal-700 hover:from-teal-600 hover:to-teal-800 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
+              className="gap-2 mt-2 bg-linear-to-r from-brand-700 to-brand-900 hover:from-brand-800 hover:to-brand-950 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               ثبت شخص جدید
