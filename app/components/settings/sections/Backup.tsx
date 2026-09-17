@@ -56,7 +56,7 @@ export const BackupSection = (): ReactNode => {
             <div className="col-span-3 md:col-span-2 rounded-xl border border-slate-200 bg-white p-4 flex flex-col gap-3">
               <div className="flex flex-col md:flex-row md:items-center gap-3">
                 <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <div className="w-10 h-10 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center">
                     <Download className="w-5 h-5" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -140,7 +140,7 @@ export const BackupSection = (): ReactNode => {
             </div>
           </div>
           <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-3 flex items-start gap-2.5">
-            <AlertCircle className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+            <AlertCircle className="w-4 h-4 text-amber-600 mt-0.5" />
             <div className="text-[10px] md:text-xs text-amber-800 leading-6">
               بازیابی، تمام داده‌های فعلی برنامه را جایگزین می‌کند. توصیه می‌شود
               ابتدا یک پشتیبان از وضعیت کنونی تهیه کنید.

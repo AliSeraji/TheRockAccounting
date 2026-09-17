@@ -35,7 +35,7 @@ export const DangerSection = (): ReactNode => {
           <div className="flex flex-col gap-4">
             <div className="rounded-xl border border-amber-200 bg-amber-50/40 p-4">
               <div className="flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5" />
                 <div className="flex-1 text-xs lg:text-sm text-amber-900 leading-7">
                   با ادامه دادن، تمام فاکتورها، رسیدها، اطلاعات انبار، مشتریان و
                   تنظیمات حذف خواهند شد. در صورت تردید، ابتدا یک نسخه پشتیبان
@@ -59,7 +59,11 @@ export const DangerSection = (): ReactNode => {
                 این عمل قابل بازگشت نیست. آخرین پشتیبان‌گیری: ۱۴۰۴/۰۲/۲۶
               </div>
               <div className="flex flex-wrap gap-2">
-                <Button variant="outline" size="sm" className="text-xs lg:text-sm">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-xs lg:text-sm"
+                >
                   <Download className="w-4 h-4" />
                   دانلود پشتیبان آخر
                 </Button>
@@ -91,8 +95,14 @@ export const DangerSection = (): ReactNode => {
         </CardHeader>
         <CardContent className="p-5">
           <div className="flex items-center justify-between gap-4">
-            <div className="text-xs lg:text-sm text-slate-600">۲ جلسه فعال دیگر</div>
-            <Button variant="destructive" size="sm" className="text-xs lg:text-sm">
+            <div className="text-xs lg:text-sm text-slate-600">
+              ۲ جلسه فعال دیگر
+            </div>
+            <Button
+              variant="destructive"
+              size="sm"
+              className="text-xs lg:text-sm"
+            >
               <LogOut className="w-4 h-4" />
               خروج از همه
             </Button>

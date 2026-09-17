@@ -219,7 +219,7 @@ const Toggle: React.FC<ToggleProps> = ({
   <button
     type="button"
     onClick={() => onCheckedChange(!checked)}
-    className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors shrink-0"
+    className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
     style={{
       background: checked
         ? `linear-gradient(135deg, ${accent.from}, ${accent.to})`

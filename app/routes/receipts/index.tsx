@@ -105,7 +105,7 @@ export const ReceiptIssue = (): ReactNode => {
             <ReceiptIssueMobileTablist />
           </div>
         ) : (
-          <div className="shrink-0">
+          <div className="">
             <ReceiptIssueTablist />
           </div>
         )}
