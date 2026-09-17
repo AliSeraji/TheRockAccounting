@@ -4,7 +4,8 @@ import { BackupSection } from './../../components/settings/sections/Backup';
 export type SettingStore = CompanyInfoState &
   NumberingInfoState &
   SidebarActivity &
-  BackupInfoState;
+  BackupInfoState &
+  InvoiceInfoState;
 
 export type CalendarKind = 'jalali' | 'hijri' | 'gregorian';
 
@@ -65,4 +66,21 @@ export interface SideBarState {
 
 export interface SidebarActivity extends SideBarState {
   setActiveSection: (sectionId: string) => void;
+}
+
+export interface InvoiceData {
+  taxRate: number;
+  discountRate: number;
+  defaultDueDays: number;
+  defaultNote: string;
+  showLogo: boolean;
+  showSignature: boolean;
+  showPageNumbers: boolean;
+}
+
+export interface InvoiceInfoState extends InvoiceData {
+  setInvoiceField: <K extends keyof InvoiceData>(
+    key: K,
+    value: InvoiceData[K]
+  ) => void;
 }

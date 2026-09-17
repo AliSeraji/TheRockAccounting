@@ -16,6 +16,9 @@ interface SalesReceiptPageProps extends ReceiptProps {
   services: ServiceItem[];
   serviceStartIndex: number;
   showItemsFooter: boolean;
+  defaultNote?: string;
+  showSignature?: boolean;
+  showPageNumbers?: boolean;
 }
 
 export default function SalesReceiptsPage({
@@ -30,6 +33,9 @@ export default function SalesReceiptsPage({
   totalPages,
   logo,
   companyName,
+  defaultNote,
+  showSignature = true,
+  showPageNumbers = true,
 }: SalesReceiptPageProps): React.ReactNode {
   return (
     <div
@@ -76,16 +82,19 @@ export default function SalesReceiptsPage({
         discount={data.discount}
         tax={data.tax}
         received={data.received}
+        note={defaultNote}
       />
 
       <PriceBox total={data.totals.totalPaymentAmount} />
 
-      <SalesSignature />
+      {showSignature && <SalesSignature />}
 
-      <div className="text-center text-xs text-gray-500 mt-4">
-        صفحه {convertToPersianDigits(pageNumber)} از{' '}
-        {convertToPersianDigits(totalPages)}
-      </div>
+      {showPageNumbers && (
+        <div className="text-center text-xs text-gray-500 mt-4">
+          صفحه {convertToPersianDigits(pageNumber)} از{' '}
+          {convertToPersianDigits(totalPages)}
+        </div>
+      )}
     </div>
   );
 }

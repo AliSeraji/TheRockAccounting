@@ -1,5 +1,6 @@
 import { FileText, Printer } from 'lucide-react';
-import { useCallback, useId, useState, type ReactNode } from 'react';
+import { useCallback, type ReactNode } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import {
   Card,
   CardContent,
@@ -19,6 +20,7 @@ import {
 import { Textarea } from '~/components/ui/textarea';
 import { ToggleRow } from '../../common';
 import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
+import { useSettingsStore } from '~/store/settings/useSettingStore';
 
 const DUE_TIME_OPTIONS = [
   { value: '0', label: 'همان روز' },
@@ -30,40 +32,57 @@ const DUE_TIME_OPTIONS = [
 ];
 
 export default function InvoiceSection(): ReactNode {
-  const [showLogo, setShowLogo] = useState(false);
-  const [showSignature, setShowSignature] = useState(false);
-  const [showPageNumbers, setShowPageNumbers] = useState(false);
-  const [taxRate, setTaxRate] = useState<number>(0);
-  const [defaultDueDays, setDefaultDueDays] = useState<number>(0);
-  const [discountRate, setDiscountRate] = useState<number>(0);
-  const [note, setNote] = useState<string>('');
+  const {
+    showLogo,
+    showSignature,
+    showPageNumbers,
+    taxRate,
+    defaultDueDays,
+    discountRate,
+    defaultNote,
+  } = useSettingsStore(
+    useShallow((s) => ({
+      showLogo: s.showLogo,
+      showSignature: s.showSignature,
+      showPageNumbers: s.showPageNumbers,
+      taxRate: s.taxRate,
+      defaultDueDays: s.defaultDueDays,
+      discountRate: s.discountRate,
+      defaultNote: s.defaultNote,
+    }))
+  );
+
+  const setInvoiceField = useSettingsStore((s) => s.setInvoiceField);
 
   const updateTaxRate = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const parsed = parseFloat(convertToEnDigits(e.target.value));
-      setTaxRate(Number.isNaN(parsed) ? 0 : parsed);
+      setInvoiceField('taxRate', Number.isNaN(parsed) ? 0 : parsed);
     },
-    [setTaxRate]
+    [setInvoiceField]
   );
 
-  const updateDefaultDueDays = useCallback((value: string) => {
-    const parsed = parseInt(value, 10);
-    setDefaultDueDays(Number.isNaN(parsed) ? 0 : parsed);
-  }, []);
+  const updateDefaultDueDays = useCallback(
+    (value: string) => {
+      const parsed = parseInt(value, 10);
+      setInvoiceField('defaultDueDays', Number.isNaN(parsed) ? 0 : parsed);
+    },
+    [setInvoiceField]
+  );
 
   const updateDiscountRate = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const parsed = parseFloat(convertToEnDigits(e.target.value));
-      setDiscountRate(Number.isNaN(parsed) ? 0 : parsed);
+      setInvoiceField('discountRate', Number.isNaN(parsed) ? 0 : parsed);
     },
-    [setDiscountRate]
+    [setInvoiceField]
   );
 
   const updateNote = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setNote(e.target.value || '');
+      setInvoiceField('defaultNote', e.target.value || '');
     },
-    [setNote]
+    [setInvoiceField]
   );
 
   const taxRateError =
@@ -156,7 +175,7 @@ export default function InvoiceSection(): ReactNode {
                 <FieldLabel className="text-slate-700 text-xs lg:text-sm">
                   یادداشت پیش‌فرض
                 </FieldLabel>
-                <Textarea value={note} onChange={updateNote} rows={3} />
+                <Textarea value={defaultNote} onChange={updateNote} rows={3} />
               </Field>
             </div>
           </div>
@@ -195,18 +214,18 @@ export default function InvoiceSection(): ReactNode {
                 label="نمایش لوگو در رسید"
                 hint="لوگوی شرکت در سربرگ هر فاکتور چاپی نمایش داده شود"
                 checked={showLogo}
-                onCheckedChange={setShowLogo}
+                onCheckedChange={(checked) => setInvoiceField('showLogo', checked)}
               />
               <ToggleRow
                 label="نمایش امضاء و مهر"
                 hint="جای امضا و مهر در پایین فاکتور رزرو شود"
                 checked={showSignature}
-                onCheckedChange={setShowSignature}
+                onCheckedChange={(checked) => setInvoiceField('showSignature', checked)}
               />
               <ToggleRow
                 label="چاپ شماره صفحه برای فاکتورهای چندصفحه‌ای"
                 checked={showPageNumbers}
-                onCheckedChange={setShowPageNumbers}
+                onCheckedChange={(checked) => setInvoiceField('showPageNumbers', checked)}
               />
             </div>
           </div>
