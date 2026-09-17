@@ -16,14 +16,14 @@ export default function SettingsMobileTablist(): ReactNode {
         onValueChange={onSelect}
         orientation="horizontal"
         className={cn(
-          'w-[unset] min-w-0 rounded-2xl border border-slate-200/70 bg-white/85 backdrop-blur-md inset-0',
+          'w-[unset] min-w-0 rounded-lg border border-slate-200/70 bg-white/85 backdrop-blur-md inset-0',
           'shadow-[0_1px_2px_rgba(51,43,34,0.04),0_8px_24px_-12px_rgba(51,43,34,0.08)]'
         )}
       >
         <TabsList
           className={cn(
             'flex flex-row-reverse items-stretch justify-start gap-1.5 h-auto w-[unset] max-w-full',
-            'bg-transparent rounded-2xl py-0',
+            'bg-transparent rounded-lg py-0',
             'overflow-x-auto overscroll-x-contain touch-pan-x scroll-px-2'
           )}
         >
@@ -33,29 +33,24 @@ export default function SettingsMobileTablist(): ReactNode {
             const isDanger = s.id === 'danger';
             const gradient = isDanger ? ALERT : ACCENT;
             const chipBg = isActive
-              ? `linear-gradient(135deg, ${gradient.from}, ${gradient.to})`
-              : '#f2ede4';
+              ? `bg-sidebar-primary text-sidebar-primary-foreground`
+              : 'bg-[#f2ede4] text-[#6b6257]';
             return (
               <TabsTrigger
                 key={s.id}
                 value={s.id}
                 className={cn(
                   'group relative flex flex-col items-center justify-center gap-1.5',
-                  'px-4 py-2 rounded-xl h-full whitespace-nowrap transition',
+                  'px-4 py-2 rounded-sm h-full whitespace-nowrap transition',
                   'data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-0 ',
                   'data-[state=inactive]:hover:bg-transparent '
                 )}
               >
                 <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center transition"
-                  style={{
-                    background: chipBg,
-                    color: isActive
-                      ? 'white'
-                      : isDanger
-                        ? ALERT.from
-                        : '#6b6257',
-                  }}
+                  className={cn(
+                    'w-8 h-8 rounded-lg flex items-center justify-center transition',
+                    chipBg
+                  )}
                 >
                   <Icn className="w-4 h-4" />
                 </div>

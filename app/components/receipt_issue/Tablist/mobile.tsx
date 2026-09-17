@@ -16,23 +16,22 @@ export default function ReceiptIssueMobileTablist(): ReactNode {
         onValueChange={onSelect}
         orientation="horizontal"
         className={cn(
-          'w-[unset] min-w-0 rounded-2xl border border-slate-200/70 bg-white/85 backdrop-blur-md inset-0',
-          'shadow-[0_1px_2px_rgba(51,43,34,0.04),0_8px_24px_-12px_rgba(51,43,34,0.08)]'
+          'w-[unset] min-w-0 rounded-lg border border-slate-200/70 bg-white/85 backdrop-blur-md inset-0'
         )}
       >
         <TabsList
           className={cn(
             'flex flex-row-reverse items-stretch justify-start gap-1.5 h-auto w-[unset] max-w-full',
-            'bg-transparent rounded-2xl py-0',
+            'bg-transparent rounded-lg py-0',
             'overflow-x-auto overscroll-x-contain touch-pan-x scroll-px-2'
           )}
         >
           {RECEIPT_SECTIONS.map((s: ReceiptSectionDescriptor) => {
             const Icn = ICONS_BY_NAME[s.iconName];
             const isActive = activeId === s.id;
-            const chipBg = isActive
-              ? `linear-gradient(135deg, ${ACCENT.from}, ${ACCENT.to})`
-              : '#f2ede4';
+            const chipClass = isActive
+              ? 'bg-sidebar-primary text-sidebar-primary-foreground'
+              : 'bg-[#f2ede4] text-[#6b6257]';
             return (
               <TabsTrigger
                 key={s.id}
@@ -45,11 +44,10 @@ export default function ReceiptIssueMobileTablist(): ReactNode {
                 )}
               >
                 <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center transition"
-                  style={{
-                    background: chipBg,
-                    color: isActive ? 'white' : '#6b6257',
-                  }}
+                  className={cn(
+                    'w-8 h-8 rounded-sm flex items-center justify-center transition',
+                    chipClass
+                  )}
                 >
                   <Icn className="w-4 h-4" />
                 </div>

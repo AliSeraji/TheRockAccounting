@@ -71,15 +71,17 @@ export default function Settings(): ReactNode {
         link={HOME}
         icon={<Home className="w-5 h-5 text-white" />}
       />
-      <div className="w-[unset] min-w-0 flex flex-col flex-1 min-h-0 overflow-y-auto md:overflow-hidden overflow-x-hidden pt-20 lg:pt-24 gap-5">
+      <div className="w-[unset] min-w-0 flex flex-col flex-1 min-h-0 overflow-y-auto overflow-x-hidden pt-20 lg:pt-24">
         {isMobile ? (
           <div className="sticky top-0 z-30">
             <SettingsMobileTablist />
           </div>
         ) : (
-          <SettingsTopBar />
+          <div className="sticky top-0 z-30">
+            <SettingsTopBar />
+          </div>
         )}
-        <div className="flex-1 min-w-0 min-h-0 w-full md:h-full md:overflow-y-auto pb-10">
+        <div className="flex-1 min-w-0 w-full pb-10 pt-5">
           <AnimatedSection />
         </div>
       </div>

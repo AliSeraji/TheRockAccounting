@@ -16,7 +16,7 @@ export default function SettingsTopBar(): ReactNode {
       dir="rtl"
       className={cn('w-full')}
     >
-      <TabsList className="flex h-auto w-full flex-row gap-1 rounded-[14px] bg-[#f6f1e7] p-1">
+      <TabsList className="flex h-auto w-full flex-row gap-1 rounded-[14px] bg-[#f6f1e7]/75 backdrop-blur-md p-1 shadow-[0_8px_24px_-12px_rgba(51,43,34,0.12)]">
         {SETTINGS_SECTIONS.map((s: SettingsSectionDescriptor) => {
           const Icn = ICONS_BY_NAME[s.iconName];
           return (

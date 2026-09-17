@@ -99,17 +99,17 @@ export const ReceiptIssue = (): ReactNode => {
         link={HOME}
         icon={<Home className="w-5 h-5 text-white" />}
       />
-      <div className="w-full min-w-0 flex flex-col flex-1 min-h-0 overflow-y-auto md:overflow-hidden overflow-x-hidden pt-20 lg:pt-24 pb-6 gap-5">
+      <div className="w-full min-w-0 flex flex-col flex-1 min-h-0 overflow-y-auto overflow-x-hidden pt-20 lg:pt-24">
         {isMobile ? (
           <div className="sticky top-0 z-30">
             <ReceiptIssueMobileTablist />
           </div>
         ) : (
-          <div className="">
+          <div className="sticky top-0 z-30">
             <ReceiptIssueTablist />
           </div>
         )}
-        <div className="flex-1 min-w-0 min-h-0 w-full md:overflow-y-auto">
+        <div className="flex-1 min-w-0 min-h-0 w-full">
           <AnimatedSection />
         </div>
       </div>
