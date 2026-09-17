@@ -1,7 +1,6 @@
 import type React from 'react';
-import { Printer } from 'lucide-react';
 import { useMemo } from 'react';
-import { Button } from '~/components/ui/button';
+import { useShallow } from 'zustand/react/shallow';
 import type { Props } from '../types';
 import SalesReceiptsPage from './SalesReceiptPage';
 import { salesReceiptPager } from '~/helper/helper';
@@ -14,8 +13,23 @@ export default function SalesInvoice({ data }: Props): React.ReactNode {
     () => salesReceiptPager(data, ITEMS_PER_PAGE),
     [data.items, data.services]
   );
-  const logo = useSettingsStore((state) => state.logo);
-  const companyName = useSettingsStore((state) => state.companyName);
+  const {
+    logo,
+    companyName,
+    defaultNote,
+    showLogo,
+    showSignature,
+    showPageNumbers,
+  } = useSettingsStore(
+    useShallow((state) => ({
+      logo: state.logo,
+      companyName: state.companyName,
+      defaultNote: state.defaultNote,
+      showLogo: state.showLogo,
+      showSignature: state.showSignature,
+      showPageNumbers: state.showPageNumbers,
+    }))
+  );
 
   return (
     <div className="font-vazirmatn w-full space-y-4">
@@ -32,8 +46,11 @@ export default function SalesInvoice({ data }: Props): React.ReactNode {
             isLastPage={page.isLastPage}
             pageNumber={page.pageNumber}
             totalPages={pages.length}
-            logo={logo}
+            logo={showLogo ? logo : null}
             companyName={companyName || ''}
+            defaultNote={defaultNote}
+            showSignature={showSignature}
+            showPageNumbers={showPageNumbers}
           />
         ))}
       </div>

@@ -4,10 +4,12 @@ import { createSidebarState } from './sections/sidebarState';
 import { createCompanySection } from './sections/companyState';
 import { createNumberingSection } from './sections/numberingState';
 import { createBackupSection } from './sections/BackupSection';
+import { createInvoiceSection } from './sections/invoiceState';
 
 export const useSettingsStore = create<SettingStore>()((...state) => ({
   ...createCompanySection(...state),
   ...createNumberingSection(...state),
   ...createSidebarState(...state),
   ...createBackupSection(...state),
+  ...createInvoiceSection(...state),
 }));
