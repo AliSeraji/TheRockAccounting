@@ -1,74 +1,48 @@
 import type { ReactNode } from 'react';
 import { cn } from '~/lib/utils';
 import { Tabs, TabsList, TabsTrigger } from '~/components/ui/tabs';
-import { ACCENT, ICONS_BY_NAME, RECEIPT_SECTIONS } from '../common';
+import { ICONS_BY_NAME, RECEIPT_SECTIONS } from '../common';
 import type { ReceiptSectionDescriptor } from '../types';
 import { useReceiptIssueStore } from '~/store/receipt_issue/useReceiptIssueStore';
 
-export default function ReceiptIssueSidebar(): ReactNode {
+export default function ReceiptIssueTablist(): ReactNode {
   const activeId = useReceiptIssueStore((state) => state.activeSection.id);
   const onSelect = useReceiptIssueStore((state) => state.setActiveSection);
+
   return (
-    <aside className="w-72 self-start">
-      <Tabs
-        value={activeId}
-        onValueChange={onSelect}
-        orientation="vertical"
+    <Tabs
+      value={activeId}
+      onValueChange={onSelect}
+      orientation="horizontal"
+      dir="rtl"
+      className="w-full"
+    >
+      <TabsList
         className={cn(
-          'rounded-2xl border border-slate-200/70 bg-white/85 backdrop-blur-md overflow-hidden',
-          'shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]'
+          'flex h-auto w-full flex-row gap-1 rounded-[14px] bg-[#f6f1e7] p-1',
+          'overflow-x-auto overscroll-x-contain'
         )}
       >
-        <div className="px-4 py-3 border-b border-slate-200/70 bg-linear-to-l from-slate-50 to-white">
-          <div className="flex flex-row justify-center text-[11px] uppercase tracking-wider text-slate-400 font-semibold">
-            مدیریت فاکتور فروش
-          </div>
-        </div>
-        <TabsList className="p-2 flex flex-col items-stretch gap-0.5 h-auto bg-transparent rounded-none">
-          {RECEIPT_SECTIONS.map((s: ReceiptSectionDescriptor) => {
-            const Icn = ICONS_BY_NAME[s.iconName];
-            const isActive = activeId === s.id;
-            const chipBg = isActive
-              ? `linear-gradient(135deg, ${ACCENT.from}, ${ACCENT.to})`
-              : '#f1f5f9';
-            return (
-              <TabsTrigger
-                key={s.id}
-                value={s.id}
-                className={cn(
-                  'group relative flex items-center justify-start gap-3 px-3 py-2.5 rounded-xl text-right h-auto whitespace-normal transition',
-                  'data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:border data-[state=active]:border-slate-200/70',
-                  'data-[state=inactive]:hover:bg-slate-50'
-                )}
-              >
-                <div
-                  className="w-9 h-9 rounded-lg flex items-center justify-center transition shrink-0"
-                  style={{
-                    background: chipBg,
-                    color: isActive ? 'white' : '#475569',
-                  }}
-                >
-                  <Icn className="w-4 h-4" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm font-semibold text-slate-800">
-                    {s.title}
-                  </div>
-                  <div className="text-[11px] text-slate-500 truncate">
-                    {s.desc}
-                  </div>
-                </div>
-                {isActive && (
-                  <div
-                    className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-l-full"
-                    style={{ background: ACCENT.to }}
-                  />
-                )}
-              </TabsTrigger>
-            );
-          })}
-        </TabsList>
-      </Tabs>
-    </aside>
+        {RECEIPT_SECTIONS.map((s: ReceiptSectionDescriptor) => {
+          const Icn = ICONS_BY_NAME[s.iconName];
+          return (
+            <TabsTrigger
+              key={s.id}
+              value={s.id}
+              className={cn(
+                'flex flex-1 min-w-fit flex-row items-center justify-center gap-2 whitespace-nowrap rounded-[10px] px-2.5 py-3',
+                'text-[13.5px] font-medium text-[#6b6459] transition-[background-color,color,box-shadow] duration-200',
+                'data-[state=inactive]:hover:text-[#1f2937]',
+                'data-[state=active]:bg-white data-[state=active]:font-bold data-[state=active]:text-[#a4854a]',
+                'data-[state=active]:shadow-[0_1px_2px_rgba(31,41,55,0.08),0_4px_12px_rgba(164,133,74,0.12)]'
+              )}
+            >
+              <Icn className="size-4" strokeWidth={1.7} />
+              <span>{s.title}</span>
+            </TabsTrigger>
+          );
+        })}
+      </TabsList>
+    </Tabs>
   );
 }

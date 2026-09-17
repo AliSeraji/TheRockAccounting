@@ -27,7 +27,7 @@ export default function InvoiceTable({
               update={updateItem}
               remove={removeItem}
               addItem={addItem}
-              isNewRow={index === items.length - 1}
+              isNewRow={index === items.length - 1 && items.length > 1}
             />
           );
         })}

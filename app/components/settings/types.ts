@@ -16,6 +16,7 @@ export interface Accent {
 }
 
 export type AccentKey =
+  | 'bronze'
   | 'teal'
   | 'blue'
   | 'emerald'

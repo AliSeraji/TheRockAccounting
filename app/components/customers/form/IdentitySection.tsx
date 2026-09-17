@@ -18,7 +18,7 @@ const IdentitySection = memo(function IdentitySection({
   return (
     <section>
       <SectionTitle
-        icon={<UserRound className="w-4 h-4 text-teal-600" />}
+        icon={<UserRound className="w-4 h-4 text-brand-600" />}
         title="هویت و طبقه‌بندی"
         description="نوع شخص، نقش او در حساب‌ها و شناسه‌های قانونی"
       />

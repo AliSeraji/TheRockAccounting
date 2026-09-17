@@ -16,14 +16,14 @@ export default function InvoiceSection(): ReactNode {
         <div className="font-vazirmatn flex flex-wrap items-center justify-center gap-4 mt-8 pb-8">
           <Button
             onClick={() => setOpenReceipt(ReceiptType.Sales)}
-            className="gap-2 bg-linear-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
+            className="gap-2 bg-linear-to-r from-brand-700 to-brand-900 hover:from-brand-800 hover:to-brand-950 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
           >
             <FileText className="w-4 h-4" />
             نمایش فاکتور
           </Button>
           <Button
             onClick={() => setOpenReceipt(ReceiptType.Delivery)}
-            className="gap-2 bg-linear-to-r from-teal-500 to-teal-700 hover:from-teal-600 hover:to-teal-800 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
+            className="gap-2 bg-linear-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-slate-950 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
           >
             <Truck className="w-4 h-4" />
             نمایش رسید تحویل بار

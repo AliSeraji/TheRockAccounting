@@ -205,13 +205,13 @@ export const ToggleField = memo(function ToggleField({
     <label
       className={cn(
         'flex items-start gap-3 rounded-lg border p-3 transition-colors hover:cursor-pointer',
-        checked ? 'border-teal-200 bg-teal-50/60' : 'border-slate-200 bg-white'
+        checked ? 'border-brand-300 bg-brand-50' : 'border-slate-200 bg-white'
       )}
     >
       <Switch
         checked={checked}
         onCheckedChange={onChange}
-        className="mt-0.5 data-[state=checked]:bg-teal-600 hover:cursor-pointer"
+        className="mt-0.5 data-[state=checked]:bg-brand-700 hover:cursor-pointer"
       />
       <span className="flex flex-col gap-0.5">
         <span className="text-xs lg:text-sm font-medium text-slate-700">

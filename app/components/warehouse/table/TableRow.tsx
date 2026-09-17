@@ -22,8 +22,8 @@ const WarehouseTableRow = memo(function WarehouseTableRow({
       onClick={() => setSelectedItem(item)}
       className={`flex flex-row w-full rounded-xl cursor-pointer border-0 transition-[background-color,box-shadow] duration-150 ${
         isSelected
-          ? 'bg-indigo-50 ring-1 ring-inset ring-indigo-200 hover:bg-indigo-100/70'
-          : 'bg-white hover:bg-indigo-50/50'
+          ? 'bg-brand-100 ring-1 ring-inset ring-brand-400 hover:bg-brand-200/70'
+          : 'bg-white hover:bg-brand-50'
       }`}
     >
       <TableCell className="flex flex-row justify-center px-4 py-3 text-slate-700 font-mono text-xs whitespace-nowrap w-[10%]">

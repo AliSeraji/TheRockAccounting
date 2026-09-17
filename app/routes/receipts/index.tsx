@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { Home } from 'lucide-react';
 import PageHeader from '~/components/ui/PageHeader';
 import { HOME } from '../constants';
-import ReceiptIssueSidebar from '~/components/receipt_issue/Tablist';
+import ReceiptIssueTablist from '~/components/receipt_issue/Tablist';
 import ReceiptIssueMobileTablist from '~/components/receipt_issue/Tablist/mobile';
 import { RECEIPT_SECTIONS } from '~/components/receipt_issue/common';
 import { useReceiptIssueStore } from '~/store/receipt_issue/useReceiptIssueStore';
@@ -99,17 +99,17 @@ export const ReceiptIssue = (): ReactNode => {
         link={HOME}
         icon={<Home className="w-5 h-5 text-white" />}
       />
-      <div className="w-full min-w-0 flex flex-col md:flex-row flex-1 min-h-0 overflow-y-auto md:overflow-hidden overflow-x-hidden pt-20 lg:pt-24 pb-6 gap-5">
+      <div className="w-full min-w-0 flex flex-col flex-1 min-h-0 overflow-y-auto overflow-x-hidden pt-20 lg:pt-24">
         {isMobile ? (
           <div className="sticky top-0 z-30">
             <ReceiptIssueMobileTablist />
           </div>
         ) : (
-          <div className="flex flex-col justify-center h-full">
-            <ReceiptIssueSidebar />
+          <div className="sticky top-0 z-30">
+            <ReceiptIssueTablist />
           </div>
         )}
-        <div className="lg:pt-2 flex-1 min-w-0 min-h-0 w-full md:h-full md:overflow-y-auto">
+        <div className="flex-1 min-w-0 min-h-0 w-full">
           <AnimatedSection />
         </div>
       </div>

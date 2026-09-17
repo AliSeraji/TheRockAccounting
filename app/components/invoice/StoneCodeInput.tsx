@@ -123,7 +123,7 @@ export default function StoneCodeInput({
                 onClick={() => select(stone.code)}
                 onMouseEnter={() => setHighlighted(idx)}
                 className={cn(
-                  'w-full shrink-0 rounded-sm px-2 py-1.5 text-sm text-right text-slate-700 hover:cursor-pointer',
+                  'w-full rounded-sm px-2 py-1.5 text-sm text-right text-slate-700 hover:cursor-pointer',
                   idx === highlighted && 'bg-slate-100 text-slate-900',
                   value === stone.code && 'font-semibold'
                 )}

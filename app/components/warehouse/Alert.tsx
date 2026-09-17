@@ -32,11 +32,11 @@ const variantStyles: Record<
       'bg-red-600 text-white border-0 hover:bg-red-700 hover:cursor-pointer',
   },
   info: {
-    container: 'bg-sky-50 border-2 border-sky-400',
+    container: 'bg-brand-50 border-2 border-brand-400',
     cancel:
-      'bg-sky-100 text-sky-900 border border-sky-300 hover:bg-sky-200 hover:cursor-pointer',
+      'bg-brand-100 text-brand-950 border border-brand-300 hover:bg-brand-200 hover:cursor-pointer',
     confirm:
-      'bg-sky-600 text-white border-0 hover:bg-sky-700 hover:cursor-pointer',
+      'bg-brand-800 text-white border-0 hover:bg-brand-900 hover:cursor-pointer',
   },
 };
 

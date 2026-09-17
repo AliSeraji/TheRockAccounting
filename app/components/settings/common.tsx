@@ -14,6 +14,14 @@ import { Label } from '../ui/label';
 import { Switch } from '../ui/switch';
 
 const ACCENTS: AccentMap = {
+  bronze: {
+    from: '#c6a469',
+    to: '#96733a',
+    ring: '#b08b45',
+    soft: '#fdfaf4',
+    border: '#d9c08a',
+    label: 'برنزی',
+  },
   teal: {
     from: '#2dd4bf',
     to: '#0d9488',
@@ -73,8 +81,8 @@ export const ALERT: { from: string; to: string } = {
   from: '#fbbf24',
   to: '#d97706',
 };
-// Default accent for the settings module. Matches the dashboard's teal vibe.
-export const ACCENT: Accent = ACCENTS.teal;
+// Default accent for the settings module. Matches the brand's bronze.
+export const ACCENT: Accent = ACCENTS.bronze;
 
 // ── Section list ────────────────────────────────────────────────────────────
 export const SETTINGS_SECTIONS: SettingsSectionDescriptor[] = [
@@ -151,7 +159,7 @@ const SectionCard: React.FC<SectionCardProps> = ({
     <div
       className={cn(
         'rounded-2xl border bg-white/85 backdrop-blur-md overflow-hidden',
-        'shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]',
+        'shadow-[0_1px_2px_rgba(51,43,34,0.04),0_8px_24px_-12px_rgba(51,43,34,0.08)]',
         danger ? 'border-rose-200/70' : 'border-slate-200/70'
       )}
     >
@@ -211,11 +219,11 @@ const Toggle: React.FC<ToggleProps> = ({
   <button
     type="button"
     onClick={() => onCheckedChange(!checked)}
-    className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors shrink-0"
+    className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
     style={{
       background: checked
         ? `linear-gradient(135deg, ${accent.from}, ${accent.to})`
-        : '#e2e8f0',
+        : '#e6ddcd',
     }}
     aria-pressed={checked}
   >
@@ -309,7 +317,7 @@ export function ToggleRow({
         checked={checked}
         onCheckedChange={onCheckedChange}
         className={cn(
-          'data-[state=checked]:bg-emerald-600 data-[state=unchecked]:bg-slate-300 cursor-pointer'
+          'data-[state=checked]:bg-brand-700 data-[state=unchecked]:bg-slate-300 cursor-pointer'
         )}
         dir="ltr"
       />

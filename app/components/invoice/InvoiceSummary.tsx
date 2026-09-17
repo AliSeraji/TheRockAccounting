@@ -129,7 +129,7 @@ const InvoiceSummary = memo(function InvoiceSummary(): React.ReactNode {
         <div className="border-t border-slate-200 pt-4 ">
           <div className="flex justify-between items-center text-base lg:text-lg font-bold text-slate-800">
             <span>مبلغ قابل پرداخت:</span>
-            <span className="text-green-600">
+            <span className="text-brand-800">
               {formatRialAmount(convertToPersianDigits(totalPaymentAmount))}
             </span>
           </div>

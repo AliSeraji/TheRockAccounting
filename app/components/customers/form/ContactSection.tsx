@@ -19,7 +19,7 @@ const ContactSection = memo(function ContactSection({
   return (
     <section>
       <SectionTitle
-        icon={<MapPin className="w-4 h-4 text-teal-600" />}
+        icon={<MapPin className="w-4 h-4 text-brand-600" />}
         title="اطلاعات تماس و نشانی"
         description="راه‌های ارتباطی و نرخ فروش پیش‌فرض این شخص"
       />

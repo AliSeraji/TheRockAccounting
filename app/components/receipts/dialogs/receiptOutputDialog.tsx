@@ -21,7 +21,7 @@ export default function ReceiptOutputDialog({
   onChangeReceipt: (open: ReceiptType) => void;
 }): ReactNode {
   const getInvoiceData = useInvoiceStore((state) => state.getInvoiceData);
-  const invoiceData = getInvoiceData(); 
+  const invoiceData = getInvoiceData();
 
   const handlePrint = () => {
     let pageCss = '';
@@ -81,7 +81,7 @@ export default function ReceiptOutputDialog({
         className="sm:max-w-6xl h-[90vh] flex flex-col p-0"
         dir="rtl"
       >
-        <DialogHeader className="flex flex-row justify-between px-6 pt-4 pb-2 border-b border-slate-200 shrink-0 gap-4">
+        <DialogHeader className="flex flex-row justify-between px-6 pt-4 pb-2 border-b border-slate-200 gap-4">
           <DialogTitle className="text-base font-bold text-slate-800 pr-8">
             {open === ReceiptType.Sales && 'پیش‌نمایش فاکتور فروش'}
             {open === ReceiptType.Delivery && 'پیش‌نمایش رسید تحویل بار'}

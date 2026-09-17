@@ -19,26 +19,28 @@ export default function SalesInfoBox({
       <div className="flex flex-col gap-1">
         <div className="flex flex-row w-full ">
           <div className="flex flex-row min-w-4/6 w-auto items-start gap-1">
-            <span className="text-gray-800">نام شخص حقیقی / حقوقی:</span>
+            <span className="text-gray-800 font-bold">
+              نام شخص حقیقی / حقوقی:
+            </span>
             <span className=" flex-1 pb-1">
               {convertToPersianDigits(buyer || '')}
             </span>
           </div>
           <div className="flex flex-row w-auto items-start gap-1">
-            <span className="text-gray-800">تلفن:</span>
+            <span className="text-gray-800 font-bold">تلفن:</span>
             <span className=" flex-1 pb-1">
               {convertToPersianDigits(phone)}
             </span>
           </div>
         </div>
         <div className="flex items-start gap-1">
-          <span className="text-gray-800">پروژه:</span>
+          <span className="text-gray-800 font-bold">پروژه:</span>
           <span className=" flex-1 pb-1">
             {convertToPersianDigits(project || '')}
           </span>
         </div>
         <div className="flex items-start gap-1">
-          <span className="text-gray-800">آدرس:</span>
+          <span className="text-gray-800 font-bold">آدرس:</span>
           <span className=" flex-1 text-start wrap-break-word overflow-hidden">
             {convertToPersianDigits(address || '')}
           </span>
