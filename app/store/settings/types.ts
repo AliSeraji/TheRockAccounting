@@ -44,7 +44,13 @@ export interface CompanyData {
   address: string | null;
   logo: string | null;
   logoError: string | null;
+  bankAccountAddress: string | null;
+  cardNum: string | null;
+  bankIban: string | null;
+  ownerName: string | null;
 }
+
+export type CompanyDataField = keyof CompanyData;
 
 export interface BackupInfoState extends BackupSettings {
   setBackupField: <k extends keyof BackupSettings>(

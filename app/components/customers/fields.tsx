@@ -15,7 +15,7 @@ import { digitsOnly } from '~/lib/validation';
 
 const labelClass = 'text-slate-700 pr-2 text-xs lg:text-sm';
 const controlClass =
-  'rounded-lg text-xs lg:text-sm border-slate-200 focus-visible:ring-slate-400';
+  'rounded-md text-xs lg:text-sm border-slate-200 focus-visible:ring-slate-400';
 
 function FieldShell({
   label,

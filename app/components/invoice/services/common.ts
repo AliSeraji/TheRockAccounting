@@ -7,5 +7,5 @@ export const servicesTableItems: InvoiceTableItem[] = [
   { label: 'بهاء واحد (ریال)', width: 'w-[15%]' },
   { label: 'مبلغ کل (ریال)', width: 'w-[20%]' },
   { label: 'توضیحات', width: 'w-[25%]' },
-  { label: 'عملیات', width: 'w-[5%]' },
+  { label: '', width: 'w-[5%]' },
 ];
