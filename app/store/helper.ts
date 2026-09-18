@@ -25,7 +25,7 @@ export function computeTotals(
   );
   const grossAmount = totalAmount + totalServicesAmount;
 
-  const discountAmount = (parseFloat(discount || '0') * grossAmount) / 100;
+  const discountAmount = parseFloat(discount || '0') || 0;
 
   const taxAmount = (parseFloat(tax || '0') * grossAmount) / 100;
 

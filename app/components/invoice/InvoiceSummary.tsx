@@ -56,9 +56,22 @@ const InvoiceSummary = memo(function InvoiceSummary(): React.ReactNode {
     set(raw);
   };
 
+  const handleRialAmount = (value: string, set: (value: string) => void) => {
+    let raw = convertToEnDigits(value.trim())
+      .replace(/\//g, '.')
+      .replace(/[,٬]/g, '');
+    if (raw === '') {
+      set('');
+      return;
+    }
+    if (!/^\d*\.?\d*$/.test(raw)) return;
+    raw = raw.replace(/^0+(?=\d)/, '');
+    set(raw);
+  };
+
   const handleDiscountChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      handlePercentageAmount(e.target.value, setDiscount);
+      handleRialAmount(e.target.value, setDiscount);
     },
     [setDiscount]
   );
@@ -72,21 +85,7 @@ const InvoiceSummary = memo(function InvoiceSummary(): React.ReactNode {
 
   const handleReceivedChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      let value = convertToEnDigits(e.target.value.trim())
-        .replace(/\//g, '.')
-        .replace(/[,٬]/g, '');
-      if (value === '') {
-        setReceived('');
-        return;
-      }
-      if (!/^-?\d*\.?\d*$/.test(value)) return;
-      value = value
-        .replace(/^(-?)0+(\d)/, (_, digit) =>
-          digit === '.' ? `0${digit}` : `${digit}`
-        )
-        .replace(/^-/, '');
-
-      setReceived(value);
+      handleRialAmount(e.target.value, setReceived);
     },
     [setReceived]
   );
@@ -102,7 +101,7 @@ const InvoiceSummary = memo(function InvoiceSummary(): React.ReactNode {
         <div className="flex flex-col space-y-2">
           <Label className="text-slate-700 pr-1">تخفیف</Label>
           <Input
-            value={handlePercentageDisplay(discount)}
+            value={formatRialAmount(convertToPersianDigits(discount))}
             onChange={handleDiscountChange}
             className="border-slate-200 rounded-lg focus:ring-slate-400"
             placeholder="مبلغ تخفیف"

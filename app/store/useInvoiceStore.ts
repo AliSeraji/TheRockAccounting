@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { convertToEnDigits } from './../lib/utils';
 import type {
+  InvoiceDataType,
   InvoiceState,
   InvoiceTotals,
   ServiceItem,
@@ -220,26 +221,28 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
     });
   },
 
-  getInvoiceData: () => {
-    const state = get();
-    return {
-      invoiceType: state.invoiceType,
-      buyer: state.buyer,
-      project: state.project,
-      address: state.address,
-      phone: state.phone,
-      invoiceNumber: state.invoiceNumber,
-      invoiceDate: state.invoiceDate,
-      secondAdditionalNote: state.secondAdditionalNote,
-      additionalNote: state.additionalNote,
-      discount: state.discount,
-      tax: state.tax,
-      received: state.received,
-      items: state.items,
-      services: state.services,
-      totals: state.totals,
-    };
-  },
+  getInvoiceData: () => selectInvoiceData(get()),
 
   resetInvoice: () => set(initialState),
 }));
+
+// Use with useShallow so components re-render when invoice fields change.
+export function selectInvoiceData(state: InvoiceState): InvoiceDataType {
+  return {
+    invoiceType: state.invoiceType,
+    buyer: state.buyer,
+    project: state.project,
+    address: state.address,
+    phone: state.phone,
+    invoiceNumber: state.invoiceNumber,
+    invoiceDate: state.invoiceDate,
+    secondAdditionalNote: state.secondAdditionalNote,
+    additionalNote: state.additionalNote,
+    discount: state.discount,
+    tax: state.tax,
+    received: state.received,
+    items: state.items,
+    services: state.services,
+    totals: state.totals,
+  };
+}

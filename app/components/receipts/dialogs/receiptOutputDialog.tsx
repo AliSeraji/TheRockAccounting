@@ -6,7 +6,8 @@ import {
   DialogTitle,
 } from '~/components/ui/dialog';
 import { ReceiptType } from '../types';
-import { useInvoiceStore } from '~/store/useInvoiceStore';
+import { useShallow } from 'zustand/react/shallow';
+import { selectInvoiceData, useInvoiceStore } from '~/store/useInvoiceStore';
 import SalesInvoice from '../sales';
 import Delivery from '../delivery';
 import RequestProduct from '../request';
@@ -20,8 +21,7 @@ export default function ReceiptOutputDialog({
   open: ReceiptType;
   onChangeReceipt: (open: ReceiptType) => void;
 }): ReactNode {
-  const getInvoiceData = useInvoiceStore((state) => state.getInvoiceData);
-  const invoiceData = getInvoiceData();
+  const invoiceData = useInvoiceStore(useShallow(selectInvoiceData));
 
   const handlePrint = () => {
     let pageCss = '';
