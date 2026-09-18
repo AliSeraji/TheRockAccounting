@@ -16,6 +16,9 @@ export default function SalesInvoice({ data }: Props): React.ReactNode {
   const {
     logo,
     companyName,
+    address,
+    phone,
+    mobile,
     defaultNote,
     showLogo,
     showSignature,
@@ -24,6 +27,9 @@ export default function SalesInvoice({ data }: Props): React.ReactNode {
     useShallow((state) => ({
       logo: state.logo,
       companyName: state.companyName,
+      address: state.address,
+      phone: state.phone,
+      mobile: state.mobile,
       defaultNote: state.defaultNote,
       showLogo: state.showLogo,
       showSignature: state.showSignature,
@@ -48,6 +54,9 @@ export default function SalesInvoice({ data }: Props): React.ReactNode {
             totalPages={pages.length}
             logo={showLogo ? logo : null}
             companyName={companyName || ''}
+            companyAddress={address || ''}
+            companyPhone={phone || ''}
+            companyMobile={mobile || ''}
             defaultNote={defaultNote}
             showSignature={showSignature}
             showPageNumbers={showPageNumbers}

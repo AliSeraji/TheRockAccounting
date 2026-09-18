@@ -1,9 +1,14 @@
 import type React from 'react';
-import { convertToPersianDigits, formatRialAmount } from '~/lib/utils';
+import {
+  cleanTrailingZeros,
+  convertToPersianDigits,
+  formatRialAmount,
+} from '~/lib/utils';
 import { DEFAULT_INVOICE_NOTE } from '~/store/settings/sections/invoiceState';
 
 interface Props {
   discount: string;
+  grossAmount: number;
   tax: string;
   received: string;
   note?: string;
@@ -11,11 +16,17 @@ interface Props {
 
 export default function SalesNote({
   discount,
+  grossAmount,
   tax,
   received,
   note,
 }: Props): React.ReactNode {
   const noteContent = note !== undefined ? note : DEFAULT_INVOICE_NOTE;
+  const discountAmount = parseFloat(discount || '0') || 0;
+  const discountPercent =
+    grossAmount > 0
+      ? cleanTrailingZeros(((discountAmount / grossAmount) * 100).toFixed(2))
+      : '0';
 
   return (
     <div className="border-2 border-gray-400 rounded-lg p-4 mb-2 bg-gray-50">
@@ -30,9 +41,16 @@ export default function SalesNote({
         </div>
         <div className="space-y-2 text-left min-w-30 text-xs">
           <div className="flex justify-between">
-            <span className="text-black">تخفیف</span>
+            <span className="text-black">درصد تخفیف</span>
             <span className="font-semibold">
-              {'% ' + convertToPersianDigits(discount || '*')}
+              {'% ' + convertToPersianDigits(discountPercent)}
+            </span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-black">مبلغ تخفیف</span>
+            <span className="font-semibold">
+              {'ریال ' +
+                formatRialAmount(convertToPersianDigits(discount || '0'))}
             </span>
           </div>
           <div className="flex justify-between">

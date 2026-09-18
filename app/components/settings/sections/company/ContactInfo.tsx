@@ -43,9 +43,7 @@ const ContactInfo = memo(function ContactInfo(): ReactNode {
           <Phone className="w-5 h-5 text-brand-600" />
           اطلاعات تماس
         </CardTitle>
-        <CardDescription className="text-slate-500 text-xs pr-7 ">
-          در فاکتورها، رسیدها نمایش داده می‌شود
-        </CardDescription>
+        <CardDescription className="text-slate-500 text-xs pr-7 "></CardDescription>
       </CardHeader>
       <CardContent className="p-6">
         <div className="grid grid-cols-2 gap-x-4 gap-y-4">
@@ -111,7 +109,7 @@ const ContactInfo = memo(function ContactInfo(): ReactNode {
                 className="rounded-lg ring-0 text-xs md:text-sm"
               />
               <FieldDescription className="flex flex-row text-slate-400 text-xs md:text-sm justify-start">
-                در فوتر فاکتورها چاپ خواهد شد
+                در فاکتورها چاپ خواهد شد
               </FieldDescription>
             </Field>
           </div>

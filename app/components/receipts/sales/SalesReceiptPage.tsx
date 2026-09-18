@@ -17,6 +17,9 @@ interface SalesReceiptPageProps extends ReceiptProps {
   serviceStartIndex: number;
   showItemsFooter: boolean;
   defaultNote?: string;
+  companyAddress?: string;
+  companyPhone?: string;
+  companyMobile?: string;
   showSignature?: boolean;
   showPageNumbers?: boolean;
 }
@@ -34,6 +37,9 @@ export default function SalesReceiptsPage({
   logo,
   companyName,
   defaultNote,
+  companyAddress,
+  companyPhone,
+  companyMobile,
   showSignature = true,
   showPageNumbers = true,
 }: SalesReceiptPageProps): React.ReactNode {
@@ -48,6 +54,9 @@ export default function SalesReceiptsPage({
         invoiceNumber={data.invoiceNumber}
         invoiceDate={data.invoiceDate}
         companyName={companyName}
+        companyAddress={companyAddress}
+        companyPhone={companyPhone}
+        companyMobile={companyMobile}
         logo={logo}
       />
 
@@ -80,6 +89,7 @@ export default function SalesReceiptsPage({
 
       <SalesNote
         discount={data.discount}
+        grossAmount={data.totals.totalAmount + data.totals.totalServicesAmount}
         tax={data.tax}
         received={data.received}
         note={defaultNote}
