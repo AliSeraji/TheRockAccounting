@@ -22,7 +22,7 @@ export function printableServices(services: ServiceItem[]): ServiceItem[] {
 }
 
 // Rows taken by the services table's header and footer when it shares a page with the items table
-const SERVICES_TABLE_OVERHEAD = 2;
+const SERVICES_TABLE_OVERHEAD = 3;
 
 export interface SalesReceiptPageData {
   items: StoneItem[];

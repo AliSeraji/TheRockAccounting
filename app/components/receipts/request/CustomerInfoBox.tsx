@@ -15,7 +15,7 @@ export default function CustomerInfoBox({
   address,
 }: CustomerInfoBoxProps): ReactNode {
   return (
-    <div className="border-2 border-gray-400 rounded-lg p-2 pb-1 mb-4 bg-gray-50 text-xs">
+    <div className="border-2 border-gray-400 rounded-lg p-2 pb-1 mb-4 bg-gray-50 text-2xs">
       <div className="flex flex-col gap-1">
         <div className="flex flex-row w-full ">
           <div className="flex flex-row min-w-4/6 w-auto items-start gap-1">

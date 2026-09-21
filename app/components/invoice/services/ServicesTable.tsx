@@ -40,14 +40,15 @@ function Footer({ addService }: { addService: () => void }): React.ReactNode {
   );
   return (
     <TableRow className="w-full flex flex-row bg-slate-100 font-semibold text-slate-800">
-      <TableCell className="w-[25%] border border-slate-300 p-2 text-center">
+      <TableCell className="flex flex-row justify-center items-center w-[25%] border border-slate-300 p-2 text-center ">
         جمع خدمات
       </TableCell>
       <TableCell className="w-[25%] border border-slate-300 p-2" />
-      <TableCell className="w-[20%] border border-slate-300 p-2 text-center">
+
+      <TableCell className="w-[25%] border border-slate-300 p-2" />
+      <TableCell className="flex flex-row justify-center w-[20%] border border-slate-300 p-2 text-center items-center">
         {formatRialAmount(convertToPersianDigits(totalServicesAmount)) || '-'}
       </TableCell>
-      <TableCell className="w-[25%] border border-slate-300 p-2" />
       <TableCell className="w-[5%] border border-slate-300 p-2">
         <Button
           onClick={addService}

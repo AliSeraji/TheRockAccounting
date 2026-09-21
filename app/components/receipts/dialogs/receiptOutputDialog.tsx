@@ -33,7 +33,7 @@ export default function ReceiptOutputDialog({
       case ReceiptType.Delivery:
       case ReceiptType.Request:
         pageCss =
-          '@page { size: 148mm 210mm; margin: 5mm; } html, body { width: 148mm !important; height: auto !important; }';
+          '@page { size: A5 portrait; margin: 5mm; } html, body { width: 148mm !important; height: auto !important; }';
         break;
       default:
         return;

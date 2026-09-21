@@ -11,10 +11,10 @@ export function computeTotals(
     (sum, item) => sum + (parseFloat(item.quantity) || 0),
     0
   );
-  const totalArea = items.reduce(
-    (sum, item) => sum + (parseFloat(item.area) || 0),
-    0
-  );
+  const totalArea =
+    Math.round(
+      items.reduce((sum, item) => sum + (parseFloat(item.area) || 0), 0) * 100
+    ) / 100;
   const totalAmount = items.reduce(
     (sum, item) => sum + (parseFloat(item.total) || 0),
     0

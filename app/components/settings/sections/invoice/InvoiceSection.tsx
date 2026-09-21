@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select';
-import { Textarea } from '~/components/ui/textarea';
+import { BulletTextarea } from '~/components/ui/BulletTextarea';
 import { ToggleRow } from '../../common';
 import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
 import { useSettingsStore } from '~/store/settings/useSettingStore';
@@ -79,8 +79,8 @@ export default function InvoiceSection(): ReactNode {
   );
 
   const updateNote = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setInvoiceField('defaultNote', e.target.value || '');
+    (value: string) => {
+      setInvoiceField('defaultNote', value);
     },
     [setInvoiceField]
   );
@@ -175,7 +175,11 @@ export default function InvoiceSection(): ReactNode {
                 <FieldLabel className="text-slate-700 text-xs lg:text-sm">
                   یادداشت پیش‌فرض
                 </FieldLabel>
-                <Textarea value={defaultNote} onChange={updateNote} rows={3} />
+                <BulletTextarea
+                  value={defaultNote}
+                  onValueChange={updateNote}
+                  rows={3}
+                />
               </Field>
             </div>
           </div>
@@ -214,18 +218,24 @@ export default function InvoiceSection(): ReactNode {
                 label="نمایش لوگو در رسید"
                 hint="لوگوی شرکت در سربرگ هر فاکتور چاپی نمایش داده شود"
                 checked={showLogo}
-                onCheckedChange={(checked) => setInvoiceField('showLogo', checked)}
+                onCheckedChange={(checked) =>
+                  setInvoiceField('showLogo', checked)
+                }
               />
               <ToggleRow
                 label="نمایش امضاء و مهر"
                 hint="جای امضا و مهر در پایین فاکتور رزرو شود"
                 checked={showSignature}
-                onCheckedChange={(checked) => setInvoiceField('showSignature', checked)}
+                onCheckedChange={(checked) =>
+                  setInvoiceField('showSignature', checked)
+                }
               />
               <ToggleRow
                 label="چاپ شماره صفحه برای فاکتورهای چندصفحه‌ای"
                 checked={showPageNumbers}
-                onCheckedChange={(checked) => setInvoiceField('showPageNumbers', checked)}
+                onCheckedChange={(checked) =>
+                  setInvoiceField('showPageNumbers', checked)
+                }
               />
             </div>
           </div>

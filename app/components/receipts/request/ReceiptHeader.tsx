@@ -14,16 +14,16 @@ export default function RequestReceiptHeader({
 }): ReactNode {
   return (
     <div className="flex justify-between items-start mb-2">
-      <div className=" px-1 py-1 text-xs font-bold">
+      <div className=" px-1 py-1 text-2xs font-bold">
         <img src={logo || undefined} className="w-10 h-10 object-fit" />
       </div>
 
       <div className="text-center flex-1 mx-6">
-        <h1 className="text-xs font-bold text-gray-900">شرکت {companyName}</h1>
-        <h2 className="text-xs font-bold mt-1 text-gray-800">درخواست سنگ</h2>
+        <h1 className="text-2xs font-bold text-gray-900">شرکت {companyName}</h1>
+        <h2 className="text-2xs font-bold mt-1 text-gray-800">درخواست سنگ</h2>
       </div>
 
-      <div className="text-left space-y-1 text-xs">
+      <div className="text-left space-y-1 text-2xs">
         <div className="flex items-center gap-2">
           <span className="text-gray-600">شماره:</span>
           <span className="font-bold  px-3">

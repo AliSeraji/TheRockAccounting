@@ -126,6 +126,13 @@ export function persianNumberToText(num: string | number): string {
   return numberToWords(parsed);
 }
 
+// Splits a multi-line note into its non-empty lines, one per bullet point.
+export const splitNoteLines = (text: string): string[] =>
+  text
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
+
 export const cleanTrailingZeros = (str: string): string => {
   if (str.includes('.') && !str.endsWith('.')) {
     return str.replace(/\.?0+$/, '');
@@ -137,4 +144,3 @@ export const formatRialAmount = (num: string | number): string => {
   const newNum = typeof num === 'number' ? convertToPersianDigits(num) : num;
   return newNum.replace(/(?<=[۰-۹])(?=([۰-۹]{3})+(?![۰-۹]))/g, '٬');
 };
-

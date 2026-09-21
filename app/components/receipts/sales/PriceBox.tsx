@@ -14,16 +14,16 @@ export default function PriceBox({
     <div className="border-2 border-gray-400 rounded-lg p-2 mb-2">
       <div className="flex justify-between items-center">
         <div>
-          <span className="font-bold text-gray-800 text-xs">
+          <span className="font-bold text-gray-800 text-2xs">
             مبلغ قابل پرداخت
           </span>
         </div>
         <div className="text-center">
-          <span className="text-xs text-gray-800">
+          <span className="text-2xs text-gray-800">
             {persianNumberToText(convertToPersianDigits(total))}
           </span>
         </div>
-        <div className="text-xs font-bold text-gray-800">
+        <div className="text-2xs font-bold text-gray-800">
           {'ریال ' + formatRialAmount(convertToPersianDigits(total))}
         </div>
       </div>

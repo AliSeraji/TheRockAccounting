@@ -11,7 +11,7 @@ export const DeliveryTableFooter = ({
 }: DeliveryTableFooterProps): React.ReactNode => {
   return (
     <TableFooter>
-      <TableRow className="bg-gray-100 font-bold text-xs">
+      <TableRow className="bg-gray-100 font-bold text-2xs">
         <TableCell
           colSpan={6}
           className="border-2 border-gray-500 p-1 text-center"

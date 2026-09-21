@@ -10,7 +10,7 @@ export default function Header(): ReactNode {
           return (
             <TableHead
               key={item.label}
-              className={`justify-center text-center border-2 border-gray-500 p-1 ${item.width}`}
+              className={`justify-center text-center font-normal border-2 border-gray-500 p-1 ${item.width}`}
             >
               {item.label}
             </TableHead>

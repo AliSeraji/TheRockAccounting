@@ -7,9 +7,7 @@ import SalesTable from './Table';
 
 import SalesNote from './Note';
 import SalesSignature from './Signature';
-import PriceBox from './PriceBox';
 import { convertToPersianDigits } from '~/lib/utils';
-import { AdditionalNote } from './AdditionalNote';
 import SalesServicesTable from './ServicesTable';
 
 interface SalesReceiptPageProps extends ReceiptProps {
@@ -45,8 +43,8 @@ export default function SalesReceiptsPage({
 }: SalesReceiptPageProps): React.ReactNode {
   return (
     <div
-      className="receipt-page receipt-page-a4 bg-white mx-auto shadow-2xl print:shadow-none"
-      style={{ width: '210mm', minHeight: '297mm', padding: '10mm' }}
+      className="receipt-page receipt-page-a4 bg-white mx-auto shadow-2xl print:shadow-none flex flex-col overflow-hidden *:shrink-0"
+      style={{ width: '210mm', height: '297mm', padding: '10mm' }}
       dir="rtl"
     >
       <SalesReceiptHeader
@@ -77,34 +75,41 @@ export default function SalesReceiptsPage({
       )}
 
       {services.length > 0 && (
-        <SalesServicesTable
-          services={services}
-          startIndex={serviceStartIndex}
-          isLastPage={isLastPage}
-          totalServicesAmount={data.totals.totalServicesAmount}
-        />
+        <>
+          <div className="my-3 flex items-center gap-4">
+            <span className="h-px flex-1 bg-brand-400" />
+            <span className="text-2xs font-bold text-slate-900">خدمات سنگ</span>
+            <span className="h-px flex-1 bg-brand-400" />
+          </div>
+          <SalesServicesTable
+            services={services}
+            startIndex={serviceStartIndex}
+            isLastPage={isLastPage}
+            totalServicesAmount={data.totals.totalServicesAmount}
+          />
+        </>
       )}
-
-      <AdditionalNote additionalNote={data.additionalNote} />
 
       <SalesNote
         discount={data.discount}
         grossAmount={data.totals.totalAmount + data.totals.totalServicesAmount}
         tax={data.tax}
         received={data.received}
+        total={data.totals.totalPaymentAmount}
         note={defaultNote}
+        additionalNote={data.additionalNote}
       />
 
-      <PriceBox total={data.totals.totalPaymentAmount} />
+      <div className="mt-auto">
+        {showSignature && <SalesSignature />}
 
-      {showSignature && <SalesSignature />}
-
-      {showPageNumbers && (
-        <div className="text-center text-xs text-gray-500 mt-4">
-          صفحه {convertToPersianDigits(pageNumber)} از{' '}
-          {convertToPersianDigits(totalPages)}
-        </div>
-      )}
+        {showPageNumbers && (
+          <div className="text-center text-2xs text-gray-500 mt-4">
+            صفحه {convertToPersianDigits(pageNumber)} از{' '}
+            {convertToPersianDigits(totalPages)}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

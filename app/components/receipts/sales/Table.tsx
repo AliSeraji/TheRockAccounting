@@ -19,10 +19,12 @@ export default function SalesTable({
   totals,
 }: SalesTableProps): React.ReactNode {
   return (
-    <Table className="w-full border-separate border-spacing-0 mb-2 [&_td]:border-t-0 [&_th+th]:border-s-0 [&_td+td]:border-s-0">
-      <SalesTableHeader />
-      <SalesTableBody rowItems={items} startIndex={startIndex} />
-      {isLastPage && <SalesTableFooter totals={totals} />}
-    </Table>
+    <div className="mb-2 overflow-hidden rounded-md border border-slate-300 [-webkit-print-color-adjust:exact] [print-color-adjust:exact]">
+      <Table className="w-full border-spacing-0 text-[10px]">
+        <SalesTableHeader />
+        <SalesTableBody rowItems={items} startIndex={startIndex} />
+        {isLastPage && <SalesTableFooter totals={totals} />}
+      </Table>
+    </div>
   );
 }
