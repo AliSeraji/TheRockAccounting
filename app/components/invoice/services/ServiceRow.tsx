@@ -51,15 +51,6 @@ const ServiceRow = memo(function ServiceRow({
           }
         />
       </TableCell>
-      <TableCell className="w-[10%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(SERVICE_ROW_FIELDS.QUANTITY)}
-      </TableCell>
-      <TableCell className="w-[15%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(SERVICE_ROW_FIELDS.UNIT_PRICE, false, true)}
-      </TableCell>
-      <TableCell className="w-[20%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(SERVICE_ROW_FIELDS.TOTAL, true, true)}
-      </TableCell>
       <TableCell className="w-[25%] border-x-[0.5px] border-slate-200 p-1">
         <Input
           value={serviceItem[SERVICE_ROW_FIELDS.DESCRIPTION]}
@@ -76,6 +67,17 @@ const ServiceRow = memo(function ServiceRow({
           className="border-0 text-center focus-visible:ring-offset-3 text-sm h-8 cursor-text"
         />
       </TableCell>
+      <TableCell className="w-[10%] border-x-[0.5px] border-slate-200 p-1">
+        {numericCell(SERVICE_ROW_FIELDS.QUANTITY)}
+      </TableCell>
+
+      <TableCell className="w-[15%] border-x-[0.5px] border-slate-200 p-1">
+        {numericCell(SERVICE_ROW_FIELDS.UNIT_PRICE, false, true)}
+      </TableCell>
+      <TableCell className="w-[20%] border-x-[0.5px] border-slate-200 p-1">
+        {numericCell(SERVICE_ROW_FIELDS.TOTAL, true, true)}
+      </TableCell>
+
       <TableCell className="w-[5%] border-x-[0.5px] border-l border-slate-200 p-1 text-center">
         <Button
           variant="ghost"

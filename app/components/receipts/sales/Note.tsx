@@ -1,9 +1,19 @@
 import type React from 'react';
+import type { LucideIcon } from 'lucide-react';
 import {
-  cleanTrailingZeros,
+  BadgePercent,
+  HandCoins,
+  Landmark,
+  NotepadText,
+  Receipt,
+  Wallet,
+} from 'lucide-react';
+import {
   convertToPersianDigits,
   formatRialAmount,
+  persianNumberToText,
 } from '~/lib/utils';
+import { NoteList } from '~/components/receipts/NoteList';
 import { DEFAULT_INVOICE_NOTE } from '~/store/settings/sections/invoiceState';
 
 interface Props {
@@ -11,7 +21,45 @@ interface Props {
   grossAmount: number;
   tax: string;
   received: string;
+  total: number;
   note?: string;
+  additionalNote?: string;
+}
+
+const rial = (amount: number | string): string =>
+  formatRialAmount(convertToPersianDigits(amount));
+
+function TotalRow({
+  icon: Icon,
+  label,
+  amount,
+  className = '',
+  highlighted = false,
+}: {
+  icon: LucideIcon;
+  label: string;
+  amount: number | string;
+  className?: string;
+  highlighted?: boolean;
+}): React.ReactNode {
+  return (
+    <div className={`flex items-center gap-2 px-3 py-1.5 ${className}`}>
+      <Icon
+        className={`size-3.5 shrink-0 ${highlighted ? 'text-white' : 'text-brand-600'}`}
+      />
+      <span
+        className={`w-24  ${highlighted ? 'text-white font-normal' : 'text-slate-900 font-bold'}`}
+      >
+        {label}:
+      </span>
+      <span className="flex-1 text-left" dir="ltr">
+        {rial(amount)}
+      </span>
+      <span className={highlighted ? 'text-white' : 'text-slate-700'}>
+        ریال
+      </span>
+    </div>
+  );
 }
 
 export default function SalesNote({
@@ -19,53 +67,52 @@ export default function SalesNote({
   grossAmount,
   tax,
   received,
+  total,
   note,
+  additionalNote,
 }: Props): React.ReactNode {
   const noteContent = note !== undefined ? note : DEFAULT_INVOICE_NOTE;
   const discountAmount = parseFloat(discount || '0') || 0;
-  const discountPercent =
-    grossAmount > 0
-      ? cleanTrailingZeros(((discountAmount / grossAmount) * 100).toFixed(2))
-      : '0';
+  const taxAmount = Math.round(
+    ((parseFloat(tax || '0') || 0) * grossAmount) / 100
+  );
+  const receivedAmount = parseFloat(received || '0') || 0;
+  const totalInWords = persianNumberToText(convertToPersianDigits(total));
 
   return (
-    <div className="border-2 border-gray-400 rounded-lg p-4 mb-2 bg-gray-50">
-      <div className="flex gap-8">
-        <div className="flex-1">
-          {noteContent ? (
-            <p className="text-xs leading-relaxed text-gray-700">
-              <span className="font-bold text-black">توضیحات: </span>
-              {noteContent}
-            </p>
-          ) : null}
+    <div className="mb-2 grid grid-cols-[1fr_38%] items-start gap-4 text-2xs text-slate-900 [-webkit-print-color-adjust:exact] [print-color-adjust:exact]">
+      <div className="flex flex-col rounded-md border border-slate-200 px-3">
+        <div className="flex items-center gap-1.5 border-b border-slate-200 py-2 font-bold">
+          <NotepadText className="size-3.5 text-brand-600" />
+          توضیحات
         </div>
-        <div className="space-y-2 text-left min-w-30 text-xs">
-          <div className="flex justify-between">
-            <span className="text-black">درصد تخفیف</span>
-            <span className="font-semibold">
-              {'% ' + convertToPersianDigits(discountPercent)}
-            </span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-black">مبلغ تخفیف</span>
-            <span className="font-semibold">
-              {'ریال ' +
-                formatRialAmount(convertToPersianDigits(discount || '0'))}
-            </span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-black">مالیات</span>
-            <span className="font-semibold">
-              {'% ' + convertToPersianDigits(tax || '*')}
-            </span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-black">دریافتی</span>
-            <span className="font-semibold">
-              {'ریال ' +
-                formatRialAmount(convertToPersianDigits(received || '*'))}
-            </span>
-          </div>
+        <NoteList
+          text={additionalNote}
+          className="py-2 leading-relaxed text-slate-900"
+        />
+        <NoteList
+          text={noteContent}
+          className="py-2 leading-relaxed text-slate-700 border-b border-slate-200"
+        />
+        <p className="py-2 rounded-sm bg-brand-100 mb-1 mt-1 p-2">
+          <span className="font-bold">مبلغ قابل پرداخت: </span>
+          <span className="text-slate-700">{totalInWords}</span>
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <div className="overflow-hidden rounded-md border border-slate-200 divide-y divide-slate-200">
+          <TotalRow icon={Receipt} label="جمع فاکتور" amount={grossAmount} />
+          <TotalRow icon={BadgePercent} label="تخفیف" amount={discountAmount} />
+          <TotalRow icon={Landmark} label="مالیات" amount={taxAmount} />
+          <TotalRow icon={HandCoins} label="پرداختی" amount={receivedAmount} />
+          <TotalRow
+            icon={Wallet}
+            label="مبلغ قابل پرداخت"
+            amount={total}
+            className="bg-brand-700 py-2 font-bold text-white"
+            highlighted
+          />
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ export default function Header(): ReactNode {
         {requestLowerTableItems.map((item) => (
           <TableHead
             key={item.label}
-            className={`border-2 border-gray-500 p-1 text-center text-[10px] ${item.width}`}
+            className={`border-2 border-gray-500 p-1 text-center text-[10px] font-normal ${item.width}`}
           >
             {item.label}
           </TableHead>

@@ -11,11 +11,11 @@ export default function SalesTableHeader({
 }: SalesTableHeaderProps): React.ReactNode {
   return (
     <TableHeader className="w-full mb-6 ">
-      <TableRow className="bg-gray-200">
+      <TableRow className="border-0 bg-brand-700">
         {items.map((item) => (
           <TableHead
             key={item.label}
-            className={`border-2 first:rounded-tr-lg border-gray-500 p-2 text-xs text-center ${item.width}`}
+            className={`border-s border-brand-500 first:border-s-0 last:border-e-0 p-2 text-2xs font-normal text-white text-center ${item.width}`}
           >
             {item.label}
           </TableHead>

@@ -2,7 +2,7 @@ import type React from 'react';
 import { useInvoiceStore } from '~/store/useInvoiceStore';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Label } from '../ui/label';
-import { Textarea } from '../ui/textarea';
+import { BulletTextarea } from '../ui/BulletTextarea';
 
 export default function ExplanationCard(): React.ReactNode {
   const secondAdditionalNote = useInvoiceStore(
@@ -24,9 +24,9 @@ export default function ExplanationCard(): React.ReactNode {
       <CardContent className="p-6 space-y-4 text-xs lg:text-lg ">
         <div className="space-y-2 flex flex-col">
           <Label className="text-slate-700 pr-1">توضیحات (فقط در فاکتور)</Label>
-          <Textarea
+          <BulletTextarea
             value={additionalNote}
-            onChange={(e) => setAdditionalNote(e.target.value)}
+            onValueChange={setAdditionalNote}
             className="border-slate-200 focus:ring-slate-400 focus-visible:ring-offset-0 min-h-20"
             placeholder="توضیحات"
           />
@@ -35,9 +35,9 @@ export default function ExplanationCard(): React.ReactNode {
           <Label className="text-slate-700 pr-1">
             توضیحات (نمایش در رسید تحویل)
           </Label>
-          <Textarea
+          <BulletTextarea
             value={secondAdditionalNote}
-            onChange={(e) => setSecondAdditionalNote(e.target.value)}
+            onValueChange={setSecondAdditionalNote}
             className="border-slate-200 focus:ring-slate-400 focus-visible:ring-offset-0 min-h-20"
             placeholder="توضیحات"
           />

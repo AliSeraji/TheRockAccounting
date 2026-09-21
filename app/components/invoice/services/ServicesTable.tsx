@@ -44,10 +44,11 @@ function Footer({ addService }: { addService: () => void }): React.ReactNode {
         جمع خدمات
       </TableCell>
       <TableCell className="w-[25%] border border-slate-300 p-2" />
+
+      <TableCell className="w-[25%] border border-slate-300 p-2" />
       <TableCell className="flex flex-row justify-center w-[20%] border border-slate-300 p-2 text-center items-center">
         {formatRialAmount(convertToPersianDigits(totalServicesAmount)) || '-'}
       </TableCell>
-      <TableCell className="w-[25%] border border-slate-300 p-2" />
       <TableCell className="w-[5%] border border-slate-300 p-2">
         <Button
           onClick={addService}

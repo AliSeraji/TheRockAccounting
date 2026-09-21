@@ -11,7 +11,7 @@ export default function InfoBox({
   address?: string;
 }): React.ReactNode {
   return (
-    <div className="w-full border-2 border-gray-400 rounded-lg p-2 pb-1 mb-4 bg-gray-50 text-xs">
+    <div className="w-full border-2 border-gray-400 rounded-lg p-2 pb-1 mb-4 bg-gray-50 text-2xs">
       <div className="flex flex-col gap-1">
         <div className="flex gap-2">
           <span className="text-gray-800 whitespace-nowrap">
