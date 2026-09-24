@@ -2,7 +2,11 @@ import type React from 'react';
 import { Table, TableBody, TableCell, TableRow } from '../../ui/table';
 import { InvoiceTableHeader } from '../TableHeader';
 import { useInvoiceStore } from '~/store/useInvoiceStore';
-import { convertToPersianDigits, formatRialAmount } from '~/lib/utils';
+import {
+  convertToPersianDigits,
+  formatRialAmount,
+  handleArrowNavigation,
+} from '~/lib/utils';
 import ServiceRow from './ServiceRow';
 import { servicesTableItems } from './common';
 import { Button } from '~/components/ui/button';
@@ -17,7 +21,7 @@ export default function ServicesTable(): React.ReactNode {
   return (
     <Table className="w-full">
       <InvoiceTableHeader items={servicesTableItems} />
-      <TableBody>
+      <TableBody onKeyDown={handleArrowNavigation}>
         {services.map((service, index) => (
           <ServiceRow
             key={service.id}

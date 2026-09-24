@@ -3,7 +3,11 @@ import { Table, TableBody, TableCell, TableRow } from '../ui/table';
 import { InvoiceTableHeader } from './TableHeader';
 import { useInvoiceStore } from '~/store/useInvoiceStore';
 import Row from './TableRow';
-import { convertToPersianDigits, formatRialAmount } from '~/lib/utils';
+import {
+  convertToPersianDigits,
+  formatRialAmount,
+  handleArrowNavigation,
+} from '~/lib/utils';
 import { Button } from '../ui/button';
 import { Plus } from 'lucide-react';
 
@@ -16,7 +20,7 @@ export default function InvoiceTable(): React.ReactNode {
   return (
     <Table className="w-full">
       <InvoiceTableHeader />
-      <TableBody>
+      <TableBody onKeyDown={handleArrowNavigation}>
         {items.map((item, index) => {
           return (
             <Row
