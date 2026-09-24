@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { NotepadText } from 'lucide-react';
 import { splitNoteLines } from '~/lib/utils';
 import { NoteList } from '../NoteList';
 
@@ -10,11 +11,15 @@ export const AdditionalNote = ({
   if (splitNoteLines(additionalNote).length === 0) return null;
 
   return (
-    <div className="border-2 border-gray-400 rounded-lg p-2 mb-2 bg-gray-50">
-      <div className="text-2xs leading-relaxed text-gray-700">
-        <span className="text-gray-800 text-2xs font-semibold">توضیحات:</span>
-        <NoteList text={additionalNote} />
+    <div className="mb-2 flex flex-col rounded-md border border-slate-200 px-3 text-2xs text-slate-900 [-webkit-print-color-adjust:exact] [print-color-adjust:exact]">
+      <div className="flex items-center gap-1.5 border-b border-slate-200 py-2 font-bold">
+        <NotepadText className="size-3.5 text-brand-600" />
+        توضیحات
       </div>
+      <NoteList
+        text={additionalNote}
+        className="py-2 leading-relaxed text-slate-900"
+      />
     </div>
   );
 };

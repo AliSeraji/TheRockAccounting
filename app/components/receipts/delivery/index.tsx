@@ -15,8 +15,8 @@ export default function DeliveryReceipt({ data }: Props): React.ReactNode {
   const totalPages = pages.length;
 
   return (
-    <div className="font-vazirmatn space-y-4">
-      <div className="print-receipt" dir="rtl">
+    <div className="font-vazirmatn w-full space-y-4">
+      <div className="print-receipt space-y-8 print:space-y-0">
         {pages.map((page) => (
           <ReceiptPage
             key={page.pageNumber}

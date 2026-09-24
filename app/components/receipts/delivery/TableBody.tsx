@@ -8,6 +8,9 @@ interface DeliveryTableBodyProps {
   startIndex: number;
 }
 
+const cellClass =
+  'border-s border-slate-200 first:border-s-0 p-2 text-2xs text-center text-slate-900';
+
 export const DeliveryTableBody = ({
   items,
   startIndex,
@@ -15,27 +18,29 @@ export const DeliveryTableBody = ({
   return (
     <TableBody>
       {items.map((item, index) => (
-        <TableRow key={item.id} className="hover:bg-gray-50">
-          <TableCell className="border-2 border-gray-400 p-1.5 text-center text-2xs">
+        <TableRow key={item.id} className="border-0 even:bg-slate-50">
+          <TableCell className={cellClass}>
             {convertToPersianDigits(startIndex + index + 1)}
           </TableCell>
-          <TableCell className="whitespace-normal wrap-break-word border-2 border-gray-400 p-1.5 text-center text-2xs">
-            {item.stoneType || ''}
+          <TableCell
+            className={`whitespace-normal wrap-break-word ${cellClass}`}
+          >
+            {item.stoneType}
           </TableCell>
-          <TableCell className="border-2 border-gray-400 p-1.5 text-center text-2xs">
-            {convertToPersianDigits(item.thickness) || ''}
+          <TableCell className={cellClass}>
+            {convertToPersianDigits(item.thickness)}
           </TableCell>
-          <TableCell className="border-2 border-gray-400 p-1.5 text-center text-2xs">
-            {convertToPersianDigits(item.length) || ''}
+          <TableCell className={cellClass}>
+            {convertToPersianDigits(item.width)}
           </TableCell>
-          <TableCell className="border-2 border-gray-400 p-1.5 text-center text-2xs">
-            {convertToPersianDigits(item.width) || ''}
+          <TableCell className={cellClass}>
+            {convertToPersianDigits(item.length)}
           </TableCell>
-          <TableCell className="border-2 border-gray-400 p-1.5 text-center text-2xs">
-            {convertToPersianDigits(item.quantity) || ''}
+          <TableCell className={cellClass}>
+            {convertToPersianDigits(item.quantity)}
           </TableCell>
-          <TableCell className="border-2 border-gray-400 p-1.5 text-center text-2xs">
-            {convertToPersianDigits(item.area) || ''}
+          <TableCell className={cellClass}>
+            {convertToPersianDigits(item.area)}
           </TableCell>
         </TableRow>
       ))}

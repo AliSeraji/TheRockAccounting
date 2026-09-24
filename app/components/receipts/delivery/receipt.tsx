@@ -20,12 +20,13 @@ export default function ReceiptPage({
 }: ReceiptProps): React.ReactNode {
   return (
     <div
-      className="receipt-page receipt-page-a5 bg-white mx-auto shadow-2xl mb-2"
+      className="receipt-page receipt-page-a5 bg-white mx-auto shadow-2xl print:shadow-none flex flex-col overflow-hidden *:shrink-0"
       style={{
         width: '138mm',
-        minHeight: '200mm',
+        height: '200mm',
         padding: '8mm 5mm',
       }}
+      dir="rtl"
     >
       <ReceiptHeader
         date={data.invoiceDate}
@@ -50,11 +51,14 @@ export default function ReceiptPage({
       <AdditionalNote additionalNote={data.secondAdditionalNote} />
 
       <Note />
-      <Signature />
 
-      <div className="text-center text-[10px] text-gray-500 mt-2">
-        صفحه {convertToPersianDigits(pageNumber)} از{' '}
-        {convertToPersianDigits(totalPages)}
+      <div className="mt-auto">
+        <Signature />
+
+        <div className="text-center text-2xs text-gray-500 mt-4">
+          صفحه {convertToPersianDigits(pageNumber)} از{' '}
+          {convertToPersianDigits(totalPages)}
+        </div>
       </div>
     </div>
   );

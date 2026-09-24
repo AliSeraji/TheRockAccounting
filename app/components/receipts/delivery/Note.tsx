@@ -2,8 +2,8 @@ import type React from 'react';
 
 export const Note = (): React.ReactNode => {
   return (
-    <div className="border-2 border-gray-400 rounded-lg p-3 mb-4 bg-gray-50 text-2xs">
-      <p className="leading-relaxed text-gray-700">
+    <div className="mb-2 rounded-md border border-slate-200 px-3 py-2 text-2xs [-webkit-print-color-adjust:exact] [print-color-adjust:exact]">
+      <p className="leading-relaxed text-slate-700">
         کالای مشروحه فوق بدون عیب و نقص تحویل اینجانب:
         ................................ راننده خودرو شماره ....................
         گردید که در آدرس فوق تحویل خریدار نمایم.

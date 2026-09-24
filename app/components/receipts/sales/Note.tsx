@@ -77,7 +77,7 @@ export default function SalesNote({
     ((parseFloat(tax || '0') || 0) * grossAmount) / 100
   );
   const receivedAmount = parseFloat(received || '0') || 0;
-  const totalInWords = persianNumberToText(convertToPersianDigits(total));
+  
 
   return (
     <div className="mb-2 grid grid-cols-[1fr_38%] items-start gap-4 text-2xs text-slate-900 [-webkit-print-color-adjust:exact] [print-color-adjust:exact]">
@@ -94,10 +94,6 @@ export default function SalesNote({
           text={noteContent}
           className="py-2 leading-relaxed text-slate-700 border-b border-slate-200"
         />
-        <p className="py-2 rounded-sm bg-brand-100 mb-1 mt-1 p-2">
-          <span className="font-bold">مبلغ قابل پرداخت: </span>
-          <span className="text-slate-700">{totalInWords}</span>
-        </p>
       </div>
 
       <div className="flex flex-col gap-1.5">

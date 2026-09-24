@@ -10,12 +10,12 @@ export const DeliveryTableHeader = ({
   items = deliveryTableItems,
 }: DeliveryTableHeaderProps): React.ReactNode => {
   return (
-    <TableHeader>
-      <TableRow className="bg-gray-200">
+    <TableHeader className="w-full">
+      <TableRow className="border-0 bg-brand-700">
         {items.map((item) => (
           <TableHead
             key={item.label}
-            className={`border-2 border-gray-500 p-1 ${item.width} text-center font-normal text-[10px]`}
+            className={`border-s border-brand-500 first:border-s-0 last:border-e-0 p-2 text-2xs font-normal text-white text-center ${item.width}`}
           >
             {item.label}
           </TableHead>

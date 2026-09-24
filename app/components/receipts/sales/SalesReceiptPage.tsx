@@ -7,7 +7,7 @@ import SalesTable from './Table';
 
 import SalesNote from './Note';
 import SalesSignature from './Signature';
-import { convertToPersianDigits } from '~/lib/utils';
+import { convertToPersianDigits, persianNumberToText } from '~/lib/utils';
 import SalesServicesTable from './ServicesTable';
 
 interface SalesReceiptPageProps extends ReceiptProps {
@@ -41,6 +41,9 @@ export default function SalesReceiptsPage({
   showSignature = true,
   showPageNumbers = true,
 }: SalesReceiptPageProps): React.ReactNode {
+  const totalInWords = persianNumberToText(
+    convertToPersianDigits(data.totals.totalPaymentAmount)
+  );
   return (
     <div
       className="receipt-page receipt-page-a4 bg-white mx-auto shadow-2xl print:shadow-none flex flex-col overflow-hidden *:shrink-0"
@@ -99,6 +102,13 @@ export default function SalesReceiptsPage({
         note={defaultNote}
         additionalNote={data.additionalNote}
       />
+
+      <div className="flex flex-row w-full justify-center text-2xs">
+        <p className="py-2 rounded-sm bg-brand-100 mb-1 mt-1 p-2">
+          <span className="font-bold">مبلغ قابل پرداخت: </span>
+          <span className="text-slate-700">{totalInWords}</span>
+        </p>
+      </div>
 
       <div className="mt-auto">
         {showSignature && <SalesSignature />}
