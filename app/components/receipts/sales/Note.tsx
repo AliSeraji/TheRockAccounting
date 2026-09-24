@@ -77,7 +77,6 @@ export default function SalesNote({
     ((parseFloat(tax || '0') || 0) * grossAmount) / 100
   );
   const receivedAmount = parseFloat(received || '0') || 0;
-  
 
   return (
     <div className="mb-2 grid grid-cols-[1fr_38%] items-start gap-4 text-2xs text-slate-900 [-webkit-print-color-adjust:exact] [print-color-adjust:exact]">
@@ -90,6 +89,7 @@ export default function SalesNote({
           text={additionalNote}
           className="py-2 leading-relaxed text-slate-900"
         />
+        <div className="flex flex-row w-full border border-slate-200 divide-y divide-slate-200" />
         <NoteList
           text={noteContent}
           className="py-2 leading-relaxed text-slate-700 border-b border-slate-200"

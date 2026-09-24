@@ -144,3 +144,22 @@ export const formatRialAmount = (num: string | number): string => {
   const newNum = typeof num === 'number' ? convertToPersianDigits(num) : num;
   return newNum.replace(/(?<=[۰-۹])(?=([۰-۹]{3})+(?![۰-۹]))/g, '٬');
 };
+
+export const handleArrowNavigation = (e: React.KeyboardEvent<HTMLElement>) => {
+  if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return;
+
+  if (e.defaultPrevented) return;
+
+  const cell = (e.target as HTMLElement).closest('td');
+  const row = cell?.closest('tr');
+  if (!cell || !row) return;
+
+  const col = Array.from(row.children).indexOf(cell);
+  const targetRow =
+    e.key === 'ArrowUp' ? row.previousElementSibling : row.nextElementSibling;
+  const input = targetRow?.children[col]?.querySelector('input');
+  if (!input) return;
+
+  e.preventDefault();
+  input.focus();
+};

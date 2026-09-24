@@ -2,6 +2,7 @@ import type React from 'react';
 import type { LucideIcon } from 'lucide-react';
 import { CalendarDays, FileText, MapPin, Phone, Tag } from 'lucide-react';
 import { cn, convertToPersianDigits } from '~/lib/utils';
+import type { ReactNode } from 'react';
 
 interface Props {
   companyName: string;
@@ -12,6 +13,29 @@ interface Props {
   invoiceNumber: string;
   invoiceDate: string;
   logo: string | null;
+}
+
+function IconTxtRow({
+  txt,
+  icon: Icon,
+}: {
+  txt: string;
+  icon: LucideIcon;
+}): ReactNode {
+  return (
+    <div className="flex flex-row w-full justify-between">
+      <span
+        className={cn(
+          `flex flex-row text-center text-2xs text-slate-900 ${`font-bold`}`
+        )}
+      >
+        {txt}
+      </span>
+      <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-brand-700 text-brand-50">
+        <Icon className="size-3" />
+      </span>
+    </div>
+  );
 }
 
 function MetaRow({
@@ -97,12 +121,7 @@ export default function SalesReceiptHeader({
 
       <div className="flex flex-col items-end self-start">
         <div className="flex flex-col gap-2">
-          <MetaRow
-            icon={Tag}
-            label="نوع فاکتور"
-            value={invoiceType || 'فاکتور فروش'}
-            isBold={true}
-          />
+          <IconTxtRow txt={invoiceType} icon={Tag} />
           <MetaRow icon={CalendarDays} label="تاریخ" value={invoiceDate} />
           <MetaRow icon={FileText} label="شماره فاکتور" value={invoiceNumber} />
         </div>
