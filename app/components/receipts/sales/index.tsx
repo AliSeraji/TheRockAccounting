@@ -20,8 +20,11 @@ export default function SalesInvoice({ data }: Props): React.ReactNode {
     phone,
     mobile,
     defaultNote,
+    signature,
+    seal,
     showLogo,
     showSignature,
+    showSeal,
     showPageNumbers,
   } = useSettingsStore(
     useShallow((state) => ({
@@ -31,8 +34,11 @@ export default function SalesInvoice({ data }: Props): React.ReactNode {
       phone: state.phone,
       mobile: state.mobile,
       defaultNote: state.defaultNote,
+      signature: state.signature,
+      seal: state.seal,
       showLogo: state.showLogo,
       showSignature: state.showSignature,
+      showSeal: state.showSeal,
       showPageNumbers: state.showPageNumbers,
     }))
   );
@@ -58,7 +64,8 @@ export default function SalesInvoice({ data }: Props): React.ReactNode {
             companyPhone={phone || ''}
             companyMobile={mobile || ''}
             defaultNote={defaultNote}
-            showSignature={showSignature}
+            signature={showSignature ? signature : null}
+            seal={showSeal ? seal : null}
             showPageNumbers={showPageNumbers}
           />
         ))}

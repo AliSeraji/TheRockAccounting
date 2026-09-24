@@ -101,6 +101,7 @@ export { default as ContactInfo } from '../app/components/settings/sections/comp
 export { default as IdentityInput } from '../app/components/settings/sections/company/IdentityInput';
 export { default as LogoHandler } from '../app/components/settings/sections/company/LogoHandler';
 export { default as SettingsInvoiceSection } from '../app/components/settings/sections/invoice/InvoiceSection';
+export { default as StampUploader } from '../app/components/settings/sections/invoice/StampUploader';
 export { default as NumberingSection } from '../app/components/settings/sections/numbering-section/NumberingSection';
 
 // Warehouse

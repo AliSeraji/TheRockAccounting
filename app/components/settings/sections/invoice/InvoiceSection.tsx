@@ -8,8 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '~/components/ui/card';
-import { Field, FieldError, FieldLabel } from '~/components/ui/field';
-import { Input } from '~/components/ui/input';
+import { Field, FieldLabel } from '~/components/ui/field';
 import {
   Select,
   SelectContent,
@@ -19,64 +18,35 @@ import {
 } from '~/components/ui/select';
 import { BulletTextarea } from '~/components/ui/BulletTextarea';
 import { ToggleRow } from '../../common';
-import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
+import StampUploader from './StampUploader';
 import { useSettingsStore } from '~/store/settings/useSettingStore';
-
-const DUE_TIME_OPTIONS = [
-  { value: '0', label: 'همان روز' },
-  { value: '7', label: 'یک هفته' },
-  { value: '15', label: 'یک ماه' },
-  { value: '30', label: 'دو ماه' },
-  { value: '60', label: 'سه ماه' },
-  { value: '90', label: 'چهار ماه' },
-];
 
 export default function InvoiceSection(): ReactNode {
   const {
     showLogo,
     showSignature,
+    showSeal,
     showPageNumbers,
-    taxRate,
-    defaultDueDays,
-    discountRate,
+    signature,
+    signatureError,
+    seal,
+    sealError,
     defaultNote,
   } = useSettingsStore(
     useShallow((s) => ({
       showLogo: s.showLogo,
       showSignature: s.showSignature,
+      showSeal: s.showSeal,
       showPageNumbers: s.showPageNumbers,
-      taxRate: s.taxRate,
-      defaultDueDays: s.defaultDueDays,
-      discountRate: s.discountRate,
+      signature: s.signature,
+      signatureError: s.signatureError,
+      seal: s.seal,
+      sealError: s.sealError,
       defaultNote: s.defaultNote,
     }))
   );
 
   const setInvoiceField = useSettingsStore((s) => s.setInvoiceField);
-
-  const updateTaxRate = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const parsed = parseFloat(convertToEnDigits(e.target.value));
-      setInvoiceField('taxRate', Number.isNaN(parsed) ? 0 : parsed);
-    },
-    [setInvoiceField]
-  );
-
-  const updateDefaultDueDays = useCallback(
-    (value: string) => {
-      const parsed = parseInt(value, 10);
-      setInvoiceField('defaultDueDays', Number.isNaN(parsed) ? 0 : parsed);
-    },
-    [setInvoiceField]
-  );
-
-  const updateDiscountRate = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const parsed = parseFloat(convertToEnDigits(e.target.value));
-      setInvoiceField('discountRate', Number.isNaN(parsed) ? 0 : parsed);
-    },
-    [setInvoiceField]
-  );
 
   const updateNote = useCallback(
     (value: string) => {
@@ -84,13 +54,6 @@ export default function InvoiceSection(): ReactNode {
     },
     [setInvoiceField]
   );
-
-  const taxRateError =
-    taxRate > 100
-      ? 'مالیات نمی‌تواند بیشتر از ۱۰۰ درصد باشد'
-      : taxRate < 0
-        ? 'مالیات نمی‌تواند منفی باشد'
-        : null;
 
   return (
     <div className="flex flex-col gap-5 w-full lg:min-w-157.5 px-2">
@@ -106,81 +69,36 @@ export default function InvoiceSection(): ReactNode {
         </CardHeader>
         <CardContent className="p-6">
           <div className="grid grid-cols-2 gap-x-4 gap-y-5">
-            <div className="col-span-2 md:col-span-1 ">
-              <Field data-invalid={taxRateError ? true : undefined}>
-                <FieldLabel className="text-slate-700 text-xs lg:text-sm">
-                  مالیات بر ارزش افزوده (%)
-                </FieldLabel>
-                <div className="relative">
-                  <Input
-                    className="rounded-xl pl-8"
-                    value={convertToPersianDigits(taxRate)}
-                    onChange={updateTaxRate}
-                    aria-invalid={taxRateError ? true : undefined}
-                  />
-                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs lg:text-sm">
-                    ٪
-                  </span>
-                </div>
-                <FieldError>{taxRateError}</FieldError>
-              </Field>
+            <Field className="col-span-2">
+              <FieldLabel className="text-slate-700 text-xs lg:text-sm">
+                یادداشت پیش‌فرض
+              </FieldLabel>
+              <BulletTextarea
+                value={defaultNote}
+                onValueChange={updateNote}
+                rows={3}
+              />
+            </Field>
+
+            <div className="col-span-2 md:col-span-1">
+              <StampUploader
+                label="امضاء"
+                value={signature}
+                error={signatureError}
+                onChange={(dataUrl) => setInvoiceField('signature', dataUrl)}
+                onError={(message) =>
+                  setInvoiceField('signatureError', message)
+                }
+              />
             </div>
             <div className="col-span-2 md:col-span-1">
-              <Field>
-                <FieldLabel className="text-slate-700 text-xs lg:text-sm">
-                  تخفیف پیش‌فرض (%)
-                </FieldLabel>
-                <div className="relative">
-                  <Input
-                    className="rounded-xl pl-8"
-                    value={convertToPersianDigits(discountRate)}
-                    onChange={updateDiscountRate}
-                    placeholder="۰"
-                  />
-                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs lg:text-sm">
-                    ٪
-                  </span>
-                </div>
-              </Field>
-            </div>
-            <div className="col-span-2 md:col-span-1">
-              <Field>
-                <FieldLabel className="text-slate-700 text-xs lg:text-sm">
-                  مهلت پرداخت پیش‌فرض (روز)
-                </FieldLabel>
-                <Select
-                  value={String(defaultDueDays)}
-                  onValueChange={updateDefaultDueDays}
-                  dir="rtl"
-                >
-                  <SelectTrigger className="cursor-pointer border-slate-200 focus:ring-slate-400 focus:ring-offset-0 text-xs lg:text-sm">
-                    <SelectValue placeholder="انتخاب مهلت پرداخت" />
-                  </SelectTrigger>
-                  <SelectContent className="text-xs lg:text-sm cursor-pointer">
-                    {DUE_TIME_OPTIONS.map((option) => (
-                      <SelectItem
-                        key={option.value}
-                        value={option.value}
-                        className="text-xs lg:text-sm cursor-pointer"
-                      >
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </Field>
-            </div>
-            <div className="col-span-2">
-              <Field>
-                <FieldLabel className="text-slate-700 text-xs lg:text-sm">
-                  یادداشت پیش‌فرض
-                </FieldLabel>
-                <BulletTextarea
-                  value={defaultNote}
-                  onValueChange={updateNote}
-                  rows={3}
-                />
-              </Field>
+              <StampUploader
+                label="مهر"
+                value={seal}
+                error={sealError}
+                onChange={(dataUrl) => setInvoiceField('seal', dataUrl)}
+                onError={(message) => setInvoiceField('sealError', message)}
+              />
             </div>
           </div>
         </CardContent>
@@ -223,11 +141,19 @@ export default function InvoiceSection(): ReactNode {
                 }
               />
               <ToggleRow
-                label="نمایش امضاء و مهر"
-                hint="جای امضا و مهر در پایین فاکتور رزرو شود"
+                label="نمایش امضاء در رسید"
+                hint="تصویر امضاء روی جای امضاء فروشنده چاپ شود"
                 checked={showSignature}
                 onCheckedChange={(checked) =>
                   setInvoiceField('showSignature', checked)
+                }
+              />
+              <ToggleRow
+                label="نمایش مهر در رسید"
+                hint="تصویر مهر شرکت کنار امضاء فروشنده چاپ شود"
+                checked={showSeal}
+                onCheckedChange={(checked) =>
+                  setInvoiceField('showSeal', checked)
                 }
               />
               <ToggleRow

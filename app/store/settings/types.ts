@@ -75,12 +75,14 @@ export interface SidebarActivity extends SideBarState {
 }
 
 export interface InvoiceData {
-  taxRate: number;
-  discountRate: number;
-  defaultDueDays: number;
   defaultNote: string;
+  signature: string | null;
+  signatureError: string | null;
+  seal: string | null;
+  sealError: string | null;
   showLogo: boolean;
   showSignature: boolean;
+  showSeal: boolean;
   showPageNumbers: boolean;
 }
 
