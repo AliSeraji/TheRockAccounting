@@ -56,15 +56,15 @@ export default function SalesServicesTable({
               </TableCell>
               <TableCell className={cellClass}>{service.description}</TableCell>
               <TableCell className={cellClass}>
-                {formatRialAmount(convertToPersianDigits(service.unitPrice))}
+                {convertToPersianDigits(service.quantity)}
               </TableCell>
               <TableCell className={cellClass}>
-                {formatRialAmount(convertToPersianDigits(service.total))}
+                {formatRialAmount(convertToPersianDigits(service.unitPrice))}
               </TableCell>
               <TableCell
                 className={`whitespace-normal wrap-break-word ${cellClass}`}
               >
-                {convertToPersianDigits(service.quantity)}
+                {formatRialAmount(convertToPersianDigits(service.total))}
               </TableCell>
             </TableRow>
           ))}
@@ -75,12 +75,12 @@ export default function SalesServicesTable({
               <TableCell colSpan={4} className={`${footerCellClass}`}>
                 جمع خدمات
               </TableCell>
+              <TableCell className={`${footerCellClass}`}></TableCell>
               <TableCell
                 className={`${footerCellClass} bg-brand-100 text-2xs text-brand-950`}
               >
                 {formatRialAmount(convertToPersianDigits(totalServicesAmount))}
               </TableCell>
-              <TableCell className={`${footerCellClass}`}></TableCell>
             </TableRow>
           </TableFooter>
         )}

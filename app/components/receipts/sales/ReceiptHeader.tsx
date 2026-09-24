@@ -70,7 +70,7 @@ export default function SalesReceiptHeader({
   return (
     <div className="mb-4 grid grid-cols-[1fr_auto_1fr] items-center gap-x-4 gap-y-2 [-webkit-print-color-adjust:exact] [print-color-adjust:exact]">
       <div className="flex flex-col gap-3 self-start pt-2">
-        <h1 className="text-2xs font-bold text-slate-900">{companyName}</h1>
+        <h1 className="text-md font-bold text-slate-900">{companyName}</h1>
         {companyAddress && (
           <div className="flex items-start gap-2 text-2xs text-slate-700">
             <MapPin className="size-4 shrink-0 text-brand-600" />

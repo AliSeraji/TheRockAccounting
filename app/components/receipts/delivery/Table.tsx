@@ -19,10 +19,12 @@ export default function ReceiptTable({
   totalArea,
 }: ReceiptTableProps): React.ReactNode {
   return (
-    <Table className="w-full border-collapse mb-4 text-[10px]">
-      <DeliveryTableHeader />
-      <DeliveryTableBody items={items} startIndex={startIndex} />
-      {isLastPage && <DeliveryTableFooter totalArea={totalArea} />}
-    </Table>
+    <div className="mb-2 overflow-hidden rounded-md border border-slate-300 [-webkit-print-color-adjust:exact] [print-color-adjust:exact]">
+      <Table className="w-full border-spacing-0 text-[10px]">
+        <DeliveryTableHeader />
+        <DeliveryTableBody items={items} startIndex={startIndex} />
+        {isLastPage && <DeliveryTableFooter totalArea={totalArea} />}
+      </Table>
+    </div>
   );
 }

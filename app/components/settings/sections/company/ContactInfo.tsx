@@ -30,8 +30,9 @@ const ContactInfo = memo(function ContactInfo(): ReactNode {
 
   const handleNumericFieldChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, fieldName: keyof CompanyData) => {
-      const parsed = parseFloat(convertToEnDigits(e.target.value));
-      setField(fieldName, Number.isNaN(parsed) ? '' : parsed.toString());
+      // Keep the raw digits (no parseFloat) so leading zeros survive.
+      const digits = convertToEnDigits(e.target.value).replace(/\D/g, '');
+      setField(fieldName, digits);
     },
     []
   );
