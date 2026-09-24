@@ -14,6 +14,7 @@ import {
 } from 'date-fns-jalali';
 import { faIR } from 'date-fns-jalali/locale';
 import { convertToPersianDigits } from '~/lib/utils';
+import { getHolidays, isFriday } from '~/lib/holidays';
 
 export const PersianCalendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -57,7 +58,8 @@ export const PersianCalendar = () => {
     const monthEnd = endOfMonth(currentDate);
     const days = eachDayOfInterval({ start: monthStart, end: monthEnd });
 
-    const startDayOfWeek = getDay(monthStart);
+    // getDay is Sunday-based (0 = Sun); the grid starts on Saturday (ش)
+    const startDayOfWeek = (getDay(monthStart) + 1) % 7;
 
     const weeks: (Date | null)[][] = [];
     let currentWeek: (Date | null)[] = [];
@@ -88,6 +90,7 @@ export const PersianCalendar = () => {
   );
   const todayPersianMonth = format(today, 'MMMM', { locale: faIR });
   const todayPersianWeekday = format(today, 'EEEE', { locale: faIR });
+  const todayHolidays = getHolidays(today);
 
   const goToPreviousMonth = () => {
     setSlideDir('right');
@@ -157,7 +160,9 @@ export const PersianCalendar = () => {
             {persianDays.map((day, index) => (
               <div
                 key={index}
-                className="text-center text-sm font-semibold text-gray-600 py-2"
+                className={`text-center text-sm font-semibold py-2 ${
+                  index === 6 ? 'text-red-600' : 'text-gray-600'
+                }`}
               >
                 {day}
               </div>
@@ -167,35 +172,43 @@ export const PersianCalendar = () => {
           <div className="space-y-1">
             {calendarData.map((week, weekIndex) => (
               <div key={weekIndex} className="grid grid-cols-7 gap-1">
-                {week.map((day, dayIndex) => (
-                  <div
-                    key={dayIndex}
-                    className="aspect-square flex items-center justify-center"
-                  >
-                    {day && (
-                      <button
-                        onClick={() => handleDayClick(day)}
-                        className={`
+                {week.map((day, dayIndex) => {
+                  const holidays = day ? getHolidays(day) : [];
+                  const isHoliday =
+                    !!day && (isFriday(day) || holidays.length > 0);
+                  return (
+                    <div
+                      key={dayIndex}
+                      className="aspect-square flex items-center justify-center"
+                    >
+                      {day && (
+                        <button
+                          onClick={() => handleDayClick(day)}
+                          title={holidays.join('، ') || undefined}
+                          className={`
                         w-8 h-8 rounded-lg text-sm font-medium transition-all duration-200
                         ${
                           isToday(day)
                             ? 'bg-linear-to-br from-brand-600 to-brand-900 text-white shadow-md'
                             : selectedDate && isSameDay(day, selectedDate)
-                              ? 'bg-brand-100 text-brand-900 ring-2 ring-brand-600'
+                              ? `bg-brand-100 ring-2 ring-brand-600 ${isHoliday ? 'text-red-600' : 'text-brand-900'}`
                               : !isSameMonth(day, currentDate)
                                 ? 'text-gray-400'
-                                : 'text-gray-700 hover:bg-gray-100'
+                                : isHoliday
+                                  ? 'text-red-600 hover:bg-red-50'
+                                  : 'text-gray-700 hover:bg-gray-100'
                         }
                         ${isToday(day) ? 'hover:cursor-default' : 'hover:cursor-pointer'}
                       `}
-                      >
-                        {convertToPersianDigits(
-                          format(day, 'd', { locale: faIR })
-                        )}
-                      </button>
-                    )}
-                  </div>
-                ))}
+                        >
+                          {convertToPersianDigits(
+                            format(day, 'd', { locale: faIR })
+                          )}
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             ))}
           </div>
@@ -211,6 +224,11 @@ export const PersianCalendar = () => {
               {todayPersianDay} {todayPersianMonth}
             </div>
             <div className="text-xs text-gray-500">{todayPersianWeekday}</div>
+            {todayHolidays.map((title) => (
+              <div key={title} className="text-xs text-red-600 mt-1">
+                {title}
+              </div>
+            ))}
           </button>
         </div>
       </div>
