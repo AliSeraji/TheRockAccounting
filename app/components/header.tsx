@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
+import { Link } from 'react-router';
 import logo from '~/assets/modern_stone_logo.svg';
+import { HOME } from '~/routes/constants';
 import { useSettingsStore } from '~/store/settings/useSettingStore';
 
 export default function Header(): ReactNode {
@@ -10,10 +12,18 @@ export default function Header(): ReactNode {
       <div className="max-w-full px-4 py-4">
         <div className="flex flex-row-reverse items-center justify-between">
           <div className="flex flex-row-reverse items-center gap-3">
-            <img src={logo} alt="icon" className="h-10 w-10 object-contain" />
-            <div className="text-md md:text-2xl font-bold bg-linear-to-r from-brand-900 via-brand-600 to-brand-900 bg-clip-text text-transparent">
-              نرم افزار مدریت و فروش سنگ
-            </div>
+            <Link to={HOME}>
+              <img
+                src={logo}
+                alt="icon"
+                className="h-10 w-10 object-contain hover:cursor-pointer"
+              />
+            </Link>
+            <Link to={HOME}>
+              <div className="text-md md:text-2xl font-bold bg-linear-to-r from-brand-900 via-brand-600 to-brand-900 bg-clip-text text-transparent hover:cursor-pointer">
+                نرم افزار مدریت و فروش سنگ
+              </div>
+            </Link>
           </div>
           <div className="text-sm text-gray-600">
             {companyName || ' ...شرکت'}
