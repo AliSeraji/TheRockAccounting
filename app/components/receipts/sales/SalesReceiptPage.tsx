@@ -18,7 +18,8 @@ interface SalesReceiptPageProps extends ReceiptProps {
   companyAddress?: string;
   companyPhone?: string;
   companyMobile?: string;
-  showSignature?: boolean;
+  signature?: string | null;
+  seal?: string | null;
   showPageNumbers?: boolean;
 }
 
@@ -38,7 +39,8 @@ export default function SalesReceiptsPage({
   companyAddress,
   companyPhone,
   companyMobile,
-  showSignature = true,
+  signature,
+  seal,
   showPageNumbers = true,
 }: SalesReceiptPageProps): React.ReactNode {
   const totalInWords = persianNumberToText(
@@ -111,7 +113,7 @@ export default function SalesReceiptsPage({
       </div>
 
       <div className="mt-auto">
-        {showSignature && <SalesSignature />}
+        <SalesSignature signature={signature} seal={seal} />
 
         {showPageNumbers && (
           <div className="text-center text-2xs text-gray-500 mt-4">
