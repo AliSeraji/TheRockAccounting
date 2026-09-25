@@ -32,6 +32,8 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
   const setInvoiceNumber = useInvoiceStore((state) => state.setInvoiceNumber);
   const buyer = useInvoiceStore((state) => state.buyer);
   const setBuyer = useInvoiceStore((state) => state.setBuyer);
+  const nationalId = useInvoiceStore((state) => state.nationalId);
+  const setNationalId = useInvoiceStore((state) => state.setNationalId);
   const invoiceDate = useInvoiceStore((state) => state.invoiceDate);
   const setInvoiceDate = useInvoiceStore((state) => state.setInvoiceDate);
   const project = useInvoiceStore((state) => state.project);
@@ -59,7 +61,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
   };
 
   return (
-    <Card className="border-slate-200 bg-white/90 backdrop-blur col-span-2 relative z-9">
+    <Card className="border-slate-200 bg-white/90 backdrop-blur relative z-9">
       <CardHeader className="bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
         <CardTitle className="text-slate-800 flex items-center gap-2 text-sm lg:text-lg">
           <FileText className="w-5 h-5" />
@@ -67,7 +69,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
         </CardTitle>
       </CardHeader>
       <CardContent className="p-6 space-y-4 text-xs lg:text-lg">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="flex flex-col space-y-2">
             <Label className="text-slate-700 pr-1">عنوان</Label>
             <Select
@@ -106,6 +108,23 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
               value={convertToPersianDigits(buyer)}
               onChange={(e) => setBuyer(e.target.value)}
               className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs md:placeholder:text-sm"
+            />
+          </div>
+          <div className="flex flex-col space-y-2">
+            <Label className="text-slate-700 pr-1">
+              شناسه ملی / کد اقتصادی
+            </Label>
+            <Input
+              value={convertToPersianDigits(nationalId)}
+              onChange={(e) => {
+                const val = convertToEnDigits(e.target.value.trim())
+                  .replace(/[^0-9]/g, '')
+                  .slice(0, 12);
+                setNationalId(val);
+              }}
+              inputMode="numeric"
+              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs md:placeholder:text-sm"
+              placeholder="شناسه ملی یا کد اقتصادی خریدار"
             />
           </div>
           <div className="flex flex-col space-y-2">

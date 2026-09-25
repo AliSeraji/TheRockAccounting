@@ -7,7 +7,6 @@ interface Props {
   project: string;
   address: string;
   nationalId?: string;
-  economicCode?: string;
 }
 
 function InfoRow({
@@ -37,16 +36,11 @@ export default function SalesInfoBox({
   project,
   address,
   nationalId,
-  economicCode,
 }: Props): React.ReactNode {
   return (
     <div className="mb-4 grid grid-cols-[3fr_1.5fr] gap-x-8 gap-y-2.5 px-1 text-2xs">
       <InfoRow label="نام شخص/مشتری" value={buyer} />
-      {economicCode ? (
-        <InfoRow label="کد اقتصادی" value={economicCode} />
-      ) : (
-        <InfoRow label="کد ملی" value={nationalId} />
-      )}
+      <InfoRow label="شناسه ملی / کد اقتصادی" value={nationalId} />
       <InfoRow label="پروژه" value={project} />
       <InfoRow label="شماره تماس" value={phone} />
       <InfoRow label="آدرس" value={address} className="col-span-2" />

@@ -39,7 +39,7 @@ const ServiceRow = memo(function ServiceRow({
   );
 
   return (
-    <TableRow className="w-full flex flex-row hover:bg-slate-50 transition-colors">
+    <TableRow className="w-full flex flex-row *:min-w-0 hover:bg-slate-50 transition-colors">
       <TableCell className="w-[3%] border-x-[0.5px] border-r border-slate-200 p-2 text-center text-slate-700 font-medium">
         {convertToPersianDigits(index + 1)}
       </TableCell>

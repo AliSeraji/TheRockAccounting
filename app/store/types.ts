@@ -31,6 +31,7 @@ export interface InvoiceTotals {
 export interface InvoiceDataType {
   invoiceType: string;
   buyer: string;
+  nationalId: string;
   project: string;
   address: string;
   phone: string;
@@ -49,6 +50,7 @@ export interface InvoiceDataType {
 export interface InvoiceState {
   invoiceType: string;
   buyer: string;
+  nationalId: string;
   project: string;
   address: string;
   phone: string;
@@ -66,6 +68,7 @@ export interface InvoiceState {
 
   setInvoiceType: (value: string) => void;
   setBuyer: (value: string) => void;
+  setNationalId: (value: string) => void;
   setProject: (value: string) => void;
   setAddress: (value: string) => void;
   setPhone: (value: string) => void;

@@ -91,7 +91,7 @@ const InvoiceSummary = memo(function InvoiceSummary(): React.ReactNode {
   );
 
   return (
-    <Card className=" border-slate-200 bg-white/90 backdrop-blur lg:col-span-1 col-span-2">
+    <Card className="border-slate-200 bg-white/90 backdrop-blur">
       <CardHeader className="p-5 bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
         <CardTitle className="text-slate-800 text-sm lg:text-lg">
           خلاصه مالی
