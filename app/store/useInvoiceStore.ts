@@ -46,6 +46,7 @@ const initialTotals: InvoiceTotals = {
 const initialState = {
   invoiceType: 'پیش فاکتور',
   buyer: '',
+  nationalId: '',
   project: '',
   address: '',
   phone: '',
@@ -67,6 +68,7 @@ export const useInvoiceStore = create<InvoiceState>((set, get) => ({
 
   setInvoiceType: (value) => set({ invoiceType: value }),
   setBuyer: (value) => set({ buyer: value }),
+  setNationalId: (value) => set({ nationalId: value }),
   setProject: (value) => set({ project: value }),
   setAddress: (value) => set({ address: value }),
   setPhone: (value) => set({ phone: value }),
@@ -231,6 +233,7 @@ export function selectInvoiceData(state: InvoiceState): InvoiceDataType {
   return {
     invoiceType: state.invoiceType,
     buyer: state.buyer,
+    nationalId: state.nationalId,
     project: state.project,
     address: state.address,
     phone: state.phone,

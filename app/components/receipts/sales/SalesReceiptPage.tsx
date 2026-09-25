@@ -65,6 +65,7 @@ export default function SalesReceiptsPage({
 
       <SalesInfoBox
         buyer={data.buyer}
+        nationalId={data.nationalId}
         phone={data.phone}
         project={data.project}
         address={data.address}

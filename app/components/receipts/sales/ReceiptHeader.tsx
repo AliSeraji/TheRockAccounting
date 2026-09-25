@@ -26,7 +26,7 @@ function IconTxtRow({
     <div className="flex flex-row w-full justify-between">
       <span
         className={cn(
-          `flex flex-row text-center text-2xs text-slate-900 ${`font-bold`}`
+          `flex flex-row text-center text-md text-slate-900 ${`font-bold`}`
         )}
       >
         {txt}
