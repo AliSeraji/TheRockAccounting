@@ -2,7 +2,10 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { InvoiceRowField } from './types';
 import { Popover, PopoverTrigger } from '../ui/popover';
 import { Input } from '../ui/input';
-import { useWarehouseStore } from '~/store/warehouse/useWarehouse';
+import {
+  selectInvoiceStones,
+  useWarehouseStore,
+} from '~/store/warehouse/useWarehouse';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { cn } from '~/lib/utils';
 
@@ -26,7 +29,7 @@ export default function StoneCodeInput({
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const stones = useWarehouseStore((state) => state.items);
+  const stones = useWarehouseStore(selectInvoiceStones);
 
   const query = value.trim();
 
