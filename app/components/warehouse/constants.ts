@@ -1,6 +1,9 @@
-import type { WarehouseItem } from '~/store/warehouse/types';
-import type { emptyItem } from '~/store/warehouse/useWarehouse';
-import type { WarehouseTableItem } from './table/types';
+import type {
+  BlockItem,
+  MiscItem,
+  RawItem,
+  StoneStockItem,
+} from '~/store/warehouse/types';
 
 export enum FieldTypes {
   PRICE,
@@ -9,28 +12,40 @@ export enum FieldTypes {
   CALCULATED,
 }
 
-export const formFields: {
+export type FormFieldConfig<T> = {
   label: string;
-  key: keyof typeof emptyItem;
-  type?: FieldTypes;
+  key: keyof T & string;
+  type: FieldTypes;
   placeholder?: string;
-}[] = [
-  { label: 'کد', key: 'code', type: FieldTypes.TEXT, placeholder: 'کد محصول' },
+  required?: boolean;
+  allowNegative?: boolean;
+};
+
+export const stoneFormFields: FormFieldConfig<StoneStockItem>[] = [
+  {
+    label: 'کد',
+    key: 'code',
+    type: FieldTypes.TEXT,
+    placeholder: 'کد محصول',
+    required: true,
+  },
   {
     label: 'دسته‌بندی',
     key: 'category',
     type: FieldTypes.TEXT,
-    placeholder: '  دسته‌بندی',
+    placeholder: 'دسته‌بندی',
+    required: true,
   },
   {
-    label: 'نام محصول',
+    label: 'نام سنگ',
     key: 'name',
     type: FieldTypes.TEXT,
     placeholder: 'نوع سنگ',
+    required: true,
   },
   {
     label: 'قطر',
-    key: 'diameter',
+    key: 'thickness',
     type: FieldTypes.NUMBER,
     placeholder: 'به سانتی متر',
   },
@@ -51,6 +66,9 @@ export const formFields: {
     key: 'quantity',
     type: FieldTypes.NUMBER,
     placeholder: 'تعداد موجود',
+    required: true,
+    // Stock can go below zero when more is sold than is on hand.
+    allowNegative: true,
   },
   {
     label: 'متراژ',
@@ -65,24 +83,134 @@ export const formFields: {
     placeholder: 'به ریال',
   },
   {
-    label: 'قیمت فروش',
-    key: 'salePrice',
+    label: 'قیمت عمده',
+    key: 'wholesalePrice',
+    type: FieldTypes.PRICE,
+    placeholder: 'به ریال',
+  },
+  {
+    label: 'قیمت همکار',
+    key: 'partnerPrice',
+    type: FieldTypes.PRICE,
+    placeholder: 'به ریال',
+  },
+  {
+    label: 'قیمت مصرف‌کننده',
+    key: 'consumerPrice',
     type: FieldTypes.PRICE,
     placeholder: 'به ریال',
   },
 ];
 
-export const warehouseColumns: WarehouseTableItem[] = [
-  { label: 'کد', width: 'w-[10%]' },
-  { label: 'دسته‌بندی', width: 'w-[15%]' },
-  { label: 'نام محصول', width: 'w-[20%]' },
-  { label: 'قطر', width: 'w-[5%]' },
-  { label: 'طول', width: 'w-[5%]' },
-  { label: 'عرض', width: 'w-[10%]' },
-  { label: 'متراژ', width: 'w-[10%]' },
-  { label: 'قیمت خرید', width: 'w-[10%]' },
-  { label: 'قیمت فروش', width: 'w-[10%]' },
-  { label: 'تعداد', width: 'w-[5%]' },
+export const blockFormFields: FormFieldConfig<BlockItem>[] = [
+  {
+    label: 'کد',
+    key: 'code',
+    type: FieldTypes.TEXT,
+    placeholder: 'کد کوپ',
+    required: true,
+  },
+  {
+    label: 'نام کوپ سنگ',
+    key: 'name',
+    type: FieldTypes.TEXT,
+    placeholder: 'نام کوپ',
+    required: true,
+  },
+  {
+    label: 'طول',
+    key: 'length',
+    type: FieldTypes.NUMBER,
+    placeholder: 'به متر',
+  },
+  {
+    label: 'عرض',
+    key: 'width',
+    type: FieldTypes.NUMBER,
+    placeholder: 'به متر',
+  },
+  {
+    label: 'ارتفاع',
+    key: 'height',
+    type: FieldTypes.NUMBER,
+    placeholder: 'به متر',
+  },
+  {
+    label: 'وزن',
+    key: 'weight',
+    type: FieldTypes.NUMBER,
+    placeholder: 'به تن',
+  },
+  {
+    label: 'متراژ (مترمکعب)',
+    key: 'volume',
+    type: FieldTypes.CALCULATED,
+    placeholder: 'به مترمکعب',
+  },
+  {
+    label: 'قیمت',
+    key: 'price',
+    type: FieldTypes.PRICE,
+    placeholder: 'به ریال',
+  },
+  {
+    label: 'قیمت همکار',
+    key: 'partnerPrice',
+    type: FieldTypes.PRICE,
+    placeholder: 'به ریال',
+  },
+];
+
+export const miscFormFields: FormFieldConfig<MiscItem>[] = [
+  {
+    label: 'شرح',
+    key: 'description',
+    type: FieldTypes.TEXT,
+    placeholder: 'شرح کالا',
+    required: true,
+  },
+  {
+    label: 'تعداد',
+    key: 'quantity',
+    type: FieldTypes.NUMBER,
+    placeholder: 'تعداد موجود',
+    required: true,
+  },
+  {
+    label: 'قیمت',
+    key: 'price',
+    type: FieldTypes.PRICE,
+    placeholder: 'به ریال',
+  },
+  {
+    label: 'قیمت همکار',
+    key: 'partnerPrice',
+    type: FieldTypes.PRICE,
+    placeholder: 'به ریال',
+  },
+];
+
+export const rawFormFields: FormFieldConfig<RawItem>[] = [
+  {
+    label: 'شرح',
+    key: 'description',
+    type: FieldTypes.TEXT,
+    placeholder: 'شرح ماده اولیه',
+    required: true,
+  },
+  {
+    label: 'تعداد',
+    key: 'quantity',
+    type: FieldTypes.NUMBER,
+    placeholder: 'تعداد موجود',
+    required: true,
+  },
+  {
+    label: 'قیمت خرید',
+    key: 'purchasePrice',
+    type: FieldTypes.PRICE,
+    placeholder: 'به ریال',
+  },
 ];
 
 export const categoryColors: Record<string, string> = {

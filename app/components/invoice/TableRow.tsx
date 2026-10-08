@@ -8,7 +8,10 @@ import PersianNumericInput from './PersianNumericInput';
 import { INVOICE_ROW_FIELDS, type InvoiceRowField } from './types';
 import { memo, useEffect, useRef } from 'react';
 import StoneTypeInput from './StoneTypeInput';
-import { useWarehouseStore } from '~/store/warehouse/useWarehouse';
+import {
+  selectInvoiceStones,
+  useWarehouseStore,
+} from '~/store/warehouse/useWarehouse';
 import StoneCodeInput from './StoneCodeInput';
 
 const normalize = (value: string) =>
@@ -29,7 +32,7 @@ const Row = memo(function Row({
   addItem: () => void;
   isNewRow?: boolean;
 }): React.ReactNode {
-  const stones = useWarehouseStore((state) => state.items);
+  const stones = useWarehouseStore(selectInvoiceStones);
   const inputRef = useRef<HTMLInputElement>(null);
   const updateStone = (
     field:

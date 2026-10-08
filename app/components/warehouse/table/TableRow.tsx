@@ -1,79 +1,67 @@
 import { memo, type ReactNode } from 'react';
 import { TableRow, TableCell } from '~/components/ui/table';
-import type { WarehouseItem } from '~/store/warehouse/types';
-import { categoryColors } from '../constants';
-import { useWarehouseStore } from '~/store/warehouse/useWarehouse';
-import { convertToPersianDigits } from '~/lib/utils';
+import { cn, convertToPersianDigits } from '~/lib/utils';
+import type { WarehouseColumn, WarehouseRowItem } from './types';
 
-interface WarehouseTableRowProps {
-  item: WarehouseItem;
+interface WarehouseTableRowProps<T extends WarehouseRowItem> {
+  item: T;
+  rowNumber: number;
+  columns: WarehouseColumn<T>[];
+  isSelected: boolean;
+  // Highlights rows that need attention, such as negative stock.
+  isFlagged: boolean;
+  flagLabel?: string;
+  onSelect: (item: T) => void;
 }
 
-const WarehouseTableRow = memo(function WarehouseTableRow({
-  item,
-}: WarehouseTableRowProps): ReactNode {
-  const isSelected = useWarehouseStore(
-    (state) => state.selectedItem?.id === item.id
-  );
-  const setSelectedItem = useWarehouseStore((state) => state.setSelectedItem);
+const cellClass = 'flex flex-row justify-center px-4 py-3 text-slate-600';
 
+export const rowStateClass = (
+  isSelected: boolean,
+  isFlagged: boolean
+): string => {
+  if (isFlagged) {
+    return isSelected
+      ? 'bg-red-100 ring-1 ring-inset ring-red-400 hover:bg-red-200/70'
+      : 'bg-red-50 ring-1 ring-inset ring-red-200 hover:bg-red-100';
+  }
+  return isSelected
+    ? 'bg-brand-100 ring-1 ring-inset ring-brand-400 hover:bg-brand-200/70'
+    : 'bg-white hover:bg-brand-50';
+};
+
+function WarehouseTableRow<T extends WarehouseRowItem>({
+  item,
+  rowNumber,
+  columns,
+  isSelected,
+  isFlagged,
+  flagLabel,
+  onSelect,
+}: WarehouseTableRowProps<T>): ReactNode {
   return (
     <TableRow
-      onClick={() => setSelectedItem(item)}
-      className={`flex flex-row w-full rounded-xl cursor-pointer border-0 transition-[background-color,box-shadow] duration-150 ${
-        isSelected
-          ? 'bg-brand-100 ring-1 ring-inset ring-brand-400 hover:bg-brand-200/70'
-          : 'bg-white hover:bg-brand-50'
-      }`}
+      onClick={() => onSelect(item)}
+      title={isFlagged ? flagLabel : undefined}
+      className={cn(
+        'flex flex-row w-full rounded-xl cursor-pointer border-0 transition-[background-color,box-shadow] duration-150',
+        rowStateClass(isSelected, isFlagged)
+      )}
     >
-      <TableCell className="flex flex-row justify-center px-4 py-3 text-slate-700 font-mono text-xs whitespace-nowrap w-[10%]">
-        {item.code || '—'}
+      <TableCell className={cn(cellClass, 'w-[5%] px-2 text-slate-400')}>
+        {convertToPersianDigits(rowNumber)}
       </TableCell>
-      <TableCell className="flex flex-row justify-center w-[13%] px-4 py-3">
-        {item.category ? (
-          <span
-            className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${categoryColors[item.category] ?? 'bg-slate-100 text-slate-600'}`}
-          >
-            {item.category}
-          </span>
-        ) : (
-          '—'
-        )}
-      </TableCell>
-      <TableCell className="flex flex-row justify-center w-[22%] px-4 py-3 font-medium text-slate-800 whitespace-nowrap">
-        {convertToPersianDigits(item.name.replace(item.category, ''))}
-      </TableCell>
-      <TableCell className="flex flex-row justify-center w-[5%] px-4 py-3 text-slate-600">
-        {convertToPersianDigits(item.diameter || '—')}
-      </TableCell>
-      <TableCell className="flex flex-row justify-center w-[5%] px-4 py-3 text-slate-600">
-        {convertToPersianDigits(item.length || '—')}
-      </TableCell>
-      <TableCell className="flex flex-row justify-center w-[10%] px-4 py-3 text-slate-600">
-        {convertToPersianDigits(item.width || '—')}
-      </TableCell>
-      <TableCell className="flex flex-row justify-center w-[10%] px-4 py-3 text-slate-600">
-        {convertToPersianDigits(item.area || '—')}
-      </TableCell>
-      <TableCell className="flex flex-row justify-center w-[10%] px-4 py-3 text-slate-600">
-        {convertToPersianDigits(
-          item.purchasePrice
-            ? Number(item.purchasePrice).toLocaleString('fa-IR')
-            : '—'
-        )}
-      </TableCell>
-      <TableCell className="flex flex-row justify-center w-[10%] px-4 py-3 text-slate-600">
-        {convertToPersianDigits(
-          item.salePrice ? Number(item.salePrice).toLocaleString('fa-IR') : '—'
-        )}
-      </TableCell>
-      <TableCell className="flex flex-row justify-center w-[5%] px-4 py-3 text-slate-600">
-        {convertToPersianDigits(
-          item.quantity ? Number(item.quantity).toLocaleString('fa-IR') : '—'
-        )}
-      </TableCell>
+      {columns.map((col) => (
+        <TableCell
+          key={col.key}
+          className={cn(cellClass, col.width, col.className)}
+        >
+          {col.render(item)}
+        </TableCell>
+      ))}
     </TableRow>
   );
-});
+}
 
-export default WarehouseTableRow;
+// memo drops the generic signature, so cast it back.
+export default memo(WarehouseTableRow) as typeof WarehouseTableRow;

@@ -1,7 +1,6 @@
 import { memo, useEffect, useRef, useState, type ReactNode } from 'react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
-import type { WarehouseItem } from '~/store/warehouse/types';
 import {
   convertToEnDigits,
   convertToPersianDigits,
@@ -9,29 +8,36 @@ import {
 } from '~/lib/utils';
 import { FieldTypes } from './constants';
 
-interface FormFieldProps {
+interface FormFieldProps<K extends string> {
   label: string;
-  fieldKey: keyof WarehouseItem;
+  fieldKey: K;
   value: string;
   type?: FieldTypes;
   placeholder?: string;
-  onChange: (field: keyof WarehouseItem, value: string) => void;
+  required?: boolean;
+  // Lets NUMBER fields accept values below zero.
+  allowNegative?: boolean;
+  onChange: (field: K, value: string) => void;
 }
 
-const FormField = memo(function FormField({
+function FormField<K extends string>({
   label,
   fieldKey,
   value,
   type,
   placeholder,
+  required,
+  allowNegative = false,
   onChange,
-}: FormFieldProps): ReactNode {
+}: FormFieldProps<K>): ReactNode {
   const [localValue, setLocalValue] = useState<string | null>(
     convertToPersianDigits(value)
   );
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    // Keep a lone minus sign while a negative number is still being typed.
+    if (value === '' && localValue === '-') return;
     if (type === FieldTypes.PRICE) {
       setLocalValue(formatRialAmount(convertToPersianDigits(value)));
     } else if (type === FieldTypes.TEXT) {
@@ -66,7 +72,12 @@ const FormField = memo(function FormField({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     switch (type) {
       case FieldTypes.NUMBER:
-        const num = processNumber(e.target.value.trim(), false);
+        if (allowNegative && normalize(e.target.value.trim()) === '-') {
+          setLocalValue('-');
+          onChange(fieldKey, '');
+          break;
+        }
+        const num = processNumber(e.target.value.trim(), allowNegative);
         setLocalValue(convertToPersianDigits(num));
         onChange(fieldKey, num);
         break;
@@ -89,17 +100,26 @@ const FormField = memo(function FormField({
 
   return (
     <div className="flex flex-col space-y-2">
-      <Label className="text-slate-700 pr-1">{label}</Label>
+      <Label className="text-slate-700 pr-1">
+        {label}
+        {required && <span className="text-red-500">*</span>}
+      </Label>
       <Input
         readOnly={type === FieldTypes.CALCULATED}
         ref={inputRef}
         value={localValue ?? ''}
         onChange={handleChange}
         placeholder={placeholder}
-        className="border-slate-200 rounded-lg focus:ring-slate-400"
+        dir={
+          type === FieldTypes.NUMBER || type === FieldTypes.CALCULATED
+            ? 'ltr'
+            : undefined
+        }
+        className="border-slate-200 rounded-lg focus:ring-slate-400 text-right"
       />
     </div>
   );
-});
+}
 
-export default FormField;
+// memo drops the generic signature, so cast it back.
+export default memo(FormField) as typeof FormField;
