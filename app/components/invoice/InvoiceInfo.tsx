@@ -12,7 +12,7 @@ import {
 import { Input } from '../ui/input';
 import { lazy, memo, Suspense, useEffect, useState } from 'react';
 import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
-import { useInvoiceStore } from '~/store/useInvoiceStore';
+import { useInvoiceForm } from '~/store/useInvoiceForm';
 
 type DayValue =
   | {
@@ -26,22 +26,22 @@ type DayValue =
 const PersianDatePicker = lazy(() => import('./PersianDatePicker.client'));
 
 const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
-  const invoiceType = useInvoiceStore((state) => state.invoiceType);
-  const setInvoiceType = useInvoiceStore((state) => state.setInvoiceType);
-  const invoiceNumber = useInvoiceStore((state) => state.invoiceNumber);
-  const setInvoiceNumber = useInvoiceStore((state) => state.setInvoiceNumber);
-  const buyer = useInvoiceStore((state) => state.buyer);
-  const setBuyer = useInvoiceStore((state) => state.setBuyer);
-  const nationalId = useInvoiceStore((state) => state.nationalId);
-  const setNationalId = useInvoiceStore((state) => state.setNationalId);
-  const invoiceDate = useInvoiceStore((state) => state.invoiceDate);
-  const setInvoiceDate = useInvoiceStore((state) => state.setInvoiceDate);
-  const project = useInvoiceStore((state) => state.project);
-  const setProject = useInvoiceStore((state) => state.setProject);
-  const phone = useInvoiceStore((state) => state.phone);
-  const setPhone = useInvoiceStore((state) => state.setPhone);
-  const address = useInvoiceStore((state) => state.address);
-  const setAddress = useInvoiceStore((state) => state.setAddress);
+  const invoiceType = useInvoiceForm((state) => state.invoiceType);
+  const setInvoiceType = useInvoiceForm((state) => state.setInvoiceType);
+  const invoiceNumber = useInvoiceForm((state) => state.invoiceNumber);
+  const setInvoiceNumber = useInvoiceForm((state) => state.setInvoiceNumber);
+  const buyer = useInvoiceForm((state) => state.buyer);
+  const setBuyer = useInvoiceForm((state) => state.setBuyer);
+  const nationalId = useInvoiceForm((state) => state.nationalId);
+  const setNationalId = useInvoiceForm((state) => state.setNationalId);
+  const invoiceDate = useInvoiceForm((state) => state.invoiceDate);
+  const setInvoiceDate = useInvoiceForm((state) => state.setInvoiceDate);
+  const project = useInvoiceForm((state) => state.project);
+  const setProject = useInvoiceForm((state) => state.setProject);
+  const phone = useInvoiceForm((state) => state.phone);
+  const setPhone = useInvoiceForm((state) => state.setPhone);
+  const address = useInvoiceForm((state) => state.address);
+  const setAddress = useInvoiceForm((state) => state.setAddress);
 
   const [selectedDay, setSelectedDay] = useState<DayValue>(null);
   const [isClient, setIsClient] = useState(false);

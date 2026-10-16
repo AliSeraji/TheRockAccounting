@@ -1,7 +1,7 @@
 import type React from 'react';
 import { Table, TableBody, TableCell, TableRow } from '../../ui/table';
 import { InvoiceTableHeader } from '../TableHeader';
-import { useInvoiceStore } from '~/store/useInvoiceStore';
+import { useInvoiceForm } from '~/store/useInvoiceForm';
 import {
   convertToPersianDigits,
   formatRialAmount,
@@ -13,10 +13,10 @@ import { Button } from '~/components/ui/button';
 import { Plus } from 'lucide-react';
 
 export default function ServicesTable(): React.ReactNode {
-  const addService = useInvoiceStore((state) => state.addService);
-  const services = useInvoiceStore((state) => state.services);
-  const updateService = useInvoiceStore((state) => state.updateService);
-  const removeService = useInvoiceStore((state) => state.removeService);
+  const addService = useInvoiceForm((state) => state.addService);
+  const services = useInvoiceForm((state) => state.services);
+  const updateService = useInvoiceForm((state) => state.updateService);
+  const removeService = useInvoiceForm((state) => state.removeService);
 
   return (
     <Table className="w-full min-w-200 lg:min-w-0">
@@ -39,7 +39,7 @@ export default function ServicesTable(): React.ReactNode {
 }
 
 function Footer({ addService }: { addService: () => void }): React.ReactNode {
-  const totalServicesAmount = useInvoiceStore(
+  const totalServicesAmount = useInvoiceForm(
     (state) => state.totals.totalServicesAmount
   );
   return (

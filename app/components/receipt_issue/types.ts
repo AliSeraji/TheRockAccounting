@@ -1,7 +1,6 @@
 export type ReceiptSectionId =
   | 'invoice'
-  | 'search'
-  | 'print'
+  | 'block'
   | 'archive'
   | 'list'
   | 'export';

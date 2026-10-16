@@ -9,45 +9,13 @@ import { RECEIPT_SECTIONS } from '~/components/receipt_issue/common';
 import { useReceiptIssueStore } from '~/store/receipt_issue/useReceiptIssueStore';
 import { useIsMobile } from '~/hooks/use-mobile';
 import InvoiceSection from '~/components/receipt_issue/sections/InvoiceSection';
-import PlaceholderSection from '~/components/receipt_issue/sections/PlaceholderSection';
+import BlockInvoiceSection from '~/components/receipt_issue/sections/BlockInvoiceSection';
+import InvoicesSection from '~/components/receipt_issue/sections/InvoicesSection';
 
 const SECTION_COMPONENTS: Record<string, () => ReactNode> = {
   invoice: () => <InvoiceSection />,
-  search: () => (
-    <PlaceholderSection
-      title="جستجوی رسید"
-      desc="جستجو در رسیدهای صادر شده"
-      iconName="Search"
-    />
-  ),
-  print: () => (
-    <PlaceholderSection
-      title="چاپ رسید"
-      desc="چاپ و خروجی رسیدها"
-      iconName="Printer"
-    />
-  ),
-  archive: () => (
-    <PlaceholderSection
-      title="بایگانی رسیدها"
-      desc="مشاهده و مدیریت رسیدهای بایگانی شده"
-      iconName="ArchiveRestore"
-    />
-  ),
-  list: () => (
-    <PlaceholderSection
-      title="لیست رسیدها"
-      desc="مشاهده لیست کامل رسیدها"
-      iconName="ClipboardList"
-    />
-  ),
-  export: () => (
-    <PlaceholderSection
-      title="خروجی گزارش"
-      desc="دریافت خروجی و گزارش از رسیدها"
-      iconName="FileOutput"
-    />
-  ),
+  block: () => <BlockInvoiceSection />,
+  list: () => <InvoicesSection />,
 };
 
 const TRANSITION = { duration: 0.28, ease: [0.4, 0, 0.2, 1] as const };

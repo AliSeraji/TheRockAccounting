@@ -1,15 +1,20 @@
+import type { ReactNode } from 'react';
 import InvoiceInfo from './InvoiceInfo';
 import InvoiceSummary from './InvoiceSummary';
 import ExplanationCard from './ExplanaitionCard';
 import InvoiceItemsCard from './InvoiceItemCards';
 import InvoiceServices from './services/InvoiceServices';
 
-export default function InvoiceBody() {
+export default function InvoiceBody({
+  itemsTable,
+}: {
+  itemsTable?: ReactNode;
+}) {
   return (
     <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div className="w-full lg:col-span-2 space-y-6">
         <InvoiceInfo />
-        <InvoiceItemsCard />
+        <InvoiceItemsCard table={itemsTable} />
         <InvoiceServices />
         <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
           <ExplanationCard />

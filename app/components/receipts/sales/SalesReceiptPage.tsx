@@ -1,19 +1,24 @@
 import type React from 'react';
-import type { ReceiptProps } from '~/components/invoice/common';
-import type { ServiceItem } from '~/store/types';
+import type { InvoiceFormData, ServiceItem } from '~/store/types';
 import SalesInfoBox from './InfoBox';
 import SalesReceiptHeader from './ReceiptHeader';
-import SalesTable from './Table';
 
 import SalesNote from './Note';
 import SalesSignature from './Signature';
 import { convertToPersianDigits, persianNumberToText } from '~/lib/utils';
 import SalesServicesTable from './ServicesTable';
 
-interface SalesReceiptPageProps extends ReceiptProps {
+interface SalesReceiptPageProps {
+  data: InvoiceFormData;
+  // This page's part of the items table, if the page has items.
+  itemsTable: React.ReactNode;
   services: ServiceItem[];
   serviceStartIndex: number;
-  showItemsFooter: boolean;
+  isLastPage: boolean;
+  pageNumber: number;
+  totalPages: number;
+  logo: string | null;
+  companyName: string;
   defaultNote?: string;
   companyAddress?: string;
   companyPhone?: string;
@@ -25,12 +30,10 @@ interface SalesReceiptPageProps extends ReceiptProps {
 
 export default function SalesReceiptsPage({
   data,
-  items,
-  startIndex,
+  itemsTable,
   isLastPage,
   services,
   serviceStartIndex,
-  showItemsFooter,
   pageNumber,
   totalPages,
   logo,
@@ -71,14 +74,7 @@ export default function SalesReceiptsPage({
         address={data.address}
       />
 
-      {items.length > 0 && (
-        <SalesTable
-          items={items}
-          startIndex={startIndex}
-          isLastPage={showItemsFooter}
-          totals={data.totals}
-        />
-      )}
+      {itemsTable}
 
       {services.length > 0 && (
         <>

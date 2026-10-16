@@ -96,7 +96,7 @@ const NumberingSection = (): ReactNode => {
                 <div className="text-[10px] md:text-xs text-slate-500">
                   پیش‌نمایش شماره فاکتور بعدی
                 </div>
-                <code className="font-mono text-xs md:text-base font-bold text-slate-800 px-3 py-1 rounded-md bg-white border border-slate-200">
+                <code className="font-vazirmatn text-xs md:text-base font-bold text-slate-800 px-3 py-1 rounded-md bg-white border border-slate-200">
                   {preview}
                 </code>
               </div>

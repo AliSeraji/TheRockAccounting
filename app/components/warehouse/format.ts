@@ -1,7 +1,8 @@
 import { format } from 'date-fns-jalali';
 import { convertToPersianDigits, formatRialAmount } from '~/lib/utils';
+import { EMPTY } from '../data-table/constants';
 
-export const EMPTY = '—';
+export { EMPTY };
 
 // Isolates a negative number as LTR so the minus stays in front in RTL text.
 const isolateNegative = (text: string): string =>

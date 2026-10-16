@@ -27,7 +27,7 @@ export const dashboardItems = [
     to: RECEIPT_ISSUE,
   },
   {
-    title: 'کالاو انبار',
+    title: 'مدیریت انبارها',
     icon: FileText,
     color: 'bg-slate-700',
     description: 'مدیریت کالاها و انبار داری',

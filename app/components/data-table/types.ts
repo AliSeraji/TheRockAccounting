@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-export type WarehouseRowItem = { id: number };
+export type DataTableItem = { id: number };
 
 // Where a column's value goes on the mobile card:
 // title/badge/code in the card header, meta on the line under the title,
@@ -13,7 +13,7 @@ export type MobileRole =
   | 'stat'
   | 'highlight';
 
-export type WarehouseColumn<T extends WarehouseRowItem> = {
+export type DataTableColumn<T extends DataTableItem> = {
   key: string;
   label: string;
   width: string;

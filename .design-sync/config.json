@@ -33,7 +33,6 @@
     "InvoiceTableRow": "app/components/invoice/TableRow.tsx",
     "SettingsInvoiceSection": "app/components/settings/sections/invoice/InvoiceSection.tsx",
     "ReceiptIssueInvoiceSection": "app/components/receipt_issue/sections/InvoiceSection.tsx",
-    "WarehouseTableFooter": "app/components/warehouse/table/TableFooter.tsx",
     "RequestLowerTableBody": "app/components/receipts/request/LowerTable/Body.tsx",
     "RequestLowerTableHeader": "app/components/receipts/request/LowerTable/Header.tsx",
     "RequestLowerTableRow": "app/components/receipts/request/LowerTable/Row.tsx",

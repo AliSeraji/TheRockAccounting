@@ -37,18 +37,6 @@ export const roleColors: Record<AccountRole, string> = {
   سایر: 'bg-slate-100 text-slate-700',
 };
 
-export const customerColumns = [
-  'کد',
-  'نام / کسب و کار',
-  'نوع شخص',
-  'حساب شخص',
-  'موبایل',
-  'شهر',
-  'نرخ فروش',
-  'وضعیت',
-  'زمان ثبت/ویرایش',
-];
-
 export const PROVINCES: Record<string, string[]> = {
   'آذربایجان شرقی': [
     'تبریز',

@@ -7,17 +7,17 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
-import { useInvoiceStore } from '~/store/useInvoiceStore';
+import { useInvoiceForm } from '~/store/useInvoiceForm';
 import { memo, useCallback } from 'react';
 
 const InvoiceSummary = memo(function InvoiceSummary(): React.ReactNode {
-  const discount = useInvoiceStore((state) => state.discount);
-  const setDiscount = useInvoiceStore((state) => state.setDiscount);
-  const tax = useInvoiceStore((state) => state.tax);
-  const setTax = useInvoiceStore((state) => state.setTax);
-  const received = useInvoiceStore((state) => state.received);
-  const setReceived = useInvoiceStore((state) => state.setReceived);
-  const totalPaymentAmount = useInvoiceStore(
+  const discount = useInvoiceForm((state) => state.discount);
+  const setDiscount = useInvoiceForm((state) => state.setDiscount);
+  const tax = useInvoiceForm((state) => state.tax);
+  const setTax = useInvoiceForm((state) => state.setTax);
+  const received = useInvoiceForm((state) => state.received);
+  const setReceived = useInvoiceForm((state) => state.setReceived);
+  const totalPaymentAmount = useInvoiceForm(
     (state) => state.totals.totalPaymentAmount
   );
 

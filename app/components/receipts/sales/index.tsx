@@ -1,18 +1,50 @@
 import type React from 'react';
-import { useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
-import type { Props } from '../types';
+import type { InvoiceSnapshot } from '~/store/types';
 import SalesReceiptsPage from './SalesReceiptPage';
+import SalesTable from './Table';
+import BlockSalesTable from './BlockTable';
 import { salesReceiptPager } from '~/helper/helper';
 import { useSettingsStore } from '~/store/settings/useSettingStore';
 
 const ITEMS_PER_PAGE = 15;
 
-export default function SalesInvoice({ data }: Props): React.ReactNode {
-  const pages = useMemo(
-    () => salesReceiptPager(data, ITEMS_PER_PAGE),
-    [data.items, data.services]
-  );
+// Each page with its part of the items table, which depends on the kind.
+function salesPages(invoice: InvoiceSnapshot) {
+  if (invoice.kind === 'stone') {
+    const { totals } = invoice.data;
+    return salesReceiptPager(invoice.data, ITEMS_PER_PAGE).map((page) => ({
+      ...page,
+      itemsTable: page.items.length > 0 && (
+        <SalesTable
+          items={page.items}
+          startIndex={page.startIndex}
+          isLastPage={page.showItemsFooter}
+          totals={totals}
+        />
+      ),
+    }));
+  }
+  const { totals } = invoice.data;
+  return salesReceiptPager(invoice.data, ITEMS_PER_PAGE).map((page) => ({
+    ...page,
+    itemsTable: page.items.length > 0 && (
+      <BlockSalesTable
+        items={page.items}
+        startIndex={page.startIndex}
+        isLastPage={page.showItemsFooter}
+        totals={totals}
+      />
+    ),
+  }));
+}
+
+export default function SalesInvoice({
+  invoice,
+}: {
+  invoice: InvoiceSnapshot;
+}): React.ReactNode {
+  const pages = salesPages(invoice);
   const {
     logo,
     companyName,
@@ -49,12 +81,10 @@ export default function SalesInvoice({ data }: Props): React.ReactNode {
         {pages.map((page) => (
           <SalesReceiptsPage
             key={page.pageNumber}
-            data={data}
-            items={page.items}
-            startIndex={page.startIndex}
+            data={invoice.data}
+            itemsTable={page.itemsTable}
             services={page.services}
             serviceStartIndex={page.serviceStartIndex}
-            showItemsFooter={page.showItemsFooter}
             isLastPage={page.isLastPage}
             pageNumber={page.pageNumber}
             totalPages={pages.length}

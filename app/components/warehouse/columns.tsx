@@ -8,7 +8,7 @@ import { convertToPersianDigits } from '~/lib/utils';
 import { isNegativeStock } from '~/store/warehouse/helpers';
 import { categoryColors } from './constants';
 import { EMPTY, formatNumber, formatPrice } from './format';
-import type { WarehouseColumn } from './table/types';
+import type { DataTableColumn } from '../data-table/types';
 
 function CategoryBadge({ category }: { category: string }) {
   return (
@@ -20,12 +20,12 @@ function CategoryBadge({ category }: { category: string }) {
   );
 }
 
-export const stoneColumns: WarehouseColumn<StoneStockItem>[] = [
+export const stoneColumns: DataTableColumn<StoneStockItem>[] = [
   {
     key: 'code',
     label: 'کد',
     width: 'w-[10%]',
-    className: 'text-slate-700 font-mono text-xs whitespace-nowrap',
+    className: 'text-slate-700 font-vazirmatn text-xs whitespace-nowrap',
     mobile: 'code',
     render: (item) => item.code || EMPTY,
   },
@@ -97,12 +97,12 @@ export const stoneColumns: WarehouseColumn<StoneStockItem>[] = [
   },
 ];
 
-export const blockColumns: WarehouseColumn<BlockItem>[] = [
+export const blockColumns: DataTableColumn<BlockItem>[] = [
   {
     key: 'code',
     label: 'کد',
     width: 'w-[10%]',
-    className: 'text-slate-700 font-mono text-xs whitespace-nowrap',
+    className: 'text-slate-700 font-vazirmatn text-xs whitespace-nowrap',
     mobile: 'code',
     render: (item) => item.code || EMPTY,
   },
@@ -164,7 +164,7 @@ export const blockColumns: WarehouseColumn<BlockItem>[] = [
   },
 ];
 
-export const miscColumns: WarehouseColumn<MiscItem>[] = [
+export const miscColumns: DataTableColumn<MiscItem>[] = [
   {
     key: 'description',
     label: 'شرح',
@@ -196,7 +196,7 @@ export const miscColumns: WarehouseColumn<MiscItem>[] = [
   },
 ];
 
-export const rawColumns: WarehouseColumn<RawItem>[] = [
+export const rawColumns: DataTableColumn<RawItem>[] = [
   {
     key: 'description',
     label: 'شرح',

@@ -108,7 +108,7 @@ export default function ItemDialog<T extends DialogItem>({
             )}
             {title}
           </DialogTitle>
-          <DialogDescription className="font-mono text-brand-900">
+          <DialogDescription className="font-vazirmatn text-brand-900">
             {editor.mode === 'create' ? '' : (openItemData?.code ?? '')}
           </DialogDescription>
         </DialogHeader>

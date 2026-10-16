@@ -5,27 +5,45 @@ import {
   DialogHeader,
   DialogTitle,
 } from '~/components/ui/dialog';
-import { ReceiptType } from '../types';
-import { useShallow } from 'zustand/react/shallow';
-import { selectInvoiceData, useInvoiceStore } from '~/store/useInvoiceStore';
+import { Tabs, TabsList, TabsTrigger } from '~/components/ui/tabs';
+import { ReceiptType, type ReceiptKind, type ReceiptPreview } from '../types';
 import SalesInvoice from '../sales';
 import Delivery from '../delivery';
 import RequestProduct from '../request';
 import { Button } from '~/components/ui/button';
 import { Printer } from 'lucide-react';
+import { cn, convertToPersianDigits } from '~/lib/utils';
+
+const switchTriggerClass = cn(
+  'rounded-[8px] px-3 py-1 text-xs font-medium text-[#6b6459] hover:cursor-pointer',
+  'data-[state=active]:bg-white data-[state=active]:font-bold data-[state=active]:text-[#a4854a] data-[state=active]:shadow-sm'
+);
+
+function previewTitle({ invoice, receipt }: ReceiptPreview): string {
+  const number = invoice.data.invoiceNumber
+    ? ` ${convertToPersianDigits(invoice.data.invoiceNumber)}`
+    : '';
+  switch (receipt) {
+    case ReceiptType.Sales:
+      return `پیش‌نمایش ${invoice.data.invoiceType}${number}`;
+    case ReceiptType.Delivery:
+      return `پیش‌نمایش رسید تحویل بار${number}`;
+    case ReceiptType.Request:
+      return 'پیش‌نمایش درخواست سنگ';
+  }
+}
 
 export default function ReceiptOutputDialog({
-  open,
-  onChangeReceipt,
+  preview,
+  onPreviewChange,
 }: {
-  open: ReceiptType;
-  onChangeReceipt: (open: ReceiptType) => void;
+  // null keeps the dialog closed.
+  preview: ReceiptPreview | null;
+  onPreviewChange: (preview: ReceiptPreview | null) => void;
 }): ReactNode {
-  const invoiceData = useInvoiceStore(useShallow(selectInvoiceData));
-
   const handlePrint = () => {
     let pageCss = '';
-    switch (open) {
+    switch (preview?.receipt) {
       case ReceiptType.Sales:
         pageCss =
           '@page { size: A4; margin: 0; } html, body { width: 100% !important; height: 297mm !important; }';
@@ -74,34 +92,66 @@ export default function ReceiptOutputDialog({
 
   return (
     <Dialog
-      open={open !== null}
-      onOpenChange={(open) => !open && onChangeReceipt(null)}
+      open={preview !== null}
+      onOpenChange={(open) => !open && onPreviewChange(null)}
     >
       <DialogContent
         className="sm:max-w-6xl h-[90vh] flex flex-col p-0"
         dir="rtl"
       >
-        <DialogHeader className="flex flex-row justify-between px-6 pt-4 pb-2 border-b border-slate-200 gap-4">
+        <DialogHeader className="flex flex-row flex-wrap items-center justify-between px-6 pt-4 pb-2 border-b border-slate-200 gap-4">
           <DialogTitle className="text-base font-bold text-slate-800 pr-8">
-            {open === ReceiptType.Sales && 'پیش‌نمایش فاکتور فروش'}
-            {open === ReceiptType.Delivery && 'پیش‌نمایش رسید تحویل بار'}
-            {open === ReceiptType.Request && 'پیش‌نمایش درخواست سنگ'}
+            {preview && previewTitle(preview)}
           </DialogTitle>
-          <Button
-            onClick={handlePrint}
-            size="sm"
-            className="bg-gray-800 hover:bg-gray-900 gap-1.5 hover:cursor-pointer h-7 px-2.5 text-xs"
-          >
-            <Printer className="w-3.5 h-3.5" />
-            چاپ
-          </Button>
+          <div className="flex flex-row items-center gap-3 ml-8">
+            {preview && preview.receipt !== ReceiptType.Request && (
+              <Tabs
+                value={preview.receipt}
+                onValueChange={(receipt) =>
+                  onPreviewChange({
+                    ...preview,
+                    receipt: receipt as ReceiptKind,
+                  })
+                }
+                dir="rtl"
+              >
+                <TabsList className="h-auto gap-1 rounded-[10px] bg-[#f6f1e7] p-1">
+                  <TabsTrigger
+                    value={ReceiptType.Sales}
+                    className={switchTriggerClass}
+                  >
+                    فاکتور
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value={ReceiptType.Delivery}
+                    className={switchTriggerClass}
+                  >
+                    رسید تحویل بار
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
+            )}
+            <Button
+              onClick={handlePrint}
+              size="sm"
+              className="bg-gray-800 hover:bg-gray-900 gap-1.5 hover:cursor-pointer h-7 px-2.5 text-xs"
+            >
+              <Printer className="w-3.5 h-3.5" />
+              چاپ
+            </Button>
+          </div>
         </DialogHeader>
         <div className="flex-1 overflow-auto px-6 py-4">
-          {open === ReceiptType.Sales && <SalesInvoice data={invoiceData} />}
-          {open === ReceiptType.Delivery && <Delivery data={invoiceData} />}
-          {open === ReceiptType.Request && (
-            <RequestProduct data={invoiceData} />
+          {preview?.receipt === ReceiptType.Sales && (
+            <SalesInvoice invoice={preview.invoice} />
           )}
+          {preview?.receipt === ReceiptType.Delivery && (
+            <Delivery invoice={preview.invoice} />
+          )}
+          {preview?.receipt === ReceiptType.Request &&
+            preview.invoice.kind === 'stone' && (
+              <RequestProduct data={preview.invoice.data} />
+            )}
         </div>
       </DialogContent>
     </Dialog>
