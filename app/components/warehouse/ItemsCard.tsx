@@ -16,8 +16,8 @@ import {
   selectOpenItemId,
   useWarehouseStore,
 } from '~/store/warehouse/useWarehouse';
-import WarehouseTable from './table/WarehouseTable';
-import type { WarehouseColumn } from './table/types';
+import DataTable from '../data-table/DataTable';
+import type { DataTableColumn } from '../data-table/types';
 
 const PAGE_SIZE = 20;
 
@@ -28,7 +28,7 @@ interface ItemsCardProps<T extends ListItem> {
   // Singular noun for the items
   noun: string;
   items: T[];
-  columns: WarehouseColumn<T>[];
+  columns: DataTableColumn<T>[];
   // Text searched alongside the code, if the items have one.
   nameOf: (item: T) => string;
   // Enables the category filter when given.
@@ -155,7 +155,7 @@ export default function ItemsCard<T extends ListItem>({
             <p className="text-sm">هیچ موردی یافت نشد</p>
           </div>
         ) : (
-          <WarehouseTable
+          <DataTable
             columns={columns}
             items={paginatedItems}
             firstRowNumber={(currentPage - 1) * PAGE_SIZE + 1}

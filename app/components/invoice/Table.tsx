@@ -1,7 +1,7 @@
 import type React from 'react';
 import { Table, TableBody, TableCell, TableRow } from '../ui/table';
 import { InvoiceTableHeader } from './TableHeader';
-import { useInvoiceStore } from '~/store/useInvoiceStore';
+import { useStoneInvoice } from '~/store/useInvoiceForm';
 import Row from './TableRow';
 import {
   convertToPersianDigits,
@@ -12,10 +12,10 @@ import { Button } from '../ui/button';
 import { Plus } from 'lucide-react';
 
 export default function InvoiceTable(): React.ReactNode {
-  const addItem = useInvoiceStore((state) => state.addItem);
-  const items = useInvoiceStore((state) => state.items);
-  const updateItem = useInvoiceStore((state) => state.updateItem);
-  const removeItem = useInvoiceStore((state) => state.removeItem);
+  const addItem = useStoneInvoice((state) => state.addItem);
+  const items = useStoneInvoice((state) => state.items);
+  const updateItem = useStoneInvoice((state) => state.updateItem);
+  const removeItem = useStoneInvoice((state) => state.removeItem);
 
   return (
     <Table className="w-full">
@@ -41,7 +41,7 @@ export default function InvoiceTable(): React.ReactNode {
 }
 
 function Footer({ addItem }: { addItem: () => void }): React.ReactNode {
-  const totals = useInvoiceStore((state) => state.totals);
+  const totals = useStoneInvoice((state) => state.totals);
   return (
     <TableRow className="w-full flex flex-row bg-slate-100 font-semibold text-slate-800">
       <TableCell className="w-[34%] border border-slate-300 p-2 text-center flex flex-row items-center justify-center">

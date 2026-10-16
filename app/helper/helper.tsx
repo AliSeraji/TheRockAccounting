@@ -1,6 +1,6 @@
-import type { InvoiceDataType, ServiceItem, StoneItem } from '~/store/types';
+import type { InvoiceDataType, ServiceItem } from '~/store/types';
 
-export function receiptPager(data: InvoiceDataType, itemsPerPage: number) {
+export function receiptPager<I>(data: { items: I[] }, itemsPerPage: number) {
   const totalPages = Math.ceil(data.items.length / itemsPerPage);
   return Array.from({ length: totalPages }, (_, pageIndex) => {
     const startIndex = pageIndex * itemsPerPage;
@@ -24,8 +24,8 @@ export function printableServices(services: ServiceItem[]): ServiceItem[] {
 // Rows taken by the services table's header and footer when it shares a page with the items table
 const SERVICES_TABLE_OVERHEAD = 3;
 
-export interface SalesReceiptPageData {
-  items: StoneItem[];
+export interface SalesReceiptPageData<I> {
+  items: I[];
   startIndex: number;
   services: ServiceItem[];
   serviceStartIndex: number;
@@ -34,12 +34,12 @@ export interface SalesReceiptPageData {
   isLastPage: boolean;
 }
 
-export function salesReceiptPager(
-  data: InvoiceDataType,
+export function salesReceiptPager<I>(
+  data: { items: I[]; services: ServiceItem[] },
   rowsPerPage: number
-): SalesReceiptPageData[] {
+): SalesReceiptPageData<I>[] {
   const services = printableServices(data.services);
-  const pages: SalesReceiptPageData[] = [];
+  const pages: SalesReceiptPageData<I>[] = [];
   let itemIndex = 0;
   let serviceIndex = 0;
 

@@ -10,17 +10,17 @@ import {
 } from '~/components/ui/pagination';
 import { cn, convertToPersianDigits } from '~/lib/utils';
 
-export interface WarehousePaginationProps {
+export interface TablePaginationProps {
   currentPage: number;
   totalPages: number;
   setCurrentPage: (page: number) => void;
 }
 
-export default function WarehousePagination({
+export default function TablePagination({
   currentPage,
   totalPages,
   setCurrentPage,
-}: WarehousePaginationProps): ReactNode {
+}: TablePaginationProps): ReactNode {
   const pages = useMemo(() => {
     const items: (number | 'ellipsis')[] = [];
     if (totalPages <= 7) {

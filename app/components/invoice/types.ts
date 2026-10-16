@@ -14,3 +14,6 @@ export const INVOICE_ROW_FIELDS = {
 
 export type InvoiceRowField =
   (typeof INVOICE_ROW_FIELDS)[keyof typeof INVOICE_ROW_FIELDS];
+
+// A warehouse entry offered by StoneCodeInput and StoneTypeInput.
+export type StoneSuggestion = { id: number; code: string; name: string };

@@ -1,26 +1,25 @@
 import { Fragment, memo, type ReactNode } from 'react';
 import { cn, convertToPersianDigits } from '~/lib/utils';
-import { EMPTY } from '../format';
-import { rowStateClass } from './TableRow';
-import type { MobileRole, WarehouseColumn, WarehouseRowItem } from './types';
+import { EMPTY } from './constants';
+import { rowStateClass } from './DataTableRow';
+import type { DataTableColumn, DataTableItem, MobileRole } from './types';
 
-interface WarehouseMobileCardProps<T extends WarehouseRowItem> {
+interface DataTableCardProps<T extends DataTableItem> {
   item: T;
   rowNumber: number;
-  columns: WarehouseColumn<T>[];
+  columns: DataTableColumn<T>[];
   isSelected: boolean;
   isFlagged: boolean;
   flagLabel?: string;
   onSelect: (item: T) => void;
 }
 
-const roleOf = <T extends WarehouseRowItem>(
-  col: WarehouseColumn<T>
-): MobileRole => col.mobile ?? 'stat';
+const roleOf = <T extends DataTableItem>(col: DataTableColumn<T>): MobileRole =>
+  col.mobile ?? 'stat';
 
 // Mobile replacement for a table row: the same columns, stacked into a card
 // so nothing needs horizontal scrolling.
-function WarehouseMobileCard<T extends WarehouseRowItem>({
+function DataTableCard<T extends DataTableItem>({
   item,
   rowNumber,
   columns,
@@ -28,7 +27,7 @@ function WarehouseMobileCard<T extends WarehouseRowItem>({
   isFlagged,
   flagLabel,
   onSelect,
-}: WarehouseMobileCardProps<T>): ReactNode {
+}: DataTableCardProps<T>): ReactNode {
   const withRole = (role: MobileRole) =>
     columns
       .filter((col) => roleOf(col) === role)
@@ -93,7 +92,7 @@ function WarehouseMobileCard<T extends WarehouseRowItem>({
           <span
             key={col.key}
             dir="ltr"
-            className="shrink-0 whitespace-nowrap rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-[11.5px] text-slate-500"
+            className="shrink-0 whitespace-nowrap rounded-md bg-slate-100 px-1.5 py-0.5 font-vazirmatn text-[11.5px] text-slate-500"
           >
             {value}
           </span>
@@ -129,4 +128,4 @@ function WarehouseMobileCard<T extends WarehouseRowItem>({
 }
 
 // memo drops the generic signature, so cast it back.
-export default memo(WarehouseMobileCard) as typeof WarehouseMobileCard;
+export default memo(DataTableCard) as typeof DataTableCard;

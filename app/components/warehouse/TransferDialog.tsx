@@ -84,7 +84,7 @@ export default function TransferDialog({
             انتقال به {sectionTitle(to)}
           </DialogTitle>
           <DialogDescription className="text-brand-900">
-            {item.name} <span className="font-mono">({item.code})</span>
+            {item.name} <span className="font-vazirmatn">({item.code})</span>
           </DialogDescription>
         </DialogHeader>
 

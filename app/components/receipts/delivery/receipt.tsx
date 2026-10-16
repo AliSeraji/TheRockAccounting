@@ -3,21 +3,28 @@ import InfoBox from './InfoBox';
 import { Note } from './Note';
 import ReceiptHeader from './ReceiptHeader';
 import { Signature } from './Signature';
-import ReceiptTable from './Table';
-import { type ReceiptProps } from './../../invoice/common';
+import type { InvoiceFormData } from '~/store/types';
 import { convertToPersianDigits } from '~/lib/utils';
 import { AdditionalNote } from './AdditionalNote';
 
+interface ReceiptPageProps {
+  data: InvoiceFormData;
+  // This page's part of the items table.
+  itemsTable: React.ReactNode;
+  pageNumber: number;
+  totalPages: number;
+  logo: string | null;
+  companyName: string;
+}
+
 export default function ReceiptPage({
   data,
-  items,
-  startIndex,
-  isLastPage,
+  itemsTable,
   pageNumber,
   totalPages,
   logo,
   companyName,
-}: ReceiptProps): React.ReactNode {
+}: ReceiptPageProps): React.ReactNode {
   return (
     <div
       className="receipt-page receipt-page-a5 bg-white mx-auto shadow-2xl print:shadow-none flex flex-col overflow-hidden *:shrink-0"
@@ -41,12 +48,7 @@ export default function ReceiptPage({
         address={data.address}
       />
 
-      <ReceiptTable
-        items={items}
-        startIndex={startIndex}
-        isLastPage={isLastPage}
-        totalArea={data.totals.totalArea}
-      />
+      {itemsTable}
 
       <AdditionalNote additionalNote={data.secondAdditionalNote} />
 

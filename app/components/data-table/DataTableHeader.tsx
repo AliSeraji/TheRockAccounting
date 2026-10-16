@@ -1,15 +1,15 @@
 import type { ReactNode } from 'react';
 import { TableHeader, TableRow, TableHead } from '~/components/ui/table';
 import { cn } from '~/lib/utils';
-import type { WarehouseColumn, WarehouseRowItem } from './types';
+import type { DataTableColumn, DataTableItem } from './types';
 
 const headClass =
   'flex flex-row justify-center text-right px-4 py-3 font-medium whitespace-nowrap';
 
-export default function WarehouseTableHeader<T extends WarehouseRowItem>({
+export default function DataTableHeader<T extends DataTableItem>({
   columns,
 }: {
-  columns: WarehouseColumn<T>[];
+  columns: DataTableColumn<T>[];
 }): ReactNode {
   return (
     <TableHeader>

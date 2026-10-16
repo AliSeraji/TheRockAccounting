@@ -91,12 +91,11 @@ const Row = memo(function Row({
       </TableCell>
       <TableCell className="w-[9%] border-x-[0.5px] border-slate-200 p-1">
         <StoneCodeInput
-          id={rowItem.id}
-          field={INVOICE_ROW_FIELDS.STONE_CODE}
+          suggestions={stones}
           value={convertToPersianDigits(
             String(rowItem[INVOICE_ROW_FIELDS.STONE_CODE])
           )}
-          onChange={(_id, _field, value) =>
+          onChange={(value) =>
             updateStone(INVOICE_ROW_FIELDS.STONE_CODE, value)
           }
         />
@@ -104,12 +103,11 @@ const Row = memo(function Row({
       <TableCell className="w-[15%] border-x-[0.5px] border-slate-200 p-1">
         <StoneTypeInput
           ref={inputRef}
+          suggestions={stones}
           value={convertToPersianDigits(
             String(rowItem[INVOICE_ROW_FIELDS.STONE_TYPE])
           )}
-          id={rowItem.id}
-          field={INVOICE_ROW_FIELDS.STONE_TYPE}
-          onChange={(_id, _field, value) =>
+          onChange={(value) =>
             updateStone(INVOICE_ROW_FIELDS.STONE_TYPE, value)
           }
         />

@@ -1,26 +1,22 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import type { InvoiceRowField } from './types';
+import type { StoneSuggestion } from './types';
 import { Popover, PopoverTrigger } from '../ui/popover';
 import { Input } from '../ui/input';
-import {
-  selectInvoiceStones,
-  useWarehouseStore,
-} from '~/store/warehouse/useWarehouse';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { cn } from '~/lib/utils';
 
 interface StoneCodeInputProps {
   value: string;
-  id: number;
-  field: InvoiceRowField;
-  onChange: (id: number, field: InvoiceRowField, value: string) => void;
+  suggestions: StoneSuggestion[];
+  onChange: (value: string) => void;
+  ref?: React.Ref<HTMLInputElement>;
 }
 
 export default function StoneCodeInput({
   value,
-  id,
-  field,
+  suggestions,
   onChange,
+  ref,
 }: StoneCodeInputProps): ReactNode {
   const [open, setOpen] = useState(false);
   const [highlighted, setHighlighted] = useState(0);
@@ -29,18 +25,17 @@ export default function StoneCodeInput({
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const stones = useWarehouseStore(selectInvoiceStones);
 
   const query = value.trim();
 
   const options = useMemo(
     () =>
       query
-        ? stones.filter((stone) =>
+        ? suggestions.filter((stone) =>
             stone.code.toLowerCase().includes(query.toLowerCase())
           )
-        : stones,
-    [stones, query]
+        : suggestions,
+    [suggestions, query]
   );
 
   const updateScrollHints = () => {
@@ -59,7 +54,7 @@ export default function StoneCodeInput({
   }, [open, options]);
 
   const select = (option: string) => {
-    onChange(id, field, option);
+    onChange(option);
     setOpen(false);
   };
 
@@ -87,10 +82,14 @@ export default function StoneCodeInput({
   return (
     <PopoverTrigger>
       <Input
-        ref={inputRef}
+        ref={(el) => {
+          inputRef.current = el;
+          if (typeof ref === 'function') ref(el);
+          else if (ref) ref.current = el;
+        }}
         value={value}
         onChange={(e) => {
-          onChange(id, field, e.target.value);
+          onChange(e.target.value);
           setHighlighted(0);
           setOpen(true);
         }}

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { WarehouseStore } from './types';
+import type { BlockItem, WarehouseStore } from './types';
 import { createStonesSlice } from './sections/stones';
 import { createBlocksSlice } from './sections/blocks';
 import { createMiscSlice } from './sections/misc';
@@ -26,3 +26,9 @@ export const useWarehouseStore = create<WarehouseStore>()((...state) => ({
 
 // Invoices may only draw stock from the main warehouse.
 export const selectInvoiceStones = (state: WarehouseStore) => state.stones.main;
+
+const NO_BLOCKS: BlockItem[] = [];
+
+// Block invoices draw from the block warehouse while it is enabled.
+export const selectInvoiceBlocks = (state: WarehouseStore) =>
+  state.enabled.block ? state.blocks : NO_BLOCKS;

@@ -2,25 +2,19 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Popover, PopoverTrigger } from '../ui/popover';
 import { Input } from '../ui/input';
-import {
-  selectInvoiceStones,
-  useWarehouseStore,
-} from '~/store/warehouse/useWarehouse';
-import type { InvoiceRowField } from './types';
+import type { StoneSuggestion } from './types';
 import { cn } from '~/lib/utils';
 
 interface StoneTypeInputProps {
   value: string;
-  id: number;
-  field: InvoiceRowField;
-  onChange: (id: number, field: InvoiceRowField, value: string) => void;
-  ref: React.Ref<HTMLInputElement> | null;
+  suggestions: StoneSuggestion[];
+  onChange: (value: string) => void;
+  ref?: React.Ref<HTMLInputElement>;
 }
 
 export default function StoneTypeInput({
   value,
-  id,
-  field,
+  suggestions,
   onChange,
   ref,
 }: StoneTypeInputProps): React.ReactNode {
@@ -31,18 +25,17 @@ export default function StoneTypeInput({
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const stones = useWarehouseStore(selectInvoiceStones);
 
   const query = value.trim();
 
   const options = useMemo(
     () =>
       query
-        ? stones.filter((stone) =>
+        ? suggestions.filter((stone) =>
             stone.name.toLowerCase().includes(query.toLowerCase())
           )
-        : stones,
-    [stones, query]
+        : suggestions,
+    [suggestions, query]
   );
 
   const updateScrollHints = () => {
@@ -61,7 +54,7 @@ export default function StoneTypeInput({
   }, [open, options]);
 
   const select = (option: string) => {
-    onChange(id, field, option);
+    onChange(option);
     setOpen(false);
   };
 
@@ -96,7 +89,7 @@ export default function StoneTypeInput({
         }}
         value={value}
         onChange={(e) => {
-          onChange(id, field, e.target.value);
+          onChange(e.target.value);
           setHighlighted(0);
           setOpen(true);
         }}

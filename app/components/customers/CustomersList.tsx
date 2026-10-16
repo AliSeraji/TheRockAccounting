@@ -12,13 +12,18 @@ import {
 } from '../ui/select';
 import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
 import { useCustomersStore } from '~/store/customers/useCustomers';
+import DataTable from '../data-table/DataTable';
+import { customerColumns } from './columns';
 import { ACCOUNT_ROLE_OPTIONS } from './constants';
-import CustomersTable from './table/CustomersTable';
 
 const PAGE_SIZE = 20;
 
 export default function CustomersList(): ReactNode {
   const customers = useCustomersStore((state) => state.customers);
+  const selectedId = useCustomersStore((state) => state.selectedCustomer.id);
+  const setSelectedCustomer = useCustomersStore(
+    (state) => state.setSelectedCustomer
+  );
   const [search, setSearch] = useState('');
   const [filterRole, setFilterRole] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -112,8 +117,12 @@ export default function CustomersList(): ReactNode {
             <p className="text-sm">هیچ شخصی یافت نشد</p>
           </div>
         ) : (
-          <CustomersTable
-            customers={paginated}
+          <DataTable
+            columns={customerColumns}
+            items={paginated}
+            firstRowNumber={(currentPage - 1) * PAGE_SIZE + 1}
+            selectedId={selectedId}
+            onSelect={setSelectedCustomer}
             currentPage={currentPage}
             totalPages={totalPages}
             setCurrentPage={setCurrentPage}

@@ -1,8 +1,7 @@
 import * as React from 'react';
 import {
   FileText,
-  Search,
-  Printer,
+  Mountain,
   ArchiveRestore,
   ClipboardList,
   FileOutput,
@@ -22,28 +21,16 @@ export const RECEIPT_SECTIONS: ReceiptSectionDescriptor[] = [
     iconName: 'FileText',
   },
   {
-    id: 'search',
-    title: 'جستجوی فاکتور',
-    desc: 'جستجو در فاکتورهای صادر شده',
-    iconName: 'Search',
-  },
-  {
-    id: 'print',
-    title: 'چاپ فاکتور',
-    desc: 'چاپ و خروجی فاکتورها',
-    iconName: 'Printer',
+    id: 'block',
+    title: 'فاکتور کوپ سنگ',
+    desc: 'صدور فاکتور فروش کوپ سنگ',
+    iconName: 'Mountain',
   },
   {
     id: 'list',
     title: 'لیست فاکتورها',
-    desc: 'مشاهده لیست کامل فاکتورها',
+    desc: 'جستجو، مشاهده و ویرایش فاکتورهای ثبت شده',
     iconName: 'ClipboardList',
-  },
-  {
-    id: 'export',
-    title: 'خروجی گزارش',
-    desc: 'دریافت خروجی و گزارش از فاکتورها',
-    iconName: 'FileOutput',
   },
 ];
 
@@ -53,8 +40,7 @@ type IconComponent = React.FC<
 
 export const ICONS_BY_NAME: Record<string, IconComponent> = {
   FileText,
-  Search,
-  Printer,
+  Mountain,
   ArchiveRestore,
   ClipboardList,
   FileOutput,

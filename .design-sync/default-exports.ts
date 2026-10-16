@@ -25,10 +25,6 @@ export { default as BankSection } from '../app/components/customers/form/BankSec
 export { default as ContactSection } from '../app/components/customers/form/ContactSection';
 export { default as IdentitySection } from '../app/components/customers/form/IdentitySection';
 export { default as StatusSection } from '../app/components/customers/form/StatusSection';
-export { default as CustomersTable } from '../app/components/customers/table/CustomersTable';
-export { default as CustomersTableFooter } from '../app/components/customers/table/TableFooter';
-export { default as CustomersTableHeader } from '../app/components/customers/table/TableHeader';
-export { default as CustomersTableRow } from '../app/components/customers/table/TableRow';
 
 // Invoice
 export { default as InvoiceBody } from '../app/components/invoice/index';
@@ -46,11 +42,23 @@ export { default as InvoiceServices } from '../app/components/invoice/services/I
 export { default as ServiceRow } from '../app/components/invoice/services/ServiceRow';
 export { default as ServicesTable } from '../app/components/invoice/services/ServicesTable';
 export { default as ServiceTypeInput } from '../app/components/invoice/services/ServiceTypeInput';
+export { default as BlockInvoiceTable } from '../app/components/invoice/block/BlockTable';
+export { default as BlockInvoiceTableRow } from '../app/components/invoice/block/BlockTableRow';
+export { default as InvoiceActions } from '../app/components/invoice/InvoiceActions';
+
+// Invoice list
+export { default as InvoicesList } from '../app/components/invoices/InvoicesList';
+export { default as InvoiceDetails } from '../app/components/invoices/InvoiceDetails';
+export { default as InvoiceEditor } from '../app/components/invoices/InvoiceEditor';
+export { default as InvoiceViewHeader } from '../app/components/invoices/InvoiceViewHeader';
+export { default as InvoiceDetailsTable } from '../app/components/invoices/details/DetailsTable';
 
 // Receipt issue
 export { default as ReceiptIssueSidebar } from '../app/components/receipt_issue/Tablist/index';
 export { default as ReceiptIssueMobileTablist } from '../app/components/receipt_issue/Tablist/mobile';
 export { default as ReceiptIssueInvoiceSection } from '../app/components/receipt_issue/sections/InvoiceSection';
+export { default as ReceiptIssueBlockInvoiceSection } from '../app/components/receipt_issue/sections/BlockInvoiceSection';
+export { default as ReceiptIssueInvoicesSection } from '../app/components/receipt_issue/sections/InvoicesSection';
 export { default as PlaceholderSection } from '../app/components/receipt_issue/sections/PlaceholderSection';
 
 // Receipts: delivery
@@ -60,6 +68,7 @@ export { default as InfoBox } from '../app/components/receipts/delivery/InfoBox'
 export { default as ReceiptHeader } from '../app/components/receipts/delivery/ReceiptHeader';
 export { default as ReceiptPage } from '../app/components/receipts/delivery/receipt';
 export { default as ReceiptTable } from '../app/components/receipts/delivery/Table';
+export { default as BlockDeliveryTable } from '../app/components/receipts/delivery/BlockTable';
 
 // Receipts: dialogs
 export { default as ReceiptOutputDialog } from '../app/components/receipts/dialogs/receiptOutputDialog';
@@ -89,6 +98,7 @@ export { default as SalesReceiptsPage } from '../app/components/receipts/sales/S
 export { default as SalesServicesTable } from '../app/components/receipts/sales/ServicesTable';
 export { default as SalesSignature } from '../app/components/receipts/sales/Signature';
 export { default as SalesTable } from '../app/components/receipts/sales/Table';
+export { default as BlockSalesTable } from '../app/components/receipts/sales/BlockTable';
 export { default as SalesTableBody } from '../app/components/receipts/sales/TableBody';
 export { default as SalesTableFooter } from '../app/components/receipts/sales/Footer';
 export { default as SalesTableHeader } from '../app/components/receipts/sales/TableHeader';
@@ -118,9 +128,11 @@ export { default as TransferDialog } from '../app/components/warehouse/TransferD
 export { default as WarehouseGate } from '../app/components/warehouse/WarehouseGate';
 export { default as WarehouseTablist } from '../app/components/warehouse/Tablist';
 export { default as WarehouseMobileTablist } from '../app/components/warehouse/Tablist/mobile';
-export { default as WarehouseTable } from '../app/components/warehouse/table/WarehouseTable';
-export { default as WarehouseTableFooter } from '../app/components/warehouse/table/TableFooter';
-export { default as WarehouseTableHeader } from '../app/components/warehouse/table/TableHeader';
-export { default as WarehouseTableRow } from '../app/components/warehouse/table/TableRow';
-export { default as WarehouseMobileCard } from '../app/components/warehouse/table/MobileCard';
-export { default as WarehousePagination } from '../app/components/warehouse/table/Pagination';
+
+// Data table
+export { default as DataTable } from '../app/components/data-table/DataTable';
+export { default as DataTableFooter } from '../app/components/data-table/DataTableFooter';
+export { default as DataTableHeader } from '../app/components/data-table/DataTableHeader';
+export { default as DataTableRow } from '../app/components/data-table/DataTableRow';
+export { default as DataTableCard } from '../app/components/data-table/DataTableCard';
+export { default as TablePagination } from '../app/components/data-table/TablePagination';

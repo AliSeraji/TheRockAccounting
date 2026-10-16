@@ -1,12 +1,12 @@
 import { memo, type ReactNode } from 'react';
 import { TableRow, TableCell } from '~/components/ui/table';
 import { cn, convertToPersianDigits } from '~/lib/utils';
-import type { WarehouseColumn, WarehouseRowItem } from './types';
+import type { DataTableColumn, DataTableItem } from './types';
 
-interface WarehouseTableRowProps<T extends WarehouseRowItem> {
+interface DataTableRowProps<T extends DataTableItem> {
   item: T;
   rowNumber: number;
-  columns: WarehouseColumn<T>[];
+  columns: DataTableColumn<T>[];
   isSelected: boolean;
   // Highlights rows that need attention, such as negative stock.
   isFlagged: boolean;
@@ -30,7 +30,7 @@ export const rowStateClass = (
     : 'bg-white hover:bg-brand-50';
 };
 
-function WarehouseTableRow<T extends WarehouseRowItem>({
+function DataTableRow<T extends DataTableItem>({
   item,
   rowNumber,
   columns,
@@ -38,13 +38,13 @@ function WarehouseTableRow<T extends WarehouseRowItem>({
   isFlagged,
   flagLabel,
   onSelect,
-}: WarehouseTableRowProps<T>): ReactNode {
+}: DataTableRowProps<T>): ReactNode {
   return (
     <TableRow
       onClick={() => onSelect(item)}
       title={isFlagged ? flagLabel : undefined}
       className={cn(
-        'flex flex-row w-full rounded-xl cursor-pointer border-0 transition-[background-color,box-shadow] duration-150',
+        'flex flex-row w-full max-h-11.5 rounded-xl cursor-pointer border-0 transition-[background-color,box-shadow] duration-150',
         rowStateClass(isSelected, isFlagged)
       )}
     >
@@ -64,4 +64,4 @@ function WarehouseTableRow<T extends WarehouseRowItem>({
 }
 
 // memo drops the generic signature, so cast it back.
-export default memo(WarehouseTableRow) as typeof WarehouseTableRow;
+export default memo(DataTableRow) as typeof DataTableRow;

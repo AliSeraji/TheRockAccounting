@@ -1,19 +1,19 @@
 import type { ReactNode } from 'react';
 import { Table, TableBody, TableFooter as TFoot } from '~/components/ui/table';
-import WarehouseTableHeader from './TableHeader';
-import WarehouseTableRow from './TableRow';
-import TableFooter from './TableFooter';
-import WarehouseMobileCard from './MobileCard';
-import WarehousePagination from './Pagination';
+import DataTableHeader from './DataTableHeader';
+import DataTableRow from './DataTableRow';
+import DataTableFooter from './DataTableFooter';
+import DataTableCard from './DataTableCard';
+import TablePagination from './TablePagination';
 import { useIsMobile } from '~/hooks/use-mobile';
-import type { WarehouseColumn, WarehouseRowItem } from './types';
+import type { DataTableColumn, DataTableItem } from './types';
 
-interface WarehouseTableProps<T extends WarehouseRowItem> {
-  columns: WarehouseColumn<T>[];
+interface DataTableProps<T extends DataTableItem> {
+  columns: DataTableColumn<T>[];
   items: T[];
   // Row number of the first item, so numbering continues across pages.
   firstRowNumber: number;
-  selectedId: number | null;
+  selectedId?: number | null;
   onSelect: (item: T) => void;
   isFlagged?: (item: T) => boolean;
   flagLabel?: string;
@@ -22,7 +22,7 @@ interface WarehouseTableProps<T extends WarehouseRowItem> {
   setCurrentPage: (page: number) => void;
 }
 
-export default function WarehouseTable<T extends WarehouseRowItem>({
+export default function DataTable<T extends DataTableItem>({
   columns,
   items,
   firstRowNumber,
@@ -33,7 +33,7 @@ export default function WarehouseTable<T extends WarehouseRowItem>({
   currentPage,
   totalPages,
   setCurrentPage,
-}: WarehouseTableProps<T>): ReactNode {
+}: DataTableProps<T>): ReactNode {
   const isMobile = useIsMobile();
 
   // Phones get stacked cards without a header instead of a wide table.
@@ -41,7 +41,7 @@ export default function WarehouseTable<T extends WarehouseRowItem>({
     return (
       <div className="flex flex-col gap-2 p-2 text-sm">
         {items.map((item, idx) => (
-          <WarehouseMobileCard
+          <DataTableCard
             key={item.id}
             item={item}
             rowNumber={firstRowNumber + idx}
@@ -54,7 +54,7 @@ export default function WarehouseTable<T extends WarehouseRowItem>({
         ))}
         {totalPages > 1 && (
           <div className="border-t border-slate-200 pt-3 pb-1">
-            <WarehousePagination
+            <TablePagination
               currentPage={currentPage}
               totalPages={totalPages}
               setCurrentPage={setCurrentPage}
@@ -67,10 +67,10 @@ export default function WarehouseTable<T extends WarehouseRowItem>({
 
   return (
     <Table className="flex flex-col w-[unset] text-sm">
-      <WarehouseTableHeader columns={columns} />
+      <DataTableHeader columns={columns} />
       <TableBody className="w-full flex flex-col gap-2 p-2">
         {items.map((item, idx) => (
-          <WarehouseTableRow
+          <DataTableRow
             key={item.id}
             item={item}
             rowNumber={firstRowNumber + idx}
@@ -83,7 +83,7 @@ export default function WarehouseTable<T extends WarehouseRowItem>({
         ))}
       </TableBody>
       <TFoot>
-        <TableFooter
+        <DataTableFooter
           currentPage={currentPage}
           totalPages={totalPages}
           setCurrentPage={setCurrentPage}

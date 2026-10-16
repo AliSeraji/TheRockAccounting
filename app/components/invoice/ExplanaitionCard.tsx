@@ -1,18 +1,18 @@
 import type React from 'react';
-import { useInvoiceStore } from '~/store/useInvoiceStore';
+import { useInvoiceForm } from '~/store/useInvoiceForm';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Label } from '../ui/label';
 import { BulletTextarea } from '../ui/BulletTextarea';
 
 export default function ExplanationCard(): React.ReactNode {
-  const secondAdditionalNote = useInvoiceStore(
+  const secondAdditionalNote = useInvoiceForm(
     (state) => state.secondAdditionalNote
   );
-  const setSecondAdditionalNote = useInvoiceStore(
+  const setSecondAdditionalNote = useInvoiceForm(
     (state) => state.setSecondAdditionalNote
   );
-  const additionalNote = useInvoiceStore((state) => state.additionalNote);
-  const setAdditionalNote = useInvoiceStore((state) => state.setAdditionalNote);
+  const additionalNote = useInvoiceForm((state) => state.additionalNote);
+  const setAdditionalNote = useInvoiceForm((state) => state.setAdditionalNote);
 
   return (
     <Card className="border-slate-200 bg-white/90 backdrop-blur lg:col-span-2">
@@ -36,6 +36,7 @@ export default function ExplanationCard(): React.ReactNode {
             توضیحات (نمایش در رسید تحویل)
           </Label>
           <BulletTextarea
+          
             value={secondAdditionalNote}
             onValueChange={setSecondAdditionalNote}
             className="border-slate-200 focus:ring-slate-400 focus-visible:ring-offset-0 min-h-20"
