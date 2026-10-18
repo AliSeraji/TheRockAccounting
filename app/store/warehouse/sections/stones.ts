@@ -1,17 +1,17 @@
 import type { StateCreator } from 'zustand';
 import type { StoneStockItem, StonesSlice, WarehouseStore } from '../types';
 import seed from '../../../dummy_data/stones.json';
+import { newId } from '~/lib/id';
 import {
   TRANSFER_TARGET,
   calcStoneArea,
   formatQuantity,
-  nextId,
   normalizeCode,
   parseQuantity,
 } from '../helpers';
 
 export const emptyStone: StoneStockItem = {
-  id: -1,
+  id: '',
   code: '',
   category: '',
   name: '',
@@ -28,11 +28,12 @@ export const emptyStone: StoneStockItem = {
   date: '',
 };
 
-// The seed only carries identity fields; everything else starts empty.
+// The seed only carries identity fields; everything else starts empty. Its
+// ids are fixed rather than random so the server and client renders agree.
 const seedStones: StoneStockItem[] = seed.map(
   ({ code, category, name, notes }, index) => ({
     ...emptyStone,
-    id: index + 1,
+    id: String(index + 1),
     code,
     category,
     name,
@@ -49,7 +50,7 @@ export const createStonesSlice: StateCreator<
   stones: { main: seedStones, secondary: [] },
   addStone: (warehouse, item) => {
     const { stones } = get();
-    const id = nextId(stones[warehouse]);
+    const id = newId();
     set({
       stones: {
         ...stones,
@@ -107,10 +108,7 @@ export const createStonesSlice: StateCreator<
               ? withQuantity(i, parseQuantity(i.quantity) + moved)
               : i
           )
-        : [
-            ...stones[to],
-            { ...withQuantity(source, moved), id: nextId(stones[to]) },
-          ];
+        : [...stones[to], { ...withQuantity(source, moved), id: newId() }];
 
       return { stones: { ...stones, [from]: fromItems, [to]: toItems } };
     }),

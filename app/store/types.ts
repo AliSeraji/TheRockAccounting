@@ -1,5 +1,8 @@
 export interface StoneItem {
   id: number;
+  // Id of the main-warehouse stone this row was picked from; '' when typed
+  // in freely. Codes can be edited or reused, so stock is linked by id.
+  stockId: string;
   stoneType: string;
   stoneCode: string;
   thickness: string;
@@ -23,6 +26,8 @@ export interface ServiceItem {
 // A quarried block on a block invoice. Blocks are sold by volume.
 export interface BlockInvoiceItem {
   id: number;
+  // Id of the warehouse block this row was picked from; '' when typed in.
+  stockId: string;
   blockCode: string;
   blockType: string;
   length: string;

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-export type DataTableItem = { id: number };
+export type DataTableItem = { id: string };
 
 // Where a column's value goes on the mobile card:
 // title/badge/code in the card header, meta on the line under the title,

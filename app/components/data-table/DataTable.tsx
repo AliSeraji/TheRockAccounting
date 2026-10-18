@@ -13,7 +13,7 @@ interface DataTableProps<T extends DataTableItem> {
   items: T[];
   // Row number of the first item, so numbering continues across pages.
   firstRowNumber: number;
-  selectedId?: number | null;
+  selectedId?: string | null;
   onSelect: (item: T) => void;
   isFlagged?: (item: T) => boolean;
   flagLabel?: string;

@@ -43,7 +43,7 @@ export default function InvoiceTable(): React.ReactNode {
 function Footer({ addItem }: { addItem: () => void }): React.ReactNode {
   const totals = useStoneInvoice((state) => state.totals);
   return (
-    <TableRow className="w-full flex flex-row bg-slate-100 font-semibold text-slate-800">
+    <TableRow className="w-full flex flex-row font-semibold text-slate-800 [&>td:not(:last-child)]:bg-slate-100">
       <TableCell className="w-[34%] border border-slate-300 p-2 text-center flex flex-row items-center justify-center">
         جمع فاکتور
       </TableCell>
@@ -58,7 +58,7 @@ function Footer({ addItem }: { addItem: () => void }): React.ReactNode {
       <TableCell className="w-[18%] border border-slate-300 p-2 text-center flex flex-row items-center justify-center">
         {formatRialAmount(convertToPersianDigits(totals.totalAmount)) || '-'}
       </TableCell>
-      <TableCell className="w-[5%] border border-slate-300 p-2 flex flex-row items-center justify-center">
+      <TableCell className="w-[5%] border-0 p-2 flex flex-row items-center justify-center">
         <Button
           onClick={addItem}
           size="xs"

@@ -12,7 +12,7 @@ type Saved = Extract<SaveResult, { ok: true }>;
 // asks first. Render the returned `dialogs` once.
 export function useInvoiceSaver(
   key: InvoiceStoreKey,
-  id: number | undefined,
+  id: string | undefined,
   onSaved: (saved: Saved) => void
 ): { save: () => void; dialogs: ReactNode } {
   const saveInvoice = useInvoicesStore((state) => state.saveInvoice);

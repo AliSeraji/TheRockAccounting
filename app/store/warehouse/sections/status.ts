@@ -8,13 +8,13 @@ export const createStatusSlice: StateCreator<
   [],
   StatusSlice
 > = (set) => ({
-  // Optional warehouses start off and are enabled when the user needs them.
+  // Every warehouse starts on; the optional ones can be switched off later.
   enabled: {
     main: true,
-    secondary: false,
-    block: false,
-    misc: false,
-    raw: false,
+    secondary: true,
+    block: true,
+    misc: true,
+    raw: true,
   },
   setWarehouseEnabled: (id, enabled) => {
     if (!canBeDisabled(id)) return;

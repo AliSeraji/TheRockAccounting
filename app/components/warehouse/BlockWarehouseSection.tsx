@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { emptyBlock, useWarehouseStore } from '~/store/warehouse/useWarehouse';
-import { deriveBlock } from '~/store/warehouse/helpers';
+import { deriveBlock, isNegativeVolume } from '~/store/warehouse/helpers';
 import { blockColumns } from './columns';
 import { blockFormFields } from './constants';
 import ItemsCard from './ItemsCard';
@@ -21,6 +21,8 @@ export default function BlockWarehouseSection(): ReactNode {
         items={items}
         columns={blockColumns}
         nameOf={(item) => item.name}
+        isFlagged={isNegativeVolume}
+        flagLabel="موجودی منفی"
       />
       <ItemDialog
         noun="کوپ"

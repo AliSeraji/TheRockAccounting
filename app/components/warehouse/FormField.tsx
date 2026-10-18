@@ -51,11 +51,7 @@ function FormField<K extends string>({
   const processNumber = (num: string, allowNegative: boolean): string => {
     let raw = normalize(num);
 
-    if (raw === '' || raw === '-') {
-      setLocalValue(null);
-      onChange(fieldKey, '-');
-      return '';
-    }
+    if (raw === '' || raw === '-') return '';
 
     if (raw === '.') raw = '0.';
     if (raw === '-.') raw = '-0.';

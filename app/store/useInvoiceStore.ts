@@ -17,6 +17,7 @@ import {
 const initialItems: StoneItem[] = [
   {
     id: 1,
+    stockId: '',
     stoneType: '',
     stoneCode: '',
     thickness: '',
@@ -66,6 +67,7 @@ const createStoneInvoiceStore = () =>
             ...state.items,
             {
               id: newId,
+              stockId: '',
               stoneType: '',
               stoneCode: '',
               thickness: '',

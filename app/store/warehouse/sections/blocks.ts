@@ -1,9 +1,9 @@
 import type { StateCreator } from 'zustand';
 import type { BlockItem, BlocksSlice, WarehouseStore } from '../types';
-import { nextId } from '../helpers';
+import { newId } from '~/lib/id';
 
 export const emptyBlock: BlockItem = {
-  id: -1,
+  id: '',
   code: '',
   name: '',
   length: '',
@@ -26,7 +26,7 @@ export const createBlocksSlice: StateCreator<
   blocks: [],
   addBlock: (item) => {
     const { blocks } = get();
-    const id = nextId(blocks);
+    const id = newId();
     set({ blocks: [...blocks, { ...item, id }] });
     return id;
   },

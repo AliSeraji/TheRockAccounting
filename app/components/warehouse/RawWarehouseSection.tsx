@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { emptyRaw, useWarehouseStore } from '~/store/warehouse/useWarehouse';
+import { isNegativeStock } from '~/store/warehouse/helpers';
 import { rawColumns } from './columns';
 import { rawFormFields } from './constants';
 import ItemsCard from './ItemsCard';
@@ -20,6 +21,8 @@ export default function RawWarehouseSection(): ReactNode {
         items={items}
         columns={rawColumns}
         nameOf={(item) => item.description}
+        isFlagged={isNegativeStock}
+        flagLabel="موجودی منفی"
       />
       <ItemDialog
         noun="ماده اولیه"

@@ -16,13 +16,13 @@ export const ACCENT: { from: string; to: string } = {
 export const RECEIPT_SECTIONS: ReceiptSectionDescriptor[] = [
   {
     id: 'invoice',
-    title: 'صدور فاکتور جدید',
+    title: 'صدور فاکتور سنگ',
     desc: 'ایجاد و صدور فاکتور جدید',
     iconName: 'FileText',
   },
   {
     id: 'block',
-    title: 'فاکتور کوپ سنگ',
+    title: ' صدور فاکتور کوپ سنگ',
     desc: 'صدور فاکتور فروش کوپ سنگ',
     iconName: 'Mountain',
   },

@@ -17,7 +17,8 @@ export type SaleRate =
   | 'قیمت ویژه';
 
 export type Customer = {
-  id: number;
+  // A UUID (`newId` in ~/lib/id). Empty while the customer is unsaved.
+  id: string;
   code: string;
   personType: PersonType;
   accountRole: AccountRole;
@@ -56,6 +57,6 @@ export interface CustomerState {
     value: string | boolean
   ) => void;
   addCustomer: (customer: Customer) => void;
-  updateCustomer: (id: number, customer: Customer) => void;
-  removeCustomer: (id: number) => void;
+  updateCustomer: (id: string, customer: Customer) => void;
+  removeCustomer: (id: string) => void;
 }

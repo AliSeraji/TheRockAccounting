@@ -1,9 +1,9 @@
 import type { StateCreator } from 'zustand';
 import type { MiscItem, MiscSlice, WarehouseStore } from '../types';
-import { nextId } from '../helpers';
+import { newId } from '~/lib/id';
 
 export const emptyMisc: MiscItem = {
-  id: -1,
+  id: '',
   description: '',
   quantity: '',
   price: '',
@@ -21,7 +21,7 @@ export const createMiscSlice: StateCreator<
   misc: [],
   addMisc: (item) => {
     const { misc } = get();
-    const id = nextId(misc);
+    const id = newId();
     set({ misc: [...misc, { ...item, id }] });
     return id;
   },

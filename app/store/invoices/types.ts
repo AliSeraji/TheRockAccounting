@@ -1,7 +1,8 @@
 import type { InvoiceKind, InvoiceSnapshot } from '../types';
 
 export type SavedInvoice = InvoiceSnapshot & {
-  id: number;
+  // A UUID (`newId` in ~/lib/id)
+  id: string;
   // ISO timestamps
   createdAt: string;
   updatedAt: string;
@@ -11,8 +12,8 @@ export type SavedInvoice = InvoiceSnapshot & {
 // being edited.
 export type InvoiceListView =
   | { mode: 'list' }
-  | { mode: 'view'; id: number }
-  | { mode: 'edit'; id: number };
+  | { mode: 'view'; id: string }
+  | { mode: 'edit'; id: string };
 
 export interface InvoiceFilters {
   search: string;
@@ -22,7 +23,7 @@ export interface InvoiceFilters {
 }
 
 export type SaveResult =
-  | { ok: true; id: number; invoiceNumber: string }
+  | { ok: true; id: string; invoiceNumber: string }
   | { ok: false; problems: string[] };
 
 export interface InvoicesStore {
@@ -35,11 +36,11 @@ export interface InvoicesStore {
 
   // Adds `invoice` to the list, or replaces the invoice `id` when editing.
   // A blank invoice number takes the next one from the numbering settings.
-  saveInvoice: (invoice: InvoiceSnapshot, id?: number) => SaveResult;
+  saveInvoice: (invoice: InvoiceSnapshot, id?: string) => SaveResult;
   openList: () => void;
-  openInvoice: (id: number) => void;
+  openInvoice: (id: string) => void;
   // Loads the invoice into its kind's editor store. Sales invoices are locked.
-  startEditing: (id: number) => void;
+  startEditing: (id: string) => void;
   setFilters: (filters: Partial<InvoiceFilters>) => void;
   setPage: (page: number) => void;
 }
