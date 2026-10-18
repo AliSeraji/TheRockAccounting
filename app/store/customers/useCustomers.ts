@@ -86,13 +86,26 @@ const initialCustomers: Customer[] = [
 const initialState = {
   customers: initialCustomers,
   selectedCustomer: emptyCustomer,
+  dialogOpen: false,
 };
 
 export const useCustomersStore = create<CustomerState>((set, get) => ({
   ...initialState,
 
-  setSelectedCustomer: (customer: Customer) =>
-    set({ selectedCustomer: customer }),
+  openCustomer: (customer: Customer) =>
+    set({ selectedCustomer: customer, dialogOpen: true }),
+
+  openNewCustomer: () =>
+    set((state) => ({
+      selectedCustomer: {
+        ...emptyCustomer,
+        code: nextCustomerCode(state.customers),
+      },
+      dialogOpen: true,
+    })),
+
+  closeDialog: () =>
+    set({ selectedCustomer: emptyCustomer, dialogOpen: false }),
 
   updateSelectedCustomer: (field, value) => {
     const { selectedCustomer } = get();

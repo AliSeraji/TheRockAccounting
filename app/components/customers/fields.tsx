@@ -160,7 +160,7 @@ export const SelectField = memo(function SelectField({
 }: SelectFieldProps): ReactNode {
   return (
     <FieldShell label={label} required={required} error={error} hint={hint}>
-      <Select value={value || undefined} onValueChange={onChange}>
+      <Select value={value} onValueChange={onChange}>
         <SelectTrigger
           dir="rtl"
           disabled={disabled}
