@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-"Rock Fact" (package `rock-fact`): a Persian (Farsi), RTL accounting front end for a stone business. It covers sales invoices and printable receipts, customers, warehouse stock and company settings. It is a React Router 7 framework-mode app (SSR on) built with React 19, Tailwind v4, shadcn/ui (Radix) and Zustand. There is **no backend yet**: no loaders or actions, no persistence. All data lives in in-memory Zustand stores, plus `app/dummy_data/stones.json`.
+"Rock Fact" (package `rock-fact`): a Persian (Farsi), RTL accounting front end for a stone business. It covers stone and block (کوپ) invoices with a saved-invoice list, printable receipts, customers, multi-warehouse stock and company settings. It is a React Router 7 framework-mode app (SSR on) built with React 19, Tailwind v4, shadcn/ui (Radix) and Zustand. There is **no backend yet**: no loaders or actions, no persistence, so a reload loses everything. All data lives in in-memory Zustand stores. `app/dummy_data/stones.json` seeds the main warehouse (`store/warehouse/sections/stones.ts`).
 
 ## Commands
 
@@ -24,12 +24,30 @@ There is no test runner and no linter. Use `yarn typecheck` to verify changes. `
 ## Architecture
 
 - **Routing** is configured in `app/routes.ts`, not by file-system routes. Path strings live in `app/routes/constants.ts`, and some of them (CARGO, REPORTS, …) have no route yet. `app/root.tsx` renders the global `Header`, an `<Outlet />` and the sonner `Toaster`. Route modules are thin and compose components from `app/components/<feature>/`.
-- **State** uses one Zustand store per feature under `app/store/`:
-  - `useInvoiceStore.ts`: the invoice being edited (stone items, services, discount/tax/received). Setters that affect money call `computeTotals` (`store/helper.ts`) and store the `totals`. `getInvoiceData()` returns the snapshot the receipts render from.
-  - `settings/useSettingStore.ts`: a sliced store. Each `settings/sections/*.ts` is a `StateCreator<SettingStore, …>` spread into one `create()`. To add a settings area, add a slice and extend `SettingStore` in `settings/types.ts`.
-  - `receipt_issue/`, `customers/`, `warehouse/`: per-page stores.
-  - Page-level components take no props and read stores directly.
-- **Tabbed pages** (receipt issue at `/issue_receipt`, settings) follow one pattern. A `common.tsx` holds a `*_SECTIONS` descriptor array with id, title, desc and a lucide `iconName`. A store holds the active section. `Tablist/index.tsx` (desktop) and `Tablist/mobile.tsx` are switched by `useIsMobile()`. The route maps section ids to components and animates between them with `motion`. Most receipt-issue sections are still `PlaceholderSection`.
+- **State** uses Zustand stores under `app/store/`. Page-level components take no props and read stores directly. Large stores are **sliced**: each `sections/*.ts` file is a `StateCreator` spread into one `create()`, and the combined type is an intersection in `types.ts`. Both `settings/useSettingStore.ts` and `warehouse/useWarehouse.ts` work this way. To add an area, add a slice and extend the store type.
+
+### Invoices
+
+- There are two invoice kinds (`InvoiceKind = 'stone' | 'block'` in `store/types.ts`). Each kind has a store factory that is instantiated twice: a **draft** for the creation tab (`useInvoiceStore`, `useBlockInvoiceStore`) and an **editor** for a saved invoice opened from the list (`stoneInvoiceEditor`, `blockInvoiceEditor`).
+- `store/invoiceFormSlice.ts` holds what both kinds share: header fields, notes, services, discount/tax/received. It takes a `withTotals` callback, so each kind recomputes its own totals (`computeTotals` / `computeBlockTotals` in `store/helper.ts`) whenever a money field changes. Each kind's store adds `items`, its own `updateItem` (stone: area = w×l×qty; block: volume via `calcBlockVolume`, priced per m³), `getInvoiceData`, `loadInvoice` and `resetInvoice`.
+- `store/useInvoiceForm.ts` decides which store a component edits. `InvoiceStoreContext` carries an `InvoiceStoreKey` (`{ kind, mode }`, default stone/draft). Shared cards (`components/invoice/*`) read through `useInvoiceForm(selector)`. Kind-specific tables use `useStoneInvoice` / `useBlockInvoice`. Never import a store directly into a shared invoice card, or the editor view will edit the draft. `readInvoice`, `loadInvoice` and `resetInvoice` act on a key from outside React.
+- `components/invoice/index.tsx` (`InvoiceBody`) composes the cards. Its `itemsTable` prop swaps the stone `Table` for `invoice/block/BlockTable`.
+- **Saved invoices** live in `store/invoices/useInvoicesStore.ts`. `saveInvoice(snapshot, id?)` validates with `invoiceProblems`, assigns the next number from the numbering settings when the number field is blank, and strips blank rows (`finalizeInvoice`). The store also holds the list tab's view (`list | view | edit`), filters and page. A `فاکتور فروش` (sales invoice) is **locked** after saving (`isLocked`). Only `پیش فاکتور` (pre-invoices) can be edited. `components/invoices/useInvoiceSaver.tsx` wraps saving with the error and lock-confirmation dialogs.
+- Invoice rows pick stock from the warehouse store: `selectInvoiceStones` (main warehouse only) and `selectInvoiceBlocks` (empty while the block warehouse is disabled).
+
+### Warehouse
+
+- `/warehouse` has five warehouses (`WarehouseId`): `main` and `secondary` (stone, transfers between them merge by code), `block`, `misc` and `raw`. `main` can never be disabled. The others can be switched off through `enabled`, and `WarehouseGate` hides a disabled warehouse's content without deleting its items.
+- One `editor` slice (`closed | view | edit | create`) drives the item dialog for whichever warehouse is on screen.
+
+### Tabbed pages and tables
+
+- **Tabbed pages** (receipt issue at `/issue_receipt`, warehouse, settings) follow one pattern. A `common.tsx` holds a `*_SECTIONS` descriptor array with id, title, desc and a lucide `iconName`. A store holds the active section. `Tablist/index.tsx` (desktop) and `Tablist/mobile.tsx` are switched by `useIsMobile()`. The route maps section ids to components in `SECTION_COMPONENTS` and animates between them with `motion`. The receipt-issue tabs are `invoice` (stone draft), `block` (block draft, wrapped in `InvoiceStoreContext`) and `list` (`InvoicesSection`: list, detail or editor).
+- **Lists** (customers, warehouse, invoices) use the generic `components/data-table/DataTable`. Each feature defines `DataTableColumn<T>[]` in its own `columns.tsx`. The `mobile` role on each column places its value on the stacked card that replaces the table on phones.
+- Confirmation and error dialogs across features reuse `components/warehouse/Alert.tsx` (`variant`, `onConfirm`).
+
+### Printing and platform
+
 - **Printing**: `components/receipts/{sales,delivery,request}` render paginated A4/A5 pages (`receipt-page receipt-page-a4|a5`) inside a `.print-receipt` wrapper. `receipts/dialogs/receiptOutputDialog.tsx` clones that node, injects a temporary `@media print` stylesheet and calls `window.print()`. Pagination helpers are in `app/helper/helper.tsx` (`receiptPager`, `salesReceiptPager`, which lets services share the last items page).
 - **Client-only code**: SSR is on, so browser-only libraries go in `*.client.tsx` files and load via `React.lazy`. `invoice/PersianDatePicker.client.tsx` is an example.
 - `components/ui/` is shadcn (new-york style, config in `components.json`). Add primitives with the shadcn CLI rather than by hand.
