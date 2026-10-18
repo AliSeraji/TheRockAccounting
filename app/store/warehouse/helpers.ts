@@ -59,14 +59,15 @@ export const deriveBlock = (
     ? { ...item, volume: calcBlockVolume(item) }
     : item;
 
-export const nextId = (items: { id: number }[]): number =>
-  items.reduce((max, item) => Math.max(max, item.id), 0) + 1;
-
 export const parseQuantity = (quantity: string): number =>
   parseFloat(quantity) || 0;
 
 export const isNegativeStock = (item: { quantity: string }): boolean =>
   parseQuantity(item.quantity) < 0;
+
+// Blocks are stocked by volume, so a negative volume is their shortfall.
+export const isNegativeVolume = (item: { volume: string }): boolean =>
+  parseQuantity(item.volume) < 0;
 
 // Round away float noise (0.1 + 0.2) before storing as a string.
 export const formatQuantity = (quantity: number): string =>

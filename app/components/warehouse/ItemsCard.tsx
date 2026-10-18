@@ -21,7 +21,7 @@ import type { DataTableColumn } from '../data-table/types';
 
 const PAGE_SIZE = 20;
 
-type ListItem = { id: number; code?: string };
+type ListItem = { id: string; code?: string };
 
 interface ItemsCardProps<T extends ListItem> {
   title: string;

@@ -18,8 +18,8 @@ interface WarehouseGateProps {
   children: ReactNode;
 }
 
-// Adds the active/inactive switch to optional warehouses and hides their
-// content while they are switched off.
+// Shows a switch-off toggle above an active optional warehouse. While it is
+// switched off, only a card with the enable button is shown.
 export default function WarehouseGate({
   warehouse,
   itemCount,
@@ -45,15 +45,16 @@ export default function WarehouseGate({
 
   return (
     <div className="flex flex-col gap-4">
-      <ToggleRow
-        label={`وضعیت ${title}: ${enabled ? 'فعال' : 'غیرفعال'}`}
-        hint="انبارهای غیر از انبار اصلی را می‌توانید هر زمان که لازم بود فعال یا غیرفعال کنید."
-        checked={enabled}
-        onCheckedChange={(next) => (next ? enable() : setConfirmDisable(true))}
-      />
-
       {enabled ? (
-        children
+        <>
+          <ToggleRow
+            label={`وضعیت ${title}: فعال`}
+            hint="انبارهای غیر از انبار اصلی را می‌توانید هر زمان که لازم بود غیرفعال کنید."
+            checked
+            onCheckedChange={(next) => !next && setConfirmDisable(true)}
+          />
+          {children}
+        </>
       ) : (
         <Card className="w-full border-amber-300 bg-amber-50/70 mb-6">
           <CardContent className="flex flex-col items-center gap-4 py-12 text-center">

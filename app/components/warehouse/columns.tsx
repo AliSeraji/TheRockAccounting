@@ -5,10 +5,18 @@ import type {
   StoneStockItem,
 } from '~/store/warehouse/types';
 import { convertToPersianDigits } from '~/lib/utils';
-import { isNegativeStock } from '~/store/warehouse/helpers';
+import { parseQuantity } from '~/store/warehouse/helpers';
 import { categoryColors } from './constants';
 import { EMPTY, formatNumber, formatPrice } from './format';
 import type { DataTableColumn } from '../data-table/types';
+
+// Stock that has gone below zero is shown in bold red.
+const renderStock = (value: string) =>
+  parseQuantity(value) < 0 ? (
+    <span className="font-bold text-red-700">{formatNumber(value)}</span>
+  ) : (
+    formatNumber(value)
+  );
 
 function CategoryBadge({ category }: { category: string }) {
   return (
@@ -72,14 +80,7 @@ export const stoneColumns: DataTableColumn<StoneStockItem>[] = [
     key: 'quantity',
     label: 'تعداد',
     width: 'w-[8%]',
-    render: (item) =>
-      isNegativeStock(item) ? (
-        <span className="font-bold text-red-700">
-          {formatNumber(item.quantity)}
-        </span>
-      ) : (
-        formatNumber(item.quantity)
-      ),
+    render: (item) => renderStock(item.quantity),
   },
   {
     key: 'area',
@@ -145,7 +146,7 @@ export const blockColumns: DataTableColumn<BlockItem>[] = [
     key: 'volume',
     label: 'مترمکعب',
     width: 'w-[9%]',
-    render: (item) => formatNumber(item.volume),
+    render: (item) => renderStock(item.volume),
   },
   {
     key: 'price',
@@ -177,7 +178,7 @@ export const miscColumns: DataTableColumn<MiscItem>[] = [
     key: 'quantity',
     label: 'تعداد',
     width: 'w-[12%]',
-    render: (item) => formatNumber(item.quantity),
+    render: (item) => renderStock(item.quantity),
   },
   {
     key: 'price',
@@ -209,7 +210,7 @@ export const rawColumns: DataTableColumn<RawItem>[] = [
     key: 'quantity',
     label: 'تعداد',
     width: 'w-[15%]',
-    render: (item) => formatNumber(item.quantity),
+    render: (item) => renderStock(item.quantity),
   },
   {
     key: 'purchasePrice',

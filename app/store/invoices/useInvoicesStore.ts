@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { newId } from '~/lib/id';
 import { useSettingsStore } from '../settings/useSettingStore';
 import { loadInvoice } from '../useInvoiceForm';
 import type { InvoicesStore, SavedInvoice } from './types';
@@ -51,16 +52,14 @@ export const useInvoicesStore = create<InvoicesStore>((set, get) => ({
       return { ok: true, id: existing.id, invoiceNumber };
     }
 
-    const newId =
-      invoices.reduce((max, saved) => Math.max(max, saved.id), 0) + 1;
     const added: SavedInvoice = {
       ...finalized,
-      id: newId,
+      id: newId(),
       createdAt: now,
       updatedAt: now,
     };
     set({ invoices: [added, ...invoices] });
-    return { ok: true, id: newId, invoiceNumber };
+    return { ok: true, id: added.id, invoiceNumber };
   },
 
   openList: () => set({ view: { mode: 'list' } }),

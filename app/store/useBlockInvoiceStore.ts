@@ -16,6 +16,7 @@ import { calcBlockVolume } from './warehouse/helpers';
 
 const emptyItem = (id: number): BlockInvoiceItem => ({
   id,
+  stockId: '',
   blockCode: '',
   blockType: '',
   length: '',

@@ -15,5 +15,5 @@ export const createEditorSlice: StateCreator<
 });
 
 // Id of the item open in the dialog, used to highlight its table row.
-export const selectOpenItemId = ({ editor }: WarehouseStore): number | null =>
+export const selectOpenItemId = ({ editor }: WarehouseStore): string | null =>
   editor.mode === 'view' || editor.mode === 'edit' ? editor.id : null;

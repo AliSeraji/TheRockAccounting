@@ -2,7 +2,7 @@ import { create } from 'zustand/react';
 import type { Customer, CustomerState } from './types';
 
 export const emptyCustomer: Customer = {
-  id: -1,
+  id: '',
   code: '',
   personType: 'حقیقی',
   accountRole: 'مشتری',
@@ -33,7 +33,7 @@ export const emptyCustomer: Customer = {
 const initialCustomers: Customer[] = [
   {
     ...emptyCustomer,
-    id: 1,
+    id: '1',
     code: '1001',
     personType: 'حقوقی',
     accountRole: 'مشتری',
@@ -52,7 +52,7 @@ const initialCustomers: Customer[] = [
   },
   {
     ...emptyCustomer,
-    id: 2,
+    id: '2',
     code: '1002',
     firstName: 'رضا',
     lastName: 'محمدی',
@@ -69,7 +69,7 @@ const initialCustomers: Customer[] = [
   },
   {
     ...emptyCustomer,
-    id: 3,
+    id: '3',
     code: '1003',
     firstName: 'مریم',
     lastName: 'کریمی',
@@ -115,12 +115,12 @@ export const useCustomersStore = create<CustomerState>((set, get) => ({
   addCustomer: (customer: Customer) =>
     set((state) => ({ customers: [...state.customers, customer] })),
 
-  updateCustomer: (id: number, customer: Customer) =>
+  updateCustomer: (id: string, customer: Customer) =>
     set((state) => ({
       customers: state.customers.map((c) => (c.id === id ? customer : c)),
     })),
 
-  removeCustomer: (id: number) =>
+  removeCustomer: (id: string) =>
     set((state) => ({
       customers: state.customers.filter((c) => c.id !== id),
     })),

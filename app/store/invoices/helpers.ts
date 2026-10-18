@@ -61,7 +61,7 @@ const itemRows = (invoice: InvoiceSnapshot) =>
 export function invoiceProblems(
   invoice: InvoiceSnapshot,
   invoices: SavedInvoice[],
-  id?: number
+  id?: string
 ): string[] {
   const { data } = invoice;
   const problems: string[] = [];

@@ -144,8 +144,10 @@ export const blockFormFields: FormFieldConfig<BlockItem>[] = [
   {
     label: 'متراژ (مترمکعب)',
     key: 'volume',
-    type: FieldTypes.CALCULATED,
+    // Filled in from the dimensions, but editable so it can go below zero.
+    type: FieldTypes.NUMBER,
     placeholder: 'به مترمکعب',
+    allowNegative: true,
   },
   {
     label: 'قیمت',
@@ -175,6 +177,7 @@ export const miscFormFields: FormFieldConfig<MiscItem>[] = [
     type: FieldTypes.NUMBER,
     placeholder: 'تعداد موجود',
     required: true,
+    allowNegative: true,
   },
   {
     label: 'قیمت',
@@ -204,6 +207,7 @@ export const rawFormFields: FormFieldConfig<RawItem>[] = [
     type: FieldTypes.NUMBER,
     placeholder: 'تعداد موجود',
     required: true,
+    allowNegative: true,
   },
   {
     label: 'قیمت خرید',

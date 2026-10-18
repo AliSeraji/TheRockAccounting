@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { emptyMisc, useWarehouseStore } from '~/store/warehouse/useWarehouse';
+import { isNegativeStock } from '~/store/warehouse/helpers';
 import { miscColumns } from './columns';
 import { miscFormFields } from './constants';
 import ItemsCard from './ItemsCard';
@@ -20,6 +21,8 @@ export default function MiscWarehouseSection(): ReactNode {
         items={items}
         columns={miscColumns}
         nameOf={(item) => item.description}
+        isFlagged={isNegativeStock}
+        flagLabel="موجودی منفی"
       />
       <ItemDialog
         noun="کالا"

@@ -16,6 +16,7 @@ import { Textarea } from '../ui/textarea';
 import { Field, FieldLabel } from '../ui/field';
 import { Separator } from '../ui/separator';
 import { Alert } from '../warehouse/Alert';
+import { newId } from '~/lib/id';
 import { cn } from '~/lib/utils';
 import type { Customer, CustomerField } from '~/store/customers/types';
 import {
@@ -50,7 +51,7 @@ export default function CustomerForm(): ReactNode {
   const [openAlert, setAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
 
-  const isEditing = selectedCustomer.id !== -1;
+  const isEditing = selectedCustomer.id !== '';
   const isFormVisible = isEditing || formActive;
 
   const invalidFields = useMemo(
@@ -108,11 +109,9 @@ export default function CustomerForm(): ReactNode {
       updateCustomer(selectedCustomer.id, record);
       toast.success(`اطلاعات «${name}» با موفقیت ویرایش شد.`);
     } else {
-      const newId =
-        customers.length > 0 ? Math.max(...customers.map((c) => c.id)) + 1 : 1;
       addCustomer({
         ...record,
-        id: newId,
+        id: newId(),
         code: record.code || nextCustomerCode(customers),
       });
       toast.success(`شخص «${name}» با موفقیت ثبت شد.`);

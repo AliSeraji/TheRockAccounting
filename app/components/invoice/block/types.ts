@@ -10,6 +10,7 @@ export const BLOCK_ROW_FIELDS = {
   VOLUME: 'volume',
   PRICE: 'price',
   TOTAL: 'total',
+  STOCK_ID: 'stockId',
 } as const satisfies Record<string, keyof BlockInvoiceItem>;
 
 export type BlockRowField =

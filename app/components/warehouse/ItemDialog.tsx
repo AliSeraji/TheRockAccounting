@@ -25,7 +25,7 @@ const primaryButton =
 const footerClass = 'm-0 px-6 py-4 flex-row flex-wrap sm:justify-start';
 
 // `code` is optional: only warehouses that use codes get the uniqueness check.
-type DialogItem = { id: number; code?: string; notes: string; date: string };
+type DialogItem = { id: string; code?: string; notes: string; date: string };
 
 interface ItemDialogProps<T extends DialogItem> {
   // Singular noun for the items
@@ -37,9 +37,9 @@ interface ItemDialogProps<T extends DialogItem> {
   // Updates calculated fields after `field` changes.
   derive?: (item: T, field: keyof T) => T;
   // Returns the id assigned to the new item.
-  onAdd: (item: T) => number;
-  onUpdate: (id: number, item: T) => void;
-  onRemove: (id: number) => void;
+  onAdd: (item: T) => string;
+  onUpdate: (id: string, item: T) => void;
+  onRemove: (id: string) => void;
   // Extra buttons shown next to "Edit" while viewing an item.
   viewActions?: (item: T) => ReactNode;
 }
@@ -172,8 +172,8 @@ interface ItemFormProps<T extends DialogItem> {
   fields: FormFieldConfig<T>[];
   nameOf: (item: T) => string;
   derive?: (item: T, field: keyof T) => T;
-  onAdd: (item: T) => number;
-  onUpdate: (id: number, item: T) => void;
+  onAdd: (item: T) => string;
+  onUpdate: (id: string, item: T) => void;
   deleteButton: ReactNode;
 }
 

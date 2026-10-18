@@ -9,13 +9,13 @@ export function InvoiceTableHeader({
   items = invoiceTableItems,
 }: InvoiceTableHeaderProps): React.ReactNode {
   return (
-    <TableHeader className="w-full">
-      <TableRow className="w-full flex flex-row overflow-x-auto bg-slate-100 text-slate-800">
+    <TableHeader className="w-full [&_tr]:border-b-0">
+      <TableRow className="w-full flex flex-row overflow-x-auto text-slate-800">
         {items.map((item, index) => (
           <TableHead
             key={item.label || index}
             title={item.label}
-            className={`flex flex-row w-full h-full justify-center items-center border p-2.5 lg:p-3 border-slate-300 text-xs overflow-hidden text-ellipsis whitespace-nowrap ${item.width}`}
+            className={`flex flex-row w-full h-full justify-center items-center p-2.5 lg:p-3 text-xs overflow-hidden text-ellipsis whitespace-nowrap ${item.label?.trim() ? 'border border-slate-300 bg-slate-100' : 'border-0'} ${item.width}`}
           >
             <span className="block w-full text-center overflow-hidden text-ellipsis whitespace-nowrap">
               {item.label?.trim() ? item.label : '\u00A0'}

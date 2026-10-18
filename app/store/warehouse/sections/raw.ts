@@ -1,9 +1,9 @@
 import type { StateCreator } from 'zustand';
 import type { RawItem, RawSlice, WarehouseStore } from '../types';
-import { nextId } from '../helpers';
+import { newId } from '~/lib/id';
 
 export const emptyRaw: RawItem = {
-  id: -1,
+  id: '',
   description: '',
   quantity: '',
   purchasePrice: '',
@@ -18,7 +18,7 @@ export const createRawSlice: StateCreator<WarehouseStore, [], [], RawSlice> = (
   raw: [],
   addRaw: (item) => {
     const { raw } = get();
-    const id = nextId(raw);
+    const id = newId();
     set({ raw: [...raw, { ...item, id }] });
     return id;
   },

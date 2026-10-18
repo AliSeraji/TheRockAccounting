@@ -43,7 +43,7 @@ function Footer({ addService }: { addService: () => void }): React.ReactNode {
     (state) => state.totals.totalServicesAmount
   );
   return (
-    <TableRow className="w-full flex flex-row *:min-w-0 bg-slate-100 font-semibold text-slate-800">
+    <TableRow className="w-full flex flex-row *:min-w-0 font-semibold text-slate-800 [&>td:not(:last-child)]:bg-slate-100">
       <TableCell className="flex flex-row justify-center items-center w-[25%] border border-slate-300 p-2 text-center ">
         جمع خدمات
       </TableCell>
@@ -53,7 +53,7 @@ function Footer({ addService }: { addService: () => void }): React.ReactNode {
       <TableCell className="flex flex-row justify-center w-[20%] border border-slate-300 p-2 text-center items-center">
         {formatRialAmount(convertToPersianDigits(totalServicesAmount)) || '-'}
       </TableCell>
-      <TableCell className="flex flex-row justify-center items-center w-[5%] border border-slate-300 p-1 lg:p-2">
+      <TableCell className="flex flex-row justify-center items-center w-[5%] border-0 p-1 lg:p-2">
         <Button
           onClick={addService}
           size="xs"
