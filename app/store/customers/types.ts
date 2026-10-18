@@ -51,7 +51,11 @@ export type CustomerField = keyof Customer;
 export interface CustomerState {
   customers: Customer[];
   selectedCustomer: Customer;
-  setSelectedCustomer: (customer: Customer) => void;
+  // Kept apart from `selectedCustomer`: a new customer has no id yet.
+  dialogOpen: boolean;
+  openCustomer: (customer: Customer) => void;
+  openNewCustomer: () => void;
+  closeDialog: () => void;
   updateSelectedCustomer: (
     field: CustomerField,
     value: string | boolean

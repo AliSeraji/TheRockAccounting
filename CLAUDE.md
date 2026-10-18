@@ -21,6 +21,8 @@ yarn format:check
 
 There is no test runner and no linter. Use `yarn typecheck` to verify changes. `react-router build` prints "Error when using sourcemap…" warnings for `ui/field.tsx`, `ui/separator.tsx` and `ui/switch.tsx`. These are harmless.
 
+On a Windows checkout with `core.autocrlf=true`, git writes CRLF line endings while `.prettierrc` sets `endOfLine: lf`, so `yarn format:check` flags every file. To check formatting there, run `yarn prettier --check --end-of-line auto <files>`. Don't run `yarn format` to clear the warnings: it rewrites the line endings of every file.
+
 ## Architecture
 
 - **Routing** is configured in `app/routes.ts`, not by file-system routes. Path strings live in `app/routes/constants.ts`, and some of them (CARGO, REPORTS, …) have no route yet. `app/root.tsx` renders the global `Header`, an `<Outlet />` and the sonner `Toaster`. Route modules are thin and compose components from `app/components/<feature>/`.
@@ -44,7 +46,7 @@ There is no test runner and no linter. Use `yarn typecheck` to verify changes. `
 
 - **Tabbed pages** (receipt issue at `/issue_receipt`, warehouse, settings) follow one pattern. A `common.tsx` holds a `*_SECTIONS` descriptor array with id, title, desc and a lucide `iconName`. A store holds the active section. `Tablist/index.tsx` (desktop) and `Tablist/mobile.tsx` are switched by `useIsMobile()`. The route maps section ids to components in `SECTION_COMPONENTS` and animates between them with `motion`. The receipt-issue tabs are `invoice` (stone draft), `block` (block draft, wrapped in `InvoiceStoreContext`) and `list` (`InvoicesSection`: list, detail or editor).
 - **Lists** (customers, warehouse, invoices) use the generic `components/data-table/DataTable`. Each feature defines `DataTableColumn<T>[]` in its own `columns.tsx`. The `mobile` role on each column places its value on the stacked card that replaces the table on phones.
-- Confirmation and error dialogs across features reuse `components/warehouse/Alert.tsx` (`variant`, `onConfirm`).
+- Confirmation and error dialogs across features reuse `components/warehouse/Alert.tsx` (`variant`, `onConfirm`). Every delete asks for confirmation first with a `warning` Alert, as `warehouse/ItemDialog.tsx` and `customers/CustomerForm.tsx` do.
 
 ### Printing and platform
 
@@ -64,6 +66,7 @@ There is no test runner and no linter. Use `yarn typecheck` to verify changes. `
 - Tailwind v4 is configured in CSS only (`app/app.css`: `@theme`, `@utility`). There is no `tailwind.config`.
 - The theme **remaps `slate-*` and `gray-*` to warm tones** and adds a gold/bronze `brand-*` scale (and utilities such as `bg-gold-gradient`). Existing `slate-*` classes are intentionally beige/brown, not blue.
 - `--destructive-foreground` is undefined, so destructive buttons show dark text on red.
+- Tailwind v4 buttons use the default arrow cursor, so every clickable control needs `hover:cursor-pointer`. The shared dialog close button in `ui/dialog.tsx` has it.
 - Prettier: single quotes, semicolons, `trailingComma: es5`, width 80, LF line endings.
 
 ## Build tooling

@@ -7,10 +7,7 @@ import CustomersList from '~/components/customers/CustomersList';
 
 export default function Customers(): ReactNode {
   return (
-    <div
-      className="flex flex-col justify-center w-full h-full py-6 font-vazirmatn"
-      dir="rtl"
-    >
+    <div className="flex flex-col w-full h-full py-6 font-vazirmatn" dir="rtl">
       <PageHeader
         lastPage="داشبورد اصلی"
         currentPage="اشخاص و مشتریان"
@@ -19,9 +16,8 @@ export default function Customers(): ReactNode {
       />
 
       <div className="w-full flex flex-col items-center overflow-auto pt-16 gap-6 px-4">
-        <CustomerForm />
-
         <CustomersList />
+        <CustomerForm />
       </div>
     </div>
   );

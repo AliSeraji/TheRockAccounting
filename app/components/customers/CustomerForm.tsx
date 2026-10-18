@@ -1,15 +1,14 @@
 import { useCallback, useMemo, useState, type ReactNode } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import {
-  Pencil,
-  Plus,
-  Save,
-  Trash2,
-  UserPlus,
-  UsersRound,
-  X,
-} from 'lucide-react';
+import { Pencil, Save, Trash2, UsersRound, X } from 'lucide-react';
 import { toast } from 'sonner';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '../ui/dialog';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
@@ -20,7 +19,6 @@ import { newId } from '~/lib/id';
 import { cn } from '~/lib/utils';
 import type { Customer, CustomerField } from '~/store/customers/types';
 import {
-  emptyCustomer,
   nextCustomerCode,
   useCustomersStore,
 } from '~/store/customers/useCustomers';
@@ -36,9 +34,8 @@ const getCurrentTimestamp = () =>
 export default function CustomerForm(): ReactNode {
   const customers = useCustomersStore((state) => state.customers);
   const selectedCustomer = useCustomersStore((state) => state.selectedCustomer);
-  const setSelectedCustomer = useCustomersStore(
-    (state) => state.setSelectedCustomer
-  );
+  const dialogOpen = useCustomersStore((state) => state.dialogOpen);
+  const closeDialog = useCustomersStore((state) => state.closeDialog);
   const updateSelectedCustomer = useCustomersStore(
     (state) => state.updateSelectedCustomer
   );
@@ -46,13 +43,12 @@ export default function CustomerForm(): ReactNode {
   const updateCustomer = useCustomersStore((state) => state.updateCustomer);
   const removeCustomer = useCustomersStore((state) => state.removeCustomer);
 
-  const [formActive, setFormActive] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [openAlert, setAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   const isEditing = selectedCustomer.id !== '';
-  const isFormVisible = isEditing || formActive;
 
   const invalidFields = useMemo(
     () => formatErrors(selectedCustomer),
@@ -73,18 +69,8 @@ export default function CustomerForm(): ReactNode {
     [updateSelectedCustomer]
   );
 
-  const resetForm = () => {
-    setSelectedCustomer(emptyCustomer);
-    setFormActive(false);
-    setSubmitted(false);
-  };
-
-  const handleNew = () => {
-    setSelectedCustomer({
-      ...emptyCustomer,
-      code: nextCustomerCode(customers),
-    });
-    setFormActive(true);
+  const handleClose = () => {
+    closeDialog();
     setSubmitted(false);
   };
 
@@ -117,100 +103,51 @@ export default function CustomerForm(): ReactNode {
       toast.success(`شخص «${name}» با موفقیت ثبت شد.`);
     }
 
-    resetForm();
+    handleClose();
   };
 
   const handleDelete = () => {
     if (!isEditing) return;
     const name = selectedCustomer.businessName;
     removeCustomer(selectedCustomer.id);
-    resetForm();
+    handleClose();
     toast.error(`شخص «${name}» حذف شد.`);
   };
 
   return (
-    <Card
-      className={cn(
-        'w-full bg-white/90 backdrop-blur transition-colors',
-        isEditing
-          ? 'border-brand-400'
-          : formActive
-            ? 'border-brand-300'
-            : 'border-slate-200'
-      )}
-    >
-      <CardHeader
-        className={cn(
-          'rounded-t-lg border-b',
-          isEditing
-            ? 'bg-linear-to-r from-brand-200 to-slate-50 border-brand-300'
-            : formActive
-              ? 'bg-linear-to-r from-brand-100 to-slate-50 border-brand-200'
-              : 'bg-linear-to-r from-slate-100 to-slate-50 border-slate-200'
-        )}
+    <Dialog open={dialogOpen} onOpenChange={(open) => !open && handleClose()}>
+      <DialogContent
+        dir="rtl"
+        className="sm:max-w-5xl max-h-[90vh] flex flex-col gap-0 p-0 overflow-hidden font-vazirmatn"
       >
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex flex-col gap-1">
-            <CardTitle className="text-slate-800 font-semibold text-lg flex items-center gap-2">
-              {isEditing ? (
-                <>
-                  <Pencil className="w-5 h-5 text-brand-600" />
-                  ویرایش شخص
-                </>
-              ) : (
-                <>
-                  <UsersRound className="w-5 h-5 text-brand-600" />
-                  {formActive ? 'ثبت شخص جدید' : 'مدیریت اشخاص'}
-                </>
-              )}
-            </CardTitle>
-            {isEditing && (
-              <span className="text-sm text-brand-900">
-                {selectedCustomer.businessName} ({selectedCustomer.code})
-              </span>
-            )}
-          </div>
-
-          {isFormVisible && (
-            <div className="flex flex-wrap gap-2">
-              <Button
-                onClick={handleNew}
-                className="gap-2 bg-linear-to-r from-brand-700 to-brand-900 hover:from-brand-800 hover:to-brand-950 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
-              >
-                <Plus className="w-4 h-4" />
-                شخص جدید
-              </Button>
-              <Button
-                onClick={handleSave}
-                className="gap-2 bg-linear-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-slate-950 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
-              >
-                <Save className="w-4 h-4" />
-                ذخیره
-              </Button>
-              <Button
-                onClick={handleDelete}
-                disabled={!isEditing}
-                variant="destructive"
-                className="gap-2 hover:cursor-pointer disabled:opacity-40"
-              >
-                <Trash2 className="w-4 h-4" />
-                حذف
-              </Button>
-              <Button
-                onClick={resetForm}
-                variant="outline"
-                className="gap-2 border-slate-200 text-slate-600 hover:cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-                انصراف
-              </Button>
-            </div>
+        <DialogHeader
+          className={cn(
+            'px-6 pt-5 pb-4 pr-12 border-b',
+            isEditing
+              ? 'bg-linear-to-r from-brand-200 to-slate-50 border-brand-300'
+              : 'bg-linear-to-r from-brand-100 to-slate-50 border-brand-200'
           )}
-        </div>
-      </CardHeader>
+        >
+          <DialogTitle className="text-slate-800 font-semibold text-lg flex items-center gap-2">
+            {isEditing ? (
+              <>
+                <Pencil className="w-5 h-5 text-brand-600" />
+                ویرایش شخص
+              </>
+            ) : (
+              <>
+                <UsersRound className="w-5 h-5 text-brand-600" />
+                ثبت شخص جدید
+              </>
+            )}
+          </DialogTitle>
+          <DialogDescription className="text-brand-900">
+            {isEditing &&
+              `${selectedCustomer.businessName} (${selectedCustomer.code})`}
+          </DialogDescription>
+        </DialogHeader>
 
-      {isFormVisible ? (
-        <CardContent className="p-6 flex flex-col gap-6">
+        <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-4 gap-y-4">
             <Field>
               <FieldLabel className="text-slate-700 pr-2 text-xs lg:text-sm">
@@ -280,37 +217,54 @@ export default function CustomerForm(): ReactNode {
             errors={errors}
             onChange={handleChange}
           />
-        </CardContent>
-      ) : (
-        <CardContent className="p-12">
-          <div className="flex flex-col items-center justify-center text-center gap-4">
-            <UserPlus className="w-16 h-16 text-slate-300" />
-            <div className="space-y-2">
-              <p className="text-slate-500 text-lg font-medium">
-                هیچ شخصی انتخاب نشده
-              </p>
-              <p className="text-slate-400 text-sm">
-                یک شخص از جدول زیر انتخاب کنید یا شخص جدیدی ثبت کنید
-              </p>
-            </div>
-            <Button
-              onClick={handleNew}
-              className="gap-2 mt-2 bg-linear-to-r from-brand-700 to-brand-900 hover:from-brand-800 hover:to-brand-950 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
-            >
-              <Plus className="w-4 h-4" />
-              ثبت شخص جدید
-            </Button>
-          </div>
-        </CardContent>
-      )}
+        </div>
 
-      <Alert
-        open={openAlert}
-        set={setAlert}
-        title="اطلاعات ناقص است"
-        description={alertMessage}
-        variant="error"
-      />
-    </Card>
+        <DialogFooter className="m-0 px-6 py-4 flex-row flex-wrap sm:justify-start">
+          <Button
+            onClick={handleSave}
+            className="gap-2 bg-linear-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-slate-950 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
+          >
+            <Save className="w-4 h-4" />
+            ذخیره
+          </Button>
+          <Button
+            onClick={handleClose}
+            variant="outline"
+            className="gap-2 border-slate-200 text-slate-600 hover:cursor-pointer"
+          >
+            <X className="w-4 h-4" />
+            انصراف
+          </Button>
+          {isEditing && (
+            <Button
+              onClick={() => setConfirmDelete(true)}
+              variant="destructive"
+              className="gap-2 mr-auto hover:cursor-pointer"
+            >
+              <Trash2 className="w-4 h-4" />
+              حذف
+            </Button>
+          )}
+        </DialogFooter>
+
+        <Alert
+          open={openAlert}
+          set={setAlert}
+          title="اطلاعات ناقص است"
+          description={alertMessage}
+          variant="error"
+        />
+        <Alert
+          open={confirmDelete}
+          set={setConfirmDelete}
+          title="حذف شخص"
+          description={`آیا از حذف «${selectedCustomer.businessName}» مطمئن هستید؟ این عملیات قابل بازگشت نیست.`}
+          variant="warning"
+          cancelText="انصراف"
+          confirmText="حذف"
+          onConfirm={handleDelete}
+        />
+      </DialogContent>
+    </Dialog>
   );
 }
