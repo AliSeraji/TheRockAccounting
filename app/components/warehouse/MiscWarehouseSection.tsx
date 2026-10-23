@@ -25,6 +25,7 @@ export default function MiscWarehouseSection(): ReactNode {
         flagLabel="موجودی منفی"
       />
       <ItemDialog
+        warehouse="misc"
         noun="کالا"
         items={items}
         fields={miscFormFields}

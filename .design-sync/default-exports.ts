@@ -122,6 +122,7 @@ export { default as ItemDialog } from '../app/components/warehouse/ItemDialog';
 export { default as ItemsCard } from '../app/components/warehouse/ItemsCard';
 export { default as MiscWarehouseSection } from '../app/components/warehouse/MiscWarehouseSection';
 export { default as RawWarehouseSection } from '../app/components/warehouse/RawWarehouseSection';
+export { default as StockCard } from '../app/components/warehouse/StockCard';
 export { default as StoneItemDialog } from '../app/components/warehouse/StoneItemDialog';
 export { default as StoneWarehouseSection } from '../app/components/warehouse/StoneWarehouseSection';
 export { default as TransferDialog } from '../app/components/warehouse/TransferDialog';

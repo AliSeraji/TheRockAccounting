@@ -22,7 +22,6 @@ export default function StoneItemDialog({
   const addStone = useWarehouseStore((state) => state.addStone);
   const updateStone = useWarehouseStore((state) => state.updateStone);
   const removeStone = useWarehouseStore((state) => state.removeStone);
-  const closeEditor = useWarehouseStore((state) => state.closeEditor);
   const target = TRANSFER_TARGET[warehouse];
   const targetEnabled = useWarehouseStore((state) => state.enabled[target]);
   const targetTitle = WAREHOUSE_SECTIONS.find((s) => s.id === target)?.title;
@@ -59,6 +58,7 @@ export default function StoneItemDialog({
   return (
     <>
       <ItemDialog
+        warehouse={warehouse}
         noun="محصول"
         items={items}
         fields={stoneFormFields}
@@ -75,7 +75,6 @@ export default function StoneItemDialog({
           warehouse={warehouse}
           item={transferItem}
           onClose={() => setTransferItem(null)}
-          onFullTransfer={closeEditor}
         />
       )}
     </>

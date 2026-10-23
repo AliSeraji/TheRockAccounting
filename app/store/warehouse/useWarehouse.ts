@@ -4,6 +4,7 @@ import { createStonesSlice } from './sections/stones';
 import { createBlocksSlice } from './sections/blocks';
 import { createMiscSlice } from './sections/misc';
 import { createRawSlice } from './sections/raw';
+import { createMovementsSlice } from './sections/movements';
 import { createEditorSlice } from './sections/editor';
 import { createNavigationSlice } from './sections/navigation';
 import { createStatusSlice } from './sections/status';
@@ -19,6 +20,7 @@ export const useWarehouseStore = create<WarehouseStore>()((...state) => ({
   ...createBlocksSlice(...state),
   ...createMiscSlice(...state),
   ...createRawSlice(...state),
+  ...createMovementsSlice(...state),
   ...createEditorSlice(...state),
   ...createNavigationSlice(...state),
   ...createStatusSlice(...state),

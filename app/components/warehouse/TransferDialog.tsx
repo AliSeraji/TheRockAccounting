@@ -29,8 +29,6 @@ interface TransferDialogProps {
   warehouse: StoneWarehouseId;
   item: StoneStockItem;
   onClose: () => void;
-  // Called after a transfer that moved the whole quantity out of the row.
-  onFullTransfer: () => void;
 }
 
 // Mount only while open so the quantity resets for each transfer.
@@ -38,7 +36,6 @@ export default function TransferDialog({
   warehouse,
   item,
   onClose,
-  onFullTransfer,
 }: TransferDialogProps): ReactNode {
   const to = TRANSFER_TARGET[warehouse];
   const transferStone = useWarehouseStore((state) => state.transferStone);
@@ -69,7 +66,6 @@ export default function TransferDialog({
       `${formatNumber(String(amount))} عدد «${item.name}» به ${sectionTitle(to)} منتقل شد.`
     );
     onClose();
-    if (amount === available) onFullTransfer();
   };
 
   return (

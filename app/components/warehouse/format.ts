@@ -1,5 +1,6 @@
 import { format } from 'date-fns-jalali';
 import { convertToPersianDigits, formatRialAmount } from '~/lib/utils';
+import type { WarehouseId } from '~/store/warehouse/types';
 import { EMPTY } from '../data-table/constants';
 
 export { EMPTY };
@@ -10,6 +11,10 @@ const isolateNegative = (text: string): string =>
 
 export const formatNumber = (value: string): string =>
   value ? isolateNegative(convertToPersianDigits(value)) : EMPTY;
+
+// The unit a warehouse counts its stock in.
+export const stockUnit = (warehouse: WarehouseId): string =>
+  warehouse === 'block' ? 'مترمکعب' : 'عدد';
 
 export const formatPrice = (value: string): string =>
   value ? formatRialAmount(convertToPersianDigits(value)) : EMPTY;

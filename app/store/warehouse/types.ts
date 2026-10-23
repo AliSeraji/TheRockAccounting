@@ -3,6 +3,11 @@ export type StoneWarehouseId = 'main' | 'secondary';
 export type WarehouseId = StoneWarehouseId | 'block' | 'misc' | 'raw';
 
 // Item ids are UUIDs (`newId` in ~/lib/id). An empty id marks an unsaved item.
+//
+// Every warehouse slice treats stock (a block's volume) the same way: `add*`
+// logs the starting stock as an 'opening' movement, `update*` keeps the stored
+// stock (only `adjustStock` and transfers change it), and `remove*` leaves the
+// item's movements in the log.
 
 export type StoneStockItem = {
   id: string;
@@ -32,8 +37,9 @@ export interface StonesSlice {
     item: StoneStockItem
   ) => void;
   removeStone: (warehouse: StoneWarehouseId, id: string) => void;
-  // Moves `quantity` of an item to the paired warehouse, merging by code.
-  // Does nothing if either warehouse is disabled.
+  // Moves `quantity` of an item to the paired warehouse, merging by code, and
+  // logs it as a pair of 'transfer' movements. The source row stays, even at
+  // zero. Does nothing if either warehouse is disabled.
   transferStone: (from: StoneWarehouseId, id: string, quantity: number) => void;
 }
 
@@ -134,6 +140,21 @@ export type StockMovement = {
   date: string;
 };
 
+export interface MovementsSlice {
+  // Oldest first. Written only by the actions that change stock, in the same
+  // update as the item's quantity, so the two always agree.
+  movements: StockMovement[];
+  // Sets an item's stock (a block's volume) to `stock`, e.g. after counting
+  // it, and logs the difference as an 'adjustment' with `note` as its reason.
+  // Does nothing if the stock doesn't change or the warehouse is disabled.
+  adjustStock: (
+    warehouse: WarehouseId,
+    id: string,
+    stock: number,
+    note: string
+  ) => void;
+}
+
 // Which item the dialog shows. Only one warehouse is on screen at a time, so
 // a single editor serves all of them.
 export type ItemEditor =
@@ -165,6 +186,7 @@ export type WarehouseStore = StonesSlice &
   BlocksSlice &
   MiscSlice &
   RawSlice &
+  MovementsSlice &
   EditorSlice &
   NavigationSlice &
   StatusSlice;

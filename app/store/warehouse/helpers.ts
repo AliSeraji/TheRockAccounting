@@ -1,5 +1,7 @@
+import { newId } from '~/lib/id';
 import type {
   BlockItem,
+  StockMovement,
   StoneStockItem,
   StoneWarehouseId,
   WarehouseId,
@@ -25,6 +27,16 @@ export const calcStoneArea = ({
     parseFloat(quantity || '0');
   // A negative quantity gives a negative area, showing the shortfall.
   return Number.isFinite(area) && area !== 0 ? area.toFixed(2) : '0';
+};
+
+// A stone with a new quantity and the area to match.
+export const withStoneQuantity = (
+  item: StoneStockItem,
+  quantity: string,
+  date: string
+): StoneStockItem => {
+  const next = { ...item, quantity, date };
+  return { ...next, area: calcStoneArea(next) };
 };
 
 const AREA_INPUTS: (keyof StoneStockItem)[] = ['length', 'width', 'quantity'];
@@ -75,3 +87,31 @@ export const formatQuantity = (quantity: number): string =>
 
 export const normalizeCode = (code: string): string =>
   code.trim().toLowerCase();
+
+// A new log entry. Pass the same `date` to movements that belong together,
+// such as the two halves of a transfer.
+export const makeMovement = (
+  movement: Omit<StockMovement, 'id' | 'date'>,
+  date: string = new Date().toISOString()
+): StockMovement => ({ ...movement, id: newId(), date });
+
+// The 'opening' entry for a new item's starting stock; none when it starts at
+// zero.
+export const openingMovements = (
+  itemId: string,
+  warehouse: WarehouseId,
+  stock: string
+): StockMovement[] => {
+  const delta = formatQuantity(parseQuantity(stock));
+  if (delta === '0') return [];
+  return [
+    makeMovement({
+      itemId,
+      warehouse,
+      delta,
+      reason: 'opening',
+      ref: null,
+      note: '',
+    }),
+  ];
+};
