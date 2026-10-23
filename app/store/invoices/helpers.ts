@@ -66,7 +66,11 @@ export function invoiceProblems(
   const { data } = invoice;
   const problems: string[] = [];
 
-  if (!data.buyer.trim()) problems.push('نام خریدار وارد نشده است');
+  if (data.customerType === 'regular' && !data.customerId) {
+    problems.push('مشتری ثابت از لیست مشتریان انتخاب نشده است');
+  } else if (!data.buyer.trim()) {
+    problems.push('نام خریدار وارد نشده است');
+  }
   if (!data.invoiceDate) problems.push('تاریخ فاکتور انتخاب نشده است');
 
   // Row numbers match the table on screen, blank rows included.

@@ -38,6 +38,8 @@ export { default as PersianDatePicker } from '../app/components/invoice/PersianD
 export { default as PersianNumericInput } from '../app/components/invoice/PersianNumericInput';
 export { default as StoneCodeInput } from '../app/components/invoice/StoneCodeInput';
 export { default as StoneTypeInput } from '../app/components/invoice/StoneTypeInput';
+export { default as SuggestInput } from '../app/components/invoice/SuggestInput';
+export { default as BuyerInput } from '../app/components/invoice/BuyerInput';
 export { default as InvoiceServices } from '../app/components/invoice/services/InvoiceServices';
 export { default as ServiceRow } from '../app/components/invoice/services/ServiceRow';
 export { default as ServicesTable } from '../app/components/invoice/services/ServicesTable';

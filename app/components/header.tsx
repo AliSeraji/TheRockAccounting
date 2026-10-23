@@ -21,7 +21,7 @@ export default function Header(): ReactNode {
             </Link>
             <Link to={HOME}>
               <div className="text-md md:text-2xl font-bold bg-linear-to-r from-brand-900 via-brand-600 to-brand-900 bg-clip-text text-transparent hover:cursor-pointer">
-                نرم افزار مدریت و فروش سنگ
+                نرم افزار مدیریت و فروش سنگ
               </div>
             </Link>
           </div>

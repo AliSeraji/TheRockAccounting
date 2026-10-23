@@ -16,12 +16,13 @@ import { Field, FieldLabel } from '../ui/field';
 import { Separator } from '../ui/separator';
 import { Alert } from '../warehouse/Alert';
 import { newId } from '~/lib/id';
-import { cn } from '~/lib/utils';
+import { cn, convertToPersianDigits } from '~/lib/utils';
 import type { Customer, CustomerField } from '~/store/customers/types';
 import {
   nextCustomerCode,
   useCustomersStore,
 } from '~/store/customers/useCustomers';
+import { useInvoicesStore } from '~/store/invoices/useInvoicesStore';
 import IdentitySection from './form/IdentitySection';
 import ContactSection from './form/ContactSection';
 import BankSection from './form/BankSection';
@@ -47,6 +48,8 @@ export default function CustomerForm(): ReactNode {
   const [openAlert, setAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [confirmDelete, setConfirmDelete] = useState(false);
+  // Invoices that name the customer being deleted; > 0 blocks the delete.
+  const [invoiceCount, setInvoiceCount] = useState(0);
 
   const isEditing = selectedCustomer.id !== '';
 
@@ -104,6 +107,17 @@ export default function CustomerForm(): ReactNode {
     }
 
     handleClose();
+  };
+
+  // A customer on a saved invoice stays, so the invoice keeps its link.
+  const requestDelete = () => {
+    const count = useInvoicesStore
+      .getState()
+      .invoices.filter(
+        (invoice) => invoice.data.customerId === selectedCustomer.id
+      ).length;
+    if (count > 0) setInvoiceCount(count);
+    else setConfirmDelete(true);
   };
 
   const handleDelete = () => {
@@ -237,7 +251,7 @@ export default function CustomerForm(): ReactNode {
           </Button>
           {isEditing && (
             <Button
-              onClick={() => setConfirmDelete(true)}
+              onClick={requestDelete}
               variant="destructive"
               className="gap-2 mr-auto hover:cursor-pointer"
             >
@@ -263,6 +277,13 @@ export default function CustomerForm(): ReactNode {
           cancelText="انصراف"
           confirmText="حذف"
           onConfirm={handleDelete}
+        />
+        <Alert
+          open={invoiceCount > 0}
+          set={() => setInvoiceCount(0)}
+          title="حذف ممکن نیست"
+          description={`«${selectedCustomer.businessName}» در ${convertToPersianDigits(invoiceCount)} فاکتور ثبت شده است و حذف نمی‌شود. برای کنار گذاشتن این شخص، «حساب فعال» را خاموش کنید.`}
+          variant="error"
         />
       </DialogContent>
     </Dialog>

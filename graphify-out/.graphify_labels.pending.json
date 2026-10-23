@@ -1,0 +1,17 @@
+{
+  "1": "ItemDialog.tsx",
+  "5": "react",
+  "6": "useWarehouseStore",
+  "8": "store/types.ts",
+  "9": "warehouse/helpers.ts",
+  "10": "warehouse/columns.tsx",
+  "11": "default-exports.ts",
+  "12": "ServiceRow.tsx",
+  "14": "settings/common.tsx",
+  "15": "store/settings/types.ts",
+  "18": "useWarehouse.ts",
+  "19": "utils.ts",
+  "20": "InvoiceDataType",
+  "22": "invoice/common.tsx",
+  "24": "StockCard.tsx"
+}

@@ -16,6 +16,8 @@ import { isLocked } from '~/store/invoices/helpers';
 import type { SavedInvoice } from '~/store/invoices/types';
 import { useInvoicesStore } from '~/store/invoices/useInvoicesStore';
 import type { InvoiceFormData } from '~/store/types';
+import { useCustomersStore } from '~/store/customers/useCustomers';
+import { CUSTOMER_TYPE_LABELS } from './common';
 import InvoiceViewHeader from './InvoiceViewHeader';
 import DetailsTable from './details/DetailsTable';
 import {
@@ -130,6 +132,9 @@ export default function InvoiceDetails({
   const startEditing = useInvoicesStore((state) => state.startEditing);
   const [preview, setPreview] = useState<ReceiptPreview | null>(null);
   const { data } = invoice;
+  const customer = useCustomersStore((state) =>
+    state.customers.find((c) => c.id === data.customerId)
+  );
 
   return (
     <div className="w-full space-y-6">
@@ -166,12 +171,24 @@ export default function InvoiceDetails({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <Field label="عنوان" value={data.invoiceType} />
           <Field label="شماره فاکتور" value={data.invoiceNumber} />
+          <Field
+            label="نوع مشتری"
+            value={
+              customer
+                ? `${CUSTOMER_TYPE_LABELS[data.customerType]} (کد ${customer.code})`
+                : CUSTOMER_TYPE_LABELS[data.customerType]
+            }
+          />
           <Field label="نام شخص حقیقی / حقوقی" value={data.buyer} />
           <Field label="شناسه ملی / کد اقتصادی" value={data.nationalId} />
           <Field label="تاریخ" value={data.invoiceDate} />
           <Field label="پروژه" value={data.project} />
           <Field label="تلفن" value={data.phone} />
-          <Field label="آدرس" value={data.address} className="md:col-span-2" />
+          <Field
+            label="آدرس"
+            value={data.address}
+            className="md:col-span-2 lg:col-span-1"
+          />
         </div>
       </DetailCard>
 

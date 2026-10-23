@@ -13,7 +13,7 @@ import {
 export const useInvoicesStore = create<InvoicesStore>((set, get) => ({
   invoices: [],
   view: { mode: 'list' },
-  filters: { search: '', type: 'all', kind: 'all' },
+  filters: { search: '', type: 'all', kind: 'all', customerType: 'all' },
   page: 1,
 
   saveInvoice: (invoice, id) => {

@@ -1,4 +1,4 @@
-import type { InvoiceKind, InvoiceSnapshot } from '../types';
+import type { CustomerType, InvoiceKind, InvoiceSnapshot } from '../types';
 
 export type SavedInvoice = InvoiceSnapshot & {
   // A UUID (`newId` in ~/lib/id)
@@ -20,6 +20,7 @@ export interface InvoiceFilters {
   // An invoice type, or 'all'
   type: string;
   kind: InvoiceKind | 'all';
+  customerType: CustomerType | 'all';
 }
 
 export type SaveResult =
