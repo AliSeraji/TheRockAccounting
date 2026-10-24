@@ -79,14 +79,27 @@ export const createInvoiceFormSlice =
     ...initialFormState,
 
     setInvoiceType: (value) => set({ invoiceType: value }),
-    setCustomerType: (value) => set({ customerType: value, customerId: '' }),
-    pickCustomer: (customer) =>
+    pickCustomer: (customer, { keepTyped = false } = {}) => {
+      const details = buyerFromCustomer(customer);
+      const { phone, address } = get();
       set({
         customerType: 'regular',
         customerId: customer.id,
-        ...buyerFromCustomer(customer),
-      }),
-    setBuyer: (value) => set({ buyer: value, customerId: '' }),
+        buyer: details.buyer,
+        nationalId: details.nationalId,
+        phone: keepTyped && phone.trim() ? phone : details.phone,
+        address: keepTyped && address.trim() ? address : details.address,
+      });
+    },
+    // A linked customer's national ID is locked to their record, so it goes
+    // with them; phone and address stay for the user to keep or change.
+    setBuyer: (value) =>
+      set((state) => ({
+        buyer: value,
+        customerType: 'walkIn',
+        customerId: '',
+        nationalId: state.customerId ? '' : state.nationalId,
+      })),
     setNationalId: (value) => set({ nationalId: value }),
     setProject: (value) => set({ project: value }),
     setAddress: (value) => set({ address: value }),

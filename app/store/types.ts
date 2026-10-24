@@ -106,11 +106,11 @@ export type InvoiceSnapshot =
 
 export interface InvoiceFormState extends InvoiceFormData {
   setInvoiceType: (value: string) => void;
-  // Switching type unlinks the customer and keeps the typed buyer fields.
-  setCustomerType: (value: CustomerType) => void;
-  // Links a regular customer and copies their details into the buyer fields.
-  pickCustomer: (customer: Customer) => void;
-  // Editing the name unlinks the customer.
+  // Links a customer: the buyer becomes regular and takes their details.
+  // `keepTyped` (an automatic link by name) fills phone and address only
+  // where they are empty.
+  pickCustomer: (customer: Customer, options?: { keepTyped?: boolean }) => void;
+  // A typed name is a walk-in, so editing a linked name unlinks the customer.
   setBuyer: (value: string) => void;
   setNationalId: (value: string) => void;
   setProject: (value: string) => void;

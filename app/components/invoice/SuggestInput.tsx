@@ -13,6 +13,10 @@ interface SuggestInputProps<T> {
   renderOption: (option: T) => ReactNode;
   onSelect: (option: T) => void;
   isSelected?: (option: T) => boolean;
+  onBlur?: () => void;
+  // false: nothing is highlighted until an arrow key is pressed, so Enter
+  // can't pick an option the user never moved to.
+  autoHighlight?: boolean;
   placeholder?: string;
   className?: string;
   popoverClassName?: string;
@@ -28,12 +32,15 @@ export default function SuggestInput<T>({
   renderOption,
   onSelect,
   isSelected,
+  onBlur,
+  autoHighlight = true,
   placeholder,
   className,
   popoverClassName = 'w-(--trigger-width)',
 }: SuggestInputProps<T>): ReactNode {
+  const firstHighlight = autoHighlight ? 0 : -1;
   const [open, setOpen] = useState(false);
-  const [highlighted, setHighlighted] = useState(0);
+  const [highlighted, setHighlighted] = useState(firstHighlight);
   const [canScrollUp, setCanScrollUp] = useState(false);
   const [canScrollDown, setCanScrollDown] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -72,11 +79,12 @@ export default function SuggestInput<T>({
       moveHighlight((highlighted + 1) % options.length);
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      moveHighlight((highlighted - 1 + options.length) % options.length);
+      moveHighlight(highlighted <= 0 ? options.length - 1 : highlighted - 1);
     } else if (e.key === 'Enter') {
-      e.preventDefault();
       const option = options[highlighted];
-      if (option !== undefined) select(option);
+      if (option === undefined) return;
+      e.preventDefault();
+      select(option);
     } else if (e.key === 'Escape') {
       setOpen(false);
     }
@@ -90,14 +98,17 @@ export default function SuggestInput<T>({
         placeholder={placeholder}
         onChange={(e) => {
           onChange(e.target.value);
-          setHighlighted(0);
+          setHighlighted(firstHighlight);
           setOpen(true);
         }}
         onFocus={() => {
-          setHighlighted(0);
+          setHighlighted(firstHighlight);
           setOpen(true);
         }}
-        onBlur={() => setOpen(false)}
+        onBlur={() => {
+          setOpen(false);
+          onBlur?.();
+        }}
         onKeyDown={handleKeyDown}
         className={cn('cursor-text', className)}
       />
