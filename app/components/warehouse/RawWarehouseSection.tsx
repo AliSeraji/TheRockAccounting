@@ -25,6 +25,7 @@ export default function RawWarehouseSection(): ReactNode {
         flagLabel="موجودی منفی"
       />
       <ItemDialog
+        warehouse="raw"
         noun="ماده اولیه"
         items={items}
         fields={rawFormFields}

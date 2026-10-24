@@ -1,3 +1,5 @@
+import type { Customer } from './customers/types';
+
 export interface StoneItem {
   id: number;
   // Id of the main-warehouse stone this row was picked from; '' when typed
@@ -56,10 +58,18 @@ export interface BlockInvoiceTotals extends PaymentTotals {
   totalVolume: number;
 }
 
+// A regular (ثابت) buyer is picked from the customers list; a walk-in (گذری)
+// buyer is typed in and has no customer record.
+export type CustomerType = 'regular' | 'walkIn';
+
 // Everything an invoice has besides its items: header, notes, services and
 // payment. The shared invoice cards and the receipt pages read only these.
 export interface InvoiceFormData {
   invoiceType: string;
+  customerType: CustomerType;
+  // Id of the customer a regular buyer was picked from; '' for a walk-in or
+  // while no customer is picked. The buyer fields keep a copy of their details.
+  customerId: string;
   buyer: string;
   nationalId: string;
   project: string;
@@ -96,6 +106,11 @@ export type InvoiceSnapshot =
 
 export interface InvoiceFormState extends InvoiceFormData {
   setInvoiceType: (value: string) => void;
+  // Switching type unlinks the customer and keeps the typed buyer fields.
+  setCustomerType: (value: CustomerType) => void;
+  // Links a regular customer and copies their details into the buyer fields.
+  pickCustomer: (customer: Customer) => void;
+  // Editing the name unlinks the customer.
   setBuyer: (value: string) => void;
   setNationalId: (value: string) => void;
   setProject: (value: string) => void;

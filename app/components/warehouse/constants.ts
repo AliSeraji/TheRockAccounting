@@ -2,6 +2,7 @@ import type {
   BlockItem,
   MiscItem,
   RawItem,
+  StockMovementReason,
   StoneStockItem,
 } from '~/store/warehouse/types';
 
@@ -19,6 +20,9 @@ export type FormFieldConfig<T> = {
   placeholder?: string;
   required?: boolean;
   allowNegative?: boolean;
+  // Marks the item's stock. It is typed in when the item is created and then
+  // only changes through a stock correction (its «اصلاح» button in the form).
+  stock?: boolean;
 };
 
 export const stoneFormFields: FormFieldConfig<StoneStockItem>[] = [
@@ -69,6 +73,7 @@ export const stoneFormFields: FormFieldConfig<StoneStockItem>[] = [
     required: true,
     // Stock can go below zero when more is sold than is on hand.
     allowNegative: true,
+    stock: true,
   },
   {
     label: 'متراژ',
@@ -148,6 +153,7 @@ export const blockFormFields: FormFieldConfig<BlockItem>[] = [
     type: FieldTypes.NUMBER,
     placeholder: 'به مترمکعب',
     allowNegative: true,
+    stock: true,
   },
   {
     label: 'قیمت',
@@ -178,6 +184,7 @@ export const miscFormFields: FormFieldConfig<MiscItem>[] = [
     placeholder: 'تعداد موجود',
     required: true,
     allowNegative: true,
+    stock: true,
   },
   {
     label: 'قیمت',
@@ -208,6 +215,7 @@ export const rawFormFields: FormFieldConfig<RawItem>[] = [
     placeholder: 'تعداد موجود',
     required: true,
     allowNegative: true,
+    stock: true,
   },
   {
     label: 'قیمت خرید',
@@ -228,4 +236,14 @@ export const categoryColors: Record<string, string> = {
   لیمون: 'bg-teal-100 text-teal-800',
   مرمر: 'bg-pink-100 text-pink-800',
   مارتیت: 'bg-purple-100 text-purple-800',
+};
+
+// How each kind of stock movement is named on the stock card.
+export const MOVEMENT_REASONS: Record<StockMovementReason, string> = {
+  opening: 'موجودی اول دوره',
+  purchase: 'خرید',
+  sale: 'فروش',
+  transfer: 'انتقال',
+  adjustment: 'اصلاح موجودی',
+  reversal: 'برگشت',
 };

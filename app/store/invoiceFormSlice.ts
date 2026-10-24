@@ -1,6 +1,8 @@
 import type { StateCreator } from 'zustand';
 import { convertToEnDigits } from '~/lib/utils';
+import { buyerFromCustomer } from './customers/helpers';
 import type {
+  CustomerType,
   InvoiceFormData,
   InvoiceFormState,
   PaymentTotals,
@@ -23,6 +25,8 @@ const emptyService = (id: number): ServiceItem => ({
 
 export const initialFormState = {
   invoiceType: 'پیش فاکتور',
+  customerType: 'walkIn' as CustomerType,
+  customerId: '',
   buyer: '',
   nationalId: '',
   project: '',
@@ -41,6 +45,8 @@ export const initialFormState = {
 // The invoice fields of a store, without its items or actions.
 export const selectFormData = (state: InvoiceFormData): InvoiceFormData => ({
   invoiceType: state.invoiceType,
+  customerType: state.customerType,
+  customerId: state.customerId,
   buyer: state.buyer,
   nationalId: state.nationalId,
   project: state.project,
@@ -73,7 +79,14 @@ export const createInvoiceFormSlice =
     ...initialFormState,
 
     setInvoiceType: (value) => set({ invoiceType: value }),
-    setBuyer: (value) => set({ buyer: value }),
+    setCustomerType: (value) => set({ customerType: value, customerId: '' }),
+    pickCustomer: (customer) =>
+      set({
+        customerType: 'regular',
+        customerId: customer.id,
+        ...buyerFromCustomer(customer),
+      }),
+    setBuyer: (value) => set({ buyer: value, customerId: '' }),
     setNationalId: (value) => set({ nationalId: value }),
     setProject: (value) => set({ project: value }),
     setAddress: (value) => set({ address: value }),

@@ -17,6 +17,8 @@ interface FormFieldProps<K extends string> {
   required?: boolean;
   // Lets NUMBER fields accept values below zero.
   allowNegative?: boolean;
+  // Shows the value without letting it be edited.
+  readOnly?: boolean;
   onChange: (field: K, value: string) => void;
 }
 
@@ -28,6 +30,7 @@ function FormField<K extends string>({
   placeholder,
   required,
   allowNegative = false,
+  readOnly = false,
   onChange,
 }: FormFieldProps<K>): ReactNode {
   const [localValue, setLocalValue] = useState<string | null>(
@@ -101,7 +104,7 @@ function FormField<K extends string>({
         {required && <span className="text-red-500">*</span>}
       </Label>
       <Input
-        readOnly={type === FieldTypes.CALCULATED}
+        readOnly={readOnly || type === FieldTypes.CALCULATED}
         ref={inputRef}
         value={localValue ?? ''}
         onChange={handleChange}

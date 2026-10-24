@@ -25,6 +25,7 @@ export default function BlockWarehouseSection(): ReactNode {
         flagLabel="موجودی منفی"
       />
       <ItemDialog
+        warehouse="block"
         noun="کوپ"
         items={items}
         fields={blockFormFields}

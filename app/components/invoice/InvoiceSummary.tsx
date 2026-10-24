@@ -21,38 +21,27 @@ const InvoiceSummary = memo(function InvoiceSummary(): React.ReactNode {
     (state) => state.totals.totalPaymentAmount
   );
 
-  const handlePercentageDisplay = (value: string) => {
-    return convertToEnDigits(value) === '0'
-      ? convertToPersianDigits('0')
-      : convertToPersianDigits(value) + '%';
-  };
-
+  // The % sign is drawn beside the input, not kept in its value, so Backspace
+  // edits the digits and the field can be cleared (empty counts as 0%).
   const handlePercentageAmount = (
     value: string,
     set: (value: string) => void
   ) => {
     let raw = convertToEnDigits(value.trim())
-      .replace(/%/g, '')
+      .replace(/[%٪]/g, '')
       .replace(/\//g, '.');
 
     if (raw === '') {
-      set('0');
+      set('');
       return;
     }
 
     if (raw === '.') raw = '0.';
-    if (raw === '-.') raw = '-0.';
-    if (raw.startsWith('-', 0)) raw = raw.replace(/^-/, '');
-    if (!/^-?\d*\.?\d*$/.test(raw)) return;
+    if (!/^\d*\.?\d*$/.test(raw)) return;
 
-    raw = raw.replace(/^(-?)0+(\d)/, (_, sign, digit) =>
-      digit === '.' ? `${sign}0${digit}` : `${sign}${digit}`
-    );
-    const numValue = parseFloat(raw);
-    if (numValue < 0 || numValue > 100) {
-      set('0');
-      return;
-    }
+    raw = raw.replace(/^0+(?=\d)/, '');
+    // Ignore a keystroke that would go past 100% instead of resetting to 0.
+    if (parseFloat(raw) > 100) return;
     set(raw);
   };
 
@@ -109,12 +98,18 @@ const InvoiceSummary = memo(function InvoiceSummary(): React.ReactNode {
         </div>
         <div className="flex flex-col space-y-2">
           <Label className="text-slate-700 pr-1">مالیات</Label>
-          <Input
-            value={handlePercentageDisplay(tax)}
-            onChange={handleTaxChange}
-            className="border-slate-200 rounded-lg focus:ring-slate-400"
-            placeholder="مبلغ مالیات"
-          />
+          <div className="relative">
+            <Input
+              value={convertToPersianDigits(tax)}
+              onChange={handleTaxChange}
+              inputMode="decimal"
+              className="border-slate-200 rounded-lg focus:ring-slate-400 pe-8"
+              placeholder="درصد مالیات"
+            />
+            <span className="pointer-events-none absolute inset-y-0 end-3 flex items-center text-slate-500">
+              ٪
+            </span>
+          </div>
         </div>
         <div className="flex flex-col space-y-2">
           <Label className="text-slate-700 pr-1">دریافتی</Label>

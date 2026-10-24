@@ -2,7 +2,11 @@ import { convertToPersianDigits, formatRialAmount } from '~/lib/utils';
 import type { SavedInvoice } from '~/store/invoices/types';
 import { EMPTY } from '../data-table/constants';
 import type { DataTableColumn } from '../data-table/types';
-import { INVOICE_KIND_LABELS, InvoiceTypeBadge } from './common';
+import {
+  CustomerTypeBadge,
+  INVOICE_KIND_LABELS,
+  InvoiceTypeBadge,
+} from './common';
 
 export const invoiceColumns: DataTableColumn<SavedInvoice>[] = [
   {
@@ -27,7 +31,12 @@ export const invoiceColumns: DataTableColumn<SavedInvoice>[] = [
     width: 'w-[25%]',
     className: 'font-medium text-slate-800',
     mobile: 'title',
-    render: (invoice) => convertToPersianDigits(invoice.data.buyer),
+    render: (invoice) => (
+      <span className="inline-flex flex-wrap items-center gap-2">
+        {convertToPersianDigits(invoice.data.buyer)}
+        <CustomerTypeBadge type={invoice.data.customerType} />
+      </span>
+    ),
   },
   {
     key: 'kind',

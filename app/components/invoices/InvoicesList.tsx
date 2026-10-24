@@ -16,7 +16,7 @@ import { INVOICE_TYPES } from '~/store/invoices/helpers';
 import type { InvoiceFilters, SavedInvoice } from '~/store/invoices/types';
 import { useInvoicesStore } from '~/store/invoices/useInvoicesStore';
 import { invoiceColumns } from './columns';
-import { INVOICE_KIND_LABELS } from './common';
+import { CUSTOMER_TYPE_LABELS, INVOICE_KIND_LABELS } from './common';
 
 const PAGE_SIZE = 20;
 
@@ -32,6 +32,15 @@ const KIND_OPTIONS: { value: InvoiceFilters['kind']; label: string }[] = [
   { value: 'block', label: INVOICE_KIND_LABELS.block },
 ];
 
+const CUSTOMER_TYPE_OPTIONS: {
+  value: InvoiceFilters['customerType'];
+  label: string;
+}[] = [
+  { value: 'all', label: 'همه مشتریان' },
+  { value: 'regular', label: CUSTOMER_TYPE_LABELS.regular },
+  { value: 'walkIn', label: CUSTOMER_TYPE_LABELS.walkIn },
+];
+
 const selectTriggerClass =
   'flex flex-row max-w-41 border border-slate-200 rounded-lg text-sm px-3 py-1.5 bg-white text-slate-700 hover:cursor-pointer focus:ring-0 focus:ring-offset-0 focus:border-slate-400 focus:border-2';
 
@@ -40,13 +49,14 @@ const normalize = (text: string): string =>
 
 const matches = (
   invoice: SavedInvoice,
-  { search, type, kind }: InvoiceFilters
+  { search, type, kind, customerType }: InvoiceFilters
 ): boolean => {
   const query = normalize(search);
   const { invoiceNumber, buyer, phone, project } = invoice.data;
   return (
     (type === 'all' || invoice.data.invoiceType === type) &&
     (kind === 'all' || invoice.kind === kind) &&
+    (customerType === 'all' || invoice.data.customerType === customerType) &&
     (!query ||
       [invoiceNumber, buyer, phone, project].some((text) =>
         normalize(text).includes(query)
@@ -121,6 +131,31 @@ export default function InvoicesList(): ReactNode {
               <SelectContent dir="rtl">
                 <SelectGroup>
                   {KIND_OPTIONS.map((option) => (
+                    <SelectItem
+                      key={option.value}
+                      value={option.value}
+                      className="hover:cursor-pointer"
+                    >
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <Select
+              value={filters.customerType}
+              onValueChange={(customerType) =>
+                setFilters({
+                  customerType: customerType as InvoiceFilters['customerType'],
+                })
+              }
+            >
+              <SelectTrigger dir="rtl" className={selectTriggerClass}>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent dir="rtl">
+                <SelectGroup>
+                  {CUSTOMER_TYPE_OPTIONS.map((option) => (
                     <SelectItem
                       key={option.value}
                       value={option.value}

@@ -35,12 +35,14 @@ On a Windows checkout with `core.autocrlf=true`, git writes CRLF line endings wh
 - `store/useInvoiceForm.ts` decides which store a component edits. `InvoiceStoreContext` carries an `InvoiceStoreKey` (`{ kind, mode }`, default stone/draft). Shared cards (`components/invoice/*`) read through `useInvoiceForm(selector)`. Kind-specific tables use `useStoneInvoice` / `useBlockInvoice`. Never import a store directly into a shared invoice card, or the editor view will edit the draft. `readInvoice`, `loadInvoice` and `resetInvoice` act on a key from outside React.
 - `components/invoice/index.tsx` (`InvoiceBody`) composes the cards. Its `itemsTable` prop swaps the stone `Table` for `invoice/block/BlockTable`.
 - **Saved invoices** live in `store/invoices/useInvoicesStore.ts`. `saveInvoice(snapshot, id?)` validates with `invoiceProblems`, assigns the next number from the numbering settings when the number field is blank, and strips blank rows (`finalizeInvoice`). The store also holds the list tab's view (`list | view | edit`), filters and page. A `فاکتور فروش` (sales invoice) is **locked** after saving (`isLocked`). Only `پیش فاکتور` (pre-invoices) can be edited. `components/invoices/useInvoiceSaver.tsx` wraps saving with the error and lock-confirmation dialogs.
+- **Customer type**: every invoice has `customerType` (`'regular'` = مشتری ثابت, `'walkIn'` = مشتری گذری, the default) and `customerId`. A regular buyer is picked from the active customers in `invoice/BuyerInput` (`pickCustomer` copies their details into the buyer fields). Editing the name or switching type clears `customerId`, and saving a regular invoice without a picked customer is refused. A walk-in is typed in and has no customer record. A customer named on a saved invoice can't be deleted (`CustomerForm`). Payments are not part of this: they will be recorded later against saved invoices.
 - Invoice rows pick stock from the warehouse store: `selectInvoiceStones` (main warehouse only) and `selectInvoiceBlocks` (empty while the block warehouse is disabled).
 
 ### Warehouse
 
 - `/warehouse` has five warehouses (`WarehouseId`): `main` and `secondary` (stone, transfers between them merge by code), `block`, `misc` and `raw`. `main` can never be disabled. The others can be switched off through `enabled`, and `WarehouseGate` hides a disabled warehouse's content without deleting its items.
 - One `editor` slice (`closed | view | edit | create`) drives the item dialog for whichever warehouse is on screen.
+- **Stock log**: the `movements` slice is an append-only list of `StockMovement`s (the کاردکس, or stock card), modelled on the future database table. An item's quantity (a block's volume) is a cached balance. Any action that changes it must append matching movements (`makeMovement` in `helpers.ts`) in the **same** `set()`, and must never edit or delete a movement. `add*` logs an 'opening' entry, `transferStone` an out/in pair, and `adjustStock` an 'adjustment' with a required reason. `update*` keeps the stored stock. In the edit form, the field marked `stock: true` stays read-only until its «اصلاح» button unlocks it and shows a required reason box. Saving calls `update*` and then, if the stock changed, `adjustStock`. Deleting an item leaves its movements. A full transfer keeps the source row at zero. The item dialog's view has two tabs: مشخصات (details) and کاردکس (`StockCard`: the item's movements with a running balance).
 
 ### Tabbed pages and tables
 
@@ -77,3 +79,14 @@ On a Windows checkout with `core.autocrlf=true`, git writes CRLF line endings wh
 ## design-sync (`.design-sync/`)
 
 The components are also exported as a design-system bundle (`window.RockFact`). Read `.design-sync/NOTES.md` before touching that pipeline. The main rule for app work: **when you add a default-exported component, add a re-export line to `.design-sync/default-exports.ts`**, or it is missing from the bundle. `.ds-sync/`, `ds-bundle/` and `.design-sync/.cache/` are generated and gitignored.
+
+## graphify
+
+This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
+
+Rules:
+- When graphify-out/graph.json exists, run `graphify query "<question>"` before your first grep, search or source-file read for a codebase question, and put this rule in every subagent prompt that explores code. Read raw files only for lines the graph or an earlier read already located. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
+- If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
+- Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
+- After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).
+- A committed graphify-out/graph.json is rewritten whole on every build, so a large diff to it in a pull request is expected. Do not flag it as churn or suggest skipping the graph rebuild or its hooks.
