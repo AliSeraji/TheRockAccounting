@@ -2,7 +2,7 @@
   "1": "ItemDialog.tsx",
   "5": "react",
   "6": "useWarehouseStore",
-  "8": "store/types.ts",
+  "8": "useBlockInvoiceStore.ts",
   "9": "warehouse/helpers.ts",
   "10": "warehouse/columns.tsx",
   "11": "default-exports.ts",
@@ -11,7 +11,15 @@
   "15": "store/settings/types.ts",
   "18": "useWarehouse.ts",
   "19": "utils.ts",
-  "20": "InvoiceDataType",
+  "20": "UpperTable/Table.tsx",
   "22": "invoice/common.tsx",
-  "24": "StockCard.tsx"
+  "24": "CustomerForm.tsx",
+  "26": "store/types.ts",
+  "27": "settings/index.tsx",
+  "29": "ItemDialog.tsx",
+  "33": "receipt_issue/Tablist/mobile.tsx",
+  "34": "delivery/BlockTable.tsx",
+  "40": "toast.tsx",
+  "42": "tooltip.tsx",
+  "46": "publishConfig"
 }

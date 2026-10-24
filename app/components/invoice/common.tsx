@@ -2,7 +2,7 @@ import type { InvoiceDataType } from '~/store/types';
 
 // Every label in the invoice info card is this tall, so the inputs line up
 // across a row even where a label shares its row with the customer-type
-// toggle (BuyerInput), which must be no taller.
+// badge (BuyerInput), which must be no taller.
 export const infoLabelClass = 'flex h-7 items-center text-slate-700 pr-1';
 
 export type InvoiceTableItem = {
