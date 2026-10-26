@@ -1,6 +1,17 @@
 import { printableServices } from '~/helper/helper';
 import { convertToPersianDigits } from '~/lib/utils';
-import type { BlockInvoiceItem, InvoiceSnapshot, StoneItem } from '../types';
+import {
+  customerFromBuyer,
+  findCustomerForBuyer,
+  newCustomerProblems,
+} from '../customers/helpers';
+import type { Customer } from '../customers/types';
+import type {
+  BlockInvoiceItem,
+  InvoiceFormData,
+  InvoiceSnapshot,
+  StoneItem,
+} from '../types';
 import type { SavedInvoice } from './types';
 
 export const INVOICE_TYPES = {
@@ -95,10 +106,52 @@ export function invoiceProblems(
   return problems;
 }
 
-// The invoice as the list keeps it: numbered and without blank rows.
+export type BuyerResolution =
+  | { ok: true; customerId: string; newCustomer?: Customer }
+  | { ok: false; problems: string[] };
+
+// The customer an invoice is saved for. A linked customer stays. Otherwise
+// an existing customer with the buyer's ID or exact name is linked, or a new
+// one is built from the buyer fields, if they are valid. Nothing is written
+// here; the caller adds `newCustomer`.
+export function resolveBuyer(
+  data: InvoiceFormData,
+  customers: Customer[]
+): BuyerResolution {
+  const linked = customers.some((customer) => customer.id === data.customerId);
+  if (data.customerId && linked) {
+    return { ok: true, customerId: data.customerId };
+  }
+
+  const match = findCustomerForBuyer(customers, data);
+  if (match.kind === 'found') {
+    return { ok: true, customerId: match.customer.id };
+  }
+  if (match.kind === 'ambiguous') {
+    const who =
+      match.by === 'id'
+        ? `شناسه «${convertToPersianDigits(data.nationalId)}»`
+        : `نام «${data.buyer.trim()}»`;
+    return {
+      ok: false,
+      problems: [
+        `چند مشتری با ${who} ثبت شده است؛ خریدار را از لیست انتخاب کنید`,
+      ],
+    };
+  }
+
+  const customer = customerFromBuyer(data, customers);
+  const problems = newCustomerProblems(customer);
+  if (problems.length > 0) return { ok: false, problems };
+  return { ok: true, customerId: customer.id, newCustomer: customer };
+}
+
+// The invoice as the list keeps it: numbered, linked to its customer and
+// without blank rows.
 export function finalizeInvoice(
   invoice: InvoiceSnapshot,
-  invoiceNumber: string
+  invoiceNumber: string,
+  customerId: string = invoice.data.customerId
 ): InvoiceSnapshot {
   const services = printableServices(invoice.data.services);
   return invoice.kind === 'stone'
@@ -107,6 +160,7 @@ export function finalizeInvoice(
         data: {
           ...invoice.data,
           invoiceNumber,
+          customerId,
           services,
           items: invoice.data.items.filter(isFilledStone),
         },
@@ -116,6 +170,7 @@ export function finalizeInvoice(
         data: {
           ...invoice.data,
           invoiceNumber,
+          customerId,
           services,
           items: invoice.data.items.filter(isFilledBlock),
         },

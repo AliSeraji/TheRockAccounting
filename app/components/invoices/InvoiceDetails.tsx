@@ -17,7 +17,6 @@ import type { SavedInvoice } from '~/store/invoices/types';
 import { useInvoicesStore } from '~/store/invoices/useInvoicesStore';
 import type { InvoiceFormData } from '~/store/types';
 import { useCustomersStore } from '~/store/customers/useCustomers';
-import { CUSTOMER_TYPE_LABELS } from './common';
 import InvoiceViewHeader from './InvoiceViewHeader';
 import DetailsTable from './details/DetailsTable';
 import {
@@ -171,14 +170,7 @@ export default function InvoiceDetails({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <Field label="عنوان" value={data.invoiceType} />
           <Field label="شماره فاکتور" value={data.invoiceNumber} />
-          <Field
-            label="نوع مشتری"
-            value={
-              customer
-                ? `${CUSTOMER_TYPE_LABELS[data.customerType]} (کد ${customer.code})`
-                : CUSTOMER_TYPE_LABELS[data.customerType]
-            }
-          />
+          <Field label="کد مشتری" value={customer?.code ?? ''} />
           <Field label="نام شخص حقیقی / حقوقی" value={data.buyer} />
           <Field label="شناسه ملی / کد اقتصادی" value={data.nationalId} />
           <Field label="تاریخ" value={data.invoiceDate} />

@@ -11,10 +11,10 @@ import {
 } from '../ui/select';
 import { Input } from '../ui/input';
 import { lazy, memo, Suspense, useEffect, useState } from 'react';
-import { cn, convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
+import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
 import { useInvoiceForm } from '~/store/useInvoiceForm';
 import BuyerInput from './BuyerInput';
-import { infoLabelClass } from './common';
+import NationalIdInput from './NationalIdInput';
 
 type DayValue =
   | {
@@ -32,9 +32,6 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
   const setInvoiceType = useInvoiceForm((state) => state.setInvoiceType);
   const invoiceNumber = useInvoiceForm((state) => state.invoiceNumber);
   const setInvoiceNumber = useInvoiceForm((state) => state.setInvoiceNumber);
-  const isLinked = useInvoiceForm((state) => state.customerId !== '');
-  const nationalId = useInvoiceForm((state) => state.nationalId);
-  const setNationalId = useInvoiceForm((state) => state.setNationalId);
   const invoiceDate = useInvoiceForm((state) => state.invoiceDate);
   const setInvoiceDate = useInvoiceForm((state) => state.setInvoiceDate);
   const project = useInvoiceForm((state) => state.project);
@@ -72,7 +69,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
       <CardContent className="p-6 space-y-4 text-xs lg:text-lg">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="flex flex-col space-y-2">
-            <Label className={infoLabelClass}>عنوان</Label>
+            <Label className="text-slate-700 pr-1">عنوان</Label>
             <Select
               value={invoiceType}
               onValueChange={setInvoiceType}
@@ -88,7 +85,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             </Select>
           </div>
           <div className="flex flex-col space-y-2">
-            <Label className={infoLabelClass}>شماره فاکتور</Label>
+            <Label className="text-slate-700 pr-1">شماره فاکتور</Label>
             <Input
               value={convertToPersianDigits(invoiceNumber)}
               onChange={(e) => {
@@ -102,28 +99,9 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             />
           </div>
           <BuyerInput />
+          <NationalIdInput />
           <div className="flex flex-col space-y-2">
-            <Label className={infoLabelClass}>شناسه ملی / کد اقتصادی</Label>
-            <Input
-              value={convertToPersianDigits(nationalId)}
-              onChange={(e) => {
-                const val = convertToEnDigits(e.target.value.trim())
-                  .replace(/[^0-9]/g, '')
-                  .slice(0, 12);
-                setNationalId(val);
-              }}
-              // A linked customer's ID comes from their customer record.
-              readOnly={isLinked}
-              inputMode="numeric"
-              className={cn(
-                'border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs md:placeholder:text-sm',
-                isLinked && 'bg-slate-50 text-slate-500 cursor-default'
-              )}
-              placeholder="شناسه ملی یا کد اقتصادی خریدار"
-            />
-          </div>
-          <div className="flex flex-col space-y-2">
-            <Label className={infoLabelClass}>تاریخ</Label>
+            <Label className="text-slate-700 pr-1">تاریخ</Label>
             {isClient ? (
               <Suspense
                 fallback={
@@ -149,7 +127,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             )}
           </div>
           <div className="flex flex-col space-y-2 ">
-            <Label className={infoLabelClass}>پروژه</Label>
+            <Label className="text-slate-700 pr-1">پروژه</Label>
             <Input
               value={convertToPersianDigits(project)}
               onChange={(e) => setProject(convertToEnDigits(e.target.value))}
@@ -158,7 +136,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             />
           </div>
           <div className="flex flex-col space-y-2">
-            <Label className={infoLabelClass}>تلفن</Label>
+            <Label className="text-slate-700 pr-1">تلفن</Label>
             <Input
               value={convertToPersianDigits(phone)}
               onChange={(e) => {
@@ -173,7 +151,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             />
           </div>
           <div className="flex flex-col space-y-2 md:col-span-2">
-            <Label className={infoLabelClass}>آدرس</Label>
+            <Label className="text-slate-700 pr-1">آدرس</Label>
             <Input
               value={convertToPersianDigits(address)}
               onChange={(e) => setAddress(convertToEnDigits(e.target.value))}

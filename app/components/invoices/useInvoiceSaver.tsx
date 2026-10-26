@@ -1,5 +1,7 @@
 import { useState, type ReactNode } from 'react';
+import { toast } from 'sonner';
 import { Alert } from '~/components/warehouse/Alert';
+import { convertToPersianDigits } from '~/lib/utils';
 import { isLocked } from '~/store/invoices/helpers';
 import type { SaveResult } from '~/store/invoices/types';
 import { useInvoicesStore } from '~/store/invoices/useInvoicesStore';
@@ -9,7 +11,8 @@ type Saved = Extract<SaveResult, { ok: true }>;
 
 // Saves the invoice behind `key` to the invoice list, over the invoice `id`
 // when editing. A sales invoice can't be edited afterwards, so saving one
-// asks first. Render the returned `dialogs` once.
+// asks first. A buyer added to the customers on the way gets their own toast.
+// Render the returned `dialogs` once.
 export function useInvoiceSaver(
   key: InvoiceStoreKey,
   id: string | undefined,
@@ -21,8 +24,17 @@ export function useInvoiceSaver(
 
   const commit = () => {
     const result = saveInvoice(readInvoice(key), id);
-    if (result.ok) onSaved(result);
-    else setProblems(result.problems);
+    if (!result.ok) {
+      setProblems(result.problems);
+      return;
+    }
+    onSaved(result);
+    const { newCustomer } = result;
+    if (newCustomer) {
+      toast.success(
+        `«${convertToPersianDigits(newCustomer.businessName)}» با کد ${convertToPersianDigits(newCustomer.code)} به مشتریان اضافه شد.`
+      );
+    }
   };
 
   const save = () => {

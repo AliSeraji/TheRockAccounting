@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { newId } from '~/lib/id';
+import { useCustomersStore } from '../customers/useCustomers';
 import { useSettingsStore } from '../settings/useSettingStore';
 import { loadInvoice } from '../useInvoiceForm';
 import type { InvoicesStore, SavedInvoice } from './types';
@@ -8,12 +9,13 @@ import {
   invoiceProblems,
   isLocked,
   nextInvoiceNumber,
+  resolveBuyer,
 } from './helpers';
 
 export const useInvoicesStore = create<InvoicesStore>((set, get) => ({
   invoices: [],
   view: { mode: 'list' },
-  filters: { search: '', type: 'all', kind: 'all', customerType: 'all' },
+  filters: { search: '', type: 'all', kind: 'all' },
   page: 1,
 
   saveInvoice: (invoice, id) => {
@@ -26,6 +28,14 @@ export const useInvoicesStore = create<InvoicesStore>((set, get) => ({
     const problems = invoiceProblems(invoice, invoices, id);
     if (problems.length > 0) return { ok: false, problems };
 
+    // Checked before anything below is written, so a refused save leaves no
+    // customer or used invoice number behind. With a backend this is one
+    // call that writes the customer and the invoice in one transaction.
+    const customersStore = useCustomersStore.getState();
+    const buyer = resolveBuyer(invoice.data, customersStore.customers);
+    if (!buyer.ok) return buyer;
+    const { customerId, newCustomer } = buyer;
+
     let invoiceNumber = invoice.data.invoiceNumber;
     if (!invoiceNumber) {
       const settings = useSettingsStore.getState();
@@ -34,8 +44,10 @@ export const useInvoicesStore = create<InvoicesStore>((set, get) => ({
       invoiceNumber = String(next);
     }
 
+    if (newCustomer) customersStore.addCustomer(newCustomer);
+
     const now = new Date().toISOString();
-    const finalized = finalizeInvoice(invoice, invoiceNumber);
+    const finalized = finalizeInvoice(invoice, invoiceNumber, customerId);
 
     if (existing) {
       const updated: SavedInvoice = {
@@ -49,7 +61,7 @@ export const useInvoicesStore = create<InvoicesStore>((set, get) => ({
           saved.id === existing.id ? updated : saved
         ),
       });
-      return { ok: true, id: existing.id, invoiceNumber };
+      return { ok: true, id: existing.id, invoiceNumber, newCustomer };
     }
 
     const added: SavedInvoice = {
@@ -59,7 +71,7 @@ export const useInvoicesStore = create<InvoicesStore>((set, get) => ({
       updatedAt: now,
     };
     set({ invoices: [added, ...invoices] });
-    return { ok: true, id: added.id, invoiceNumber };
+    return { ok: true, id: added.id, invoiceNumber, newCustomer };
   },
 
   openList: () => set({ view: { mode: 'list' } }),

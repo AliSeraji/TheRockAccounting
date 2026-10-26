@@ -1,4 +1,5 @@
-import type { CustomerType, InvoiceKind, InvoiceSnapshot } from '../types';
+import type { Customer } from '../customers/types';
+import type { InvoiceKind, InvoiceSnapshot } from '../types';
 
 export type SavedInvoice = InvoiceSnapshot & {
   // A UUID (`newId` in ~/lib/id)
@@ -20,11 +21,11 @@ export interface InvoiceFilters {
   // An invoice type, or 'all'
   type: string;
   kind: InvoiceKind | 'all';
-  customerType: CustomerType | 'all';
 }
 
 export type SaveResult =
-  | { ok: true; id: string; invoiceNumber: string }
+  // `newCustomer`: the customer created for a buyer who wasn't one yet.
+  | { ok: true; id: string; invoiceNumber: string; newCustomer?: Customer }
   | { ok: false; problems: string[] };
 
 export interface InvoicesStore {
@@ -37,6 +38,8 @@ export interface InvoicesStore {
 
   // Adds `invoice` to the list, or replaces the invoice `id` when editing.
   // A blank invoice number takes the next one from the numbering settings.
+  // An unlinked buyer is linked to the matching customer, or added to the
+  // customers as a new one.
   saveInvoice: (invoice: InvoiceSnapshot, id?: string) => SaveResult;
   openList: () => void;
   openInvoice: (id: string) => void;

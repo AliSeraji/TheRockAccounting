@@ -58,17 +58,12 @@ export interface BlockInvoiceTotals extends PaymentTotals {
   totalVolume: number;
 }
 
-// A regular (ثابت) buyer is picked from the customers list; a walk-in (گذری)
-// buyer is typed in and has no customer record.
-export type CustomerType = 'regular' | 'walkIn';
-
 // Everything an invoice has besides its items: header, notes, services and
 // payment. The shared invoice cards and the receipt pages read only these.
 export interface InvoiceFormData {
   invoiceType: string;
-  customerType: CustomerType;
-  // Id of the customer a regular buyer was picked from; '' for a walk-in or
-  // while no customer is picked. The buyer fields keep a copy of their details.
+  // Id of the customer the buyer is; '' while none is linked. The buyer
+  // fields keep a copy of their details.
   customerId: string;
   buyer: string;
   nationalId: string;
@@ -106,11 +101,10 @@ export type InvoiceSnapshot =
 
 export interface InvoiceFormState extends InvoiceFormData {
   setInvoiceType: (value: string) => void;
-  // Links a customer: the buyer becomes regular and takes their details.
-  // `keepTyped` (an automatic link by name) fills phone and address only
-  // where they are empty.
+  // Links a customer and takes their details. `keepTyped` (an automatic link
+  // by name) fills phone and address only where they are empty.
   pickCustomer: (customer: Customer, options?: { keepTyped?: boolean }) => void;
-  // A typed name is a walk-in, so editing a linked name unlinks the customer.
+  // Editing a linked name unlinks the customer.
   setBuyer: (value: string) => void;
   setNationalId: (value: string) => void;
   setProject: (value: string) => void;

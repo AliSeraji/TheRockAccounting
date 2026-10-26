@@ -1,4 +1,4 @@
-import type { Customer, CustomerField } from '~/store/customers/types';
+import type { Customer, CustomerField } from './types';
 import {
   isValidCardNumber,
   isValidEconomicCode,
@@ -52,6 +52,13 @@ export function requiredErrors(customer: Customer): CustomerErrors {
   if (!customer.accountRole) errors.accountRole = 'حساب شخص را انتخاب کنید';
   if (!customer.businessName.trim())
     errors.businessName = 'نام کسب و کار الزامی است';
+  // A person needs their national code; a company its national ID or
+  // economic code.
+  if (!customer.nationalId.trim() && !customer.economicCode.trim())
+    errors.nationalId =
+      customer.personType === 'حقوقی'
+        ? 'شناسه ملی یا کد اقتصادی الزامی است'
+        : 'کد ملی الزامی است';
 
   return errors;
 }

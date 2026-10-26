@@ -40,6 +40,7 @@ export { default as StoneCodeInput } from '../app/components/invoice/StoneCodeIn
 export { default as StoneTypeInput } from '../app/components/invoice/StoneTypeInput';
 export { default as SuggestInput } from '../app/components/invoice/SuggestInput';
 export { default as BuyerInput } from '../app/components/invoice/BuyerInput';
+export { default as NationalIdInput } from '../app/components/invoice/NationalIdInput';
 export { default as InvoiceServices } from '../app/components/invoice/services/InvoiceServices';
 export { default as ServiceRow } from '../app/components/invoice/services/ServiceRow';
 export { default as ServicesTable } from '../app/components/invoice/services/ServicesTable';
