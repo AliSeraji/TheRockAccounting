@@ -17,20 +17,18 @@ import { Separator } from '../ui/separator';
 import { Alert } from '../warehouse/Alert';
 import { newId } from '~/lib/id';
 import { cn, convertToPersianDigits } from '~/lib/utils';
+import { customerTimestamp } from '~/store/customers/helpers';
 import type { Customer, CustomerField } from '~/store/customers/types';
 import {
   nextCustomerCode,
   useCustomersStore,
 } from '~/store/customers/useCustomers';
+import { formatErrors, requiredErrors } from '~/store/customers/validate';
 import { useInvoicesStore } from '~/store/invoices/useInvoicesStore';
 import IdentitySection from './form/IdentitySection';
 import ContactSection from './form/ContactSection';
 import BankSection from './form/BankSection';
 import StatusSection from './form/StatusSection';
-import { formatErrors, requiredErrors } from './validate';
-
-const getCurrentTimestamp = () =>
-  new Date().toLocaleString('fa-IR').slice(0, 9);
 
 export default function CustomerForm(): ReactNode {
   const customers = useCustomersStore((state) => state.customers);
@@ -91,7 +89,7 @@ export default function CustomerForm(): ReactNode {
     const name = selectedCustomer.businessName;
     const record: Customer = {
       ...selectedCustomer,
-      date: getCurrentTimestamp(),
+      date: customerTimestamp(),
     };
 
     if (isEditing) {
@@ -180,7 +178,7 @@ export default function CustomerForm(): ReactNode {
               </FieldLabel>
               <Input
                 readOnly
-                value={getCurrentTimestamp()}
+                value={customerTimestamp()}
                 className="rounded-lg border-slate-200 bg-slate-50 text-slate-400 text-xs lg:text-sm cursor-default"
               />
             </Field>

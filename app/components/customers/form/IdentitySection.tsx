@@ -78,11 +78,14 @@ const IdentitySection = memo(function IdentitySection({
         />
         <DigitsField
           label={isLegal ? 'شناسه ملی' : 'کد ملی'}
+          // A company may give its economic code instead.
+          required={!isLegal || !customer.economicCode}
           value={customer.nationalId}
           onChange={(v) => onChange('nationalId', v)}
           maxLength={isLegal ? 11 : 10}
           placeholder={isLegal ? '۱۱ رقم' : '۱۰ رقم'}
           error={errors.nationalId}
+          hint={isLegal ? 'یکی از شناسه ملی یا کد اقتصادی کافی است' : undefined}
         />
         {isLegal && (
           <DigitsField

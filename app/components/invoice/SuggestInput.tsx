@@ -17,6 +17,7 @@ interface SuggestInputProps<T> {
   // false: nothing is highlighted until an arrow key is pressed, so Enter
   // can't pick an option the user never moved to.
   autoHighlight?: boolean;
+  inputMode?: React.HTMLAttributes<HTMLInputElement>['inputMode'];
   placeholder?: string;
   className?: string;
   popoverClassName?: string;
@@ -34,6 +35,7 @@ export default function SuggestInput<T>({
   isSelected,
   onBlur,
   autoHighlight = true,
+  inputMode,
   placeholder,
   className,
   popoverClassName = 'w-(--trigger-width)',
@@ -95,6 +97,7 @@ export default function SuggestInput<T>({
       <Input
         ref={inputRef}
         value={value}
+        inputMode={inputMode}
         placeholder={placeholder}
         onChange={(e) => {
           onChange(e.target.value);

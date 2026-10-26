@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import type { Customer, CustomerField } from '~/store/customers/types';
-import type { CustomerErrors } from '../validate';
+import type { CustomerErrors } from '~/store/customers/validate';
 
 export interface SectionProps {
   customer: Customer;
