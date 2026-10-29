@@ -68,17 +68,15 @@ export default function Warehouse(): ReactNode {
         link={HOME}
         icon={<Home className="w-5 h-5 text-white" />}
       />
-      <div className="w-full min-w-0 flex flex-col flex-1 min-h-0 overflow-y-auto overflow-x-hidden pt-20 lg:pt-24">
-        <div className="sticky top-0 z-30">
-          {isMobile ? (
-            <WarehouseMobileTablist />
-          ) : (
-            <div className="px-4">
-              <WarehouseTablist />
-            </div>
-          )}
-        </div>
-        <div className="flex-1 min-w-0 w-full px-4 pt-5">
+      <div className="flex-1 min-w-0 min-h-0 w-full overflow-y-auto overflow-x-hidden pt-16 md:pt-20 lg:pt-24">
+        {isMobile ? (
+          <WarehouseMobileTablist />
+        ) : (
+          <div className="px-4">
+            <WarehouseTablist />
+          </div>
+        )}
+        <div className="px-4 pt-5">
           <AnimatedSection />
         </div>
       </div>

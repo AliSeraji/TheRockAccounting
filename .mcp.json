@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "graphify": {
+      "command": "C:/Users/Ali/AppData/Roaming/uv/tools/graphifyy/Scripts/python.exe",
+      "args": [
+        "-m",
+        "graphify.serve",
+        "e:/therock/TheRockAccounting/graphify-out/graph.json"
+      ]
+    }
+  }
+}

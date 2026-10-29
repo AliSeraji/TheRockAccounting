@@ -140,3 +140,5 @@ export { default as DataTableHeader } from '../app/components/data-table/DataTab
 export { default as DataTableRow } from '../app/components/data-table/DataTableRow';
 export { default as DataTableCard } from '../app/components/data-table/DataTableCard';
 export { default as TablePagination } from '../app/components/data-table/TablePagination';
+export { default as ListHeader } from '../app/components/data-table/ListHeader';
+export { default as FilterSheet } from '../app/components/data-table/FilterSheet';

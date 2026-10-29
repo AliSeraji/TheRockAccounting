@@ -53,6 +53,7 @@ On a Windows checkout with `core.autocrlf=true`, git writes CRLF line endings wh
 
 - **Tabbed pages** (receipt issue at `/issue_receipt`, warehouse, settings) follow one pattern. A `common.tsx` holds a `*_SECTIONS` descriptor array with id, title, desc and a lucide `iconName`. A store holds the active section. `Tablist/index.tsx` (desktop) and `Tablist/mobile.tsx` are switched by `useIsMobile()`. The route maps section ids to components in `SECTION_COMPONENTS` and animates between them with `motion`. The receipt-issue tabs are `invoice` (stone draft), `block` (block draft, wrapped in `InvoiceStoreContext`) and `list` (`InvoicesSection`: list, detail or editor).
 - **Lists** (customers, warehouse, invoices) use the generic `components/data-table/DataTable`. Each feature defines `DataTableColumn<T>[]` in its own `columns.tsx`. The `mobile` role on each column places its value on the stacked card that replaces the table on phones.
+- Their card header is `data-table/ListHeader` (title, count, search, `ListFilter[]`, optional add button). Below `md` the filters move into `FilterSheet`, a bottom sheet, with chips for the active ones. A filter's first option means "all".
 - Confirmation and error dialogs across features reuse `components/warehouse/Alert.tsx` (`variant`, `onConfirm`). Every delete asks for confirmation first with a `warning` Alert, as `warehouse/ItemDialog.tsx` and `customers/CustomerForm.tsx` do.
 
 ### Printing and platform

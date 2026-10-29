@@ -1,17 +1,10 @@
 import type { ReactNode } from 'react';
-import { FileText, Search } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Input } from '../ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '../ui/select';
+import { FileText } from 'lucide-react';
+import { Card, CardContent } from '../ui/card';
 import DataTable from '../data-table/DataTable';
-import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
+import ListHeader from '../data-table/ListHeader';
+import type { ListFilter } from '../data-table/types';
+import { convertToEnDigits } from '~/lib/utils';
 import { INVOICE_TYPES } from '~/store/invoices/helpers';
 import type { InvoiceFilters, SavedInvoice } from '~/store/invoices/types';
 import { useInvoicesStore } from '~/store/invoices/useInvoicesStore';
@@ -31,9 +24,6 @@ const KIND_OPTIONS: { value: InvoiceFilters['kind']; label: string }[] = [
   { value: 'stone', label: INVOICE_KIND_LABELS.stone },
   { value: 'block', label: INVOICE_KIND_LABELS.block },
 ];
-
-const selectTriggerClass =
-  'flex flex-row max-w-41 border border-slate-200 rounded-lg text-sm px-3 py-1.5 bg-white text-slate-700 hover:cursor-pointer focus:ring-0 focus:ring-offset-0 focus:border-slate-400 focus:border-2';
 
 const normalize = (text: string): string =>
   convertToEnDigits(text).trim().toLowerCase();
@@ -66,75 +56,35 @@ export default function InvoicesList(): ReactNode {
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const visible = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
+  const listFilters: ListFilter[] = [
+    {
+      key: 'type',
+      label: 'نوع فاکتور',
+      value: filters.type,
+      options: TYPE_OPTIONS,
+      onChange: (type) => setFilters({ type }),
+    },
+    {
+      key: 'kind',
+      label: 'دسته',
+      value: filters.kind,
+      options: KIND_OPTIONS,
+      onChange: (kind) => setFilters({ kind: kind as InvoiceFilters['kind'] }),
+    },
+  ];
+
   return (
     <Card className="w-full border-slate-200 bg-white/90 backdrop-blur">
-      <CardHeader className="bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
-        <div className="flex flex-col md:flex-row w-full items-stretch md:items-center justify-between gap-3">
-          <CardTitle className="text-slate-800 font-semibold text-sm lg:text-lg whitespace-nowrap">
-            لیست فاکتورها
-            <span className="mr-2 text-sm font-normal text-slate-400">
-              ({convertToPersianDigits(filtered.length)} از{' '}
-              {convertToPersianDigits(invoices.length)} فاکتور)
-            </span>
-          </CardTitle>
-
-          <div className="w-full flex flex-row flex-wrap justify-end gap-2">
-            <div className="relative min-w-0 flex-1 md:flex-none md:w-64">
-              <Search className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
-              <Input
-                value={filters.search}
-                onChange={(e) => setFilters({ search: e.target.value })}
-                placeholder="شماره، خریدار، تلفن یا پروژه..."
-                className="pr-9 border-slate-200 rounded-lg text-sm bg-white"
-              />
-            </div>
-            <Select
-              value={filters.type}
-              onValueChange={(type) => setFilters({ type })}
-            >
-              <SelectTrigger dir="rtl" className={selectTriggerClass}>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent dir="rtl">
-                <SelectGroup>
-                  {TYPE_OPTIONS.map((option) => (
-                    <SelectItem
-                      key={option.value}
-                      value={option.value}
-                      className="hover:cursor-pointer"
-                    >
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-            <Select
-              value={filters.kind}
-              onValueChange={(kind) =>
-                setFilters({ kind: kind as InvoiceFilters['kind'] })
-              }
-            >
-              <SelectTrigger dir="rtl" className={selectTriggerClass}>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent dir="rtl">
-                <SelectGroup>
-                  {KIND_OPTIONS.map((option) => (
-                    <SelectItem
-                      key={option.value}
-                      value={option.value}
-                      className="hover:cursor-pointer"
-                    >
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-      </CardHeader>
+      <ListHeader
+        title="لیست فاکتورها"
+        noun="فاکتور"
+        shown={filtered.length}
+        total={invoices.length}
+        search={filters.search}
+        onSearchChange={(search) => setFilters({ search })}
+        searchPlaceholder="شماره، خریدار، تلفن یا پروژه..."
+        filters={listFilters}
+      />
 
       <CardContent className="p-0">
         {visible.length === 0 ? (

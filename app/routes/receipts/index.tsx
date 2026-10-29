@@ -67,19 +67,9 @@ export const ReceiptIssue = (): ReactNode => {
         link={HOME}
         icon={<Home className="w-5 h-5 text-white" />}
       />
-      <div className="w-full min-w-0 flex flex-col flex-1 min-h-0 overflow-y-auto overflow-x-hidden pt-20 lg:pt-24">
-        {isMobile ? (
-          <div className="sticky top-0 z-30">
-            <ReceiptIssueMobileTablist />
-          </div>
-        ) : (
-          <div className="sticky top-0 z-30">
-            <ReceiptIssueTablist />
-          </div>
-        )}
-        <div className="flex-1 min-w-0 min-h-0 w-full">
-          <AnimatedSection />
-        </div>
+      <div className="flex-1 min-w-0 min-h-0 w-full overflow-y-auto overflow-x-hidden pt-16 md:pt-20 lg:pt-24">
+        {isMobile ? <ReceiptIssueMobileTablist /> : <ReceiptIssueTablist />}
+        <AnimatedSection />
       </div>
     </div>
   );
