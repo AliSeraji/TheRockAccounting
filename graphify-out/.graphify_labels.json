@@ -1,6 +1,5 @@
 {
   "2": "Saved Invoices List & Detail",
-  "7": "Field & Sidebar Primitives",
   "23": "shadcn components.json",
   "25": "TypeScript Config",
   "28": "Toast Hook",
@@ -8,7 +7,6 @@
   "32": "Tooling & Theme Docs",
   "35": "Invoice Architecture Concepts",
   "36": "Design-sync Bundle Rules",
-  "39": "Sheet Primitives",
   "41": "gen-types Script",
   "43": "SSR Entry Points",
   "44": "Stock Ledger Concepts",

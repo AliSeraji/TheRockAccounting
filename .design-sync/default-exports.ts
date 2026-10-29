@@ -31,6 +31,7 @@ export { default as InvoiceBody } from '../app/components/invoice/index';
 export { default as ExplanationCard } from '../app/components/invoice/ExplanaitionCard';
 export { default as InvoiceInfo } from '../app/components/invoice/InvoiceInfo';
 export { default as InvoiceItemsCard } from '../app/components/invoice/InvoiceItemCards';
+export { default as AddRowFooter } from '../app/components/invoice/AddRowFooter';
 export { default as InvoiceSummary } from '../app/components/invoice/InvoiceSummary';
 export { default as InvoiceTable } from '../app/components/invoice/Table';
 export { default as InvoiceTableRow } from '../app/components/invoice/TableRow';

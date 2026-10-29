@@ -36,10 +36,14 @@ function previewTitle({ invoice, receipt }: ReceiptPreview): string {
 export default function ReceiptOutputDialog({
   preview,
   onPreviewChange,
+  printable = true,
 }: {
   // null keeps the dialog closed.
   preview: ReceiptPreview | null;
   onPreviewChange: (preview: ReceiptPreview | null) => void;
+  // false for an invoice that isn't saved yet: its receipts can be viewed but
+  // not printed, neither by the print button nor by the browser's own print.
+  printable?: boolean;
 }): ReactNode {
   const handlePrint = () => {
     let pageCss = '';
@@ -131,17 +135,24 @@ export default function ReceiptOutputDialog({
                 </TabsList>
               </Tabs>
             )}
-            <Button
-              onClick={handlePrint}
-              size="sm"
-              className="bg-gray-800 hover:bg-gray-900 gap-1.5 hover:cursor-pointer h-7 px-2.5 text-xs"
-            >
-              <Printer className="w-3.5 h-3.5" />
-              چاپ
-            </Button>
+            {printable && (
+              <Button
+                onClick={handlePrint}
+                size="sm"
+                className="bg-gray-800 hover:bg-gray-900 gap-1.5 hover:cursor-pointer h-7 px-2.5 text-xs"
+              >
+                <Printer className="w-3.5 h-3.5" />
+                چاپ
+              </Button>
+            )}
           </div>
         </DialogHeader>
-        <div className="flex-1 overflow-auto px-6 py-4">
+        <div
+          className={cn(
+            'flex-1 overflow-auto px-6 py-4',
+            !printable && 'no-print'
+          )}
+        >
           {preview?.receipt === ReceiptType.Sales && (
             <SalesInvoice invoice={preview.invoice} />
           )}

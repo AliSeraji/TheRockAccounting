@@ -97,7 +97,7 @@ const BlockRow = memo(function BlockRow({
   }, [isNewRow]);
 
   return (
-    <TableRow className="w-full flex flex-row border-b-0 transition-colors [&>td:not(:last-child)]:border-b [&:hover>td:not(:last-child)]:bg-slate-50">
+    <TableRow className="w-full flex flex-row border-b-0 transition-colors [&>td]:border-b [&:hover>td]:bg-slate-50">
       <TableCell className="w-[3%] border-x-[0.5px] border-r border-slate-200 p-2 text-center text-slate-700 font-medium">
         {convertToPersianDigits(index + 1)}
       </TableCell>
@@ -139,7 +139,7 @@ const BlockRow = memo(function BlockRow({
       <TableCell className="w-[18%] border-x-[0.5px] border-slate-200 p-1">
         {numericCell(BLOCK_ROW_FIELDS.TOTAL, true, true)}
       </TableCell>
-      <TableCell className="w-[5%] border-0 p-1 text-center">
+      <TableCell className="w-[5%] border-x-[0.5px] border-l border-slate-200 p-1 text-center">
         <Button
           variant="ghost"
           size="sm"

@@ -15,7 +15,7 @@ export function InvoiceTableHeader({
           <TableHead
             key={item.label || index}
             title={item.label}
-            className={`flex flex-row w-full h-full justify-center items-center p-2.5 lg:p-3 text-xs overflow-hidden text-ellipsis whitespace-nowrap ${item.label?.trim() ? 'border border-slate-300 bg-slate-100' : 'border-0'} ${item.width}`}
+            className={`flex flex-row w-full h-full justify-center items-center p-2.5 lg:p-3 text-xs overflow-hidden text-ellipsis whitespace-nowrap border border-slate-300 bg-slate-100 ${item.width}`}
           >
             <span className="block w-full text-center overflow-hidden text-ellipsis whitespace-nowrap">
               {item.label?.trim() ? item.label : '\u00A0'}
