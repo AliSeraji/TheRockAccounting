@@ -1,23 +1,13 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { Package, Plus } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '../ui/select';
-import { convertToPersianDigits } from '~/lib/utils';
+import { Package } from 'lucide-react';
+import { Card, CardContent } from '../ui/card';
 import {
   selectOpenItemId,
   useWarehouseStore,
 } from '~/store/warehouse/useWarehouse';
 import DataTable from '../data-table/DataTable';
-import type { DataTableColumn } from '../data-table/types';
+import ListHeader from '../data-table/ListHeader';
+import type { DataTableColumn, ListFilter } from '../data-table/types';
 
 const PAGE_SIZE = 20;
 
@@ -89,64 +79,35 @@ export default function ItemsCard<T extends ListItem>({
     setCurrentPage(1);
   }, [search, filterCategory]);
 
+  const filters: ListFilter[] = categoryOf
+    ? [
+        {
+          key: 'category',
+          label: 'دسته',
+          value: filterCategory || 'all',
+          options: [
+            { value: 'all', label: 'همه دسته‌ها' },
+            ...categories.map((cat) => ({ value: cat, label: cat })),
+          ],
+          onChange: (v) => setFilterCategory(v === 'all' ? '' : v),
+        },
+      ]
+    : [];
+
   return (
     <Card className="w-full border-slate-200 bg-white/90 backdrop-blur mb-6">
-      <CardHeader className="bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
-        <div className="flex flex-col md:flex-row w-full items-stretch md:items-center justify-between gap-3">
-          <CardTitle className="w-full text-slate-800 font-semibold text-lg">
-            {title}
-            <span className="mr-2 text-sm font-normal text-slate-400">
-              ({convertToPersianDigits(filteredItems.length)} از{' '}
-              {convertToPersianDigits(items.length)} {noun})
-            </span>
-          </CardTitle>
-
-          <div className="flex flex-row justify-end w-full gap-2">
-            <Button
-              onClick={openNewItem}
-              className="gap-2 bg-linear-to-r from-brand-700 to-brand-900 hover:from-brand-800 hover:to-brand-950 text-white shadow-md hover:cursor-pointer"
-            >
-              <Plus className="w-4 h-4" />
-              {noun} جدید
-            </Button>
-            <Input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="جستجو..."
-              className="min-w-0 flex-1 md:flex-none md:w-40 border-slate-200 rounded-lg text-sm"
-            />
-            {categoryOf && (
-              <Select
-                value={filterCategory || 'all'}
-                onValueChange={(v) => setFilterCategory(v === 'all' ? '' : v)}
-              >
-                <SelectTrigger
-                  dir="rtl"
-                  className="flex flex-row max-w-41 border border-slate-200 rounded-lg text-sm px-3 py-1.5 bg-white text-slate-700 hover:cursor-pointer focus:ring-0 focus:ring-offset-0 focus:border-slate-400 focus:border-2"
-                >
-                  <SelectValue placeholder={'همه دسته ها'} />
-                </SelectTrigger>
-                <SelectContent dir="rtl">
-                  <SelectGroup>
-                    <SelectItem value="all" className="hover:cursor-pointer">
-                      همه دسته‌ها
-                    </SelectItem>
-                    {categories.map((cat) => (
-                      <SelectItem
-                        key={cat}
-                        value={cat}
-                        className="hover:cursor-pointer"
-                      >
-                        {cat}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            )}
-          </div>
-        </div>
-      </CardHeader>
+      <ListHeader
+        title={title}
+        noun={noun}
+        shown={filteredItems.length}
+        total={items.length}
+        search={search}
+        onSearchChange={setSearch}
+        searchPlaceholder={`جستجوی ${noun}...`}
+        filters={filters}
+        addLabel={`${noun} جدید`}
+        onAdd={openNewItem}
+      />
 
       <CardContent className="p-0">
         {filteredItems.length === 0 ? (

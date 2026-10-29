@@ -21,6 +21,7 @@
     cubic-bezier(0.4, 0, 0.2, 1);
   --animate-slide-from-right: calendar-slide-from-right 0.3s
     cubic-bezier(0.4, 0, 0.2, 1);
+  --animate-sheet-up: sheet-slide-up 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Brand — gold & bronze, taken from the logo and invoice design */
   --color-brand-50: #fdfaf4; /* cream light */
@@ -92,6 +93,18 @@
   }
   to {
     transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Bottom sheets (data-table/FilterSheet) */
+@keyframes sheet-slide-up {
+  from {
+    transform: translateY(40%);
+    opacity: 0.6;
+  }
+  to {
+    transform: translateY(0);
     opacity: 1;
   }
 }

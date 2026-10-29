@@ -1,7 +1,8 @@
 import { memo, useMemo, type ReactNode } from 'react';
 import { MapPin } from 'lucide-react';
 import { DigitsField, SelectField, TextField } from '../fields';
-import { PROVINCES, PROVINCE_NAMES, SALE_RATE_OPTIONS } from '../constants';
+import { SALE_RATE_OPTIONS } from '../constants';
+import { PROVINCES, PROVINCE_NAMES } from '../provinces';
 import { SectionTitle, sectionGrid, type SectionProps } from './common';
 import { Field, FieldLabel } from '~/components/ui/field';
 import { Textarea } from '~/components/ui/textarea';

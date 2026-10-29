@@ -22,3 +22,13 @@ export type DataTableColumn<T extends DataTableItem> = {
   mobile?: MobileRole;
   render: (item: T) => ReactNode;
 };
+
+// A filter in a list header. The first option shows everything, so the
+// filter is active whenever another option is picked.
+export type ListFilter = {
+  key: string;
+  label: string;
+  value: string;
+  options: { value: string; label: string }[];
+  onChange: (value: string) => void;
+};
