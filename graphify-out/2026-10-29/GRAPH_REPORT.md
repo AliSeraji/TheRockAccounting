@@ -1,7 +1,7 @@
 # Graph Report - TheRockAccounting  (2026-10-29)
 
 ## Corpus Check
-- 241 files · ~64,672 words
+- 241 files · ~64,673 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 6 file(s) not represented in the graph (top: (none) 4, .css 1, .ico 1)
 

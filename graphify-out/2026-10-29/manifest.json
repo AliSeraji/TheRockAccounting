@@ -414,9 +414,9 @@
     "semantic_hash": "3ab0431e8570fcd2418fde6581fa3673"
   },
   "app/components/receipt_issue/sections/InvoicesSection.tsx": {
-    "mtime": 1793285595.6933234,
-    "seen": 1793285610.083412,
-    "ast_hash": "d01365d7ca9694e5c291e7441af7ca19",
+    "mtime": 1793285989.471816,
+    "seen": 1793286011.1676755,
+    "ast_hash": "d396f7a37f97bf000a82e94cc9973211",
     "semantic_hash": ""
   },
   "app/components/receipt_issue/sections/PlaceholderSection.tsx": {
@@ -774,10 +774,10 @@
     "semantic_hash": "d4f3a8603532826e34a92d4ba966d0c6"
   },
   "app/components/ui/PageHeader.tsx": {
-    "mtime": 1791451386.166723,
-    "seen": 1792749016.4482777,
-    "ast_hash": "ec8b971fcad07cdc191f44a1424eb88c",
-    "semantic_hash": "ec8b971fcad07cdc191f44a1424eb88c"
+    "mtime": 1793286217.9983914,
+    "seen": 1793286237.9619486,
+    "ast_hash": "e7d8979cae2ffc0832d93b3f23bb827d",
+    "semantic_hash": ""
   },
   "app/components/ui/alert-dialog.tsx": {
     "mtime": 1791451386.166723,
@@ -1104,9 +1104,9 @@
     "semantic_hash": "68b72d73b16ef99ace768ccef6a6230e"
   },
   "app/routes/customers/index.tsx": {
-    "mtime": 1793285441.2499354,
-    "seen": 1793285479.726156,
-    "ast_hash": "7cb64baa33631bce759a32d7506a5fa3",
+    "mtime": 1793286223.7896523,
+    "seen": 1793286237.9619966,
+    "ast_hash": "af1da7bee19973a66835781fb62248c9",
     "semantic_hash": ""
   },
   "app/routes/home.tsx": {
@@ -1122,21 +1122,21 @@
     "semantic_hash": "e10b0d2a045db975f151260c86ea34b0"
   },
   "app/routes/receipts/index.tsx": {
-    "mtime": 1793285580.0967197,
-    "seen": 1793285610.0835142,
-    "ast_hash": "3ecf571ad64e570c40021ea7429f8aeb",
+    "mtime": 1793286223.795653,
+    "seen": 1793286237.9619992,
+    "ast_hash": "cf8f961ca6dfd7704880ad8610a6c7d9",
     "semantic_hash": ""
   },
   "app/routes/settings/index.tsx": {
-    "mtime": 1793285592.4633992,
-    "seen": 1793285610.0835154,
-    "ast_hash": "4fa2e3b22fe421107e104d47ada904f5",
+    "mtime": 1793286223.8084981,
+    "seen": 1793286237.9620001,
+    "ast_hash": "543c546a7ca46d324f36929141475937",
     "semantic_hash": ""
   },
   "app/routes/warehouse/index.tsx": {
-    "mtime": 1793285590.3926425,
-    "seen": 1793285610.0835164,
-    "ast_hash": "cf615b8cc993d5ba5aed4fb801d45b10",
+    "mtime": 1793286223.8192515,
+    "seen": 1793286237.962001,
+    "ast_hash": "f478996c8f1b337c9bbdc1b71107cfde",
     "semantic_hash": ""
   },
   "app/store/customers/types.ts": {
