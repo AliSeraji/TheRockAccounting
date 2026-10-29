@@ -35,6 +35,7 @@ const ServiceRow = memo(function ServiceRow({
       readOnly={readOnly}
       isPrice={isPrice}
       addItem={isPrice && !readOnly ? addService : undefined}
+      removeItem={isPrice ? () => remove(serviceItem.id) : undefined}
     />
   );
 
