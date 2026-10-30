@@ -46,6 +46,15 @@ export function useInvoiceForm<T>(selector: (state: InvoiceFormState) => T): T {
   return useStore(store, selector);
 }
 
+// The add-row action of the invoice in context. Items live on each kind's own
+// store, not in InvoiceFormState, so shared cards add rows through this.
+export function useAddInvoiceItem(): () => void {
+  const { kind, mode } = useContext(InvoiceStoreContext);
+  const store: StoreApi<Pick<InvoiceState, 'addItem'>> =
+    kind === 'stone' ? STONE_STORES[mode] : BLOCK_STORES[mode];
+  return useStore(store, (state) => state.addItem);
+}
+
 export function useStoneInvoice<T>(selector: (state: InvoiceState) => T): T {
   const { mode } = useContext(InvoiceStoreContext);
   return useStore(STONE_STORES[mode], selector);

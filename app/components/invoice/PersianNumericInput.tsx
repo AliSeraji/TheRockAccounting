@@ -44,7 +44,7 @@ export default function PersianNumericInput({
 
     if (raw === '' || raw === '-') {
       setLocalValue(null);
-      onChange('-');
+      onChange('');
       return;
     }
 
@@ -98,7 +98,6 @@ export default function PersianNumericInput({
       tabIndex={readOnly ? -1 : undefined}
       onKeyDown={(e) => {
         if (e.key === 'Enter' && addItem) addItem();
-        if (e.key === 'Backspace' && removeItem) removeItem();
         if (e.key === 'Delete' && removeItem) removeItem();
       }}
     />

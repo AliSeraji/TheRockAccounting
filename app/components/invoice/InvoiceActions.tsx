@@ -81,7 +81,11 @@ export default function InvoiceActions(): ReactNode {
         </Button>
       </div>
 
-      <ReceiptOutputDialog preview={preview} onPreviewChange={setPreview} />
+      <ReceiptOutputDialog
+        preview={preview}
+        onPreviewChange={setPreview}
+        printable={false}
+      />
       {dialogs}
     </>
   );

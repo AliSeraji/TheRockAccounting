@@ -1,7 +1,5 @@
 import type React from 'react';
-import { Plus } from 'lucide-react';
 import { Table, TableBody, TableCell, TableRow } from '../../ui/table';
-import { Button } from '../../ui/button';
 import { InvoiceTableHeader } from '../TableHeader';
 import { useBlockInvoice } from '~/store/useInvoiceForm';
 import {
@@ -33,16 +31,16 @@ export default function BlockTable(): React.ReactNode {
             isNewRow={index === items.length - 1 && items.length > 1}
           />
         ))}
-        <Footer addItem={addItem} />
+        <Footer />
       </TableBody>
     </Table>
   );
 }
 
-function Footer({ addItem }: { addItem: () => void }): React.ReactNode {
+function Footer(): React.ReactNode {
   const totals = useBlockInvoice((state) => state.totals);
   return (
-    <TableRow className="w-full flex flex-row font-semibold text-slate-800 [&>td:not(:last-child)]:bg-slate-100">
+    <TableRow className="w-full flex flex-row font-semibold text-slate-800 [&>td]:bg-slate-100">
       <TableCell className="w-[34%] border border-slate-300 p-2 text-center flex flex-row items-center justify-center">
         جمع فاکتور
       </TableCell>
@@ -57,15 +55,7 @@ function Footer({ addItem }: { addItem: () => void }): React.ReactNode {
       <TableCell className="w-[18%] border border-slate-300 p-2 text-center flex flex-row items-center justify-center">
         {formatRialAmount(convertToPersianDigits(totals.totalAmount)) || '-'}
       </TableCell>
-      <TableCell className="w-[5%] border-0 p-2 flex flex-row items-center justify-center">
-        <Button
-          onClick={addItem}
-          size="xs"
-          className="bg-slate-700 hover:bg-slate-800 hover:cursor-pointer rounded-sm w-10"
-        >
-          <Plus className="w-2 h-2 lg:w-4 lg:h-4" />
-        </Button>
-      </TableCell>
+      <TableCell className="w-[5%] border border-slate-300 p-2 flex flex-row items-center justify-center" />
     </TableRow>
   );
 }

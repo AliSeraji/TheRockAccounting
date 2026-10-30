@@ -161,6 +161,7 @@ body {
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -196,6 +197,7 @@ body {
   --accent: #f4eee4;
   --accent-foreground: #332b22;
   --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #ffffff;
   --border: #e6ddcd;
   --input: #e6ddcd;
   --ring: #d9c08a;
@@ -230,6 +232,7 @@ body {
   --accent: oklch(0.279 0.041 260.031);
   --accent-foreground: oklch(0.984 0.003 247.858);
   --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: #ffffff;
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.551 0.027 264.364);
@@ -346,4 +349,20 @@ body {
   right: -190px;
   bottom: 100px;
   z-index: 10000;
+}
+
+/* Sonner on phones: its center-position rule cancels its own RTL offset, so
+   an RTL toaster spans 16px..100vw+16px and toasts spill off the right edge.
+   Size the toaster by its insets and let each toast fill it. The `ol` keeps
+   these above sonner's styles, which it injects after this sheet. */
+@media (max-width: 600px) {
+  ol[data-sonner-toaster][dir='rtl'] {
+    left: var(--mobile-offset-left);
+    right: var(--mobile-offset-right);
+    width: auto;
+  }
+
+  ol[data-sonner-toaster][dir='rtl'] [data-sonner-toast] {
+    width: 100%;
+  }
 }
