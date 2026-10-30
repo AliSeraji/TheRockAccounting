@@ -1,0 +1,8 @@
+- [Review diffs before writing](review-diffs-before-writing.md) — user approves every code change via VS Code diff before it's written
+- [Warehouse multi-warehouse plan](warehouse-multi-plan.md) — agreed task order + design decisions for warehouse refactor
+- [Invoice tablist Option C trial](invoice-tablist-option-c-trial.md) — restyle on trial; git blob hash to revert
+- [Block invoice + invoice list](block-invoice-tab.md) — 2026-10-08 block invoice, submit/list/detail/edit flow, user's choices vs my defaults
+- [Backend readiness + stock plan](backend-readiness.md) — 5-point plan for stock changes before backend (ledger, sales-only, ids done, event actions, NUMERIC)
+- [Accounting page design](accounting-design.md) — expenses list, payments against saved invoices (never block), every buyer auto-becomes a customer (ثابت/گذری removed 2026-10-26)
+- [Page header glass scroll](page-header-glass-scroll.md) — chosen 2026-10-29: tabs+content scroll under glass PageHeader, no sticky tabs; mobile header 25% shorter
+- [Invoice add-row footer](invoice-add-row-footer.md) — chosen 2026-10-30: add-row button in card footer bottom-left (AddRowFooter), not in totals row; delete column bordered
