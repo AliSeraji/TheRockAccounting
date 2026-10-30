@@ -101,9 +101,9 @@ export default function ItemDialog<T extends DialogItem>({
     <Button
       variant="destructive"
       onClick={() => setConfirmDelete(true)}
-      className="gap-2 mr-auto hover:cursor-pointer text-white"
+      className="gap-2 mr-auto hover:cursor-pointer"
     >
-      <Trash2 className="w-4 h-4 stroke-white" />
+      <Trash2 className="w-4 h-4" />
       حذف
     </Button>
   );

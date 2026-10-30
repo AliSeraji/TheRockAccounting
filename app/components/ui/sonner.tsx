@@ -13,7 +13,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       theme="light"
       position="bottom-center"
       dir="rtl"
-      className="flex flex-row items-center toaster group text-lg font-vazirmatn"
+      className="flex flex-row items-center toaster group font-vazirmatn"
       icons={{
         success: <CircleCheckIcon className="size-6" />,
         info: <InfoIcon className="size-6" />,
@@ -26,6 +26,10 @@ const Toaster = ({ ...props }: ToasterProps) => {
           fontFamily: 'var(--font-vazirmatn)',
         },
         classNames: {
+          // Sonner sets 13px on each toast and 12px on its buttons, so the
+          // sizes go here rather than on the toaster.
+          toast: '!text-lg',
+          actionButton: '!text-sm',
           success:
             '!bg-emerald-500 !text-white !border-emerald-600 [&>[data-icon]]:!text-white',
           error:

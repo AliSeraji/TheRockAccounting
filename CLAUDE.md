@@ -73,7 +73,7 @@ On a Windows checkout with `core.autocrlf=true`, git writes CRLF line endings wh
 
 - Tailwind v4 is configured in CSS only (`app/app.css`: `@theme`, `@utility`). There is no `tailwind.config`.
 - The theme **remaps `slate-*` and `gray-*` to warm tones** and adds a gold/bronze `brand-*` scale (and utilities such as `bg-gold-gradient`). Existing `slate-*` classes are intentionally beige/brown, not blue.
-- `--destructive-foreground` is undefined, so destructive buttons show dark text on red.
+- `--destructive-foreground` is white, so `variant="destructive"` buttons get white text and icons (lucide strokes use `currentColor`). Don't add `text-white`/`stroke-white` per button.
 - Tailwind v4 buttons use the default arrow cursor, so every clickable control needs `hover:cursor-pointer`. The shared dialog close button in `ui/dialog.tsx` has it.
 - Prettier: single quotes, semicolons, `trailingComma: es5`, width 80, LF line endings.
 
