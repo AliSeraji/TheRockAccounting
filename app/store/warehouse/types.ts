@@ -6,8 +6,8 @@ export type WarehouseId = StoneWarehouseId | 'block' | 'misc' | 'raw';
 //
 // Every warehouse slice treats stock (a block's volume) the same way: `add*`
 // logs the starting stock as an 'opening' movement, `update*` keeps the stored
-// stock (only `adjustStock` and transfers change it), and `remove*` leaves the
-// item's movements in the log.
+// stock (only `adjustStock`, `setInvoiceStock` and transfers change it), and
+// `remove*` leaves the item's movements in the log.
 
 export type StoneStockItem = {
   id: string;
@@ -115,7 +115,7 @@ export type StockMovementReason =
   | 'transfer'
   // A manual correction, e.g. after counting the stock.
   | 'adjustment'
-  // Undoes an earlier movement, e.g. for a cancelled invoice.
+  // Returns stock an earlier movement took, e.g. when an invoice is edited.
   | 'reversal';
 
 // The record a movement came from.
@@ -140,6 +140,14 @@ export type StockMovement = {
   date: string;
 };
 
+// Stock one invoice row sold. `amount` follows the warehouse's unit, like a
+// movement's delta.
+export type StockSale = {
+  warehouse: WarehouseId;
+  itemId: string;
+  amount: number;
+};
+
 export interface MovementsSlice {
   // Oldest first. Written only by the actions that change stock, in the same
   // update as the item's quantity, so the two always agree.
@@ -153,6 +161,14 @@ export interface MovementsSlice {
     stock: number,
     note: string
   ) => void;
+  // Makes the stock invoice `invoiceId` holds match `sales`, one entry per
+  // invoice row (none for a pre-invoice). What it holds is read from its
+  // movements. If they already match, nothing is logged. Otherwise a
+  // 'reversal' returns each item it held and a 'sale' takes each entry, so a
+  // row removed from the invoice gives its stock back. Deleted items and
+  // amounts that aren't positive are left out. Works on disabled warehouses
+  // too: the goods have left either way.
+  setInvoiceStock: (invoiceId: string, sales: StockSale[]) => void;
 }
 
 // Which item the dialog shows. Only one warehouse is on screen at a time, so

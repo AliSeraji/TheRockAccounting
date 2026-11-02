@@ -2,7 +2,7 @@ import { useState, type ReactNode } from 'react';
 import { toast } from 'sonner';
 import { Alert } from '~/components/warehouse/Alert';
 import { convertToPersianDigits } from '~/lib/utils';
-import { isLocked } from '~/store/invoices/helpers';
+import { isSalesInvoice } from '~/store/invoices/helpers';
 import type { SaveResult } from '~/store/invoices/types';
 import { useInvoicesStore } from '~/store/invoices/useInvoicesStore';
 import { readInvoice, type InvoiceStoreKey } from '~/store/useInvoiceForm';
@@ -10,17 +10,21 @@ import { readInvoice, type InvoiceStoreKey } from '~/store/useInvoiceForm';
 type Saved = Extract<SaveResult, { ok: true }>;
 
 // Saves the invoice behind `key` to the invoice list, over the invoice `id`
-// when editing. A sales invoice can't be edited afterwards, so saving one
-// asks first. A buyer added to the customers on the way gets their own toast.
-// Render the returned `dialogs` once.
+// when editing. Saving a sales invoice, or editing one into a pre-invoice,
+// changes the warehouse stock, so it asks first. A buyer added to the
+// customers on the way gets their own toast. Render the returned `dialogs`
+// once.
 export function useInvoiceSaver(
   key: InvoiceStoreKey,
   id: string | undefined,
   onSaved: (saved: Saved) => void
 ): { save: () => void; dialogs: ReactNode } {
   const saveInvoice = useInvoicesStore((state) => state.saveInvoice);
+  const wasSales = useInvoicesStore((state) =>
+    state.invoices.some((saved) => saved.id === id && isSalesInvoice(saved))
+  );
   const [problems, setProblems] = useState<string[]>([]);
-  const [confirmLock, setConfirmLock] = useState(false);
+  const [confirmStock, setConfirmStock] = useState(false);
 
   const commit = () => {
     const result = saveInvoice(readInvoice(key), id);
@@ -38,7 +42,7 @@ export function useInvoiceSaver(
   };
 
   const save = () => {
-    if (isLocked(readInvoice(key))) setConfirmLock(true);
+    if (wasSales || isSalesInvoice(readInvoice(key))) setConfirmStock(true);
     else commit();
   };
 
@@ -52,10 +56,10 @@ export function useInvoiceSaver(
         variant="error"
       />
       <Alert
-        open={confirmLock}
-        set={setConfirmLock}
+        open={confirmStock}
+        set={setConfirmStock}
         title="ثبت فاکتور فروش"
-        description="فاکتور فروش پس از ثبت دیگر قابل ویرایش نیست. ثبت شود؟"
+        description="موجودی انبار بر اساس اقلام این فاکتور به‌روز می‌شود. ثبت شود؟"
         variant="warning"
         cancelText="انصراف"
         confirmText="ثبت"

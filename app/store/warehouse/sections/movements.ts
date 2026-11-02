@@ -1,5 +1,12 @@
 import type { StateCreator } from 'zustand';
-import type { MovementsSlice, WarehouseId, WarehouseStore } from '../types';
+import type {
+  MovementsSlice,
+  StockMovement,
+  StockMovementReason,
+  StockSale,
+  WarehouseId,
+  WarehouseStore,
+} from '../types';
 import {
   formatQuantity,
   makeMovement,
@@ -62,6 +69,44 @@ const withStock = (
   }
 };
 
+// One entry per item with its amounts summed. Items that sum to zero drop
+// out.
+const perItem = (sales: StockSale[]): StockSale[] => {
+  const totals = new Map<string, StockSale>();
+  for (const sale of sales) {
+    const key = `${sale.warehouse}/${sale.itemId}`;
+    const amount = (totals.get(key)?.amount ?? 0) + sale.amount;
+    totals.set(key, { ...sale, amount });
+  }
+  return [...totals.values()].filter(
+    (sale) => formatQuantity(sale.amount) !== '0'
+  );
+};
+
+// Whether two per-item lists hold the same amounts of the same items.
+const sameStock = (a: StockSale[], b: StockSale[]): boolean =>
+  a.length === b.length &&
+  a.every((x) =>
+    b.some(
+      (y) =>
+        y.warehouse === x.warehouse &&
+        y.itemId === x.itemId &&
+        formatQuantity(y.amount) === formatQuantity(x.amount)
+    )
+  );
+
+// What an invoice's movements have taken, net of returns, per item.
+const heldBy = (movements: StockMovement[], invoiceId: string): StockSale[] =>
+  perItem(
+    movements
+      .filter(({ ref }) => ref?.type === 'invoice' && ref.id === invoiceId)
+      .map(({ warehouse, itemId, delta }) => ({
+        warehouse,
+        itemId,
+        amount: -parseQuantity(delta),
+      }))
+  );
+
 // The stock log. Each action that changes stock appends its movements in the
 // same `set()` that updates the stored stock.
 export const createMovementsSlice: StateCreator<
@@ -87,6 +132,55 @@ export const createMovementsSlice: StateCreator<
       return {
         ...withStock(state, warehouse, id, formatQuantity(stock), date),
         movements: [...state.movements, movement],
+      };
+    }),
+  setInvoiceStock: (invoiceId, sales) =>
+    set((state) => {
+      // A deleted item has no stock to return or take.
+      const exists = ({ warehouse, itemId }: StockSale) =>
+        stockOf(state, warehouse, itemId) !== undefined;
+      const held = heldBy(state.movements, invoiceId).filter(exists);
+      const wanted = sales.filter((sale) => sale.amount > 0 && exists(sale));
+      if (sameStock(held, perItem(wanted))) return {};
+
+      const date = new Date().toISOString();
+      const ref = { type: 'invoice', id: invoiceId } as const;
+      // Each change builds on the last, so an item on two rows loses both.
+      let next = state;
+      const logged: StockMovement[] = [];
+      const apply = (
+        { warehouse, itemId }: StockSale,
+        delta: number,
+        reason: StockMovementReason
+      ) => {
+        const current = stockOf(next, warehouse, itemId);
+        if (current === undefined) return;
+        const stock = formatQuantity(parseQuantity(current) + delta);
+        next = { ...next, ...withStock(next, warehouse, itemId, stock, date) };
+        logged.push(
+          makeMovement(
+            {
+              itemId,
+              warehouse,
+              delta: formatQuantity(delta),
+              reason,
+              ref,
+              note: '',
+            },
+            date
+          )
+        );
+      };
+      held.forEach((sale) => apply(sale, sale.amount, 'reversal'));
+      wanted.forEach((sale) => apply(sale, -sale.amount, 'sale'));
+
+      const { stones, blocks, misc, raw } = next;
+      return {
+        stones,
+        blocks,
+        misc,
+        raw,
+        movements: [...state.movements, ...logged],
       };
     }),
 });

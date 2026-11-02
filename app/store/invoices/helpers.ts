@@ -1,4 +1,5 @@
 import { printableServices } from '~/helper/helper';
+import { can } from '~/lib/permissions';
 import { convertToPersianDigits } from '~/lib/utils';
 import {
   customerFromBuyer,
@@ -12,6 +13,8 @@ import type {
   InvoiceSnapshot,
   StoneItem,
 } from '../types';
+import { parseQuantity } from '../warehouse/helpers';
+import type { StockSale } from '../warehouse/types';
 import type { SavedInvoice } from './types';
 
 export const INVOICE_TYPES = {
@@ -19,9 +22,14 @@ export const INVOICE_TYPES = {
   SALES: 'فاکتور فروش',
 } as const;
 
-// Sales invoices are final and can no longer be edited.
-export const isLocked = (invoice: InvoiceSnapshot): boolean =>
+// Only sales invoices move stock, never pre-invoices.
+export const isSalesInvoice = (invoice: InvoiceSnapshot): boolean =>
   invoice.data.invoiceType === INVOICE_TYPES.SALES;
+
+// Every invoice stays editable, but a sales invoice has moved stock, so
+// editing one is for users allowed to.
+export const canEditInvoice = (invoice: InvoiceSnapshot): boolean =>
+  !isSalesInvoice(invoice) || can('editSalesInvoice');
 
 // Cleared numeric inputs hold '-'.
 const isBlank = (value: string): boolean =>
@@ -175,6 +183,26 @@ export function finalizeInvoice(
           items: invoice.data.items.filter(isFilledBlock),
         },
       };
+}
+
+// The warehouse stock an invoice sells, one entry per row picked from the
+// warehouse: stone rows sell pieces from the main warehouse, block rows cubic
+// meters from the block warehouse.
+export function stockSales(invoice: InvoiceSnapshot): StockSale[] {
+  const sales: StockSale[] =
+    invoice.kind === 'stone'
+      ? invoice.data.items.map((item) => ({
+          warehouse: 'main',
+          itemId: item.stockId,
+          amount: parseQuantity(item.quantity),
+        }))
+      : invoice.data.items.map((item) => ({
+          warehouse: 'block',
+          itemId: item.stockId,
+          amount: parseQuantity(item.volume),
+        }));
+  // Rows typed in freely aren't linked to any stock.
+  return sales.filter((sale) => sale.itemId);
 }
 
 // The settings counter, skipping numbers already typed in by hand.

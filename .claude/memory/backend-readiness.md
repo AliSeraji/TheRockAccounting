@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 74bd71de-d923-4e5d-b28c-29e6ce637c2b
-  modified: 2026-10-22T19:35:39.712Z
+  modified: 2026-11-02T19:29:24.599Z
 ---
 
 Roadmap the user stated on 2026-10-18: finish the accounting page, statistics, and individual accounts (حساب اشخاص), then build a backend and database **modelled on the implemented frontend**. The user explicitly asked (2026-10-18) that this plan not be forgotten.
@@ -14,12 +14,12 @@ Negative stock (decided 2026-10-18): every warehouse may go below zero (stone/mi
 
 **The 5-point plan for automatic stock changes** (my advice of 2026-10-18; the user wants to follow it):
 1. **Stock-movement ledger** instead of overwriting quantities. Each change is a row: item id, warehouse, ± delta (pieces or m³), reason (opening | purchase | sale | transfer | adjustment | reversal), reference (invoice id / transfer id), date, user. On-hand = opening + sum of deltas (the server may cache it in a column updated in the same transaction). It is the classic کاردکس کالا (stock card). Started 2026-10-18: the `StockMovement` / `StockMovementReason` / `StockMovementRef` types are in `app/store/warehouse/types.ts` (type only, nothing records movements yet). Planned next step: `transferStone` writes its two movements.
-2. **Only فاکتور فروش (sales invoice) moves stock**, never پیش فاکتور (pre-invoice). Sales invoices are already locked after saving, so no edit and re-deduct. A later cancel is a reversal entry, never an edit or delete.
+2. **Only فاکتور فروش (sales invoice) moves stock**, never پیش فاکتور (pre-invoice). Changed 2026-11-02: sales invoices are no longer locked. An edit logs a reversal of everything the invoice held and re-sells its rows (`setInvoiceStock`), and invoices are never deleted or cancelled ([[invoices-editable-never-deleted]]).
 3. **Link by id, not code; ids not server-numbered.** DONE 2026-10-18: UUID ids from `newId()` in `app/lib/id.ts` for warehouse items, customers and saved invoices (`''` = unsaved; seeds use fixed '1', '2', … for SSR). Invoice rows carry `stockId` ('' = free-typed, moves no stock). Row ids inside an invoice stay numeric local keys.
 4. **Store actions = business events** (saveInvoice, transferStone, adjustStock), each mapping to one future API call. A manual quantity edit in the item dialog becomes an adjustment entry with the difference, not an overwrite. DONE for warehouse stock 2026-10-20 (`adjustStock`, and `update*` can no longer change stock). Still generic setters elsewhere, e.g. the invoice and customer stores.
 5. **DB stores quantities and money as NUMERIC/decimal**, not float. The frontend already keeps strings, so this is a schema rule only.
 
-Deduction itself must run on the server in the same DB transaction as saving the invoice. Do not build client-side deduction in Zustand.
+Once the backend exists, deduction must run on the server in the same DB transaction as saving the invoice; the client-side `setInvoiceStock` (added 2026-11-02 at the user's request) is a stand-in until then, and the server should use the same ledger-based return-and-resell.
 
 **Resume here (state as of 2026-10-20):**
 - The 2026-10-18 work was committed by the user (f2640c8, d8ad9fc on branch `receipts`). The user wants to approve the steps one at a time.
@@ -29,7 +29,7 @@ Deduction itself must run on the server in the same DB transaction as saving the
 - Next steps:
   3. DONE 2026-10-20 (uncommitted). **User chose tabs in the item view dialog**: مشخصات (details) | کاردکس (stock card), footer buttons unchanged. `StockCard.tsx` selects the whole `movements` array and filters by item id + warehouse in render (a plain loop builds the running balance). Columns: date, description (transfers name the other warehouse; the note is shown under it), ±change (unit from `stockUnit`), balance. Labels: `MOVEMENT_REASONS` in warehouse `constants.ts`. Verified by rendering it with react-dom/server via vite-node (for SSR, copy live state into `getInitialState()`).
 - After step 3, nothing is left on the warehouse side except the open question below.
-- Open question for the user: should sales-invoice deduction also be prototyped in the in-memory log, or wait for the backend (my earlier advice was to wait)?
+- ~~Open question~~ answered 2026-11-02: the user asked for sales deduction in the in-memory log now. Done (uncommitted): `sellStock(invoiceId, sales)` in `sections/movements.ts` (one 'sale' per invoice row, `ref {type:'invoice'}`, skips deleted items, applies to disabled warehouses too), `stockSales(invoice)` in `store/invoices/helpers.ts`, called from `saveInvoice` only when the saved invoice is a sales invoice (pre-invoice → sales on edit deducts then). The lock-confirmation text now mentions the deduction. Verified with a vite-node script (ledger sum == stock). Superseded the same day: `sellStock` became `setInvoiceStock` when sales invoices became editable, and the stock card now shows invoice numbers. See [[invoices-editable-never-deleted]].
 
 **Why:** state written now becomes the API/DB schema later, so client-only shortcuts become rewrite work.
 **How to apply:** when touching stores or warehouse/invoice code, check new work against these 5 points and flag anything that only works in memory. Related: [[warehouse-multi-plan]], [[block-invoice-tab]].

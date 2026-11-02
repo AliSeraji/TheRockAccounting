@@ -39,11 +39,12 @@ export interface InvoicesStore {
   // Adds `invoice` to the list, or replaces the invoice `id` when editing.
   // A blank invoice number takes the next one from the numbering settings.
   // An unlinked buyer is linked to the matching customer, or added to the
-  // customers as a new one.
+  // customers as a new one. A sales invoice holds the stock its rows picked
+  // from the warehouse; an edit corrects it. Invoices are never deleted.
   saveInvoice: (invoice: InvoiceSnapshot, id?: string) => SaveResult;
   openList: () => void;
   openInvoice: (id: string) => void;
-  // Loads the invoice into its kind's editor store. Sales invoices are locked.
+  // Loads the invoice into its kind's editor store, if the user may edit it.
   startEditing: (id: string) => void;
   setFilters: (filters: Partial<InvoiceFilters>) => void;
   setPage: (page: number) => void;

@@ -5,4 +5,5 @@
 - [Backend readiness + stock plan](backend-readiness.md) — 5-point plan for stock changes before backend (ledger, sales-only, ids done, event actions, NUMERIC)
 - [Accounting page design](accounting-design.md) — expenses list, payments against saved invoices (never block), every buyer auto-becomes a customer (ثابت/گذری removed 2026-10-26)
 - [Page header glass scroll](page-header-glass-scroll.md) — chosen 2026-10-29: tabs+content scroll under glass PageHeader, no sticky tabs; mobile header 25% shorter
+- [Invoices editable, never deleted](invoices-editable-never-deleted.md) — 2026-11-02: sales invoices editable (future: highest access level only via `can()`), edits return+resell stock, no delete ever
 - [Invoice add-row footer](invoice-add-row-footer.md) — chosen 2026-10-30: add-row button in card footer bottom-left (AddRowFooter), not in totals row; delete column bordered

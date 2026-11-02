@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 13e87190-37ea-4cde-b89f-03de1510ca2c
-  modified: 2026-10-08T13:30:24.331Z
+  modified: 2026-11-02T19:29:30.078Z
 ---
 
 Built 2026-10-08 on branch `warehouse`, uncommitted at the time. Follows on from the block warehouse in [[warehouse-multi-plan]].
@@ -18,7 +18,7 @@ Built 2026-10-08 on branch `warehouse`, uncommitted at the time. Follows on from
 **Invoice list** (2026-10-08, user's choices):
 - Detail and edit open inside the "لیست فاکتورها" tab (drill-down with a back button), never on the creation tabs. **No delete** (user said "no delete for now").
 - Search and print were removed from the tablist. Search lives in the list; print only in the receipt dialog, which now has a فاکتور / رسید تحویل بار switch.
-- Sales invoices (فاکتور فروش) are locked. Saving one, from creation or edit, asks for confirmation first.
+- ~~Sales invoices are locked~~: since 2026-11-02 every invoice stays editable and none is deleted ([[invoices-editable-never-deleted]]). Saving a sales invoice still asks for confirmation first, now because it changes stock.
 
 My defaults, not confirmed by the user:
 - Submit requires a buyer, a date and at least one complete item row (type + amount); untouched rows are dropped.
