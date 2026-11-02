@@ -3,13 +3,16 @@ import { newId } from '~/lib/id';
 import { useCustomersStore } from '../customers/useCustomers';
 import { useSettingsStore } from '../settings/useSettingStore';
 import { loadInvoice } from '../useInvoiceForm';
+import { useWarehouseStore } from '../warehouse/useWarehouse';
 import type { InvoicesStore, SavedInvoice } from './types';
 import {
+  canEditInvoice,
   finalizeInvoice,
   invoiceProblems,
-  isLocked,
+  isSalesInvoice,
   nextInvoiceNumber,
   resolveBuyer,
+  stockSales,
 } from './helpers';
 
 export const useInvoicesStore = create<InvoicesStore>((set, get) => ({
@@ -21,8 +24,8 @@ export const useInvoicesStore = create<InvoicesStore>((set, get) => ({
   saveInvoice: (invoice, id) => {
     const { invoices } = get();
     const existing = invoices.find((saved) => saved.id === id);
-    if (existing && isLocked(existing)) {
-      return { ok: false, problems: ['فاکتور فروش قابل ویرایش نیست'] };
+    if (existing && !canEditInvoice(existing)) {
+      return { ok: false, problems: ['اجازه ویرایش این فاکتور را ندارید'] };
     }
 
     const problems = invoiceProblems(invoice, invoices, id);
@@ -30,7 +33,8 @@ export const useInvoicesStore = create<InvoicesStore>((set, get) => ({
 
     // Checked before anything below is written, so a refused save leaves no
     // customer or used invoice number behind. With a backend this is one
-    // call that writes the customer and the invoice in one transaction.
+    // call that writes the customer, the invoice and its stock movements in
+    // one transaction.
     const customersStore = useCustomersStore.getState();
     const buyer = resolveBuyer(invoice.data, customersStore.customers);
     if (!buyer.ok) return buyer;
@@ -47,31 +51,25 @@ export const useInvoicesStore = create<InvoicesStore>((set, get) => ({
     if (newCustomer) customersStore.addCustomer(newCustomer);
 
     const now = new Date().toISOString();
-    const finalized = finalizeInvoice(invoice, invoiceNumber, customerId);
-
-    if (existing) {
-      const updated: SavedInvoice = {
-        ...finalized,
-        id: existing.id,
-        createdAt: existing.createdAt,
-        updatedAt: now,
-      };
-      set({
-        invoices: invoices.map((saved) =>
-          saved.id === existing.id ? updated : saved
-        ),
-      });
-      return { ok: true, id: existing.id, invoiceNumber, newCustomer };
-    }
-
-    const added: SavedInvoice = {
-      ...finalized,
-      id: newId(),
-      createdAt: now,
+    const saved: SavedInvoice = {
+      ...finalizeInvoice(invoice, invoiceNumber, customerId),
+      id: existing?.id ?? newId(),
+      createdAt: existing?.createdAt ?? now,
       updatedAt: now,
     };
-    set({ invoices: [added, ...invoices] });
-    return { ok: true, id: added.id, invoiceNumber, newCustomer };
+    set({
+      invoices: existing
+        ? invoices.map((other) => (other.id === saved.id ? saved : other))
+        : [saved, ...invoices],
+    });
+
+    // The warehouse follows the saved invoice: a sales invoice holds its
+    // rows' stock, a pre-invoice none. An edit returns what the invoice held
+    // and takes its rows again.
+    const sales = isSalesInvoice(saved) ? stockSales(saved) : [];
+    useWarehouseStore.getState().setInvoiceStock(saved.id, sales);
+
+    return { ok: true, id: saved.id, invoiceNumber, newCustomer };
   },
 
   openList: () => set({ view: { mode: 'list' } }),
@@ -80,7 +78,7 @@ export const useInvoicesStore = create<InvoicesStore>((set, get) => ({
 
   startEditing: (id) => {
     const invoice = get().invoices.find((saved) => saved.id === id);
-    if (!invoice || isLocked(invoice)) return;
+    if (!invoice || !canEditInvoice(invoice)) return;
     loadInvoice('edit', invoice);
     set({ view: { mode: 'edit', id } });
   },

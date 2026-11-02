@@ -12,7 +12,7 @@ import {
   formatRialAmount,
   persianNumberToText,
 } from '~/lib/utils';
-import { isLocked } from '~/store/invoices/helpers';
+import { canEditInvoice } from '~/store/invoices/helpers';
 import type { SavedInvoice } from '~/store/invoices/types';
 import { useInvoicesStore } from '~/store/invoices/useInvoicesStore';
 import type { InvoiceFormData } from '~/store/types';
@@ -150,12 +150,7 @@ export default function InvoiceDetails({
           <FileText className="w-4 h-4" />
           نمایش رسیدها
         </Button>
-        {isLocked(invoice) ? (
-          <span className="flex items-center gap-1.5 rounded-lg bg-slate-100 px-3 py-2 text-xs text-slate-600">
-            <Lock className="w-3.5 h-3.5" />
-            فاکتور فروش قابل ویرایش نیست
-          </span>
-        ) : (
+        {canEditInvoice(invoice) ? (
           <Button
             onClick={() => startEditing(invoice.id)}
             className="gap-2 bg-linear-to-r from-brand-700 to-brand-900 hover:from-brand-800 hover:to-brand-950 text-white shadow-md hover:cursor-pointer"
@@ -163,6 +158,11 @@ export default function InvoiceDetails({
             <Pencil className="w-4 h-4" />
             ویرایش
           </Button>
+        ) : (
+          <span className="flex items-center gap-1.5 rounded-lg bg-slate-100 px-3 py-2 text-xs text-slate-600">
+            <Lock className="w-3.5 h-3.5" />
+            اجازه ویرایش این فاکتور را ندارید
+          </span>
         )}
       </InvoiceViewHeader>
 

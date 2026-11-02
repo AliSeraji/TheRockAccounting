@@ -8,6 +8,7 @@ import {
   TableRow,
 } from '../ui/table';
 import { cn, convertToPersianDigits } from '~/lib/utils';
+import { useInvoicesStore } from '~/store/invoices/useInvoicesStore';
 import { useWarehouseStore } from '~/store/warehouse/useWarehouse';
 import type { StockMovement, WarehouseId } from '~/store/warehouse/types';
 import {
@@ -26,8 +27,15 @@ const cellClass = 'border border-slate-200 p-2 text-center text-slate-700';
 const sectionTitle = (id: WarehouseId) =>
   WAREHOUSE_SECTIONS.find((s) => s.id === id)?.title ?? '';
 
-// What a movement was. Transfers name the other warehouse.
-const describe = ({ reason, warehouse, delta }: StockMovement): string => {
+// What a movement was. Transfers name the other warehouse, and movements of
+// an invoice its number.
+const describe = (
+  { reason, warehouse, delta }: StockMovement,
+  invoiceNumber?: string
+): string => {
+  if (invoiceNumber) {
+    return `${MOVEMENT_REASONS[reason]} (فاکتور ${convertToPersianDigits(invoiceNumber)})`;
+  }
   if (reason !== 'transfer') return MOVEMENT_REASONS[reason];
   if (warehouse !== 'main' && warehouse !== 'secondary') return 'انتقال';
   const other = sectionTitle(TRANSFER_TARGET[warehouse]);
@@ -47,6 +55,11 @@ export default function StockCard({
   itemId: string;
 }): ReactNode {
   const movements = useWarehouseStore((state) => state.movements);
+  const invoices = useInvoicesStore((state) => state.invoices);
+  const invoiceNumber = ({ ref }: StockMovement) =>
+    ref?.type === 'invoice'
+      ? invoices.find((invoice) => invoice.id === ref.id)?.data.invoiceNumber
+      : undefined;
 
   const rows: { movement: StockMovement; balance: string }[] = [];
   let balance = 0;
@@ -86,7 +99,7 @@ export default function StockCard({
                 {formatDateTime(movement.date)}
               </TableCell>
               <TableCell className={cellClass}>
-                <div>{describe(movement)}</div>
+                <div>{describe(movement, invoiceNumber(movement))}</div>
                 {movement.note && (
                   <div className="mt-0.5 text-xs text-slate-500 whitespace-normal">
                     {movement.note}
