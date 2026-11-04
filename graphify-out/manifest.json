@@ -1530,9 +1530,9 @@
     "semantic_hash": ""
   },
   "app/components/invoice/row-cards/IdentityField.tsx": {
-    "mtime": 1793820106.947044,
-    "seen": 1793820148.123162,
-    "ast_hash": "38d70270827367a412f5d6ccd2e62c7f",
+    "mtime": 1793821594.929731,
+    "seen": 1793821650.1627789,
+    "ast_hash": "349e2671acc914c4427dcb538bba4f9b",
     "semantic_hash": ""
   },
   "app/components/invoice/row-cards/NumberField.tsx": {
@@ -1542,9 +1542,9 @@
     "semantic_hash": ""
   },
   "app/components/invoice/row-cards/PriceStrip.tsx": {
-    "mtime": 1793817580.7830946,
-    "seen": 1793817840.674102,
-    "ast_hash": "2203d6e15dcc2118bb1180f9e4fe2778",
+    "mtime": 1793821637.474378,
+    "seen": 1793821650.162781,
+    "ast_hash": "5505fb0e0d97bc553dc55cec1e68ab6e",
     "semantic_hash": ""
   },
   "app/components/invoice/row-cards/RowCard.tsx": {
@@ -1578,9 +1578,9 @@
     "semantic_hash": ""
   },
   "app/components/invoice/row-cards/styles.ts": {
-    "mtime": 1793816862.6974072,
-    "seen": 1793817057.382717,
-    "ast_hash": "299163000e962390f170f6e49c7742e4",
+    "mtime": 1793821587.3926597,
+    "seen": 1793821650.162791,
+    "ast_hash": "8976c51e7733c36548c68292eb3be0bc",
     "semantic_hash": ""
   },
   "app/components/invoice/row-cards/summary.ts": {
@@ -1650,9 +1650,9 @@
     "semantic_hash": ""
   },
   "app/components/invoice/row-cards/ServiceCardBody.tsx": {
-    "mtime": 1793817716.863619,
-    "seen": 1793817840.6741078,
-    "ast_hash": "97a425be125cf6b815a355251f4f21e3",
+    "mtime": 1793821616.8650873,
+    "seen": 1793821650.1627865,
+    "ast_hash": "1deeb3c415031aa8b2fb7c137b630354",
     "semantic_hash": ""
   },
   "app/components/invoice/row-cards/ServiceRowCards.tsx": {

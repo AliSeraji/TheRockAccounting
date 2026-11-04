@@ -2,7 +2,13 @@ import { useEffect, useRef, type ReactNode } from 'react';
 import { Label } from '../../ui/label';
 import SuggestInput from '../SuggestInput';
 import type { StoneSuggestion } from '../types';
-import { convertToPersianDigits, matchesQuery, searchKey } from '~/lib/utils';
+import {
+  cn,
+  convertToPersianDigits,
+  matchesQuery,
+  searchKey,
+} from '~/lib/utils';
+import { CARD_TEXT_SIZE } from './styles';
 
 type IdentityPart = 'type' | 'code';
 
@@ -19,8 +25,10 @@ interface IdentityFieldProps {
   autoFocus?: IdentityPart;
 }
 
-const INPUT =
-  'h-11 rounded-none border-0 bg-transparent text-base text-slate-900 focus-visible:ring-0';
+const INPUT = cn(
+  'h-11 rounded-none border-0 bg-transparent text-slate-900 focus-visible:ring-0',
+  CARD_TEXT_SIZE
+);
 
 // A row card's stone type and code, side by side in one field, each with
 // suggestions from the warehouse.

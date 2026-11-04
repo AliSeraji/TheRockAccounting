@@ -5,6 +5,14 @@ export const CARD_INPUT =
 
 export const CARD_LABEL = 'text-[11.5px] text-slate-600';
 
+// A label over the start of an input, inset by the input's padding (px-3) so
+// it lines up with the text instead of the border.
+export const CARD_FIELD_LABEL = `${CARD_LABEL} ps-3`;
+
+// Words (a stone or block type, its code, a service) read better a size below
+// the numbers. iOS zooms in on a field under 16px when it takes focus.
+export const CARD_TEXT_SIZE = 'text-sm';
+
 // A read-only value, laid out like an input so a saved row reads the same.
 export const CARD_VALUE =
   'flex h-11 items-center justify-center rounded-[10px] bg-slate-50 text-base text-slate-900';
