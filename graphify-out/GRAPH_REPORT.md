@@ -1,17 +1,17 @@
 # Graph Report - TheRockAccounting  (2026-11-04)
 
 ## Corpus Check
-- 276 files · ~75,447 words
+- 276 files · ~75,501 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 6 file(s) not represented in the graph (top: (none) 4, .css 1, .ico 1)
 
 ## Summary
-- 1397 nodes · 5341 edges · 69 communities (45 shown, 24 thin omitted)
-- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 87 edges (avg confidence: 0.89)
+- 1398 nodes · 5356 edges · 71 communities (47 shown, 24 thin omitted)
+- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 90 edges (avg confidence: 0.89)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `181273de`
+- Built from commit: `3e028f41`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -26,12 +26,12 @@
 - cn
 - PersianCalendar.tsx
 - utils.ts
-- default-exports.ts
+- ServiceRow.tsx
 - TableRow
 - TableCell
 - Button
-- Modern Stone Logo (Rock Fact brand mark)
-- TableBody
+- store/types.ts
+- react
 - BlockTableRow.tsx
 - toast.tsx
 - useWarehouse.ts
@@ -43,13 +43,13 @@
 - CustomerForm.tsx
 - TypeScript Config
 - warehouse/helpers.ts
-- SalesReceiptPage.tsx
+- convertToPersianDigits
 - Toast Hook
 - StockCard.tsx
 - devDependencies
 - Design-sync Previews
 - Tooling & Theme Docs
-- @radix-ui/react-popover@^1.1.1
+- warehouse/Tablist/mobile.tsx
 - @radix-ui/react-dropdown-menu@^2.1.1
 - Invoice Architecture Concepts
 - Design-sync Bundle Rules
@@ -76,14 +76,16 @@
 - alphaAgent Template
 - React Compiler Plugin
 - @radix-ui/react-radio-group@^1.2.0
-- convertToPersianDigits
+- DataTableCard.tsx
 - @radix-ui/react-tooltip@^1.1.4
-- @radix-ui/react-progress@^1.1.0
+- tooltip.tsx
 - store/types.ts
-- @radix-ui/react-scroll-area@^1.1.0
-- @radix-ui/react-tabs
-- @radix-ui/react-toast
-- table@^6.9.0
+- @fontsource-variable/vazirmatn@^5.2.8
+- motion
+- @radix-ui/react-aspect-ratio@^1.1.0
+- @radix-ui/react-slider@^1.2.0
+- react-aria-components
+- shadcn@^3.8.4
 
 ## God Nodes (most connected - your core abstractions)
 1. `cn()` - 206 edges
@@ -93,9 +95,9 @@
 5. `Button` - 55 edges
 6. `TableRow()` - 52 edges
 7. `Input` - 43 edges
-8. `convertToEnDigits()` - 41 edges
-9. `useWarehouseStore` - 41 edges
-10. `Card` - 40 edges
+8. `useWarehouseStore` - 41 edges
+9. `Card` - 40 edges
+10. `TableCell()` - 40 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `dir=rtl on each Persian container` --semantically_similar_to--> `Per-container dir=rtl`  [INFERRED] [semantically similar]
@@ -118,87 +120,87 @@
 - **Append-only stock ledger (کاردکس)** — claude_stock_movements_ledger, claude_makemovement, claude_adjuststock, claude_stockcard [EXTRACTED 1.00]
 - **Rock Fact business domains depicted in logo (stone products, warehouse stock, invoicing, accounting)** — app_assets_modern_stone_logo_stone_slabs_motif, app_assets_modern_stone_logo_warehouse_motif, app_assets_modern_stone_logo_invoice_document_motif, app_assets_modern_stone_logo_calculator_motif [INFERRED 0.85]
 
-## Communities (69 total, 24 thin omitted)
+## Communities (71 total, 24 thin omitted)
 
 ### Community 0 - "lucide-react"
 Cohesion: 0.06
-Nodes (93): DigitsFieldProps, FieldShell(), SelectFieldProps, TextFieldProps, Header(), AddRowFooter(), ExplanationCard(), InvoiceBody() (+85 more)
+Nodes (93): DigitsFieldProps, FieldShell(), SelectFieldProps, TextFieldProps, AddRowFooter(), ExplanationCard(), DayValue, InvoiceInfo (+85 more)
 
 ### Community 1 - "Button"
-Cohesion: 0.19
-Nodes (24): CustomerForm(), PersianDatePicker(), PersianDatePickerProps, SingleCalendar, ReceiptOutputDialog(), Button, Dialog(), DialogContent() (+16 more)
+Cohesion: 0.23
+Nodes (20): PersianDatePicker(), PersianDatePickerProps, SingleCalendar, ReceiptOutputDialog(), Dialog(), DialogContent(), DialogDescription(), DialogFooter() (+12 more)
 
 ### Community 2 - "Saved Invoices List & Detail"
-Cohesion: 0.07
-Nodes (56): InvoiceActions(), invoiceColumns, INVOICE_KIND_LABELS, InvoiceTypeBadge(), InvoiceEditor(), InvoicesList(), KIND_OPTIONS, matches() (+48 more)
+Cohesion: 0.06
+Nodes (77): InvoiceBody(), InvoiceActions(), invoiceColumns, INVOICE_KIND_LABELS, InvoiceTypeBadge(), amount(), blockItemColumns(), hasValue() (+69 more)
 
 ### Community 3 - "dependencies"
 Cohesion: 0.06
-Nodes (33): dependencies, add@^2.0.6, class-variance-authority@^0.7.1, @fontsource-variable/vazirmatn@^5.2.8, lucide-react@^0.562.0, radix-ui@^1.4.3, @radix-ui/react-accordion@^1.2.0, @radix-ui/react-hover-card@^1.1.1 (+25 more)
+Nodes (33): dependencies, class-variance-authority@^0.7.1, clsx@^2.1.1, lucide-react@^0.562.0, radix-ui@^1.4.3, @radix-ui/react-accordion@^1.2.0, @radix-ui/react-avatar@^1.1.0, @radix-ui/react-popover@^1.1.1 (+25 more)
 
 ### Community 4 - "package.json"
 Cohesion: 0.08
-Nodes (23): clsx@^2.1.1, next-themes@^0.4.6, @radix-ui/react-alert-dialog@^1.1.1, @radix-ui/react-aspect-ratio@^1.1.0, @radix-ui/react-avatar@^1.1.0, @radix-ui/react-separator@^1.1.0, @radix-ui/react-slider@^1.2.0, @radix-ui/react-toggle@^1.1.0 (+15 more)
+Nodes (25): add@^2.0.6, next-themes@^0.4.6, @radix-ui/react-alert-dialog@^1.1.1, @radix-ui/react-hover-card@^1.1.1, @radix-ui/react-label@^2.1.0, @radix-ui/react-menubar@^1.1.1, @radix-ui/react-separator@^1.1.0, @radix-ui/react-toggle-group@^1.1.0 (+17 more)
 
 ### Community 5 - "useBlockInvoiceStore.ts"
-Cohesion: 0.10
-Nodes (33): buyerFromCustomer(), computeBlockTotals(), computePaymentTotals(), computeTotals(), createInvoiceFormSlice(), emptyService(), initialFormState, PaymentInputs (+25 more)
+Cohesion: 0.11
+Nodes (31): ReceiptPageProps, buyerFromCustomer(), computeBlockTotals(), computePaymentTotals(), computeTotals(), createInvoiceFormSlice(), emptyService(), initialFormState (+23 more)
 
 ### Community 6 - "useWarehouseStore"
-Cohesion: 0.20
-Nodes (23): BlockWarehouseSection(), ACCENT, IconComponent, ICONS_BY_NAME, WAREHOUSE_SECTIONS, WarehouseSectionDescriptor, ItemDialog(), ItemsCard() (+15 more)
+Cohesion: 0.33
+Nodes (13): BlockWarehouseSection(), ItemsCard(), ListItem, MiscWarehouseSection(), RawWarehouseSection(), StoneItemDialog(), StoneWarehouseSection(), WarehouseGate() (+5 more)
 
 ### Community 7 - "cn"
-Cohesion: 0.09
-Nodes (41): FieldGroup(), FieldLegend(), FieldSeparator(), FieldSet(), SelectLabel, SelectSeparator, Separator(), SidebarContent() (+33 more)
+Cohesion: 0.10
+Nodes (38): FieldGroup(), FieldLegend(), FieldSeparator(), FieldSet(), SelectLabel, SelectSeparator, Separator(), SheetDescription() (+30 more)
 
 ### Community 8 - "PersianCalendar.tsx"
-Cohesion: 0.10
-Nodes (25): dashboardItems, DashboardCard(), DashboardCardProps, PersianCalendar(), getHolidays(), hijriFormatter, HOLIDAY_OVERRIDES, isFriday() (+17 more)
+Cohesion: 0.06
+Nodes (37): Modern Stone Logo (Rock Fact brand mark), Calculator icon (accounting), Dark hexagonal shield frame, Embedded base64 PNG raster (1174x1254 RGBA), Gold/bronze swoosh accent, Invoice document icon, Marble and stone slab motif, Warehouse with shelved stone blocks motif (+29 more)
 
 ### Community 9 - "utils.ts"
-Cohesion: 0.12
-Nodes (25): AdditionalNote(), InfoBox(), InfoRow(), Props, Note(), ReceiptPage(), Divider(), MetaRow() (+17 more)
-
-### Community 10 - "default-exports.ts"
 Cohesion: 0.17
-Nodes (16): ReceiptProps, CustomerInfoBox(), CustomerInfoBoxProps, RequestProduct(), Body(), Row(), LowerTable(), RequestReceiptHeader() (+8 more)
+Nodes (17): AdditionalNote(), NoteList(), Props, rial(), SalesNote(), TotalRow(), PriceBox(), baseName (+9 more)
+
+### Community 10 - "ServiceRow.tsx"
+Cohesion: 0.27
+Nodes (9): ServiceRow, ServiceTypeInput(), ServiceTypeInputProps, SERVICE_OPTIONS, SERVICE_ROW_FIELDS, ServiceRowField, SalesReceiptPageProps, SalesServicesTableProps (+1 more)
 
 ### Community 11 - "TableRow"
-Cohesion: 0.14
-Nodes (28): DataTable(), DataTableProps, DataTableCard(), DataTableCardProps, roleOf(), DataTableFooter(), DataTableHeader(), DataTableRow() (+20 more)
+Cohesion: 0.17
+Nodes (26): DataTable(), DataTableFooter(), DataTableHeader(), DataTableRow(), DataTableItem, deliveryTableItems, invoiceTableItems, InvoiceTableHeader() (+18 more)
 
 ### Community 12 - "TableCell"
 Cohesion: 0.17
-Nodes (18): BlockTable(), Footer(), BlockRow, blockTableItems, InvoiceTableItem, normalize(), PersianNumericInput(), PersianNumericInputProps (+10 more)
+Nodes (17): BlockTable(), Footer(), BlockRow, normalize(), PersianNumericInput(), PersianNumericInputProps, toPersianDisplay(), servicesTableItems (+9 more)
 
 ### Community 13 - "Button"
-Cohesion: 0.17
-Nodes (22): clearFilters(), isFilterActive(), resetFilter(), FilterSheet(), FilterSheetProps, ListHeader(), ListHeaderProps, ListFilter (+14 more)
+Cohesion: 0.22
+Nodes (18): clearFilters(), isFilterActive(), resetFilter(), FilterSheet(), FilterSheetProps, ListHeader(), ListHeaderProps, ListFilter (+10 more)
 
-### Community 14 - "Modern Stone Logo (Rock Fact brand mark)"
-Cohesion: 0.32
-Nodes (8): Modern Stone Logo (Rock Fact brand mark), Calculator icon (accounting), Dark hexagonal shield frame, Embedded base64 PNG raster (1174x1254 RGBA), Gold/bronze swoosh accent, Invoice document icon, Marble and stone slab motif, Warehouse with shelved stone blocks motif
+### Community 14 - "store/types.ts"
+Cohesion: 0.20
+Nodes (14): blockTableItems, InvoiceTableItem, requestLowerTableItems, requestUpperTableItems, salesTableItems, blockDeliveryTableItems, BlockDeliveryTableProps, blockSalesTableItems (+6 more)
 
-### Community 15 - "TableBody"
-Cohesion: 0.21
-Nodes (11): ReceiptTableProps, DeliveryTableBodyProps, Body(), Row(), TableProps, UpperTable(), SalesTableBody(), SalesTableRowProps (+3 more)
+### Community 15 - "react"
+Cohesion: 0.25
+Nodes (11): InfoBox(), InfoRow(), Props, Note(), ReceiptPage(), Divider(), MetaRow(), Props (+3 more)
 
 ### Community 16 - "BlockTableRow.tsx"
-Cohesion: 0.06
-Nodes (72): BLOCK_ROW_FIELDS, BlockRowField, BlockCardBody(), BlockRowCards(), BLOCK_MEASURE_UNIT, BLOCK_PRICE_LABEL, BLOCK_SIZE_FIELDS, SERVICE_PRICE_LABEL (+64 more)
+Cohesion: 0.05
+Nodes (81): BLOCK_ROW_FIELDS, BlockRowField, BlockCardBody(), BlockRowCards(), BLOCK_MEASURE_UNIT, BLOCK_PRICE_LABEL, BLOCK_SIZE_FIELDS, SERVICE_PRICE_LABEL (+73 more)
 
 ### Community 17 - "toast.tsx"
-Cohesion: 0.25
-Nodes (8): Toast, ToastAction, ToastClose, ToastDescription, ToastProps, ToastTitle, toastVariants, ToastViewport
+Cohesion: 0.29
+Nodes (7): Toast, ToastAction, ToastClose, ToastDescription, ToastTitle, toastVariants, ToastViewport
 
 ### Community 18 - "useWarehouse.ts"
 Cohesion: 0.13
-Nodes (22): canBeDisabled(), emptyBlock, createEditorSlice(), emptyMisc, createNavigationSlice(), emptyRaw, createStatusSlice(), emptyStone (+14 more)
+Nodes (26): newId(), canBeDisabled(), createBlocksSlice(), emptyBlock, createEditorSlice(), selectOpenItemId(), createMiscSlice(), emptyMisc (+18 more)
 
 ### Community 19 - "warehouse/columns.tsx"
-Cohesion: 0.11
-Nodes (18): blockColumns, miscColumns, rawColumns, renderStock(), stoneColumns, blockFormFields, categoryColors, FieldTypes (+10 more)
+Cohesion: 0.14
+Nodes (15): blockFormFields, FieldTypes, CALCULATED, NUMBER, PRICE, TEXT, miscFormFields, MOVEMENT_REASONS (+7 more)
 
 ### Community 20 - "DataTable.tsx"
 Cohesion: 0.41
@@ -206,7 +208,7 @@ Nodes (10): TablePagination(), TablePaginationProps, Pagination(), PaginationCon
 
 ### Community 21 - "settings/common.tsx"
 Cohesion: 0.07
-Nodes (48): CustomersList(), ACCENT, IconComponent, ICONS_BY_NAME, RECEIPT_SECTIONS, PlaceholderSection(), PlaceholderSectionProps, ReceiptIssueTablist() (+40 more)
+Nodes (51): CustomersList(), ACCENT, IconComponent, ICONS_BY_NAME, RECEIPT_SECTIONS, PlaceholderSection(), PlaceholderSectionProps, ReceiptIssueTablist() (+43 more)
 
 ### Community 22 - "Alert"
 Cohesion: 0.25
@@ -217,28 +219,28 @@ Cohesion: 0.11
 Nodes (18): aliases, components, hooks, lib, ui, utils, iconLibrary, registries (+10 more)
 
 ### Community 24 - "CustomerForm.tsx"
-Cohesion: 0.05
-Nodes (87): customerColumns, ACCOUNT_NATURE_OPTIONS, ACCOUNT_ROLE_OPTIONS, PERSON_TYPE_OPTIONS, roleColors, SALE_RATE_OPTIONS, ROLE_FILTER_OPTIONS, DigitsField (+79 more)
+Cohesion: 0.07
+Nodes (70): customerColumns, ACCOUNT_NATURE_OPTIONS, ACCOUNT_ROLE_OPTIONS, PERSON_TYPE_OPTIONS, roleColors, SALE_RATE_OPTIONS, CustomerForm(), ROLE_FILTER_OPTIONS (+62 more)
 
 ### Community 25 - "TypeScript Config"
 Cohesion: 0.11
 Nodes (17): compilerOptions, baseUrl, esModuleInterop, jsx, lib, module, moduleResolution, noEmit (+9 more)
 
 ### Community 26 - "warehouse/helpers.ts"
-Cohesion: 0.17
-Nodes (24): newId(), AREA_INPUTS, calcStoneArea(), deriveStone(), formatQuantity(), isNegativeVolume(), makeMovement(), openingMovements() (+16 more)
-
-### Community 27 - "SalesReceiptPage.tsx"
 Cohesion: 0.15
-Nodes (17): ReceiptPageProps, InfoRow(), Props, SalesInfoBox(), Divider(), IconTxtRow(), MetaRow(), Props (+9 more)
+Nodes (26): AREA_INPUTS, calcBlockVolume(), calcStoneArea(), deriveBlock(), deriveStone(), formatQuantity(), isNegativeVolume(), makeMovement() (+18 more)
+
+### Community 27 - "convertToPersianDigits"
+Cohesion: 0.14
+Nodes (22): ReceiptProps, CustomerInfoBox(), CustomerInfoBoxProps, RequestReceiptHeader(), RequestReceiptPage(), RequestReceiptPageProps, Body(), Row() (+14 more)
 
 ### Community 28 - "Toast Hook"
-Cohesion: 0.17
-Nodes (15): ToastActionElement, Action, ActionType, actionTypes, addToRemoveQueue(), dispatch(), genId(), listeners (+7 more)
+Cohesion: 0.16
+Nodes (16): ToastActionElement, ToastProps, Action, ActionType, actionTypes, addToRemoveQueue(), dispatch(), genId() (+8 more)
 
 ### Community 29 - "StockCard.tsx"
-Cohesion: 0.18
-Nodes (22): FieldContent(), FieldTitle(), TabsContent, FormFieldConfig, formatDateTime(), formatNumber(), formatPrice(), isolateNegative() (+14 more)
+Cohesion: 0.16
+Nodes (19): EMPTY, blockColumns, miscColumns, rawColumns, renderStock(), stoneColumns, categoryColors, formatDateTime() (+11 more)
 
 ### Community 30 - "devDependencies"
 Cohesion: 0.06
@@ -251,6 +253,10 @@ Nodes (4): columns, customers, invoiceItems, roleColors
 ### Community 32 - "Tooling & Theme Docs"
 Cohesion: 0.19
 Nodes (10): Direct slate/teal/emerald palette usage, Theme token classes, cfg.cssEntry (compiled root-*.css), Tailwind v4 CSS-only config (app/app.css), Warm slate/gray remap and brand-* scale, yarn package manager, yarn typecheck (only static check), Docker deployment (+2 more)
+
+### Community 33 - "warehouse/Tablist/mobile.tsx"
+Cohesion: 0.24
+Nodes (10): ACCENT, IconComponent, ICONS_BY_NAME, WAREHOUSE_SECTIONS, WarehouseSectionDescriptor, FormFieldConfig, ItemDialogProps, ItemFormProps (+2 more)
 
 ### Community 35 - "Invoice Architecture Concepts"
 Cohesion: 0.17
@@ -292,13 +298,17 @@ Nodes (7): scripts, build, dev, format, format:check, start, typecheck
 Cohesion: 0.33
 Nodes (5): Samim body font and font-vazirmatn for print, cfg.extraFonts (Samim, Vazirmatn), Samim body font, font-vazirmatn for print, receiptPager / salesReceiptPager, Receipt printing (receiptOutputDialog, window.print)
 
-### Community 61 - "convertToPersianDigits"
+### Community 61 - "DataTableCard.tsx"
+Cohesion: 0.27
+Nodes (9): DataTableProps, DataTableCard(), DataTableCardProps, roleOf(), DataTableRowProps, rowStateClass(), DataTableColumn, MobileRole (+1 more)
+
+### Community 63 - "tooltip.tsx"
 Cohesion: 0.24
-Nodes (20): amount(), blockItemColumns(), hasValue(), rowNumber, serviceColumns(), stoneItemColumns(), text(), total() (+12 more)
+Nodes (7): SidebarMenuButton(), sidebarMenuButtonVariants, Switch(), Tooltip(), TooltipContent(), TooltipTrigger(), radix-ui
 
 ### Community 64 - "store/types.ts"
 Cohesion: 0.15
-Nodes (27): BlockDeliveryTable(), blockDeliveryTableItems, BlockDeliveryTableProps, DeliveryTableHeader(), deliveryPages(), DeliveryReceipt(), ReceiptTable(), DeliveryTableBody() (+19 more)
+Nodes (22): BlockDeliveryTable(), deliveryPages(), DeliveryReceipt(), ReceiptTable(), ReceiptTableProps, DeliveryTableBody(), DeliveryTableBodyProps, DeliveryTableFooter() (+14 more)
 
 ## Ambiguous Edges - Review These
 - `Direct slate/teal/emerald palette usage` → `Warm slate/gray remap and brand-* scale`  [AMBIGUOUS]
@@ -312,18 +322,18 @@ Nodes (27): BlockDeliveryTable(), blockDeliveryTableItems, BlockDeliveryTablePro
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `react` connect `utils.ts` to `lucide-react`, `Button`, `Saved Invoices List & Detail`, `dependencies`, `package.json`, `useBlockInvoiceStore.ts`, `useWarehouseStore`, `cn`, `PersianCalendar.tsx`, `default-exports.ts`, `TableRow`, `TableCell`, `Button`, `TableBody`, `BlockTableRow.tsx`, `toast.tsx`, `warehouse/columns.tsx`, `DataTable.tsx`, `settings/common.tsx`, `Alert`, `CustomerForm.tsx`, `SalesReceiptPage.tsx`, `Toast Hook`, `StockCard.tsx`, `SSR Entry Points`, `convertToPersianDigits`, `store/types.ts`?**
+- **Why does `react` connect `react` to `lucide-react`, `Button`, `Saved Invoices List & Detail`, `dependencies`, `package.json`, `useWarehouseStore`, `cn`, `PersianCalendar.tsx`, `utils.ts`, `ServiceRow.tsx`, `TableRow`, `TableCell`, `Button`, `store/types.ts`, `BlockTableRow.tsx`, `toast.tsx`, `warehouse/columns.tsx`, `DataTable.tsx`, `settings/common.tsx`, `Alert`, `CustomerForm.tsx`, `convertToPersianDigits`, `Toast Hook`, `StockCard.tsx`, `warehouse/Tablist/mobile.tsx`, `SSR Entry Points`, `DataTableCard.tsx`, `tooltip.tsx`, `store/types.ts`?**
   _High betweenness centrality (0.213) - this node is a cross-community bridge._
 - **What connects `C:/Users/Ali/AppData/Roaming/uv/tools/graphifyy/Scripts/python.exe`, `PRICE`, `NUMBER` to the rest of the system?**
   _38 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `lucide-react` be split into smaller, more focused modules?**
-  _Cohesion score 0.057625272331154685 - nodes in this community are weakly interconnected._
-- **Why does `cn()` connect `cn` to `lucide-react`, `Button`, `Saved Invoices List & Detail`, `useWarehouseStore`, `PersianCalendar.tsx`, `utils.ts`, `TableRow`, `TableCell`, `Button`, `TableBody`, `BlockTableRow.tsx`, `toast.tsx`, `DataTable.tsx`, `settings/common.tsx`, `Alert`, `CustomerForm.tsx`, `SalesReceiptPage.tsx`, `StockCard.tsx`, `convertToPersianDigits`, `store/types.ts`?**
-  _High betweenness centrality (0.110) - this node is a cross-community bridge._
+  _Cohesion score 0.06353493834409865 - nodes in this community are weakly interconnected._
+- **Why does `cn()` connect `cn` to `lucide-react`, `Button`, `Saved Invoices List & Detail`, `PersianCalendar.tsx`, `utils.ts`, `ServiceRow.tsx`, `TableRow`, `Button`, `react`, `BlockTableRow.tsx`, `toast.tsx`, `DataTable.tsx`, `settings/common.tsx`, `Alert`, `CustomerForm.tsx`, `convertToPersianDigits`, `StockCard.tsx`, `warehouse/Tablist/mobile.tsx`, `DataTableCard.tsx`, `tooltip.tsx`, `store/types.ts`?**
+  _High betweenness centrality (0.096) - this node is a cross-community bridge._
 - **Should `Saved Invoices List & Detail` be split into smaller, more focused modules?**
-  _Cohesion score 0.0730593607305936 - nodes in this community are weakly interconnected._
-- **Why does `lucide-react` connect `lucide-react` to `Button`, `Saved Invoices List & Detail`, `dependencies`, `package.json`, `useWarehouseStore`, `cn`, `PersianCalendar.tsx`, `utils.ts`, `default-exports.ts`, `TableCell`, `Button`, `BlockTableRow.tsx`, `toast.tsx`, `DataTable.tsx`, `settings/common.tsx`, `CustomerForm.tsx`, `SalesReceiptPage.tsx`, `StockCard.tsx`, `Design-sync Previews`, `convertToPersianDigits`?**
-  _High betweenness centrality (0.061) - this node is a cross-community bridge._
+  _Cohesion score 0.05906357388316151 - nodes in this community are weakly interconnected._
+- **Why does `convertToPersianDigits()` connect `convertToPersianDigits` to `lucide-react`, `Button`, `Saved Invoices List & Detail`, `store/types.ts`, `useWarehouseStore`, `PersianCalendar.tsx`, `utils.ts`, `ServiceRow.tsx`, `TableRow`, `TableCell`, `Button`, `store/types.ts`, `react`, `BlockTableRow.tsx`, `StockCard.tsx`, `DataTable.tsx`, `CustomerForm.tsx`, `DataTableCard.tsx`?**
+  _High betweenness centrality (0.063) - this node is a cross-community bridge._
 
 ### Low-confidence Hints
 _AMBIGUOUS edges — the extractor was unsure. Verify before acting on these._

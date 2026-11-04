@@ -2,7 +2,7 @@ import { useEffect, useRef, type ReactNode } from 'react';
 import { Label } from '../../ui/label';
 import SuggestInput from '../SuggestInput';
 import type { StoneSuggestion } from '../types';
-import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
+import { convertToPersianDigits, matchesQuery, searchKey } from '~/lib/utils';
 
 type IdentityPart = 'type' | 'code';
 
@@ -18,12 +18,6 @@ interface IdentityFieldProps {
   // The part to focus when the card opens on a row just added.
   autoFocus?: IdentityPart;
 }
-
-// Persian and English digits match each other, so a typed code finds stock.
-const matches = (text: string, query: string): boolean =>
-  convertToEnDigits(text)
-    .toLowerCase()
-    .includes(convertToEnDigits(query).trim().toLowerCase());
 
 const INPUT =
   'h-11 rounded-none border-0 bg-transparent text-base text-slate-900 focus-visible:ring-0';
@@ -61,11 +55,13 @@ export default function IdentityField({
         <SuggestInput
           value={convertToPersianDigits(typeValue)}
           onChange={onTypeChange}
-          options={typeSuggestions.filter((s) => matches(s.name, typeValue))}
+          options={typeSuggestions.filter((s) =>
+            matchesQuery(s.name, typeValue)
+          )}
           getKey={(s) => s.id}
           renderOption={(s) => s.name}
           onSelect={(s) => onTypeChange(s.name)}
-          isSelected={(s) => s.name === typeValue}
+          isSelected={(s) => searchKey(s.name) === searchKey(typeValue)}
           placeholder={typeLabel}
           className={`${INPUT} px-3 font-semibold`}
         />
@@ -79,11 +75,13 @@ export default function IdentityField({
         <SuggestInput
           value={convertToPersianDigits(codeValue)}
           onChange={onCodeChange}
-          options={codeSuggestions.filter((s) => matches(s.code, codeValue))}
+          options={codeSuggestions.filter((s) =>
+            matchesQuery(s.code, codeValue)
+          )}
           getKey={(s) => s.id}
           renderOption={(s) => s.code}
           onSelect={(s) => onCodeChange(s.code)}
-          isSelected={(s) => s.code === codeValue}
+          isSelected={(s) => searchKey(s.code) === searchKey(codeValue)}
           placeholder={codeLabel}
           className={`${INPUT} px-2 text-center text-slate-700`}
           popoverClassName="w-44"

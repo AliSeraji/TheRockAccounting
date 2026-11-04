@@ -3,7 +3,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Popover, PopoverTrigger } from '../ui/popover';
 import { Input } from '../ui/input';
 import type { StoneSuggestion } from './types';
-import { cn } from '~/lib/utils';
+import { cn, matchesQuery, searchKey } from '~/lib/utils';
 
 interface StoneTypeInputProps {
   value: string;
@@ -31,9 +31,7 @@ export default function StoneTypeInput({
   const options = useMemo(
     () =>
       query
-        ? suggestions.filter((stone) =>
-            stone.name.toLowerCase().includes(query.toLowerCase())
-          )
+        ? suggestions.filter((stone) => matchesQuery(stone.name, query))
         : suggestions,
     [suggestions, query]
   );
@@ -127,7 +125,7 @@ export default function StoneTypeInput({
                 className={cn(
                   'w-full rounded-sm px-2 py-1.5 text-sm text-right text-slate-700 hover:cursor-pointer',
                   idx === highlighted && 'bg-slate-100 text-slate-900',
-                  value === stone.name && 'font-semibold'
+                  searchKey(value) === searchKey(stone.name) && 'font-semibold'
                 )}
               >
                 {stone.name}
