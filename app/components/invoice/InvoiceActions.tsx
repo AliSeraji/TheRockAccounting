@@ -71,14 +71,6 @@ export default function InvoiceActions(): ReactNode {
           <FileText className="w-4 h-4" />
           نمایش فاکتور
         </Button>
-        <Button
-          variant="outline"
-          onClick={() => showReceipt(ReceiptType.Delivery)}
-          className={secondaryButton}
-        >
-          <Truck className="w-4 h-4" />
-          نمایش رسید تحویل بار
-        </Button>
       </div>
 
       <ReceiptOutputDialog
