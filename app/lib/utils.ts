@@ -119,6 +119,18 @@ export function convertToEnDigits(num: string | number): string {
   );
 }
 
+// Text as suggestion lists compare it: trimmed, lowercase, with English
+// digits. An input shows Persian digits while a stored code may hold either,
+// so both sides go through this.
+export function searchKey(text: string): string {
+  return convertToEnDigits(text).trim().toLowerCase();
+}
+
+// Whether text contains the query, both compared by searchKey.
+export function matchesQuery(text: string, query: string): boolean {
+  return searchKey(text).includes(searchKey(query));
+}
+
 export function persianNumberToText(num: string | number): string {
   const englishNum = convertToEnDigits(num);
   const parsed = parseFloat(englishNum);

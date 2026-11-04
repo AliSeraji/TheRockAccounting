@@ -186,9 +186,9 @@
     "semantic_hash": "616bb6f3fdded552f2ec9fee36636b1d"
   },
   "app/components/invoice/InvoiceActions.tsx": {
-    "mtime": 1793308007.2997391,
-    "seen": 1793308025.4760942,
-    "ast_hash": "ac1c0187cf48e9f0eabbd7a1b71445e9",
+    "mtime": 1793818679.8531742,
+    "seen": 1793820148.123135,
+    "ast_hash": "ef49a81d59e06b30b0ac23fd8ffc10cd",
     "semantic_hash": ""
   },
   "app/components/invoice/InvoiceInfo.tsx": {
@@ -222,16 +222,16 @@
     "semantic_hash": ""
   },
   "app/components/invoice/StoneCodeInput.tsx": {
-    "mtime": 1791453852.8355079,
-    "seen": 1792749016.4482124,
-    "ast_hash": "8aab8cdb666af5bd035bbbe40161ca54",
-    "semantic_hash": "8aab8cdb666af5bd035bbbe40161ca54"
+    "mtime": 1793820086.5867202,
+    "seen": 1793820148.1231437,
+    "ast_hash": "44f0b0aefe523650ff6304aca68c2fbc",
+    "semantic_hash": ""
   },
   "app/components/invoice/StoneTypeInput.tsx": {
-    "mtime": 1791453881.1164243,
-    "seen": 1792749016.4482133,
-    "ast_hash": "374c3704865e76b1d2268f96a3cb732b",
-    "semantic_hash": "374c3704865e76b1d2268f96a3cb732b"
+    "mtime": 1793820094.4461882,
+    "seen": 1793820148.1231449,
+    "ast_hash": "08e19b86b0899d6737e165afd88794ee",
+    "semantic_hash": ""
   },
   "app/components/invoice/Table.tsx": {
     "mtime": 1793814253.1107614,
@@ -1074,10 +1074,10 @@
     "semantic_hash": "4c9e33b3d0c09cd68520d8be72c6d033"
   },
   "app/lib/utils.ts": {
-    "mtime": 1791451386.1747227,
-    "seen": 1792749016.4483109,
-    "ast_hash": "58885c67e4e747b0fac0e1703bedb701",
-    "semantic_hash": "58885c67e4e747b0fac0e1703bedb701"
+    "mtime": 1793820077.644588,
+    "seen": 1793820148.123344,
+    "ast_hash": "aa4352cb1bff92f2fd9658338827d855",
+    "semantic_hash": ""
   },
   "app/lib/validation.ts": {
     "mtime": 1791451386.1757226,
@@ -1530,9 +1530,9 @@
     "semantic_hash": ""
   },
   "app/components/invoice/row-cards/IdentityField.tsx": {
-    "mtime": 1793814194.7306101,
-    "seen": 1793814337.5415344,
-    "ast_hash": "2dda8ee1dffcb2e80e2c1f26e11728fd",
+    "mtime": 1793820106.947044,
+    "seen": 1793820148.123162,
+    "ast_hash": "38d70270827367a412f5d6ccd2e62c7f",
     "semantic_hash": ""
   },
   "app/components/invoice/row-cards/NumberField.tsx": {
@@ -1614,9 +1614,9 @@
     "semantic_hash": ""
   },
   ".claude/memory/invoice-mobile-row-cards.md": {
-    "mtime": 1793817065.5164196,
-    "seen": 1793817840.6742785,
-    "ast_hash": "b99004f77e8e5b3acd0f0f65668b73da",
+    "mtime": 1793817860.07161,
+    "seen": 1793820148.1234136,
+    "ast_hash": "3859109bae241838024a5e000ac1cad4",
     "semantic_hash": ""
   },
   ".claude/memory/invoices-editable-never-deleted.md": {
