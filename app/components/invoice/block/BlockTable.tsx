@@ -9,12 +9,18 @@ import {
 } from '~/lib/utils';
 import BlockRow from './BlockTableRow';
 import { blockTableItems } from './common';
+import BlockRowCards from '../row-cards/BlockRowCards';
+import { useIsMobile } from '~/hooks/use-mobile';
 
 export default function BlockTable(): React.ReactNode {
   const addItem = useBlockInvoice((state) => state.addItem);
   const items = useBlockInvoice((state) => state.items);
   const updateItem = useBlockInvoice((state) => state.updateItem);
   const removeItem = useBlockInvoice((state) => state.removeItem);
+  const isMobile = useIsMobile();
+
+  // Phones get one card per row instead of the wide table.
+  if (isMobile) return <BlockRowCards />;
 
   return (
     <Table className="w-full">

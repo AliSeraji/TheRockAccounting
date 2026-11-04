@@ -1,6 +1,6 @@
 import type React from 'react';
 import { TableCell, TableRow } from '../ui/table';
-import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
+import { convertToPersianDigits } from '~/lib/utils';
 import { Trash2 } from 'lucide-react';
 import { Button } from '../ui/button';
 import type { StoneItem } from '~/store/types';
@@ -8,14 +8,8 @@ import PersianNumericInput from './PersianNumericInput';
 import { INVOICE_ROW_FIELDS, type InvoiceRowField } from './types';
 import { memo, useEffect, useRef } from 'react';
 import StoneTypeInput from './StoneTypeInput';
-import {
-  selectInvoiceStones,
-  useWarehouseStore,
-} from '~/store/warehouse/useWarehouse';
+import { useStoneStockLink } from '~/hooks/useStoneStockLink';
 import StoneCodeInput from './StoneCodeInput';
-
-const normalize = (value: string) =>
-  convertToEnDigits(value).trim().toLowerCase();
 
 const Row = memo(function Row({
   rowItem,
@@ -32,37 +26,8 @@ const Row = memo(function Row({
   addItem: () => void;
   isNewRow?: boolean;
 }): React.ReactNode {
-  const stones = useWarehouseStore(selectInvoiceStones);
+  const { stones, updateStone } = useStoneStockLink(rowItem, update);
   const inputRef = useRef<HTMLInputElement>(null);
-  const updateStone = (
-    field:
-      | typeof INVOICE_ROW_FIELDS.STONE_TYPE
-      | typeof INVOICE_ROW_FIELDS.STONE_CODE,
-    value: string
-  ) => {
-    update(rowItem.id, field, value);
-
-    const isType = field === INVOICE_ROW_FIELDS.STONE_TYPE;
-    const key = isType ? 'name' : 'code';
-    const otherKey = isType ? 'code' : 'name';
-    const otherField = isType
-      ? INVOICE_ROW_FIELDS.STONE_CODE
-      : INVOICE_ROW_FIELDS.STONE_TYPE;
-
-    const match = stones.find(
-      (stone) => normalize(stone[key]) === normalize(value)
-    );
-    // The row stays linked to a warehouse stone only while it matches one.
-    update(rowItem.id, INVOICE_ROW_FIELDS.STOCK_ID, match?.id ?? '');
-    if (match) {
-      update(rowItem.id, otherField, match[otherKey]);
-    } else if (
-      rowItem[otherField] &&
-      stones.some((stone) => stone[otherKey] === rowItem[otherField])
-    ) {
-      update(rowItem.id, otherField, '');
-    }
-  };
 
   const numericCell = (
     field: InvoiceRowField,

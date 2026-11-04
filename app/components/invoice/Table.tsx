@@ -3,6 +3,8 @@ import { Table, TableBody, TableCell, TableRow } from '../ui/table';
 import { InvoiceTableHeader } from './TableHeader';
 import { useStoneInvoice } from '~/store/useInvoiceForm';
 import Row from './TableRow';
+import StoneRowCards from './row-cards/StoneRowCards';
+import { useIsMobile } from '~/hooks/use-mobile';
 import {
   convertToPersianDigits,
   formatRialAmount,
@@ -14,6 +16,10 @@ export default function InvoiceTable(): React.ReactNode {
   const items = useStoneInvoice((state) => state.items);
   const updateItem = useStoneInvoice((state) => state.updateItem);
   const removeItem = useStoneInvoice((state) => state.removeItem);
+  const isMobile = useIsMobile();
+
+  // Phones get one card per row instead of the wide table.
+  if (isMobile) return <StoneRowCards />;
 
   return (
     <Table className="w-full">

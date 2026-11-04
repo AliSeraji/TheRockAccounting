@@ -17,6 +17,9 @@ import type { SavedInvoice } from '~/store/invoices/types';
 import { useInvoicesStore } from '~/store/invoices/useInvoicesStore';
 import type { InvoiceFormData } from '~/store/types';
 import { useCustomersStore } from '~/store/customers/useCustomers';
+import { useIsMobile } from '~/hooks/use-mobile';
+import SavedRowCards from '../invoice/row-cards/SavedRowCards';
+import SavedServiceCards from '../invoice/row-cards/SavedServiceCards';
 import InvoiceViewHeader from './InvoiceViewHeader';
 import DetailsTable from './details/DetailsTable';
 import {
@@ -134,6 +137,7 @@ export default function InvoiceDetails({
   const customer = useCustomersStore((state) =>
     state.customers.find((c) => c.id === data.customerId)
   );
+  const isMobile = useIsMobile();
 
   return (
     <div className="w-full space-y-6">
@@ -185,7 +189,10 @@ export default function InvoiceDetails({
       </DetailCard>
 
       <DetailCard title="اقلام فاکتور">
-        {invoice.kind === 'stone' ? (
+        {/* Phones get one card per row instead of the wide table. */}
+        {isMobile ? (
+          <SavedRowCards key={invoice.id} invoice={invoice} />
+        ) : invoice.kind === 'stone' ? (
           <DetailsTable
             columns={stoneItemColumns(invoice.data.totals)}
             rows={invoice.data.items}
@@ -204,12 +211,20 @@ export default function InvoiceDetails({
 
       {data.services.length > 0 && (
         <DetailCard title="خدمات">
-          <DetailsTable
-            columns={serviceColumns(data.totals.totalServicesAmount)}
-            rows={data.services}
-            footerLabel="جمع خدمات"
-            footerSpan={5}
-          />
+          {isMobile ? (
+            <SavedServiceCards
+              key={invoice.id}
+              services={data.services}
+              totalServicesAmount={data.totals.totalServicesAmount}
+            />
+          ) : (
+            <DetailsTable
+              columns={serviceColumns(data.totals.totalServicesAmount)}
+              rows={data.services}
+              footerLabel="جمع خدمات"
+              footerSpan={5}
+            />
+          )}
         </DetailCard>
       )}
 

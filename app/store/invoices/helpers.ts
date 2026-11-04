@@ -11,6 +11,7 @@ import type {
   BlockInvoiceItem,
   InvoiceFormData,
   InvoiceSnapshot,
+  ServiceItem,
   StoneItem,
 } from '../types';
 import { parseQuantity } from '../warehouse/helpers';
@@ -56,11 +57,23 @@ const BLOCK_INPUTS = [
 ] as const satisfies readonly (keyof BlockInvoiceItem)[];
 
 // A row counts once any of its inputs has a value; untouched rows are dropped.
-const isFilledStone = (item: StoneItem): boolean =>
+export const isFilledStone = (item: StoneItem): boolean =>
   STONE_INPUTS.some((field) => !isBlank(item[field]));
 
-const isFilledBlock = (item: BlockInvoiceItem): boolean =>
+export const isFilledBlock = (item: BlockInvoiceItem): boolean =>
   BLOCK_INPUTS.some((field) => !isBlank(item[field]));
+
+const SERVICE_INPUTS = [
+  'serviceType',
+  'description',
+  'quantity',
+  'unitPrice',
+] as const satisfies readonly (keyof ServiceItem)[];
+
+// Whether a service row has been started; the phone cards open a new blank
+// one. Saving keeps only `printableServices`.
+export const isFilledService = (service: ServiceItem): boolean =>
+  SERVICE_INPUTS.some((field) => !isBlank(service[field]));
 
 const itemRows = (invoice: InvoiceSnapshot) =>
   invoice.kind === 'stone'
