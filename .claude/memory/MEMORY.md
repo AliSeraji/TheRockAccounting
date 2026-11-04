@@ -7,3 +7,5 @@
 - [Page header glass scroll](page-header-glass-scroll.md) — chosen 2026-10-29: tabs+content scroll under glass PageHeader, no sticky tabs; mobile header 25% shorter
 - [Invoices editable, never deleted](invoices-editable-never-deleted.md) — 2026-11-02: sales invoices editable (future: highest access level only via `can()`), edits return+resell stock, no delete ever
 - [Invoice add-row footer](invoice-add-row-footer.md) — chosen 2026-10-30: add-row button in card footer bottom-left (AddRowFooter), not in totals row; delete column bordered
+- [Invoice mobile row cards](invoice-mobile-row-cards.md) — A+C ledger accordion on phones, built 2026-11-04 in invoice/row-cards/ + shared stock-link hooks in app/hooks; not yet browser-tested
+- [Prefer shadcn components](prefer-shadcn-components.md) — use ui/ Button, Card, Separator, Label… instead of raw elements; note their quirks

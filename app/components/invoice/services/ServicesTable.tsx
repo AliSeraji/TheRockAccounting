@@ -9,12 +9,18 @@ import {
 } from '~/lib/utils';
 import ServiceRow from './ServiceRow';
 import { servicesTableItems } from './common';
+import ServiceRowCards from '../row-cards/ServiceRowCards';
+import { useIsMobile } from '~/hooks/use-mobile';
 
 export default function ServicesTable(): React.ReactNode {
   const addService = useInvoiceForm((state) => state.addService);
   const services = useInvoiceForm((state) => state.services);
   const updateService = useInvoiceForm((state) => state.updateService);
   const removeService = useInvoiceForm((state) => state.removeService);
+  const isMobile = useIsMobile();
+
+  // Phones get one card per service instead of the wide table.
+  if (isMobile) return <ServiceRowCards />;
 
   return (
     <Table className="w-full min-w-200 lg:min-w-0">

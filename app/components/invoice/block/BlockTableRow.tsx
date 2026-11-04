@@ -6,25 +6,10 @@ import { Button } from '../../ui/button';
 import PersianNumericInput from '../PersianNumericInput';
 import StoneCodeInput from '../StoneCodeInput';
 import StoneTypeInput from '../StoneTypeInput';
-import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
+import { convertToPersianDigits } from '~/lib/utils';
 import type { BlockInvoiceItem } from '~/store/types';
-import {
-  selectInvoiceBlocks,
-  useWarehouseStore,
-} from '~/store/warehouse/useWarehouse';
+import { useBlockStockLink } from '~/hooks/useBlockStockLink';
 import { BLOCK_ROW_FIELDS, type BlockRowField } from './types';
-
-const normalize = (value: string) =>
-  convertToEnDigits(value).trim().toLowerCase();
-
-// Row fields filled in from the warehouse block whose code is entered.
-const BLOCK_DETAILS = [
-  [BLOCK_ROW_FIELDS.BLOCK_TYPE, 'name'],
-  [BLOCK_ROW_FIELDS.LENGTH, 'length'],
-  [BLOCK_ROW_FIELDS.WIDTH, 'width'],
-  [BLOCK_ROW_FIELDS.HEIGHT, 'height'],
-  [BLOCK_ROW_FIELDS.WEIGHT, 'weight'],
-] as const;
 
 const BlockRow = memo(function BlockRow({
   rowItem,
@@ -41,39 +26,8 @@ const BlockRow = memo(function BlockRow({
   addItem: () => void;
   isNewRow?: boolean;
 }): React.ReactNode {
-  const blocks = useWarehouseStore(selectInvoiceBlocks);
+  const { blocks, blockTypes, updateCode } = useBlockStockLink(rowItem, update);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  // Many blocks share a stone type, so suggest each type once.
-  const blockTypes = blocks.filter(
-    (block, i) => blocks.findIndex((other) => other.name === block.name) === i
-  );
-
-  const findBlock = (code: string) => {
-    const key = normalize(code);
-    return key
-      ? blocks.find((block) => normalize(block.code) === key)
-      : undefined;
-  };
-
-  // A code matching a warehouse block fills in its details. Moving off that
-  // code clears the details that still hold the block's values.
-  const updateCode = (value: string) => {
-    update(rowItem.id, BLOCK_ROW_FIELDS.BLOCK_CODE, value);
-
-    const match = findBlock(value);
-    update(rowItem.id, BLOCK_ROW_FIELDS.STOCK_ID, match?.id ?? '');
-    const previous = findBlock(rowItem.blockCode);
-    if (match === previous) return;
-
-    for (const [field, key] of BLOCK_DETAILS) {
-      if (match) {
-        update(rowItem.id, field, match[key]);
-      } else if (previous && rowItem[field] === previous[key]) {
-        update(rowItem.id, field, '');
-      }
-    }
-  };
 
   const numericCell = (
     field: BlockRowField,
