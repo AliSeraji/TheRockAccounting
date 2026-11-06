@@ -2,6 +2,7 @@ import type React from 'react';
 import { useRef, useState } from 'react';
 import { Input } from '../../ui/input';
 import { Popover } from '../../ui/popover';
+import { menuItemClass, menuSurfaceClass } from '../../ui/select';
 import { cn } from '~/lib/utils';
 import { SERVICE_OPTIONS } from './types';
 
@@ -62,14 +63,17 @@ export default function ServiceTypeInput({
         onBlur={() => setOpen(false)}
         onKeyDown={handleKeyDown}
         placeholder="انتخاب یا نوشتن خدمت"
-        className="border-0 text-center focus-visible:ring-offset-3 text-sm h-8 cursor-text"
+        className="rounded-none border-0 text-center focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-3 text-sm h-8 cursor-text"
       />
       <Popover
         triggerRef={inputRef}
         isOpen={open && options.length > 0}
         onOpenChange={setOpen}
         isNonModal
-        className="w-(--trigger-width) gap-0 p-1"
+        className={cn(
+          'w-(--trigger-width) gap-0.5 p-1.5 ring-0 duration-200 motion-reduce:animate-none',
+          menuSurfaceClass
+        )}
       >
         {options.map((option, index) => (
           <button
@@ -79,9 +83,10 @@ export default function ServiceTypeInput({
             onClick={() => select(option)}
             onMouseEnter={() => setHighlighted(index)}
             className={cn(
-              'w-full rounded-sm px-2 py-1.5 text-sm text-right text-slate-700 hover:cursor-pointer',
+              'w-full shrink-0 py-2 text-right',
+              menuItemClass,
               index === highlighted && 'bg-slate-100 text-slate-900',
-              value === option && 'font-semibold'
+              value === option && 'bg-brand-100 font-medium text-brand-900'
             )}
           >
             {option}

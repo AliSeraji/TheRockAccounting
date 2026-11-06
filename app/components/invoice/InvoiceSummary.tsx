@@ -92,7 +92,6 @@ const InvoiceSummary = memo(function InvoiceSummary(): React.ReactNode {
           <Input
             value={formatRialAmount(convertToPersianDigits(discount))}
             onChange={handleDiscountChange}
-            className="border-slate-200 rounded-lg focus:ring-slate-400"
             placeholder="مبلغ تخفیف"
           />
         </div>
@@ -103,7 +102,7 @@ const InvoiceSummary = memo(function InvoiceSummary(): React.ReactNode {
               value={convertToPersianDigits(tax)}
               onChange={handleTaxChange}
               inputMode="decimal"
-              className="border-slate-200 rounded-lg focus:ring-slate-400 pe-8"
+              className="pe-8"
               placeholder="درصد مالیات"
             />
             <span className="pointer-events-none absolute inset-y-0 end-3 flex items-center text-slate-500">
@@ -116,7 +115,6 @@ const InvoiceSummary = memo(function InvoiceSummary(): React.ReactNode {
           <Input
             value={formatRialAmount(convertToPersianDigits(received))}
             onChange={handleReceivedChange}
-            className="border-slate-200 rounded-lg focus:ring-slate-400"
             placeholder="مبلغ دریافتی"
           />
         </div>

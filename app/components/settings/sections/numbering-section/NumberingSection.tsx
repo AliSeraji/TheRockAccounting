@@ -73,7 +73,7 @@ const NumberingSection = (): ReactNode => {
                   value={invoicePrefix}
                   onChange={(e) => setField('invoicePrefix', e.target.value)}
                   placeholder=""
-                  className="rounded-lg text-xs lg:text-sm"
+                  className="text-xs lg:text-sm"
                 />
                 <FieldDescription className="text-slate-400 text-xs"></FieldDescription>
               </Field>
@@ -87,7 +87,7 @@ const NumberingSection = (): ReactNode => {
                   value={convertToPersianDigits(nextNumber)}
                   onChange={(e) => handleNumericFieldChange(e, 'nextNumber')}
                   placeholder={convertToPersianDigits('147')}
-                  className="rounded-lg text-xs lg:text-sm"
+                  className="text-xs lg:text-sm"
                 />
               </Field>
             </div>
@@ -126,7 +126,7 @@ const NumberingSection = (): ReactNode => {
                   value={fiscalYear}
                   onValueChange={(v) => setField('fiscalYear', v)}
                 >
-                  <SelectTrigger className="rounded-lg text-xs lg:text-sm focus:ring-offset-0">
+                  <SelectTrigger className="text-xs lg:text-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -152,7 +152,7 @@ const NumberingSection = (): ReactNode => {
                   value={fiscalStart}
                   onValueChange={(v) => setField('fiscalStart', v)}
                 >
-                  <SelectTrigger className="rounded-lg text-xs lg:text-sm focus:ring-offset-0">
+                  <SelectTrigger className="text-xs lg:text-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -178,7 +178,7 @@ const NumberingSection = (): ReactNode => {
                   value={calendar}
                   onValueChange={(v) => setField('calendar', v as CalendarKind)}
                 >
-                  <SelectTrigger className="rounded-lg text-xs lg:text-sm focus:ring-offset-0">
+                  <SelectTrigger className="text-xs lg:text-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>

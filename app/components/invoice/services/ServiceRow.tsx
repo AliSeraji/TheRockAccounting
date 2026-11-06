@@ -31,7 +31,7 @@ const ServiceRow = memo(function ServiceRow({
     <PersianNumericInput
       value={String(serviceItem[field])}
       onChange={(v) => update(serviceItem.id, field, v)}
-      className={`border-0 text-center focus-visible:ring-offset-3 text-sm h-8 ${readOnly ? 'cursor-default' : 'cursor-text'}`}
+      className={`rounded-none border-0 text-center focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-3 text-sm h-8 ${readOnly ? 'cursor-default' : 'cursor-text'}`}
       readOnly={readOnly}
       isPrice={isPrice}
       addItem={isPrice && !readOnly ? addService : undefined}
@@ -65,7 +65,7 @@ const ServiceRow = memo(function ServiceRow({
           onKeyDown={(e) => {
             if (e.key === 'Enter') addService();
           }}
-          className="border-0 text-center focus-visible:ring-offset-3 text-sm h-8 cursor-text"
+          className="rounded-none border-0 text-center focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-3 text-sm h-8 cursor-text"
         />
       </TableCell>
       <TableCell className="w-[10%] border-x-[0.5px] border-slate-200 p-1">

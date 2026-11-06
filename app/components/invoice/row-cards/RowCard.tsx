@@ -118,7 +118,10 @@ export default function RowCard({
               exit={{ opacity: 0, width: 0 }}
               transition={fade}
             >
-              <Separator orientation="vertical" className="h-6 w-px" />
+              <Separator
+                orientation="vertical"
+                className="h-6 w-px data-vertical:self-center"
+              />
               <Button
                 type="button"
                 variant="ghost"

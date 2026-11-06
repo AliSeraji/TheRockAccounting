@@ -1,15 +1,32 @@
 import type { ReactNode } from 'react';
-import { FileText } from 'lucide-react';
+import { FileText, Layers } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
 import DataTable from '../data-table/DataTable';
 import ListHeader from '../data-table/ListHeader';
 import type { ListFilter } from '../data-table/types';
+import { useToday } from '~/hooks/useToday';
+import {
+  jalaliKey,
+  presetRange,
+  rangeLabel,
+  type DayRangeKeys,
+} from '~/lib/jalali';
 import { convertToEnDigits } from '~/lib/utils';
 import { INVOICE_TYPES } from '~/store/invoices/helpers';
-import type { InvoiceFilters, SavedInvoice } from '~/store/invoices/types';
+import type {
+  InvoiceDateFilter,
+  InvoiceFilters,
+  SavedInvoice,
+} from '~/store/invoices/types';
 import { useInvoicesStore } from '~/store/invoices/useInvoicesStore';
 import { invoiceColumns } from './columns';
 import { INVOICE_KIND_LABELS } from './common';
+import {
+  DATE_OPTIONS,
+  DateFilterPopover,
+  DateRangePanel,
+  TodayButton,
+} from './DateFilter';
 
 const PAGE_SIZE = 20;
 
@@ -44,6 +61,29 @@ const matches = (
   );
 };
 
+// The invoice dates the date filter lets through, as `jalaliKey`s; null lets
+// every date through. A custom range counts once both ends are picked.
+const dateRange = (
+  { date, dateFrom, dateTo }: InvoiceFilters,
+  today: Date
+): DayRangeKeys | null => {
+  if (date === 'all') return null;
+  if (date !== 'range') return presetRange(date, today);
+  const from = jalaliKey(dateFrom);
+  const to = jalaliKey(dateTo);
+  if (from === null || to === null) return null;
+  return { from: Math.min(from, to), to: Math.max(from, to) };
+};
+
+const inRange = (
+  invoice: SavedInvoice,
+  range: DayRangeKeys | null
+): boolean => {
+  if (!range) return true;
+  const key = jalaliKey(invoice.data.invoiceDate);
+  return key !== null && key >= range.from && key <= range.to;
+};
+
 export default function InvoicesList(): ReactNode {
   const invoices = useInvoicesStore((state) => state.invoices);
   const filters = useInvoicesStore((state) => state.filters);
@@ -52,7 +92,19 @@ export default function InvoicesList(): ReactNode {
   const setPage = useInvoicesStore((state) => state.setPage);
   const openInvoice = useInvoicesStore((state) => state.openInvoice);
 
-  const filtered = invoices.filter((invoice) => matches(invoice, filters));
+  const today = useToday();
+  const range = dateRange(filters, today);
+  const todayKey = presetRange('today', today).from;
+  const todayCount = invoices.filter(
+    (invoice) => jalaliKey(invoice.data.invoiceDate) === todayKey
+  ).length;
+  const customRange = filters.date === 'range' && range;
+  const applyRange = (dateFrom: string, dateTo: string) =>
+    setFilters({ date: 'range', dateFrom, dateTo });
+
+  const filtered = invoices.filter(
+    (invoice) => matches(invoice, filters) && inRange(invoice, range)
+  );
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const visible = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
@@ -63,6 +115,8 @@ export default function InvoicesList(): ReactNode {
       value: filters.type,
       options: TYPE_OPTIONS,
       onChange: (type) => setFilters({ type }),
+      icon: FileText,
+      variant: 'segmented',
     },
     {
       key: 'kind',
@@ -70,6 +124,35 @@ export default function InvoicesList(): ReactNode {
       value: filters.kind,
       options: KIND_OPTIONS,
       onChange: (kind) => setFilters({ kind: kind as InvoiceFilters['kind'] }),
+      icon: Layers,
+      variant: 'segmented',
+    },
+    {
+      key: 'date',
+      label: 'تاریخ',
+      value: filters.date,
+      options: DATE_OPTIONS,
+      onChange: (date) => setFilters({ date: date as InvoiceDateFilter }),
+      valueLabel: customRange ? rangeLabel(customRange) : undefined,
+      desktop: (
+        <DateFilterPopover
+          value={filters.date}
+          rangeText={customRange ? rangeLabel(customRange) : undefined}
+          from={filters.dateFrom}
+          to={filters.dateTo}
+          today={today}
+          onPick={(date) => setFilters({ date })}
+          onApplyRange={applyRange}
+        />
+      ),
+      panel: (
+        <DateRangePanel
+          from={filters.dateFrom}
+          to={filters.dateTo}
+          onApply={applyRange}
+        />
+      ),
+      panelValue: 'range',
     },
   ];
 
@@ -84,6 +167,15 @@ export default function InvoicesList(): ReactNode {
         onSearchChange={(search) => setFilters({ search })}
         searchPlaceholder="شماره، خریدار، تلفن یا پروژه..."
         filters={listFilters}
+        actions={
+          <TodayButton
+            on={filters.date === 'today'}
+            count={todayCount}
+            onToggle={() =>
+              setFilters({ date: filters.date === 'today' ? 'all' : 'today' })
+            }
+          />
+        }
       />
 
       <CardContent className="p-0">
@@ -104,7 +196,7 @@ export default function InvoicesList(): ReactNode {
           </div>
         ) : (
           <DataTable
-            columns={invoiceColumns}
+            columns={invoiceColumns(todayKey)}
             items={visible}
             firstRowNumber={(page - 1) * PAGE_SIZE + 1}
             onSelect={(invoice) => openInvoice(invoice.id)}

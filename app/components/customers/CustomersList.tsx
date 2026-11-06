@@ -73,6 +73,7 @@ export default function CustomersList(): ReactNode {
             value: filterRole || 'all',
             options: ROLE_FILTER_OPTIONS,
             onChange: (v) => setFilterRole(v === 'all' ? '' : v),
+            icon: UsersRound,
           },
         ]}
         addLabel="شخص جدید"

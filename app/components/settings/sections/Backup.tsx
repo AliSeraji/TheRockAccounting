@@ -101,7 +101,7 @@ export const BackupSection = (): ReactNode => {
                   value={backupFreq}
                   onValueChange={(v) => setField('backupFreq', v as BackupFreq)}
                 >
-                  <SelectTrigger className="hover:cursor-pointer rounded-lg focus:ring-offset-0 text-xs lg:text-sm">
+                  <SelectTrigger className="text-xs lg:text-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>

@@ -23,8 +23,7 @@ interface PersianDatePickerProps {
   placeholder?: string;
 }
 
-const INPUT_CLASS =
-  'border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 cursor-pointer placeholder:text-xs lg:placeholder:text-sm';
+const INPUT_CLASS = 'cursor-pointer placeholder:text-xs lg:placeholder:text-sm';
 
 // Calendar keeps its defaults (renderFooter, colors, animation duration) in
 // defaultProps, which React 19's JSX runtime ignores on function components.

@@ -27,7 +27,7 @@ export default function ExplanationCard(): React.ReactNode {
           <BulletTextarea
             value={additionalNote}
             onValueChange={setAdditionalNote}
-            className="border-slate-200 focus:ring-slate-400 focus-visible:ring-offset-0 min-h-20"
+            className="min-h-20"
             placeholder="توضیحات"
           />
         </div>
@@ -36,10 +36,9 @@ export default function ExplanationCard(): React.ReactNode {
             توضیحات (نمایش در رسید تحویل)
           </Label>
           <BulletTextarea
-          
             value={secondAdditionalNote}
             onValueChange={setSecondAdditionalNote}
-            className="border-slate-200 focus:ring-slate-400 focus-visible:ring-offset-0 min-h-20"
+            className="min-h-20"
             placeholder="توضیحات"
           />
         </div>

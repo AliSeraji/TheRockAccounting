@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Popover, PopoverTrigger } from '../ui/popover';
 import { Input } from '../ui/input';
+import { menuItemClass, menuSurfaceClass } from '../ui/select';
 import type { StoneSuggestion } from './types';
 import { cn, matchesQuery, searchKey } from '~/lib/utils';
 
@@ -97,20 +98,23 @@ export default function StoneTypeInput({
         }}
         onBlur={() => setOpen(false)}
         onKeyDown={handleKeyDown}
-        className="border-0 text-center focus-visible:ring-offset-3 text-sm h-8 cursor-text"
+        className="rounded-none border-0 text-center focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-3 text-sm h-8 cursor-text"
       />
       <Popover
         triggerRef={inputRef}
         isOpen={open && options.length > 0}
         onOpenChange={setOpen}
         isNonModal
-        className="w-45 p-0 overflow-hidden border-gray-400 border-2"
+        className={cn(
+          'w-45 gap-0 overflow-hidden p-0 ring-0 duration-200 motion-reduce:animate-none',
+          menuSurfaceClass
+        )}
       >
         <div className="relative flex min-h-0 flex-col">
           <div
             ref={listRef}
             onScroll={updateScrollHints}
-            className="flex max-h-60 min-h-0 flex-col gap-2 overflow-y-auto p-1"
+            className="flex max-h-60 min-h-0 flex-col gap-0.5 overflow-y-auto p-1.5"
           >
             {options.map((stone, idx) => (
               <button
@@ -123,9 +127,11 @@ export default function StoneTypeInput({
                 onClick={() => select(stone.name)}
                 onMouseEnter={() => setHighlighted(idx)}
                 className={cn(
-                  'w-full rounded-sm px-2 py-1.5 text-sm text-right text-slate-700 hover:cursor-pointer',
+                  'w-full shrink-0 py-2 text-right',
+                  menuItemClass,
                   idx === highlighted && 'bg-slate-100 text-slate-900',
-                  searchKey(value) === searchKey(stone.name) && 'font-semibold'
+                  searchKey(value) === searchKey(stone.name) &&
+                    'bg-brand-100 font-medium text-brand-900'
                 )}
               >
                 {stone.name}

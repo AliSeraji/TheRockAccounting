@@ -56,7 +56,7 @@ const ContactInfo = memo(function ContactInfo(): ReactNode {
               <Input
                 value={convertToPersianDigits(phone || '') ?? ''}
                 onChange={(e) => handleNumericFieldChange(e, 'phone')}
-                className="rounded-lg text-xs md:text-sm"
+                className="text-xs md:text-sm"
               />
             </Field>
           </div>
@@ -68,7 +68,7 @@ const ContactInfo = memo(function ContactInfo(): ReactNode {
               <Input
                 value={convertToPersianDigits(mobile || '') ?? ''}
                 onChange={(e) => handleNumericFieldChange(e, 'mobile')}
-                className="rounded-lg text-xs md:text-sm"
+                className="text-xs md:text-sm"
               />
             </Field>
           </div>
@@ -81,7 +81,7 @@ const ContactInfo = memo(function ContactInfo(): ReactNode {
                 value={email ?? ''}
                 onChange={(e) => setField('email', e.target.value)}
                 dir="ltr"
-                className="rounded-lg text-xs md:text-sm"
+                className="text-xs md:text-sm"
               />
             </Field>
           </div>
@@ -94,7 +94,7 @@ const ContactInfo = memo(function ContactInfo(): ReactNode {
                 value={website ?? ''}
                 onChange={(e) => setField('website', e.target.value)}
                 dir="ltr"
-                className="rounded-lg text-xs md:text-sm"
+                className="text-xs md:text-sm"
               />
             </Field>
           </div>
@@ -107,7 +107,7 @@ const ContactInfo = memo(function ContactInfo(): ReactNode {
                 value={address ?? ''}
                 onChange={(e) => setField('address', e.target.value)}
                 rows={2}
-                className="rounded-lg ring-0 text-xs md:text-sm"
+                className="text-xs md:text-sm"
               />
               <FieldDescription className="flex flex-row text-slate-400 text-xs md:text-sm justify-start">
                 در فاکتورها چاپ خواهد شد

@@ -16,11 +16,26 @@ export type InvoiceListView =
   | { mode: 'view'; id: string }
   | { mode: 'edit'; id: string };
 
+// Filters on the invoice date: a preset counted back from today, or the
+// custom range `dateFrom`..`dateTo`.
+export type InvoiceDateFilter =
+  | 'all'
+  | 'today'
+  | 'yesterday'
+  | 'week'
+  | 'month'
+  | 'range';
+
 export interface InvoiceFilters {
   search: string;
   // An invoice type, or 'all'
   type: string;
   kind: InvoiceKind | 'all';
+  date: InvoiceDateFilter;
+  // The custom range's ends, Jalali 'y/m/d' like `invoiceDate`; '' until
+  // picked.
+  dateFrom: string;
+  dateTo: string;
 }
 
 export type SaveResult =

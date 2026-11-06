@@ -1,10 +1,14 @@
+import { jalaliKey } from '~/lib/jalali';
 import { convertToPersianDigits, formatRialAmount } from '~/lib/utils';
 import type { SavedInvoice } from '~/store/invoices/types';
 import { EMPTY } from '../data-table/constants';
 import type { DataTableColumn } from '../data-table/types';
 import { INVOICE_KIND_LABELS, InvoiceTypeBadge } from './common';
 
-export const invoiceColumns: DataTableColumn<SavedInvoice>[] = [
+// `todayKey` (a `jalaliKey`) marks today's invoices in the date column.
+export const invoiceColumns = (
+  todayKey: number
+): DataTableColumn<SavedInvoice>[] => [
   {
     key: 'number',
     label: 'شماره',
@@ -41,10 +45,19 @@ export const invoiceColumns: DataTableColumn<SavedInvoice>[] = [
     label: 'تاریخ',
     width: 'w-[14%]',
     mobile: 'meta',
-    render: (invoice) =>
-      invoice.data.invoiceDate
-        ? convertToPersianDigits(invoice.data.invoiceDate)
-        : EMPTY,
+    render: ({ data: { invoiceDate } }) =>
+      invoiceDate ? (
+        <span className="inline-flex items-center gap-1.5">
+          {convertToPersianDigits(invoiceDate)}
+          {jalaliKey(invoiceDate) === todayKey && (
+            <span className="rounded-full bg-brand-100 px-1.5 text-[11px] leading-5 font-medium text-brand-900">
+              امروز
+            </span>
+          )}
+        </span>
+      ) : (
+        EMPTY
+      ),
   },
   {
     key: 'total',
