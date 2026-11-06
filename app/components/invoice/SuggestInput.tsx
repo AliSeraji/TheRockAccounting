@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Popover, PopoverTrigger } from '../ui/popover';
 import { Input } from '../ui/input';
+import { menuItemClass, menuSurfaceClass } from '../ui/select';
 import { cn } from '~/lib/utils';
 
 interface SuggestInputProps<T> {
@@ -121,7 +122,8 @@ export default function SuggestInput<T>({
         onOpenChange={setOpen}
         isNonModal
         className={cn(
-          'p-0 overflow-hidden border-gray-400 border-2',
+          'gap-0 overflow-hidden p-0 ring-0 duration-200 motion-reduce:animate-none',
+          menuSurfaceClass,
           popoverClassName
         )}
       >
@@ -129,7 +131,7 @@ export default function SuggestInput<T>({
           <div
             ref={listRef}
             onScroll={updateScrollHints}
-            className="flex max-h-60 min-h-0 flex-col gap-1 overflow-y-auto p-1"
+            className="flex max-h-60 min-h-0 flex-col gap-0.5 overflow-y-auto p-1.5"
           >
             {options.map((option, idx) => (
               <button
@@ -142,9 +144,11 @@ export default function SuggestInput<T>({
                 onClick={() => select(option)}
                 onMouseEnter={() => setHighlighted(idx)}
                 className={cn(
-                  'w-full rounded-sm px-2 py-1.5 text-sm text-right text-slate-700 hover:cursor-pointer',
+                  'w-full shrink-0 py-2 text-right',
+                  menuItemClass,
                   idx === highlighted && 'bg-slate-100 text-slate-900',
-                  isSelected?.(option) && 'font-semibold'
+                  isSelected?.(option) &&
+                    'bg-brand-100 font-medium text-brand-900'
                 )}
               >
                 {renderOption(option)}

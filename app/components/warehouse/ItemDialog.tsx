@@ -396,7 +396,7 @@ function ItemForm<T extends DialogItem>({
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
                 placeholder="مثلاً: اختلاف با شمارش انبار"
-                className="border-slate-200 rounded-lg focus:ring-slate-400 min-h-20 resize-none"
+                className="min-h-20 resize-none"
               />
             </div>
           )}
@@ -406,7 +406,7 @@ function ItemForm<T extends DialogItem>({
               value={draft.notes}
               onChange={(e) => handleChange('notes', e.target.value)}
               placeholder="توضیحات را وارد کنید..."
-              className="border-slate-200 rounded-lg focus:ring-slate-400 min-h-24 resize-none"
+              className="min-h-24 resize-none"
             />
           </div>
         </div>

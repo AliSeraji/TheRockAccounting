@@ -114,7 +114,7 @@ function FormField<K extends string>({
             ? 'ltr'
             : undefined
         }
-        className="border-slate-200 rounded-lg focus:ring-slate-400 text-right"
+        className="text-right"
       />
     </div>
   );

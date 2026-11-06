@@ -1,17 +1,12 @@
 import type React from 'react';
-import { FileText } from 'lucide-react';
+import { FileText, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Label } from '../ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '../ui/select';
+import { SegmentedControl } from '../ui/segmented-control';
 import { Input } from '../ui/input';
 import { lazy, memo, Suspense, useEffect, useState } from 'react';
 import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
+import { INVOICE_TYPES } from '~/store/invoices/helpers';
 import { useInvoiceForm } from '~/store/useInvoiceForm';
 import BuyerInput from './BuyerInput';
 import NationalIdInput from './NationalIdInput';
@@ -26,6 +21,13 @@ type DayValue =
   | undefined;
 
 const PersianDatePicker = lazy(() => import('./PersianDatePicker.client'));
+
+const INVOICE_TYPE_OPTIONS = [
+  { value: INVOICE_TYPES.PRE, label: INVOICE_TYPES.PRE },
+  { value: INVOICE_TYPES.SALES, label: INVOICE_TYPES.SALES },
+];
+
+const FIELD_CLASS = 'placeholder:text-xs lg:placeholder:text-sm';
 
 const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
   const invoiceType = useInvoiceForm((state) => state.invoiceType);
@@ -70,19 +72,19 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="flex flex-col space-y-2">
             <Label className="text-slate-700 pr-1">عنوان</Label>
-            <Select
+            <SegmentedControl
               value={invoiceType}
-              onValueChange={setInvoiceType}
-              dir="rtl"
-            >
-              <SelectTrigger className="border-slate-200 focus:ring-slate-400 focus:ring-offset-0 text-xs lg:text-sm">
-                <SelectValue placeholder="انتخاب نوع فاکتور" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="پیش فاکتور">پیش فاکتور</SelectItem>
-                <SelectItem value="فاکتور فروش">فاکتور فروش</SelectItem>
-              </SelectContent>
-            </Select>
+              onChange={setInvoiceType}
+              options={INVOICE_TYPE_OPTIONS}
+              label="عنوان"
+              fullWidth
+            />
+            <p className="flex items-center gap-1.5 pr-1 text-xs text-slate-600">
+              <Info className="size-3.5 text-brand-600" aria-hidden="true" />
+              {invoiceType === INVOICE_TYPES.SALES
+                ? 'اقلام از موجودی انبار کم می‌شود'
+                : 'موجودی انبار تغییر نمی‌کند'}
+            </p>
           </div>
           <div className="flex flex-col space-y-2">
             <Label className="text-slate-700 pr-1">شماره فاکتور</Label>
@@ -95,7 +97,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
                 );
                 setInvoiceNumber(val);
               }}
-              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs md:placeholder:text-sm"
+              className={FIELD_CLASS}
             />
           </div>
           <BuyerInput />
@@ -108,7 +110,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
                   <Input
                     value={convertToPersianDigits(invoiceDate)}
                     readOnly
-                    className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 cursor-pointer placeholder:text-xs lg:placeholder:text-sm"
+                    className={`${FIELD_CLASS} cursor-pointer`}
                   />
                 }
               >
@@ -122,7 +124,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
               <Input
                 value={convertToPersianDigits(invoiceDate)}
                 readOnly
-                className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 cursor-pointer placeholder:text-xs lg:placeholder:text-sm"
+                className={`${FIELD_CLASS} cursor-pointer`}
               />
             )}
           </div>
@@ -131,7 +133,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             <Input
               value={convertToPersianDigits(project)}
               onChange={(e) => setProject(convertToEnDigits(e.target.value))}
-              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-sm"
+              className={FIELD_CLASS}
               placeholder=" پروژه مشتری"
             />
           </div>
@@ -146,7 +148,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
                 );
                 setPhone(value);
               }}
-              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-sm"
+              className={FIELD_CLASS}
               placeholder="مشتری "
             />
           </div>
@@ -155,7 +157,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             <Input
               value={convertToPersianDigits(address)}
               onChange={(e) => setAddress(convertToEnDigits(e.target.value))}
-              className="border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs lg:placeholder:text-sm"
+              className={FIELD_CLASS}
               placeholder="آدرس تحویل بار "
             />
           </div>

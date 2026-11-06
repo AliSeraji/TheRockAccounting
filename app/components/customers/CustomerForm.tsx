@@ -169,7 +169,7 @@ export default function CustomerForm(): ReactNode {
                 readOnly
                 value={selectedCustomer.code}
                 dir="ltr"
-                className="rounded-lg border-slate-200 bg-slate-50 text-slate-400 text-xs lg:text-sm text-left cursor-default"
+                className="bg-slate-50 text-slate-400 text-xs lg:text-sm text-left cursor-default"
               />
             </Field>
             <Field>
@@ -179,7 +179,7 @@ export default function CustomerForm(): ReactNode {
               <Input
                 readOnly
                 value={customerTimestamp()}
-                className="rounded-lg border-slate-200 bg-slate-50 text-slate-400 text-xs lg:text-sm cursor-default"
+                className="bg-slate-50 text-slate-400 text-xs lg:text-sm cursor-default"
               />
             </Field>
           </div>
@@ -202,7 +202,7 @@ export default function CustomerForm(): ReactNode {
               value={selectedCustomer.description}
               onChange={(e) => handleChange('description', e.target.value)}
               placeholder="یادداشت داخلی درباره این شخص..."
-              className="min-h-24 rounded-lg border-slate-200 text-xs lg:text-sm resize-none focus-visible:ring-slate-400"
+              className="min-h-24 text-xs lg:text-sm resize-none"
             />
           </Field>
 

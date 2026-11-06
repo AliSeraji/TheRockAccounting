@@ -14,8 +14,7 @@ import { cn, convertToPersianDigits } from '~/lib/utils';
 import { digitsOnly } from '~/lib/validation';
 
 const labelClass = 'text-slate-700 pr-2 text-xs lg:text-sm';
-const controlClass =
-  'rounded-md text-xs lg:text-sm border-slate-200 focus-visible:ring-slate-400';
+const controlClass = 'text-xs lg:text-sm';
 
 function FieldShell({
   label,
@@ -164,11 +163,7 @@ export const SelectField = memo(function SelectField({
         <SelectTrigger
           dir="rtl"
           disabled={disabled}
-          className={cn(
-            controlClass,
-            'bg-white text-slate-700 hover:cursor-pointer focus:ring-0 focus:ring-offset-0 focus:border-slate-400',
-            error && 'border-red-300'
-          )}
+          className={cn(controlClass, error && 'border-red-300')}
         >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
@@ -178,7 +173,7 @@ export const SelectField = memo(function SelectField({
               <SelectItem
                 key={option}
                 value={option}
-                className="hover:cursor-pointer text-xs lg:text-sm"
+                className="text-xs lg:text-sm"
               >
                 {option}
               </SelectItem>

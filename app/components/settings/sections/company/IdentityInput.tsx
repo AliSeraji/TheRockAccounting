@@ -56,7 +56,7 @@ const IdentityInput = memo(function IdentityInput(): ReactNode {
           <Input
             value={companyName ?? ''}
             onChange={(e) => setField('companyName', e.target.value)}
-            className="rounded-lg text-xs lg:text-sm"
+            className="text-xs lg:text-sm"
           />
         </Field>
       </div>
@@ -68,7 +68,7 @@ const IdentityInput = memo(function IdentityInput(): ReactNode {
           <Input
             value={brandName ?? ''}
             onChange={(e) => setField('brandName', e.target.value)}
-            className="rounded-lg text-xs lg:text-sm"
+            className="text-xs lg:text-sm"
           />
         </Field>
       </div>
@@ -91,7 +91,7 @@ const IdentityInput = memo(function IdentityInput(): ReactNode {
             onChange={(e) =>
               handleNumericFieldChange(e.target.value, 'regNumber')
             }
-            className="rounded-lg text-xs lg:text-sm"
+            className="text-xs lg:text-sm"
             dir="ltr"
           />
         </Field>

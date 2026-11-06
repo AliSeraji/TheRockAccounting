@@ -6,8 +6,7 @@ import { useCustomersStore } from '~/store/customers/useCustomers';
 // Shared by the buyer fields that suggest customers (BuyerInput,
 // NationalIdInput).
 
-export const buyerInputClass =
-  'border-slate-200 rounded-sm lg:rounded-lg focus:ring-slate-400 placeholder:text-xs md:placeholder:text-sm';
+export const buyerInputClass = 'placeholder:text-xs md:placeholder:text-sm';
 
 // The customers an invoice can be written for; inactive ones are hidden.
 export function useActiveCustomers(): Customer[] {

@@ -12,7 +12,7 @@ import type { ServiceItem } from '~/store/types';
 import { SERVICE_PRICE_LABEL } from './fields';
 import NumberField from './NumberField';
 import PriceStrip from './PriceStrip';
-import { CARD_INPUT, CARD_LABEL } from './styles';
+import { CARD_FIELD_LABEL, CARD_INPUT, CARD_TEXT_SIZE } from './styles';
 import { formatAmount } from './summary';
 
 // Filtered as ServiceTypeInput does: an exact option still lists them all.
@@ -23,7 +23,7 @@ const serviceOptions = (value: string): string[] => {
     : SERVICE_OPTIONS.filter((option) => option.includes(query));
 };
 
-const TEXT_INPUT = cn(CARD_INPUT, 'px-3 text-right');
+const TEXT_INPUT = cn(CARD_INPUT, 'px-3 text-right', CARD_TEXT_SIZE);
 
 // The body of an open service card. Without `update` it only shows the
 // service, as in a saved invoice; its type then stays in the card's header.
@@ -54,7 +54,7 @@ export default function ServiceCardBody({
     <>
       {update && (
         <Label ref={typeRef} className="flex flex-col gap-1 font-normal">
-          <span className={CARD_LABEL}>شرح خدمات</span>
+          <span className={CARD_FIELD_LABEL}>شرح خدمات</span>
           <SuggestInput
             value={service.serviceType}
             onChange={(value) =>
@@ -75,7 +75,7 @@ export default function ServiceCardBody({
       <div className="grid grid-cols-[minmax(0,1fr)_5.5rem] items-start gap-2">
         {update ? (
           <Label className="flex min-w-0 flex-col gap-1 font-normal">
-            <span className={CARD_LABEL}>توضیحات</span>
+            <span className={CARD_FIELD_LABEL}>توضیحات</span>
             <Input
               value={service.description}
               onChange={(e) =>
@@ -93,7 +93,7 @@ export default function ServiceCardBody({
           </Label>
         ) : (
           <div className="flex min-w-0 flex-col gap-1">
-            <span className={CARD_LABEL}>توضیحات</span>
+            <span className={CARD_FIELD_LABEL}>توضیحات</span>
             <p className="m-0 min-h-11 rounded-[10px] bg-slate-50 px-3 py-2.5 text-sm text-slate-900 wrap-break-word">
               {convertToPersianDigits(service.description.trim()) || '—'}
             </p>

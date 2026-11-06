@@ -18,7 +18,14 @@ import {
 export const useInvoicesStore = create<InvoicesStore>((set, get) => ({
   invoices: [],
   view: { mode: 'list' },
-  filters: { search: '', type: 'all', kind: 'all' },
+  filters: {
+    search: '',
+    type: 'all',
+    kind: 'all',
+    date: 'all',
+    dateFrom: '',
+    dateTo: '',
+  },
   page: 1,
 
   saveInvoice: (invoice, id) => {
@@ -85,6 +92,7 @@ export const useInvoicesStore = create<InvoicesStore>((set, get) => ({
 
   setFilters: (filters) =>
     set((state) => ({ filters: { ...state.filters, ...filters }, page: 1 })),
+  
 
   setPage: (page) => set({ page }),
 }));

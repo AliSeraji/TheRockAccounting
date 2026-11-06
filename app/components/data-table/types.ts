@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import type { LucideIcon } from 'lucide-react';
 
 export type DataTableItem = { id: string };
 
@@ -31,4 +32,19 @@ export type ListFilter = {
   value: string;
   options: { value: string; label: string }[];
   onChange: (value: string) => void;
+  // Stands in for the label on the desktop control; the label shows in a
+  // tooltip.
+  icon?: LucideIcon;
+  // Desktop control: a dropdown, or a segmented control for a few short
+  // options. Phones always use the filter sheet.
+  variant?: 'dropdown' | 'segmented';
+  // A custom desktop control in place of the generated one.
+  desktop?: ReactNode;
+  // Shown under the filter's pills in the sheet while `value` is
+  // `panelValue`, e.g. a range picker for a custom range.
+  panel?: ReactNode;
+  panelValue?: string;
+  // Chip text when the picked option's label doesn't say enough, e.g. the
+  // dates of a custom range.
+  valueLabel?: string;
 };

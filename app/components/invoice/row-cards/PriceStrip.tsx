@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { Label } from '../../ui/label';
 import PersianNumericInput from '../PersianNumericInput';
 import { cn } from '~/lib/utils';
-import { CARD_INPUT, CARD_LABEL, CARD_VALUE } from './styles';
+import { CARD_FIELD_LABEL, CARD_INPUT, CARD_LABEL, CARD_VALUE } from './styles';
 import { formatAmount } from './summary';
 
 // The foot of an open row card: the price beside what the row comes to.
@@ -29,7 +29,7 @@ export default function PriceStrip({
     <div className="grid grid-cols-2 items-end gap-2.5 rounded-xl bg-slate-50 p-2.5">
       {onPriceChange ? (
         <Label className="flex min-w-0 flex-col gap-1 font-normal">
-          <span className={CARD_LABEL}>{label}</span>
+          <span className={CARD_FIELD_LABEL}>{label}</span>
           <PersianNumericInput
             value={price}
             onChange={onPriceChange}
@@ -41,7 +41,7 @@ export default function PriceStrip({
         </Label>
       ) : (
         <div className="flex min-w-0 flex-col gap-1">
-          <span className={CARD_LABEL}>{label}</span>
+          <span className={CARD_FIELD_LABEL}>{label}</span>
           <span className={cn(CARD_VALUE, 'bg-white')}>
             {formatAmount(price) || '—'}
           </span>

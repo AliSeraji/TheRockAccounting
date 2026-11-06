@@ -2,7 +2,13 @@ import { useEffect, useRef, type ReactNode } from 'react';
 import { Label } from '../../ui/label';
 import SuggestInput from '../SuggestInput';
 import type { StoneSuggestion } from '../types';
-import { convertToPersianDigits, matchesQuery, searchKey } from '~/lib/utils';
+import {
+  cn,
+  convertToPersianDigits,
+  matchesQuery,
+  searchKey,
+} from '~/lib/utils';
+import { CARD_TEXT_SIZE } from './styles';
 
 type IdentityPart = 'type' | 'code';
 
@@ -19,8 +25,10 @@ interface IdentityFieldProps {
   autoFocus?: IdentityPart;
 }
 
-const INPUT =
-  'h-11 rounded-none border-0 bg-transparent text-base text-slate-900 focus-visible:ring-0';
+const INPUT = cn(
+  'h-11 rounded-none border-0 bg-transparent text-slate-900 focus-visible:ring-0',
+  CARD_TEXT_SIZE
+);
 
 // A row card's stone type and code, side by side in one field, each with
 // suggestions from the warehouse.
@@ -48,7 +56,7 @@ export default function IdentityField({
   return (
     <div
       ref={fieldRef}
-      className="flex h-[46px] overflow-hidden rounded-[10px] border border-slate-200 bg-white transition-[border-color,box-shadow] focus-within:border-brand-400 focus-within:ring-3 focus-within:ring-brand-400/35"
+      className="flex h-11.5 overflow-hidden rounded-[10px] border border-slate-200 bg-white transition-[border-color,box-shadow] duration-200 hover:border-slate-300 focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-400/25 motion-reduce:transition-none"
     >
       <Label className="flex min-w-0 flex-1 font-normal">
         <span className="sr-only">{typeLabel}</span>

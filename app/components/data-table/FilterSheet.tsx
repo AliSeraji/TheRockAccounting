@@ -59,7 +59,7 @@ export default function FilterSheet({
         dir="rtl"
         showCloseButton={false}
         aria-describedby={undefined}
-        className="max-h-[85vh] gap-4 rounded-t-2xl border-slate-200 bg-white px-4 pt-2 pb-[max(1.25rem,env(safe-area-inset-bottom))] text-slate-800 animate-sheet-up motion-reduce:animate-none"
+        className="max-h-[85vh] gap-4 rounded-t-2xl border-slate-200 bg-white px-4 pt-2 pb-[max(1.25rem,env(safe-area-inset-bottom))] text-slate-800 motion-reduce:animate-none"
       >
         <span
           aria-hidden="true"
@@ -98,7 +98,7 @@ export default function FilterSheet({
                       aria-pressed={selected}
                       onClick={() => filter.onChange(option.value)}
                       className={cn(
-                        'h-8.5 rounded-full px-3.5 text-[13px] font-medium whitespace-nowrap ring-1 ring-inset transition-colors hover:cursor-pointer',
+                        'h-8.5 rounded-full px-3.5 text-[13px] font-medium whitespace-nowrap ring-1 ring-inset transition-[background-color,color,box-shadow] duration-200 hover:cursor-pointer motion-reduce:transition-none',
                         selected
                           ? 'bg-brand-100 text-brand-800 ring-brand-400'
                           : 'bg-white text-slate-600 ring-slate-200 hover:bg-slate-50'
@@ -110,6 +110,11 @@ export default function FilterSheet({
                   );
                 })}
               </div>
+              {filter.panel && filter.value === filter.panelValue && (
+                <div className="pt-1 duration-200 animate-in fade-in-0 slide-in-from-top-1 motion-reduce:animate-none">
+                  {filter.panel}
+                </div>
+              )}
             </div>
           ))}
         </div>

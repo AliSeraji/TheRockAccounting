@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { Package } from 'lucide-react';
+import { Package, Tags } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
 import {
   selectOpenItemId,
@@ -90,6 +90,7 @@ export default function ItemsCard<T extends ListItem>({
             ...categories.map((cat) => ({ value: cat, label: cat })),
           ],
           onChange: (v) => setFilterCategory(v === 'all' ? '' : v),
+          icon: Tags,
         },
       ]
     : [];

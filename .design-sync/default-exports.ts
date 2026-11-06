@@ -66,6 +66,7 @@ export { default as InvoiceActions } from '../app/components/invoice/InvoiceActi
 
 // Invoice list
 export { default as InvoicesList } from '../app/components/invoices/InvoicesList';
+export { default as DateRangePicker } from '../app/components/invoices/DateRangePicker.client';
 export { default as InvoiceDetails } from '../app/components/invoices/InvoiceDetails';
 export { default as InvoiceEditor } from '../app/components/invoices/InvoiceEditor';
 export { default as InvoiceViewHeader } from '../app/components/invoices/InvoiceViewHeader';
