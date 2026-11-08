@@ -152,9 +152,18 @@ export { default as WarehouseMobileTablist } from '../app/components/warehouse/T
 // Data table
 export { default as DataTable } from '../app/components/data-table/DataTable';
 export { default as DataTableFooter } from '../app/components/data-table/DataTableFooter';
-export { default as DataTableHeader } from '../app/components/data-table/DataTableHeader';
 export { default as DataTableRow } from '../app/components/data-table/DataTableRow';
 export { default as DataTableCard } from '../app/components/data-table/DataTableCard';
 export { default as TablePagination } from '../app/components/data-table/TablePagination';
 export { default as ListHeader } from '../app/components/data-table/ListHeader';
 export { default as FilterSheet } from '../app/components/data-table/FilterSheet';
+
+// Floating table (desktop invoice tables, saved invoices and lists)
+export { default as FloatingTable } from '../app/components/floating-table/FloatingTable';
+export { default as FloatingHeader } from '../app/components/floating-table/FloatingHeader';
+export { default as FloatingRow } from '../app/components/floating-table/FloatingRow';
+export { default as NumberCell } from '../app/components/floating-table/NumberCell';
+export { default as DeleteCell } from '../app/components/floating-table/DeleteCell';
+export { default as TotalTiles } from '../app/components/floating-table/TotalTiles';
+export { default as RowCountBadge } from '../app/components/floating-table/RowCountBadge';
+export { default as InvoiceTableCard } from '../app/components/floating-table/InvoiceTableCard';

@@ -1,13 +1,16 @@
 import type React from 'react';
 import { memo } from 'react';
-import { Trash2 } from 'lucide-react';
-import { TableCell, TableRow } from '../../ui/table';
-import { Button } from '../../ui/button';
+import { TableCell } from '../../ui/table';
 import { Input } from '../../ui/input';
-import PersianNumericInput from '../PersianNumericInput';
-import { convertToPersianDigits } from '~/lib/utils';
+import { cn } from '~/lib/utils';
 import type { ServiceItem } from '~/store/types';
+import { isFilledService } from '~/store/invoices/helpers';
+import FloatingRow from '../../floating-table/FloatingRow';
+import NumberCell from '../../floating-table/NumberCell';
+import DeleteCell from '../../floating-table/DeleteCell';
+import { CELL, TEXT_INPUT } from '../../floating-table/styles';
 import ServiceTypeInput from './ServiceTypeInput';
+import { SERVICE_COLUMNS } from './common';
 import { SERVICE_ROW_FIELDS, type ServiceRowField } from './types';
 
 const ServiceRow = memo(function ServiceRow({
@@ -23,38 +26,27 @@ const ServiceRow = memo(function ServiceRow({
   remove: (id: number) => void;
   addService: () => void;
 }): React.ReactNode {
-  const numericCell = (
-    field: ServiceRowField,
-    readOnly: boolean = false,
-    isPrice: boolean = false
-  ) => (
-    <PersianNumericInput
-      value={String(serviceItem[field])}
-      onChange={(v) => update(serviceItem.id, field, v)}
-      className={`rounded-none border-0 text-center focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-3 text-sm h-8 ${readOnly ? 'cursor-default' : 'cursor-text'}`}
-      readOnly={readOnly}
-      isPrice={isPrice}
-      addItem={isPrice && !readOnly ? addService : undefined}
-      removeItem={isPrice ? () => remove(serviceItem.id) : undefined}
-    />
-  );
+  const field = (name: ServiceRowField) => ({
+    value: String(serviceItem[name]),
+    onChange: (value: string) => update(serviceItem.id, name, value),
+  });
+  const removeRow = () => remove(serviceItem.id);
 
   return (
-    <TableRow className="w-full flex flex-row *:min-w-0 border-b-0 transition-colors [&>td]:border-b [&:hover>td]:bg-slate-50">
-      <TableCell className="w-[3%] border-x-[0.5px] border-r border-slate-200 p-2 text-center text-slate-700 font-medium">
-        {convertToPersianDigits(index + 1)}
-      </TableCell>
-      <TableCell className="w-[22%] border-x-[0.5px] border-slate-200 p-1">
+    <FloatingRow
+      number={index + 1}
+      blank={!isFilledService(serviceItem)}
+      className="min-h-13.5"
+    >
+      <TableCell className={cn(CELL, SERVICE_COLUMNS.service.width)}>
         <ServiceTypeInput
-          value={serviceItem[SERVICE_ROW_FIELDS.SERVICE_TYPE]}
-          onChange={(v) =>
-            update(serviceItem.id, SERVICE_ROW_FIELDS.SERVICE_TYPE, v)
-          }
+          {...field(SERVICE_ROW_FIELDS.SERVICE_TYPE)}
+          className={TEXT_INPUT}
         />
       </TableCell>
-      <TableCell className="w-[25%] border-x-[0.5px] border-slate-200 p-1">
+      <TableCell className={cn(CELL, SERVICE_COLUMNS.description.width)}>
         <Input
-          value={serviceItem[SERVICE_ROW_FIELDS.DESCRIPTION]}
+          value={serviceItem.description}
           onChange={(e) =>
             update(
               serviceItem.id,
@@ -65,31 +57,29 @@ const ServiceRow = memo(function ServiceRow({
           onKeyDown={(e) => {
             if (e.key === 'Enter') addService();
           }}
-          className="rounded-none border-0 text-center focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-3 text-sm h-8 cursor-text"
+          className={cn(TEXT_INPUT, 'cursor-text font-normal')}
         />
       </TableCell>
-      <TableCell className="w-[10%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(SERVICE_ROW_FIELDS.QUANTITY)}
-      </TableCell>
-
-      <TableCell className="w-[15%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(SERVICE_ROW_FIELDS.UNIT_PRICE, false, true)}
-      </TableCell>
-      <TableCell className="w-[20%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(SERVICE_ROW_FIELDS.TOTAL, true, true)}
-      </TableCell>
-
-      <TableCell className="w-[5%] border-x-[0.5px] border-l border-slate-200 p-1 text-center">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => remove(serviceItem.id)}
-          className="text-red-500 hover:text-red-700 hover:bg-red-50 h-8 w-8 p-0 hover:cursor-pointer"
-        >
-          <Trash2 className="w-4 h-4" />
-        </Button>
-      </TableCell>
-    </TableRow>
+      <NumberCell
+        column={SERVICE_COLUMNS.quantity}
+        {...field(SERVICE_ROW_FIELDS.QUANTITY)}
+      />
+      <NumberCell
+        column={SERVICE_COLUMNS.unitPrice}
+        isPrice
+        addItem={addService}
+        removeItem={removeRow}
+        {...field(SERVICE_ROW_FIELDS.UNIT_PRICE)}
+      />
+      <NumberCell
+        column={SERVICE_COLUMNS.total}
+        look="total"
+        isPrice
+        removeItem={removeRow}
+        {...field(SERVICE_ROW_FIELDS.TOTAL)}
+      />
+      <DeleteCell onRemove={removeRow} />
+    </FloatingRow>
   );
 });
 

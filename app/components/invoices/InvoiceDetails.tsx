@@ -20,6 +20,12 @@ import { useCustomersStore } from '~/store/customers/useCustomers';
 import { useIsMobile } from '~/hooks/use-mobile';
 import SavedRowCards from '../invoice/row-cards/SavedRowCards';
 import SavedServiceCards from '../invoice/row-cards/SavedServiceCards';
+import {
+  blockTotalStats,
+  serviceTotalStats,
+  stoneTotalStats,
+} from '../invoice/row-cards/summary';
+import InvoiceTableCard from '../floating-table/InvoiceTableCard';
 import InvoiceViewHeader from './InvoiceViewHeader';
 import DetailsTable from './details/DetailsTable';
 import {
@@ -188,29 +194,27 @@ export default function InvoiceDetails({
         </div>
       </DetailCard>
 
-      <DetailCard title="اقلام فاکتور">
+      <InvoiceTableCard title="اقلام فاکتور" count={invoice.data.items.length}>
         {/* Phones get one card per row instead of the wide table. */}
         {isMobile ? (
           <SavedRowCards key={invoice.id} invoice={invoice} />
         ) : invoice.kind === 'stone' ? (
           <DetailsTable
-            columns={stoneItemColumns(invoice.data.totals)}
+            columns={stoneItemColumns}
             rows={invoice.data.items}
-            footerLabel="جمع فاکتور"
-            footerSpan={4}
+            stats={stoneTotalStats(invoice.data.totals)}
           />
         ) : (
           <DetailsTable
-            columns={blockItemColumns(invoice.data.totals)}
+            columns={blockItemColumns}
             rows={invoice.data.items}
-            footerLabel="جمع فاکتور"
-            footerSpan={6}
+            stats={blockTotalStats(invoice.data.totals)}
           />
         )}
-      </DetailCard>
+      </InvoiceTableCard>
 
       {data.services.length > 0 && (
-        <DetailCard title="خدمات">
+        <InvoiceTableCard title="خدمات" count={data.services.length}>
           {isMobile ? (
             <SavedServiceCards
               key={invoice.id}
@@ -219,13 +223,13 @@ export default function InvoiceDetails({
             />
           ) : (
             <DetailsTable
-              columns={serviceColumns(data.totals.totalServicesAmount)}
+              columns={serviceColumns}
               rows={data.services}
-              footerLabel="جمع خدمات"
-              footerSpan={5}
+              title="جمع خدمات"
+              stats={serviceTotalStats(data.totals.totalServicesAmount)}
             />
           )}
-        </DetailCard>
+        </InvoiceTableCard>
       )}
 
       <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">

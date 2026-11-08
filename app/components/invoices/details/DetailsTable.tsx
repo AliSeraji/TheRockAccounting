@@ -1,78 +1,59 @@
 import type { ReactNode } from 'react';
+import { TableCell } from '~/components/ui/table';
+import FloatingTable from '~/components/floating-table/FloatingTable';
+import FloatingRow from '~/components/floating-table/FloatingRow';
+import TotalTiles from '~/components/floating-table/TotalTiles';
+import { MIN_TABLE_WIDTH } from '~/components/floating-table/styles';
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '~/components/ui/table';
+  ROW_NUMBER_COLUMN,
+  type FloatingColumn,
+} from '~/components/floating-table/columns';
+import type { TotalStat } from '~/components/invoice/row-cards/RowCardTotals';
 import { cn } from '~/lib/utils';
 
-export type DetailColumn<T> = {
-  label: string;
-  width: string;
-  render: (row: T, index: number) => ReactNode;
-  // Shown in the totals row, for columns after the label.
-  footer?: ReactNode;
+export type DetailColumn<T> = FloatingColumn & {
+  render: (row: T) => ReactNode;
+  // The row's amount, in bold.
+  strong?: boolean;
 };
 
-const headClass =
-  'border border-slate-300 p-2.5 text-xs text-center text-slate-800 whitespace-nowrap';
-const cellClass = 'border border-slate-200 p-2 text-center text-slate-700';
-const footerCellClass =
-  'border border-slate-300 p-2 text-center font-semibold text-slate-800';
-
-// A read-only version of the invoice tables. The totals row puts
-// `footerLabel` across the first `footerSpan` columns.
+// A read-only version of the invoice tables: the same floating rows after
+// a row number, with the totals as tiles underneath.
 export default function DetailsTable<T extends { id: number }>({
   columns,
   rows,
-  footerLabel,
-  footerSpan,
+  title,
+  stats,
 }: {
   columns: DetailColumn<T>[];
   rows: T[];
-  footerLabel: string;
-  footerSpan: number;
+  title?: string;
+  stats: TotalStat[];
 }): ReactNode {
   return (
-    <div className="w-full overflow-x-auto">
-      <Table className="w-full min-w-200 lg:min-w-0 text-sm">
-        <TableHeader>
-          <TableRow className="bg-slate-100 hover:bg-slate-100">
-            {columns.map((col) => (
-              <TableHead key={col.label} className={cn(headClass, col.width)}>
-                {col.label}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {rows.map((row, index) => (
-            <TableRow key={row.id} className="hover:bg-slate-50">
-              {columns.map((col) => (
-                <TableCell key={col.label} className={cellClass}>
-                  {col.render(row, index)}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
-        <TableFooter className="bg-slate-100 hover:bg-slate-100">
-          <TableRow className="hover:bg-slate-100">
-            <TableCell colSpan={footerSpan} className={footerCellClass}>
-              {footerLabel}
+    <FloatingTable
+      columns={[ROW_NUMBER_COLUMN, ...columns]}
+      className={MIN_TABLE_WIDTH}
+      footer={<TotalTiles title={title} stats={stats} />}
+    >
+      {rows.map((row, index) => (
+        <FloatingRow key={row.id} number={index + 1}>
+          {columns.map((col) => (
+            <TableCell
+              key={col.label}
+              className={cn(
+                'flex justify-center px-2 text-sm text-slate-700',
+                col.align === 'start' &&
+                  'justify-start px-3 font-medium text-slate-900',
+                col.strong && 'font-bold text-slate-900',
+                col.width
+              )}
+            >
+              <span className="truncate">{col.render(row)}</span>
             </TableCell>
-            {columns.slice(footerSpan).map((col) => (
-              <TableCell key={col.label} className={footerCellClass}>
-                {col.footer}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </div>
+          ))}
+        </FloatingRow>
+      ))}
+    </FloatingTable>
   );
 }

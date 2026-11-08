@@ -8,8 +8,6 @@ export type AccountRole =
   | 'کارمند'
   | 'سایر';
 
-export type AccountNature = 'تجاری' | 'غیرتجاری';
-
 export type SaleRate =
   | 'قیمت مصرف‌کننده'
   | 'قیمت همکار'
@@ -22,7 +20,6 @@ export type Customer = {
   code: string;
   personType: PersonType;
   accountRole: AccountRole;
-  accountNature: AccountNature;
   firstName: string;
   lastName: string;
   businessName: string;
@@ -40,8 +37,6 @@ export type Customer = {
   bankAccount: string;
   iban: string;
   cardNumber: string;
-  useInReceive: boolean;
-  useInPayment: boolean;
   isActive: boolean;
   date: string;
 };

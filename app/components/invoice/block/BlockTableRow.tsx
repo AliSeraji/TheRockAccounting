@@ -1,14 +1,17 @@
 import type React from 'react';
-import { memo, useEffect, useRef } from 'react';
-import { Trash2 } from 'lucide-react';
-import { TableCell, TableRow } from '../../ui/table';
-import { Button } from '../../ui/button';
-import PersianNumericInput from '../PersianNumericInput';
+import { memo } from 'react';
+import { TableCell } from '../../ui/table';
+import { cn, convertToPersianDigits } from '~/lib/utils';
+import type { BlockInvoiceItem } from '~/store/types';
+import { isFilledBlock } from '~/store/invoices/helpers';
+import { useBlockStockLink } from '~/hooks/useBlockStockLink';
+import FloatingRow from '../../floating-table/FloatingRow';
+import NumberCell from '../../floating-table/NumberCell';
+import DeleteCell from '../../floating-table/DeleteCell';
+import { CELL, CODE_INPUT, TEXT_INPUT } from '../../floating-table/styles';
 import StoneCodeInput from '../StoneCodeInput';
 import StoneTypeInput from '../StoneTypeInput';
-import { convertToPersianDigits } from '~/lib/utils';
-import type { BlockInvoiceItem } from '~/store/types';
-import { useBlockStockLink } from '~/hooks/useBlockStockLink';
+import { BLOCK_COLUMNS } from './common';
 import { BLOCK_ROW_FIELDS, type BlockRowField } from './types';
 
 const BlockRow = memo(function BlockRow({
@@ -17,93 +20,79 @@ const BlockRow = memo(function BlockRow({
   update,
   remove,
   addItem,
-  isNewRow = false,
 }: {
   rowItem: BlockInvoiceItem;
   index: number;
   update: (id: number, field: BlockRowField, value: string) => void;
   remove: (id: number) => void;
   addItem: () => void;
-  isNewRow?: boolean;
 }): React.ReactNode {
   const { blocks, blockTypes, updateCode } = useBlockStockLink(rowItem, update);
-  const inputRef = useRef<HTMLInputElement>(null);
 
-  const numericCell = (
-    field: BlockRowField,
-    readOnly: boolean = false,
-    isPrice: boolean = false
-  ) => (
-    <PersianNumericInput
-      value={String(rowItem[field])}
-      onChange={(v) => update(rowItem.id, field, v)}
-      className={`rounded-none border-0 text-center focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-3 text-sm h-8 ${readOnly ? 'cursor-default' : 'cursor-text'}`}
-      readOnly={readOnly}
-      isPrice={isPrice}
-      addItem={isPrice && !readOnly ? addItem : undefined}
-    />
-  );
-
-  useEffect(() => {
-    if (isNewRow && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isNewRow]);
+  const field = (name: BlockRowField) => ({
+    value: String(rowItem[name]),
+    onChange: (value: string) => update(rowItem.id, name, value),
+  });
 
   return (
-    <TableRow className="w-full flex flex-row border-b-0 transition-colors [&>td]:border-b [&:hover>td]:bg-slate-50">
-      <TableCell className="w-[3%] border-x-[0.5px] border-r border-slate-200 p-2 text-center text-slate-700 font-medium">
-        {convertToPersianDigits(index + 1)}
-      </TableCell>
-      <TableCell className="w-[9%] border-x-[0.5px] border-slate-200 p-1">
+    <FloatingRow
+      number={index + 1}
+      blank={!isFilledBlock(rowItem)}
+      className="min-h-13.5"
+    >
+      <TableCell className={cn(CELL, BLOCK_COLUMNS.code.width)}>
         <StoneCodeInput
-          ref={inputRef}
           suggestions={blocks}
           value={convertToPersianDigits(rowItem.blockCode)}
           onChange={updateCode}
+          className={CODE_INPUT}
         />
       </TableCell>
-      <TableCell className="w-[15%] border-x-[0.5px] border-slate-200 p-1">
+      <TableCell className={cn(CELL, BLOCK_COLUMNS.type.width)}>
         <StoneTypeInput
           suggestions={blockTypes}
           value={convertToPersianDigits(rowItem.blockType)}
           onChange={(value) =>
             update(rowItem.id, BLOCK_ROW_FIELDS.BLOCK_TYPE, value)
           }
+          className={TEXT_INPUT}
         />
       </TableCell>
-      <TableCell className="w-[7%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(BLOCK_ROW_FIELDS.LENGTH)}
-      </TableCell>
-      <TableCell className="w-[7%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(BLOCK_ROW_FIELDS.WIDTH)}
-      </TableCell>
-      <TableCell className="w-[7%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(BLOCK_ROW_FIELDS.HEIGHT)}
-      </TableCell>
-      <TableCell className="w-[7%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(BLOCK_ROW_FIELDS.WEIGHT)}
-      </TableCell>
-      <TableCell className="w-[10%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(BLOCK_ROW_FIELDS.VOLUME, true)}
-      </TableCell>
-      <TableCell className="w-[12%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(BLOCK_ROW_FIELDS.PRICE, false, true)}
-      </TableCell>
-      <TableCell className="w-[18%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(BLOCK_ROW_FIELDS.TOTAL, true, true)}
-      </TableCell>
-      <TableCell className="w-[5%] border-x-[0.5px] border-l border-slate-200 p-1 text-center">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => remove(rowItem.id)}
-          className="text-red-500 hover:text-red-700 hover:bg-red-50 h-8 w-8 p-0 hover:cursor-pointer"
-        >
-          <Trash2 className="w-4 h-4" />
-        </Button>
-      </TableCell>
-    </TableRow>
+      <NumberCell
+        column={BLOCK_COLUMNS.length}
+        {...field(BLOCK_ROW_FIELDS.LENGTH)}
+      />
+      <NumberCell
+        column={BLOCK_COLUMNS.width}
+        {...field(BLOCK_ROW_FIELDS.WIDTH)}
+      />
+      <NumberCell
+        column={BLOCK_COLUMNS.height}
+        {...field(BLOCK_ROW_FIELDS.HEIGHT)}
+      />
+      <NumberCell
+        column={BLOCK_COLUMNS.weight}
+        {...field(BLOCK_ROW_FIELDS.WEIGHT)}
+      />
+      <NumberCell
+        column={BLOCK_COLUMNS.volume}
+        look="result"
+        {...field(BLOCK_ROW_FIELDS.VOLUME)}
+      />
+      <NumberCell
+        column={BLOCK_COLUMNS.price}
+        isPrice
+        addItem={addItem}
+        {...field(BLOCK_ROW_FIELDS.PRICE)}
+      />
+      <NumberCell
+        column={BLOCK_COLUMNS.total}
+        look="total"
+        isPrice
+        {...field(BLOCK_ROW_FIELDS.TOTAL)}
+      />
+      <DeleteCell onRemove={() => remove(rowItem.id)} />
+    </FloatingRow>
   );
 });
 

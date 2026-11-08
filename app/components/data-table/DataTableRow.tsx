@@ -1,6 +1,8 @@
 import { memo, type ReactNode } from 'react';
-import { TableRow, TableCell } from '~/components/ui/table';
-import { cn, convertToPersianDigits } from '~/lib/utils';
+import { TableCell } from '~/components/ui/table';
+import { cn } from '~/lib/utils';
+import FloatingRow from '../floating-table/FloatingRow';
+import { LIST_NUMBER_COLUMN } from './constants';
 import type { DataTableColumn, DataTableItem } from './types';
 
 interface DataTableRowProps<T extends DataTableItem> {
@@ -39,18 +41,21 @@ function DataTableRow<T extends DataTableItem>({
   flagLabel,
   onSelect,
 }: DataTableRowProps<T>): ReactNode {
+  // A selected or flagged row's inset ring is its outline, in place of the
+  // card's border.
   return (
-    <TableRow
+    <FloatingRow
+      number={rowNumber}
+      numberWidth={LIST_NUMBER_COLUMN.width}
       onClick={() => onSelect(item)}
       title={isFlagged ? flagLabel : undefined}
       className={cn(
-        'flex flex-row w-full max-h-11.5 rounded-xl cursor-pointer border-0 transition-[background-color,box-shadow] duration-150',
-        rowStateClass(isSelected, isFlagged)
+        'cursor-pointer',
+        rowStateClass(isSelected, isFlagged),
+        (isSelected || isFlagged) &&
+          'border-transparent hover:border-transparent focus-within:border-transparent'
       )}
     >
-      <TableCell className={cn(cellClass, 'w-[5%] px-2 text-slate-400')}>
-        {convertToPersianDigits(rowNumber)}
-      </TableCell>
       {columns.map((col) => (
         <TableCell
           key={col.key}
@@ -59,7 +64,7 @@ function DataTableRow<T extends DataTableItem>({
           {col.render(item)}
         </TableCell>
       ))}
-    </TableRow>
+    </FloatingRow>
   );
 }
 

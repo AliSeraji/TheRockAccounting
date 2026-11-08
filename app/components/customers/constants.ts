@@ -1,5 +1,4 @@
 import type {
-  AccountNature,
   AccountRole,
   PersonType,
   SaleRate,
@@ -14,11 +13,6 @@ export const ACCOUNT_ROLE_OPTIONS: readonly AccountRole[] = [
   'بازاریاب',
   'کارمند',
   'سایر',
-];
-
-export const ACCOUNT_NATURE_OPTIONS: readonly AccountNature[] = [
-  'تجاری',
-  'غیرتجاری',
 ];
 
 export const SALE_RATE_OPTIONS: readonly SaleRate[] = [

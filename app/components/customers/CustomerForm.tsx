@@ -234,7 +234,7 @@ export default function CustomerForm(): ReactNode {
         <DialogFooter className="m-0 px-6 py-4 flex-row flex-wrap sm:justify-start">
           <Button
             onClick={handleSave}
-            className="gap-2 bg-linear-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-slate-950 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
+            className="gap-2 bg-linear-to-r from-brand-700 to-brand-900 hover:from-brand-800 hover:to-brand-950 text-white shadow-md hover:shadow-lg transition-all hover:cursor-pointer"
           >
             <Save className="w-4 h-4" />
             ذخیره

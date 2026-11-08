@@ -6,7 +6,6 @@ export const emptyCustomer: Customer = {
   code: '',
   personType: 'حقیقی',
   accountRole: 'مشتری',
-  accountNature: 'تجاری',
   firstName: '',
   lastName: '',
   businessName: '',
@@ -24,8 +23,6 @@ export const emptyCustomer: Customer = {
   bankAccount: '',
   iban: '',
   cardNumber: '',
-  useInReceive: true,
-  useInPayment: false,
   isActive: true,
   date: '',
 };
@@ -47,7 +44,6 @@ const initialCustomers: Customer[] = [
     city: 'تهران',
     address: 'خیابان ولیعصر، پلاک ۱۲۰',
     postalCode: '1234567890',
-    useInReceive: true,
     date: '۱۴۰۴/۶/۱۰',
   },
   {
@@ -63,8 +59,6 @@ const initialCustomers: Customer[] = [
     mobile: '09351112233',
     province: 'اصفهان',
     city: 'اصفهان',
-    useInReceive: true,
-    useInPayment: true,
     date: '۱۴۰۴/۶/۱۲',
   },
   {
