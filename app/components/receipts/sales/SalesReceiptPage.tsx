@@ -10,6 +10,7 @@ import SalesServicesTable from './ServicesTable';
 
 interface SalesReceiptPageProps {
   data: InvoiceFormData;
+  projectLabel: string;
   // This page's part of the items table, if the page has items.
   itemsTable: React.ReactNode;
   services: ServiceItem[];
@@ -30,6 +31,7 @@ interface SalesReceiptPageProps {
 
 export default function SalesReceiptsPage({
   data,
+  projectLabel,
   itemsTable,
   isLastPage,
   services,
@@ -71,6 +73,7 @@ export default function SalesReceiptsPage({
         nationalId={data.nationalId}
         phone={data.phone}
         project={data.project}
+        projectLabel={projectLabel}
         address={data.address}
       />
 

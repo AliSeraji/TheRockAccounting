@@ -51,7 +51,7 @@ const NumberingSection = (): ReactNode => {
   );
 
   return (
-    <div className="flex flex-col gap-5 px-2 lg:px-0" dir="rtl">
+    <div className="flex flex-col gap-5">
       <Card className="w-full bg-white/90 backdrop-blur border-slate-200">
         <CardHeader className="flex-row justify-between bg-linear-to-r from-slate-100 to-slate-50 rounded-t-lg border-b border-slate-200">
           <CardTitle className="text-slate-800 font-semibold text-xs md:text-sm flex items-center gap-2 whitespace-nowrap">

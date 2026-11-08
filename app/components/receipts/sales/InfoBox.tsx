@@ -5,6 +5,7 @@ interface Props {
   buyer: string;
   phone: string;
   project: string;
+  projectLabel: string;
   address: string;
   nationalId?: string;
 }
@@ -34,6 +35,7 @@ export default function SalesInfoBox({
   buyer,
   phone,
   project,
+  projectLabel,
   address,
   nationalId,
 }: Props): React.ReactNode {
@@ -41,7 +43,7 @@ export default function SalesInfoBox({
     <div className="mb-4 grid grid-cols-[3fr_1.5fr] gap-x-8 gap-y-2.5 px-1 text-2xs">
       <InfoRow label="نام شخص/مشتری" value={buyer} />
       <InfoRow label="شناسه ملی / کد اقتصادی" value={nationalId} />
-      <InfoRow label="پروژه" value={project} />
+      <InfoRow label={projectLabel} value={project} />
       <InfoRow label="شماره تماس" value={phone} />
       <InfoRow label="آدرس" value={address} className="col-span-2" />
     </div>

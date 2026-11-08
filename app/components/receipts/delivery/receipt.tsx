@@ -9,21 +9,25 @@ import { AdditionalNote } from './AdditionalNote';
 
 interface ReceiptPageProps {
   data: InvoiceFormData;
+  projectLabel: string;
   // This page's part of the items table.
   itemsTable: React.ReactNode;
   pageNumber: number;
   totalPages: number;
   logo: string | null;
   companyName: string;
+  deliveryNote: string;
 }
 
 export default function ReceiptPage({
   data,
+  projectLabel,
   itemsTable,
   pageNumber,
   totalPages,
   logo,
   companyName,
+  deliveryNote,
 }: ReceiptPageProps): React.ReactNode {
   return (
     <div
@@ -45,6 +49,7 @@ export default function ReceiptPage({
       <InfoBox
         buyer={data.buyer}
         project={data.project}
+        projectLabel={projectLabel}
         address={data.address}
       />
 
@@ -52,7 +57,7 @@ export default function ReceiptPage({
 
       <AdditionalNote additionalNote={data.secondAdditionalNote} />
 
-      <Note />
+      <Note note={deliveryNote} />
 
       <div className="mt-auto">
         <Signature />

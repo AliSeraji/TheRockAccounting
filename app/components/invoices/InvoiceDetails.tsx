@@ -12,7 +12,7 @@ import {
   formatRialAmount,
   persianNumberToText,
 } from '~/lib/utils';
-import { canEditInvoice } from '~/store/invoices/helpers';
+import { canEditInvoice, PROJECT_LABEL } from '~/store/invoices/helpers';
 import type { SavedInvoice } from '~/store/invoices/types';
 import { useInvoicesStore } from '~/store/invoices/useInvoicesStore';
 import type { InvoiceFormData } from '~/store/types';
@@ -184,7 +184,7 @@ export default function InvoiceDetails({
           <Field label="نام شخص حقیقی / حقوقی" value={data.buyer} />
           <Field label="شناسه ملی / کد اقتصادی" value={data.nationalId} />
           <Field label="تاریخ" value={data.invoiceDate} />
-          <Field label="پروژه" value={data.project} />
+          <Field label={PROJECT_LABEL[invoice.kind]} value={data.project} />
           <Field label="تلفن" value={data.phone} />
           <Field
             label="آدرس"

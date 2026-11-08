@@ -23,7 +23,7 @@ export default function ExplanationCard(): React.ReactNode {
       </CardHeader>
       <CardContent className="p-6 space-y-4 text-xs lg:text-lg ">
         <div className="space-y-2 flex flex-col">
-          <Label className="text-slate-700 pr-1">توضیحات (فقط در فاکتور)</Label>
+          <Label className="text-slate-700 pr-1">توضیحات (فاکتور)</Label>
           <BulletTextarea
             value={additionalNote}
             onValueChange={setAdditionalNote}
@@ -32,9 +32,7 @@ export default function ExplanationCard(): React.ReactNode {
           />
         </div>
         <div className="flex flex-col space-y-2">
-          <Label className="text-slate-700 pr-1">
-            توضیحات (نمایش در رسید تحویل)
-          </Label>
+          <Label className="text-slate-700 pr-1">توضیحات (رسید تحویل)</Label>
           <BulletTextarea
             value={secondAdditionalNote}
             onValueChange={setSecondAdditionalNote}

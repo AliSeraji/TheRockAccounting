@@ -3,7 +3,6 @@ import { cn } from '~/lib/utils';
 import {
   Building2,
   FileText,
-  Hash,
   Database,
   Palette,
   ShieldAlert,
@@ -95,14 +94,8 @@ export const SETTINGS_SECTIONS: SettingsSectionDescriptor[] = [
   {
     id: 'invoice',
     title: 'فاکتور و رسید',
-    desc: 'تنظیمات پیش‌فرض چاپ و فاکتور',
+    desc: 'پیش‌فرض‌ها، چاپ و شماره‌گذاری فاکتور',
     iconName: 'FileText',
-  },
-  {
-    id: 'numbering',
-    title: 'شماره‌گذاری و سال مالی',
-    desc: 'قالب شماره فاکتور و دوره مالی',
-    iconName: 'Hash',
   },
   {
     id: 'backup',
@@ -131,7 +124,6 @@ type IconComponent = React.FC<
 export const ICONS_BY_NAME: Record<string, IconComponent> = {
   Building2,
   FileText,
-  Hash,
   Database,
   Palette,
   ShieldAlert,

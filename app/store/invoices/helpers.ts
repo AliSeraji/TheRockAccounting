@@ -10,6 +10,7 @@ import type { Customer } from '../customers/types';
 import type {
   BlockInvoiceItem,
   InvoiceFormData,
+  InvoiceKind,
   InvoiceSnapshot,
   ServiceItem,
   StoneItem,
@@ -22,6 +23,13 @@ export const INVOICE_TYPES = {
   PRE: 'پیش فاکتور',
   SALES: 'فاکتور فروش',
 } as const;
+
+// What the `project` field means for each kind: a stone buyer's project, or
+// the warehouse or factory a block goes to.
+export const PROJECT_LABEL: Record<InvoiceKind, string> = {
+  stone: 'پروژه',
+  block: 'انبار / کارخانه',
+};
 
 // Only sales invoices move stock, never pre-invoices.
 export const isSalesInvoice = (invoice: InvoiceSnapshot): boolean =>

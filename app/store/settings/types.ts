@@ -76,6 +76,8 @@ export interface SidebarActivity extends SideBarState {
 
 export interface InvoiceData {
   defaultNote: string;
+  // The note printed on every delivery receipt.
+  deliveryNote: string;
   signature: string | null;
   signatureError: string | null;
   seal: string | null;
