@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: edc188ea-9e12-4d3d-966e-81b6ab0f78fd
-  modified: 2026-11-08T18:51:52.901Z
+  modified: 2026-11-08T19:17:50.978Z
 ---
 
 On 2026-11-08 the user picked **D · ردیف‌های شناور** (floating rows) from five mockups on the Design canvas https://claude.ai/artifact/4FWx2E1aq7STSvvtX1bLsM. The other options were A ledger, B bronze band, C grouped columns and E formula.
@@ -26,6 +26,7 @@ On 2026-11-08 the user picked **D · ردیف‌های شناور** (floating ro
   - `TotalTiles` reuses `stoneTotalStats` and its siblings from `row-cards/summary.ts`.
   - `StoneCodeInput`, `StoneTypeInput` and `ServiceTypeInput` are now thin wrappers over `SuggestInput`.
   - `invoice/TableHeader.tsx` and `data-table/DataTableHeader.tsx` were deleted.
+  - The lists' desktop pagination is a white pill too (`TablePagination` with `floating`, from `DataTableFooter`). The current page reuses the selected-row look (`rowStateClass`). Phone pagination is unchanged. Its prev/next arrows point toward the page numbers, which is unchanged from before and was not fixed.
 
 **Why:** the user wanted a modern, professional table. **Desktop only:** phones must not change at all. No file in `invoice/row-cards/` or `DataTableCard` was touched, and shared shells only got `md:` classes.
 

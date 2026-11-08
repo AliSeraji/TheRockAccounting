@@ -1,10 +1,13 @@
 // The desktop tables' floating rows: each row is a white card on the cream
 // body of its card. Phones never render these tables.
 
+// A white card floating on the cream body: a row, or a list's pagination.
+export const SURFACE =
+  'rounded-xl border border-slate-200 bg-white shadow-[0_1px_2px_rgba(64,55,45,0.05)]';
+
 // A row. `group` lets the delete button react to the row's hover, and
 // *:min-w-0 lets cells holding inputs shrink to their width.
-export const ROW =
-  'group flex w-full min-h-12 items-center rounded-xl border border-slate-200 bg-white shadow-[0_1px_2px_rgba(64,55,45,0.05)] transition-[border-color,box-shadow,background-color] duration-150 *:min-w-0 hover:border-brand-300 hover:shadow-[0_8px_20px_-10px_rgba(140,98,57,0.4)] focus-within:border-brand-300 motion-reduce:transition-none';
+export const ROW = `group flex w-full min-h-12 items-center ${SURFACE} transition-[border-color,box-shadow,background-color] duration-150 *:min-w-0 hover:border-brand-300 hover:shadow-[0_8px_20px_-10px_rgba(140,98,57,0.4)] focus-within:border-brand-300 motion-reduce:transition-none`;
 
 // A row nothing has been typed into yet.
 export const ROW_BLANK =
