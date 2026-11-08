@@ -12,22 +12,10 @@ const StatusSection = memo(function StatusSection({
       <SectionTitle
         icon={<ToggleRight className="w-4 h-4 text-brand-600" />}
         title="وضعیت حساب"
-        description="تعیین می‌کند این شخص در کدام فرم‌ها قابل انتخاب باشد"
+        description="حساب غیرفعال حذف نمی‌شود و فقط در فاکتور جدید پیشنهاد نمی‌شود"
       />
 
       <div className={sectionGrid}>
-        <ToggleField
-          label="استفاده در دریافت"
-          description="در فرم دریافت وجه قابل انتخاب باشد"
-          checked={customer.useInReceive}
-          onChange={(v) => onChange('useInReceive', v)}
-        />
-        <ToggleField
-          label="استفاده در پرداخت"
-          description="در فرم پرداخت وجه قابل انتخاب باشد"
-          checked={customer.useInPayment}
-          onChange={(v) => onChange('useInPayment', v)}
-        />
         <ToggleField
           label="حساب فعال"
           description="حساب غیرفعال در فاکتور جدید نمایش داده نمی‌شود"

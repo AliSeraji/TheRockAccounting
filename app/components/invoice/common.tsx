@@ -1,22 +1,33 @@
 import type { InvoiceDataType } from '~/store/types';
+import {
+  DELETE_COLUMN,
+  ROW_NUMBER_COLUMN,
+  type FloatingColumn,
+} from '../floating-table/columns';
 
 export type InvoiceTableItem = {
   label: string;
   width: string;
 };
 
-export const invoiceTableItems: InvoiceTableItem[] = [
-  { label: 'ردیف', width: 'w-[3%]' },
-  { label: 'کد', width: 'w-[9%]' },
-  { label: 'نوع سنگ', width: 'w-[15%]' },
-  { label: 'قطر (سانتی متر)', width: 'w-[7%]' },
-  { label: 'تعداد', width: 'w-[7%]' },
-  { label: 'عرض (متر)', width: 'w-[7%]' },
-  { label: 'طول (متر)', width: 'w-[7%]' },
-  { label: 'متراژ (مترمربع)', width: 'w-[10%]' },
-  { label: 'بهاء (ریال)', width: 'w-[12%]' },
-  { label: 'مبلغ کل (ریال)', width: 'w-[18%]' },
-  { label: ' ', width: 'w-[5%]' },
+// The stone table's columns between the row number and the delete button.
+// The editable rows and the saved invoice's table both read them.
+export const STONE_COLUMNS = {
+  code: { label: 'کد', width: 'w-[9%]' },
+  type: { label: 'نوع سنگ', width: 'w-[15%]', align: 'start' },
+  thickness: { label: 'قطر', unit: 'سانتی‌متر', width: 'w-[7%]' },
+  quantity: { label: 'تعداد', unit: 'عدد', width: 'w-[7%]' },
+  width: { label: 'عرض', unit: 'متر', width: 'w-[7%]' },
+  length: { label: 'طول', unit: 'متر', width: 'w-[7%]' },
+  area: { label: 'متراژ', unit: 'مترمربع', width: 'w-[10%]' },
+  price: { label: 'بهاء', unit: 'ریال', width: 'w-[12%]' },
+  total: { label: 'مبلغ کل', unit: 'ریال', width: 'w-[18%]' },
+} satisfies Record<string, FloatingColumn>;
+
+export const invoiceTableItems: FloatingColumn[] = [
+  ROW_NUMBER_COLUMN,
+  ...Object.values(STONE_COLUMNS),
+  DELETE_COLUMN,
 ];
 
 export const deliveryTableItems: InvoiceTableItem[] = [

@@ -319,7 +319,6 @@ export function ToggleRow({
         className={cn(
           'data-[state=checked]:bg-brand-700 data-[state=unchecked]:bg-slate-300 cursor-pointer'
         )}
-        dir="ltr"
       />
     </div>
   );

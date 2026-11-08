@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
-import { Table, TableBody, TableFooter as TFoot } from '~/components/ui/table';
-import DataTableHeader from './DataTableHeader';
+import FloatingTable from '../floating-table/FloatingTable';
 import DataTableRow from './DataTableRow';
 import DataTableFooter from './DataTableFooter';
 import DataTableCard from './DataTableCard';
 import TablePagination from './TablePagination';
 import { useIsMobile } from '~/hooks/use-mobile';
+import { LIST_NUMBER_COLUMN } from './constants';
 import type { DataTableColumn, DataTableItem } from './types';
 
 interface DataTableProps<T extends DataTableItem> {
@@ -65,10 +65,19 @@ export default function DataTable<T extends DataTableItem>({
     );
   }
 
+  // Desktop: floating rows on the cream body of the list's card.
   return (
-    <Table className="flex flex-col w-[unset] text-sm">
-      <DataTableHeader columns={columns} />
-      <TableBody className="w-full flex flex-col gap-2 p-2">
+    <div className="rounded-b-lg bg-slate-50 px-3 pt-3 pb-1">
+      <FloatingTable
+        columns={[LIST_NUMBER_COLUMN, ...columns]}
+        footer={
+          <DataTableFooter
+            currentPage={currentPage}
+            totalPages={totalPages}
+            setCurrentPage={setCurrentPage}
+          />
+        }
+      >
         {items.map((item, idx) => (
           <DataTableRow
             key={item.id}
@@ -81,14 +90,7 @@ export default function DataTable<T extends DataTableItem>({
             onSelect={onSelect}
           />
         ))}
-      </TableBody>
-      <TFoot>
-        <DataTableFooter
-          currentPage={currentPage}
-          totalPages={totalPages}
-          setCurrentPage={setCurrentPage}
-        />
-      </TFoot>
-    </Table>
+      </FloatingTable>
+    </div>
   );
 }

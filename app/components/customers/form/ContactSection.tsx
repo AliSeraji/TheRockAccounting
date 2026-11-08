@@ -1,7 +1,6 @@
 import { memo, useMemo, type ReactNode } from 'react';
 import { MapPin } from 'lucide-react';
 import { DigitsField, SelectField, TextField } from '../fields';
-import { SALE_RATE_OPTIONS } from '../constants';
 import { PROVINCES, PROVINCE_NAMES } from '../provinces';
 import { SectionTitle, sectionGrid, type SectionProps } from './common';
 import { Field, FieldLabel } from '~/components/ui/field';
@@ -22,17 +21,10 @@ const ContactSection = memo(function ContactSection({
       <SectionTitle
         icon={<MapPin className="w-4 h-4 text-brand-600" />}
         title="اطلاعات تماس و نشانی"
-        description="راه‌های ارتباطی و نرخ فروش پیش‌فرض این شخص"
+        description="راه‌های ارتباطی و نشانی این شخص"
       />
 
       <div className={sectionGrid}>
-        <SelectField
-          label="نرخ پیشفرض فروش"
-          value={customer.saleRate}
-          onChange={(v) => onChange('saleRate', v)}
-          options={SALE_RATE_OPTIONS}
-          hint="سطح قیمتی که هنگام صدور فاکتور پیشنهاد می‌شود"
-        />
         <DigitsField
           label="موبایل"
           value={customer.mobile}

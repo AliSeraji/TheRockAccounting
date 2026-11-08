@@ -1,14 +1,17 @@
 import type React from 'react';
-import { TableCell, TableRow } from '../ui/table';
-import { convertToPersianDigits } from '~/lib/utils';
-import { Trash2 } from 'lucide-react';
-import { Button } from '../ui/button';
-import type { StoneItem } from '~/store/types';
-import PersianNumericInput from './PersianNumericInput';
-import { INVOICE_ROW_FIELDS, type InvoiceRowField } from './types';
 import { memo } from 'react';
-import StoneTypeInput from './StoneTypeInput';
+import { TableCell } from '../ui/table';
+import { cn, convertToPersianDigits } from '~/lib/utils';
+import type { StoneItem } from '~/store/types';
+import { isFilledStone } from '~/store/invoices/helpers';
 import { useStoneStockLink } from '~/hooks/useStoneStockLink';
+import FloatingRow from '../floating-table/FloatingRow';
+import NumberCell from '../floating-table/NumberCell';
+import DeleteCell from '../floating-table/DeleteCell';
+import { CELL, CODE_INPUT, TEXT_INPUT } from '../floating-table/styles';
+import { STONE_COLUMNS } from './common';
+import { INVOICE_ROW_FIELDS, type InvoiceRowField } from './types';
+import StoneTypeInput from './StoneTypeInput';
 import StoneCodeInput from './StoneCodeInput';
 
 const Row = memo(function Row({
@@ -26,81 +29,76 @@ const Row = memo(function Row({
 }): React.ReactNode {
   const { stones, updateStone } = useStoneStockLink(rowItem, update);
 
-  const numericCell = (
-    field: InvoiceRowField,
-    readOnly: boolean = false,
-    isPrice: boolean = false
-  ) => (
-    <PersianNumericInput
-      value={String(rowItem[field])}
-      onChange={(v) => update(rowItem.id, field, v)}
-      className={`rounded-none border-0 text-center focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-3 text-sm h-8 ${readOnly ? 'cursor-default' : 'cursor-text'}`}
-      readOnly={readOnly}
-      isPrice={isPrice}
-      addItem={isPrice ? addItem : undefined}
-      removeItem={isPrice ? () => remove(rowItem.id) : undefined}
-    />
-  );
+  const field = (name: InvoiceRowField) => ({
+    value: String(rowItem[name]),
+    onChange: (value: string) => update(rowItem.id, name, value),
+  });
+  const removeRow = () => remove(rowItem.id);
 
   return (
-    <TableRow className="w-full flex flex-row border-b-0 transition-colors [&>td]:border-b [&:hover>td]:bg-slate-50">
-      <TableCell className="w-[3%] border-x-[0.5px] border-r border-slate-200 p-2 text-center text-slate-700 font-medium">
-        {convertToPersianDigits(index + 1)}
-      </TableCell>
-      <TableCell className="w-[9%] border-x-[0.5px] border-slate-200 p-1">
+    <FloatingRow
+      number={index + 1}
+      blank={!isFilledStone(rowItem)}
+      className="min-h-13.5"
+    >
+      <TableCell className={cn(CELL, STONE_COLUMNS.code.width)}>
         <StoneCodeInput
           suggestions={stones}
-          value={convertToPersianDigits(
-            String(rowItem[INVOICE_ROW_FIELDS.STONE_CODE])
-          )}
+          value={convertToPersianDigits(rowItem.stoneCode)}
           onChange={(value) =>
             updateStone(INVOICE_ROW_FIELDS.STONE_CODE, value)
           }
+          className={CODE_INPUT}
         />
       </TableCell>
-      <TableCell className="w-[15%] border-x-[0.5px] border-slate-200 p-1">
+      <TableCell className={cn(CELL, STONE_COLUMNS.type.width)}>
         <StoneTypeInput
           suggestions={stones}
-          value={convertToPersianDigits(
-            String(rowItem[INVOICE_ROW_FIELDS.STONE_TYPE])
-          )}
+          value={convertToPersianDigits(rowItem.stoneType)}
           onChange={(value) =>
             updateStone(INVOICE_ROW_FIELDS.STONE_TYPE, value)
           }
+          className={TEXT_INPUT}
         />
       </TableCell>
-      <TableCell className="w-[7%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(INVOICE_ROW_FIELDS.THICKNESS)}
-      </TableCell>
-      <TableCell className="w-[7%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(INVOICE_ROW_FIELDS.QUANTITY)}
-      </TableCell>
-      <TableCell className="w-[7%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(INVOICE_ROW_FIELDS.WIDTH)}
-      </TableCell>
-      <TableCell className="w-[7%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(INVOICE_ROW_FIELDS.LENGTH)}
-      </TableCell>
-      <TableCell className="w-[10%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(INVOICE_ROW_FIELDS.AREA, true)}
-      </TableCell>
-      <TableCell className="w-[12%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(INVOICE_ROW_FIELDS.PRICE, false, true)}
-      </TableCell>
-      <TableCell className="w-[18%] border-x-[0.5px] border-slate-200 p-1">
-        {numericCell(INVOICE_ROW_FIELDS.TOTAL, true, true)}
-      </TableCell>
-      <TableCell className="w-[5%] border-x-[0.5px] border-l border-slate-200 p-1 text-center">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => remove(rowItem.id)}
-          className="text-red-500 hover:text-red-700 hover:bg-red-50 h-8 w-8 p-0 hover:cursor-pointer"
-        >
-          <Trash2 className="w-4 h-4" />
-        </Button>
-      </TableCell>
-    </TableRow>
+      <NumberCell
+        column={STONE_COLUMNS.thickness}
+        {...field(INVOICE_ROW_FIELDS.THICKNESS)}
+      />
+      <NumberCell
+        column={STONE_COLUMNS.quantity}
+        {...field(INVOICE_ROW_FIELDS.QUANTITY)}
+      />
+      <NumberCell
+        column={STONE_COLUMNS.width}
+        {...field(INVOICE_ROW_FIELDS.WIDTH)}
+      />
+      <NumberCell
+        column={STONE_COLUMNS.length}
+        {...field(INVOICE_ROW_FIELDS.LENGTH)}
+      />
+      <NumberCell
+        column={STONE_COLUMNS.area}
+        look="result"
+        {...field(INVOICE_ROW_FIELDS.AREA)}
+      />
+      <NumberCell
+        column={STONE_COLUMNS.price}
+        isPrice
+        addItem={addItem}
+        removeItem={removeRow}
+        {...field(INVOICE_ROW_FIELDS.PRICE)}
+      />
+      <NumberCell
+        column={STONE_COLUMNS.total}
+        look="total"
+        isPrice
+        addItem={addItem}
+        removeItem={removeRow}
+        {...field(INVOICE_ROW_FIELDS.TOTAL)}
+      />
+      <DeleteCell onRemove={removeRow} />
+    </FloatingRow>
   );
 });
 

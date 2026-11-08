@@ -55,6 +55,15 @@ export function useAddInvoiceItem(): () => void {
   return useStore(store, (state) => state.addItem);
 }
 
+// How many rows the items table of the invoice in context has, blank ones
+// included, as the phone totals count them.
+export function useInvoiceItemCount(): number {
+  const { kind, mode } = useContext(InvoiceStoreContext);
+  const store: StoreApi<{ items: readonly unknown[] }> =
+    kind === 'stone' ? STONE_STORES[mode] : BLOCK_STORES[mode];
+  return useStore(store, (state) => state.items.length);
+}
+
 export function useStoneInvoice<T>(selector: (state: InvoiceState) => T): T {
   const { mode } = useContext(InvoiceStoreContext);
   return useStore(STONE_STORES[mode], selector);

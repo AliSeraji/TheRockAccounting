@@ -2,9 +2,9 @@ import { memo, type ReactNode } from 'react';
 import { UserRound } from 'lucide-react';
 import { DigitsField, SelectField, TextField } from '../fields';
 import {
-  ACCOUNT_NATURE_OPTIONS,
   ACCOUNT_ROLE_OPTIONS,
   PERSON_TYPE_OPTIONS,
+  SALE_RATE_OPTIONS,
 } from '../constants';
 import { SectionTitle, sectionGrid, type SectionProps } from './common';
 
@@ -20,7 +20,7 @@ const IdentitySection = memo(function IdentitySection({
       <SectionTitle
         icon={<UserRound className="w-4 h-4 text-brand-600" />}
         title="هویت و طبقه‌بندی"
-        description="نوع شخص، نقش او در حساب‌ها و شناسه‌های قانونی"
+        description="نوع شخص، نقش او در حساب‌ها، نرخ فروش و شناسه‌های قانونی"
       />
 
       <div className={sectionGrid}>
@@ -43,11 +43,11 @@ const IdentitySection = memo(function IdentitySection({
           hint="نقشی که این شخص در معاملات دارد"
         />
         <SelectField
-          label="نوع فعالیت"
-          value={customer.accountNature}
-          onChange={(v) => onChange('accountNature', v)}
-          options={ACCOUNT_NATURE_OPTIONS}
-          hint="تجاری: خرید و فروش — غیرتجاری: سایر طرف حساب‌ها"
+          label="نرخ پیشفرض فروش"
+          value={customer.saleRate}
+          onChange={(v) => onChange('saleRate', v)}
+          options={SALE_RATE_OPTIONS}
+          hint="سطح قیمتی که هنگام صدور فاکتور پیشنهاد می‌شود"
         />
 
         {!isLegal && (

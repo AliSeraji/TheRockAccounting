@@ -1,16 +1,16 @@
+import type { ReactNode } from 'react';
 import {
   cleanTrailingZeros,
   convertToPersianDigits,
   formatRialAmount,
 } from '~/lib/utils';
-import type {
-  BlockInvoiceItem,
-  BlockInvoiceTotals,
-  InvoiceTotals,
-  ServiceItem,
-  StoneItem,
-} from '~/store/types';
+import type { BlockInvoiceItem, ServiceItem, StoneItem } from '~/store/types';
 import { EMPTY } from '~/components/data-table/constants';
+import { Badge } from '~/components/ui/badge';
+import { CODE_CHIP } from '~/components/floating-table/styles';
+import { STONE_COLUMNS } from '~/components/invoice/common';
+import { BLOCK_COLUMNS } from '~/components/invoice/block/common';
+import { SERVICE_COLUMNS } from '~/components/invoice/services/common';
 import type { DetailColumn } from './DetailsTable';
 
 // Cleared numeric inputs hold '-'.
@@ -25,123 +25,82 @@ const amount = (value: string | number): string =>
     ? formatRialAmount(convertToPersianDigits(String(value)))
     : EMPTY;
 
-const total = (value: number): string =>
-  value ? convertToPersianDigits(cleanTrailingZeros(String(value))) : EMPTY;
+const code = (value: string): ReactNode =>
+  hasValue(value) ? (
+    <Badge variant="secondary" className={CODE_CHIP}>
+      {convertToPersianDigits(value)}
+    </Badge>
+  ) : (
+    EMPTY
+  );
 
-const rowNumber = { label: 'ردیف', width: 'w-[4%]' };
+// The editable tables' columns, read-only. A saved invoice has no delete
+// button, so its total also takes the delete column's 5%. Tailwind only
+// builds classes written out in full, so the widths are literal.
+const ITEM_TOTAL_WIDTH = 'w-[23%]';
+const SERVICE_TOTAL_WIDTH = 'w-[25%]';
 
-export const stoneItemColumns = (
-  totals: InvoiceTotals
-): DetailColumn<StoneItem>[] => [
-  { ...rowNumber, render: (_, index) => convertToPersianDigits(index + 1) },
-  { label: 'کد', width: 'w-[9%]', render: (item) => text(item.stoneCode) },
+export const stoneItemColumns: DetailColumn<StoneItem>[] = [
+  { ...STONE_COLUMNS.code, render: (item) => code(item.stoneCode) },
+  { ...STONE_COLUMNS.type, render: (item) => text(item.stoneType) },
+  { ...STONE_COLUMNS.thickness, render: (item) => text(item.thickness) },
+  { ...STONE_COLUMNS.quantity, render: (item) => text(item.quantity) },
+  { ...STONE_COLUMNS.width, render: (item) => text(item.width) },
+  { ...STONE_COLUMNS.length, render: (item) => text(item.length) },
   {
-    label: 'نوع سنگ',
-    width: 'w-[16%]',
-    render: (item) => text(item.stoneType),
-  },
-  {
-    label: 'قطر (سانتی متر)',
-    width: 'w-[8%]',
-    render: (item) => text(item.thickness),
-  },
-  {
-    label: 'تعداد',
-    width: 'w-[7%]',
-    render: (item) => text(item.quantity),
-    footer: total(totals.totalQuantity),
-  },
-  { label: 'عرض (متر)', width: 'w-[8%]', render: (item) => text(item.width) },
-  { label: 'طول (متر)', width: 'w-[8%]', render: (item) => text(item.length) },
-  {
-    label: 'متراژ (مترمربع)',
-    width: 'w-[10%]',
+    ...STONE_COLUMNS.area,
     render: (item) => text(cleanTrailingZeros(item.area)),
-    footer: total(totals.totalArea),
   },
+  { ...STONE_COLUMNS.price, render: (item) => amount(item.price) },
   {
-    label: 'بهاء (ریال)',
-    width: 'w-[12%]',
-    render: (item) => amount(item.price),
-  },
-  {
-    label: 'مبلغ کل (ریال)',
-    width: 'w-[18%]',
+    ...STONE_COLUMNS.total,
+    width: ITEM_TOTAL_WIDTH,
+    strong: true,
     render: (item) => amount(item.total),
-    footer: amount(totals.totalAmount),
   },
 ];
 
-export const blockItemColumns = (
-  totals: BlockInvoiceTotals
-): DetailColumn<BlockInvoiceItem>[] => [
-  { ...rowNumber, render: (_, index) => convertToPersianDigits(index + 1) },
-  { label: 'کد کوپ', width: 'w-[9%]', render: (item) => text(item.blockCode) },
+export const blockItemColumns: DetailColumn<BlockInvoiceItem>[] = [
+  { ...BLOCK_COLUMNS.code, render: (item) => code(item.blockCode) },
+  { ...BLOCK_COLUMNS.type, render: (item) => text(item.blockType) },
+  { ...BLOCK_COLUMNS.length, render: (item) => text(item.length) },
+  { ...BLOCK_COLUMNS.width, render: (item) => text(item.width) },
+  { ...BLOCK_COLUMNS.height, render: (item) => text(item.height) },
+  { ...BLOCK_COLUMNS.weight, render: (item) => text(item.weight) },
   {
-    label: 'نوع کوپ سنگ',
-    width: 'w-[16%]',
-    render: (item) => text(item.blockType),
-  },
-  { label: 'طول (متر)', width: 'w-[7%]', render: (item) => text(item.length) },
-  { label: 'عرض (متر)', width: 'w-[7%]', render: (item) => text(item.width) },
-  {
-    label: 'ارتفاع (متر)',
-    width: 'w-[7%]',
-    render: (item) => text(item.height),
-  },
-  {
-    label: 'وزن (تن)',
-    width: 'w-[8%]',
-    render: (item) => text(item.weight),
-    footer: total(totals.totalWeight),
-  },
-  {
-    label: 'متراژ (مترمکعب)',
-    width: 'w-[10%]',
+    ...BLOCK_COLUMNS.volume,
     render: (item) => text(cleanTrailingZeros(item.volume)),
-    footer: total(totals.totalVolume),
   },
+  { ...BLOCK_COLUMNS.price, render: (item) => amount(item.price) },
   {
-    label: 'بهاء (ریال)',
-    width: 'w-[12%]',
-    render: (item) => amount(item.price),
-  },
-  {
-    label: 'مبلغ کل (ریال)',
-    width: 'w-[18%]',
+    ...BLOCK_COLUMNS.total,
+    width: ITEM_TOTAL_WIDTH,
+    strong: true,
     render: (item) => amount(item.total),
-    footer: amount(totals.totalAmount),
   },
 ];
 
-export const serviceColumns = (
-  totalServicesAmount: number
-): DetailColumn<ServiceItem>[] => [
-  { ...rowNumber, render: (_, index) => convertToPersianDigits(index + 1) },
+export const serviceColumns: DetailColumn<ServiceItem>[] = [
   {
-    label: 'شرح خدمات',
-    width: 'w-[24%]',
+    ...SERVICE_COLUMNS.service,
     render: (service) => text(service.serviceType),
   },
   {
-    label: 'توضیحات',
-    width: 'w-[27%]',
+    ...SERVICE_COLUMNS.description,
     render: (service) => text(service.description),
   },
   {
-    label: 'مقدار',
-    width: 'w-[10%]',
+    ...SERVICE_COLUMNS.quantity,
     render: (service) => text(service.quantity),
   },
   {
-    label: 'بهاء واحد (ریال)',
-    width: 'w-[15%]',
+    ...SERVICE_COLUMNS.unitPrice,
     render: (service) => amount(service.unitPrice),
   },
   {
-    label: 'مبلغ کل (ریال)',
-    width: 'w-[20%]',
+    ...SERVICE_COLUMNS.total,
+    width: SERVICE_TOTAL_WIDTH,
+    strong: true,
     render: (service) => amount(service.total),
-    footer: amount(totalServicesAmount),
   },
 ];
