@@ -6,7 +6,7 @@ import { Button } from '../ui/button';
 import type { StoneItem } from '~/store/types';
 import PersianNumericInput from './PersianNumericInput';
 import { INVOICE_ROW_FIELDS, type InvoiceRowField } from './types';
-import { memo, useEffect, useRef } from 'react';
+import { memo } from 'react';
 import StoneTypeInput from './StoneTypeInput';
 import { useStoneStockLink } from '~/hooks/useStoneStockLink';
 import StoneCodeInput from './StoneCodeInput';
@@ -17,17 +17,14 @@ const Row = memo(function Row({
   update,
   remove,
   addItem,
-  isNewRow = false,
 }: {
   rowItem: StoneItem;
   index: number;
   update: (id: number, field: InvoiceRowField, value: string) => void;
   remove: (id: number) => void;
   addItem: () => void;
-  isNewRow?: boolean;
 }): React.ReactNode {
   const { stones, updateStone } = useStoneStockLink(rowItem, update);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const numericCell = (
     field: InvoiceRowField,
@@ -44,12 +41,6 @@ const Row = memo(function Row({
       removeItem={isPrice ? () => remove(rowItem.id) : undefined}
     />
   );
-
-  useEffect(() => {
-    if (isNewRow && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isNewRow]);
 
   return (
     <TableRow className="w-full flex flex-row border-b-0 transition-colors [&>td]:border-b [&:hover>td]:bg-slate-50">
@@ -69,7 +60,6 @@ const Row = memo(function Row({
       </TableCell>
       <TableCell className="w-[15%] border-x-[0.5px] border-slate-200 p-1">
         <StoneTypeInput
-          ref={inputRef}
           suggestions={stones}
           value={convertToPersianDigits(
             String(rowItem[INVOICE_ROW_FIELDS.STONE_TYPE])

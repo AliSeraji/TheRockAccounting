@@ -34,7 +34,6 @@ export default function InvoiceTable(): React.ReactNode {
               update={updateItem}
               remove={removeItem}
               addItem={addItem}
-              isNewRow={index === items.length - 1 && items.length > 1}
             />
           );
         })}

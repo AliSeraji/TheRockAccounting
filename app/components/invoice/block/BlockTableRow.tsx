@@ -17,17 +17,14 @@ const BlockRow = memo(function BlockRow({
   update,
   remove,
   addItem,
-  isNewRow = false,
 }: {
   rowItem: BlockInvoiceItem;
   index: number;
   update: (id: number, field: BlockRowField, value: string) => void;
   remove: (id: number) => void;
   addItem: () => void;
-  isNewRow?: boolean;
 }): React.ReactNode {
   const { blocks, blockTypes, updateCode } = useBlockStockLink(rowItem, update);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const numericCell = (
     field: BlockRowField,
@@ -44,12 +41,6 @@ const BlockRow = memo(function BlockRow({
     />
   );
 
-  useEffect(() => {
-    if (isNewRow && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isNewRow]);
-
   return (
     <TableRow className="w-full flex flex-row border-b-0 transition-colors [&>td]:border-b [&:hover>td]:bg-slate-50">
       <TableCell className="w-[3%] border-x-[0.5px] border-r border-slate-200 p-2 text-center text-slate-700 font-medium">
@@ -57,7 +48,6 @@ const BlockRow = memo(function BlockRow({
       </TableCell>
       <TableCell className="w-[9%] border-x-[0.5px] border-slate-200 p-1">
         <StoneCodeInput
-          ref={inputRef}
           suggestions={blocks}
           value={convertToPersianDigits(rowItem.blockCode)}
           onChange={updateCode}

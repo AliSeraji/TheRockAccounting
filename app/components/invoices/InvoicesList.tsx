@@ -31,7 +31,7 @@ import {
 const PAGE_SIZE = 20;
 
 const TYPE_OPTIONS = [
-  { value: 'all', label: 'همه انواع' },
+  { value: 'all', label: 'همه فاکتورها' },
   { value: INVOICE_TYPES.PRE, label: INVOICE_TYPES.PRE },
   { value: INVOICE_TYPES.SALES, label: INVOICE_TYPES.SALES },
 ];
