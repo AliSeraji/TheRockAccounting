@@ -4,10 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Label } from '../ui/label';
 import { SegmentedControl } from '../ui/segmented-control';
 import { Input } from '../ui/input';
-import { lazy, memo, Suspense, useEffect, useState } from 'react';
+import { lazy, memo, Suspense, useContext, useEffect, useState } from 'react';
 import { convertToEnDigits, convertToPersianDigits } from '~/lib/utils';
-import { INVOICE_TYPES } from '~/store/invoices/helpers';
-import { useInvoiceForm } from '~/store/useInvoiceForm';
+import { INVOICE_TYPES, PROJECT_LABEL } from '~/store/invoices/helpers';
+import { InvoiceStoreContext, useInvoiceForm } from '~/store/useInvoiceForm';
 import BuyerInput from './BuyerInput';
 import NationalIdInput from './NationalIdInput';
 
@@ -30,6 +30,7 @@ const INVOICE_TYPE_OPTIONS = [
 const FIELD_CLASS = 'placeholder:text-xs lg:placeholder:text-sm';
 
 const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
+  const { kind } = useContext(InvoiceStoreContext);
   const invoiceType = useInvoiceForm((state) => state.invoiceType);
   const setInvoiceType = useInvoiceForm((state) => state.setInvoiceType);
   const invoiceNumber = useInvoiceForm((state) => state.invoiceNumber);
@@ -129,12 +130,11 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
             )}
           </div>
           <div className="flex flex-col space-y-2 ">
-            <Label className="text-slate-700 pr-1">پروژه</Label>
+            <Label className="text-slate-700 pr-1">{PROJECT_LABEL[kind]}</Label>
             <Input
               value={convertToPersianDigits(project)}
               onChange={(e) => setProject(convertToEnDigits(e.target.value))}
               className={FIELD_CLASS}
-              placeholder=" پروژه مشتری"
             />
           </div>
           <div className="flex flex-col space-y-2">

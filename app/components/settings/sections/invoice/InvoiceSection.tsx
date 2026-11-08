@@ -19,6 +19,7 @@ import {
 import { BulletTextarea } from '~/components/ui/BulletTextarea';
 import { ToggleRow } from '../../common';
 import StampUploader from './StampUploader';
+import NumberingSection from '../numbering-section/NumberingSection';
 import { useSettingsStore } from '~/store/settings/useSettingStore';
 
 export default function InvoiceSection(): ReactNode {
@@ -32,6 +33,7 @@ export default function InvoiceSection(): ReactNode {
     seal,
     sealError,
     defaultNote,
+    deliveryNote,
   } = useSettingsStore(
     useShallow((s) => ({
       showLogo: s.showLogo,
@@ -43,6 +45,7 @@ export default function InvoiceSection(): ReactNode {
       seal: s.seal,
       sealError: s.sealError,
       defaultNote: s.defaultNote,
+      deliveryNote: s.deliveryNote,
     }))
   );
 
@@ -71,11 +74,24 @@ export default function InvoiceSection(): ReactNode {
           <div className="grid grid-cols-2 gap-x-4 gap-y-5">
             <Field className="col-span-2">
               <FieldLabel className="text-slate-700 text-xs lg:text-sm">
-                یادداشت پیش‌فرض
+                یادداشت پیش‌فرض فاکتور
               </FieldLabel>
               <BulletTextarea
                 value={defaultNote}
                 onValueChange={updateNote}
+                rows={3}
+              />
+            </Field>
+
+            <Field className="col-span-2">
+              <FieldLabel className="text-slate-700 text-xs lg:text-sm">
+                متن پیش‌فرض رسید تحویل بار
+              </FieldLabel>
+              <BulletTextarea
+                value={deliveryNote}
+                onValueChange={(value) =>
+                  setInvoiceField('deliveryNote', value)
+                }
                 rows={3}
               />
             </Field>
@@ -167,6 +183,8 @@ export default function InvoiceSection(): ReactNode {
           </div>
         </CardContent>
       </Card>
+
+      <NumberingSection />
     </div>
   );
 }

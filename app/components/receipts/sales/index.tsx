@@ -6,6 +6,7 @@ import SalesTable from './Table';
 import BlockSalesTable from './BlockTable';
 import { salesReceiptPager } from '~/helper/helper';
 import { useSettingsStore } from '~/store/settings/useSettingStore';
+import { PROJECT_LABEL } from '~/store/invoices/helpers';
 
 const ITEMS_PER_PAGE = 15;
 
@@ -82,6 +83,7 @@ export default function SalesInvoice({
           <SalesReceiptsPage
             key={page.pageNumber}
             data={invoice.data}
+            projectLabel={PROJECT_LABEL[invoice.kind]}
             itemsTable={page.itemsTable}
             services={page.services}
             serviceStartIndex={page.serviceStartIndex}

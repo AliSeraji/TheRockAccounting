@@ -5,6 +5,7 @@ import ReceiptTable from './Table';
 import BlockDeliveryTable from './BlockTable';
 import { receiptPager } from '~/helper/helper';
 import { useSettingsStore } from '~/store/settings/useSettingStore';
+import { PROJECT_LABEL } from '~/store/invoices/helpers';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -46,6 +47,7 @@ export default function DeliveryReceipt({
   const pages = deliveryPages(invoice);
   const logo = useSettingsStore((state) => state.logo);
   const companyName = useSettingsStore((state) => state.companyName);
+  const deliveryNote = useSettingsStore((state) => state.deliveryNote);
 
   const totalPages = pages.length;
 
@@ -56,11 +58,13 @@ export default function DeliveryReceipt({
           <ReceiptPage
             key={page.pageNumber}
             data={invoice.data}
+            projectLabel={PROJECT_LABEL[invoice.kind]}
             itemsTable={page.itemsTable}
             pageNumber={page.pageNumber}
             totalPages={totalPages}
             logo={logo}
             companyName={companyName || ''}
+            deliveryNote={deliveryNote}
           />
         ))}
       </div>

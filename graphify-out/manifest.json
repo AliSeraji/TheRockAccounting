@@ -186,9 +186,9 @@
     "semantic_hash": ""
   },
   "app/components/invoice/InvoiceInfo.tsx": {
-    "mtime": 1793892824.2538247,
-    "seen": 1793893042.4251342,
-    "ast_hash": "73e6c59788d7107cfdddf469ca7973d1",
+    "mtime": 1794166283.398522,
+    "seen": 1794166292.5948253,
+    "ast_hash": "97a12cc517ff4556793fb3ab2a4a5b3f",
     "semantic_hash": ""
   },
   "app/components/invoice/InvoiceItemCards.tsx": {
@@ -318,9 +318,9 @@
     "semantic_hash": "9160d3ad2fe9e6ee8662643f736cbdb0"
   },
   "app/components/invoices/InvoiceDetails.tsx": {
-    "mtime": 1794163396.18173,
-    "seen": 1794163883.4395065,
-    "ast_hash": "af76b1c55d8ba9ebdb3ba4a1988e8ce5",
+    "mtime": 1794166168.3258893,
+    "seen": 1794166292.5948648,
+    "ast_hash": "1cc2ad6248ba95060d1c4929e0d59a97",
     "semantic_hash": ""
   },
   "app/components/invoices/InvoiceEditor.tsx": {
@@ -444,16 +444,16 @@
     "semantic_hash": "9c01c697f301ac01ffab0c29ebbb7e1f"
   },
   "app/components/receipts/delivery/InfoBox.tsx": {
-    "mtime": 1791451386.1557226,
-    "seen": 1792749016.4482424,
-    "ast_hash": "a394ff0fc9ff03f59aa0e27da8e68ceb",
-    "semantic_hash": "a394ff0fc9ff03f59aa0e27da8e68ceb"
+    "mtime": 1794166215.9467225,
+    "seen": 1794166292.5948834,
+    "ast_hash": "7047f4860cf317d39b675f4b3dca18a4",
+    "semantic_hash": ""
   },
   "app/components/receipts/delivery/Note.tsx": {
-    "mtime": 1791451386.1557226,
-    "seen": 1792749016.4482431,
-    "ast_hash": "01437e6ac67afe0c06bcbd9f53297dfb",
-    "semantic_hash": "01437e6ac67afe0c06bcbd9f53297dfb"
+    "mtime": 1794166209.010983,
+    "seen": 1794166292.5948842,
+    "ast_hash": "a8bb718c7b5dc9db821da1b20b69e70c",
+    "semantic_hash": ""
   },
   "app/components/receipts/delivery/ReceiptHeader.tsx": {
     "mtime": 1791451386.1557226,
@@ -486,16 +486,16 @@
     "semantic_hash": "1f040ffe7e3db7a013f34c0eded9f541"
   },
   "app/components/receipts/delivery/index.tsx": {
-    "mtime": 1791463720.3454123,
-    "seen": 1792749016.448247,
-    "ast_hash": "8d71ab71ef56f3b4a9265428cdaf7216",
-    "semantic_hash": "8d71ab71ef56f3b4a9265428cdaf7216"
+    "mtime": 1794166225.72984,
+    "seen": 1794166292.5948896,
+    "ast_hash": "292abb7bec786da9b95901dba6e8304e",
+    "semantic_hash": ""
   },
   "app/components/receipts/delivery/receipt.tsx": {
-    "mtime": 1791463700.051842,
-    "seen": 1792749016.448248,
-    "ast_hash": "ea91f692fb9f235f085bba0195aca23a",
-    "semantic_hash": "ea91f692fb9f235f085bba0195aca23a"
+    "mtime": 1794166219.3243854,
+    "seen": 1794166292.5948908,
+    "ast_hash": "2f082ae807a1cc56c656d990b714d645",
+    "semantic_hash": ""
   },
   "app/components/receipts/dialogs/receiptOutputDialog.tsx": {
     "mtime": 1793308001.3892612,
@@ -594,10 +594,10 @@
     "semantic_hash": "b0522f37228f6d6b5c60ddfdd8a3960f"
   },
   "app/components/receipts/sales/InfoBox.tsx": {
-    "mtime": 1791451386.1607232,
-    "seen": 1792749016.4482594,
-    "ast_hash": "a16eb64b6912952e87b86bc11234f090",
-    "semantic_hash": "a16eb64b6912952e87b86bc11234f090"
+    "mtime": 1794166177.537794,
+    "seen": 1794166292.5949051,
+    "ast_hash": "80de951bbf4565931d37493ceb953563",
+    "semantic_hash": ""
   },
   "app/components/receipts/sales/Note.tsx": {
     "mtime": 1791451386.1607232,
@@ -618,10 +618,10 @@
     "semantic_hash": "1bff834c53dd82999f6fd2e5f1af679e"
   },
   "app/components/receipts/sales/SalesReceiptPage.tsx": {
-    "mtime": 1791463523.615517,
-    "seen": 1792749016.4482622,
-    "ast_hash": "8e69b121a587fe3da265baa073b178d9",
-    "semantic_hash": "8e69b121a587fe3da265baa073b178d9"
+    "mtime": 1794166188.5641122,
+    "seen": 1794166292.5949085,
+    "ast_hash": "bcd040e8b8a4f717d01121966d0c12ba",
+    "semantic_hash": ""
   },
   "app/components/receipts/sales/ServicesTable.tsx": {
     "mtime": 1791451386.1617231,
@@ -654,10 +654,10 @@
     "semantic_hash": "63612d2fe84d992051c3186a2153cee4"
   },
   "app/components/receipts/sales/index.tsx": {
-    "mtime": 1791463670.6311083,
-    "seen": 1792749016.4482658,
-    "ast_hash": "2775d72b23f26bae234eec1f05b6a46d",
-    "semantic_hash": "2775d72b23f26bae234eec1f05b6a46d"
+    "mtime": 1794166194.0343585,
+    "seen": 1794166292.5949132,
+    "ast_hash": "76e7fe60813491c0d951ebb335737a9c",
+    "semantic_hash": ""
   },
   "app/components/receipts/types.ts": {
     "mtime": 1791463458.3347726,
@@ -678,9 +678,9 @@
     "semantic_hash": "d61ed2ef1b8afb8864be647538e4827d"
   },
   "app/components/settings/common.tsx": {
-    "mtime": 1794164679.0406272,
-    "seen": 1794164726.8958948,
-    "ast_hash": "9b79e6d7fc80db9ed92bfcd99b3744c0",
+    "mtime": 1794166248.7907934,
+    "seen": 1794166292.5949168,
+    "ast_hash": "ca1b3e950f45e7106ac10293cfa37cad",
     "semantic_hash": ""
   },
   "app/components/settings/sections/Backup.tsx": {
@@ -726,10 +726,10 @@
     "semantic_hash": "fd820249daf120d9871dfc86b3d3629b"
   },
   "app/components/settings/sections/invoice/InvoiceSection.tsx": {
-    "mtime": 1791451386.1647224,
-    "seen": 1792749016.448274,
-    "ast_hash": "811db9ddf5d6cfdef2dfe1b9fae9b957",
-    "semantic_hash": "811db9ddf5d6cfdef2dfe1b9fae9b957"
+    "mtime": 1794166283.4195297,
+    "seen": 1794166292.5949237,
+    "ast_hash": "9c3eb268984cd82ab18e73781709353a",
+    "semantic_hash": ""
   },
   "app/components/settings/sections/invoice/StampUploader.tsx": {
     "mtime": 1791451386.1647224,
@@ -738,9 +738,9 @@
     "semantic_hash": "30e7c565ae586704d0174dc2601687c1"
   },
   "app/components/settings/sections/numbering-section/NumberingSection.tsx": {
-    "mtime": 1793892871.4323995,
-    "seen": 1793893042.4252546,
-    "ast_hash": "0d32bddeb835ebc122b2f9e84d8859e3",
+    "mtime": 1794166243.1215394,
+    "seen": 1794166292.5949256,
+    "ast_hash": "3b30c0ca732e5fb6f6221229288736fd",
     "semantic_hash": ""
   },
   "app/components/settings/sections/numbering-section/common.ts": {
@@ -750,10 +750,10 @@
     "semantic_hash": "3e51df60b8a6f368fd450a2549d992e3"
   },
   "app/components/settings/types.ts": {
-    "mtime": 1791451386.1657228,
-    "seen": 1792749016.4482765,
-    "ast_hash": "71f108862225ef6ec610e7da81606779",
-    "semantic_hash": "71f108862225ef6ec610e7da81606779"
+    "mtime": 1794166259.7894711,
+    "seen": 1794166292.5949273,
+    "ast_hash": "d1181b3a5550c7f1b94c2cfab115cd09",
+    "semantic_hash": ""
   },
   "app/components/ui/BulletTextarea.tsx": {
     "mtime": 1791451386.1657228,
@@ -1116,9 +1116,9 @@
     "semantic_hash": ""
   },
   "app/routes/settings/index.tsx": {
-    "mtime": 1793286223.8084981,
-    "seen": 1793286237.9620001,
-    "ast_hash": "543c546a7ca46d324f36929141475937",
+    "mtime": 1794166266.0023541,
+    "seen": 1794166292.5949883,
+    "ast_hash": "f7f98573dc9c6a8cb2cb7665e2884b53",
     "semantic_hash": ""
   },
   "app/routes/warehouse/index.tsx": {
@@ -1152,9 +1152,9 @@
     "semantic_hash": ""
   },
   "app/store/invoices/helpers.ts": {
-    "mtime": 1793817550.2795112,
-    "seen": 1793817840.674245,
-    "ast_hash": "82fdc25a40a57f7831a3bca4ea1253ad",
+    "mtime": 1794166146.261767,
+    "seen": 1794166292.5949957,
+    "ast_hash": "c357b1bffa1548eef91ecc247f4eb3b8",
     "semantic_hash": ""
   },
   "app/store/invoices/types.ts": {
@@ -1188,10 +1188,10 @@
     "semantic_hash": "dbcf7d4e27d67e38d7bd9a2a002f69f7"
   },
   "app/store/settings/sections/invoiceState.ts": {
-    "mtime": 1791451386.1787224,
-    "seen": 1792749016.4483244,
-    "ast_hash": "937ba5b1b6be5229fc22749ecca7b197",
-    "semantic_hash": "937ba5b1b6be5229fc22749ecca7b197"
+    "mtime": 1794166205.662148,
+    "seen": 1794166292.5950015,
+    "ast_hash": "c5a8c01f621d03651390482fa5fde79e",
+    "semantic_hash": ""
   },
   "app/store/settings/sections/numberingState.ts": {
     "mtime": 1791451386.1787224,
@@ -1206,10 +1206,10 @@
     "semantic_hash": "f52115cecf78e8b6281f2445d9e5d4cd"
   },
   "app/store/settings/types.ts": {
-    "mtime": 1791451386.1797218,
-    "seen": 1792749016.448327,
-    "ast_hash": "dd02ab9b6d20656b6f049b870e24cc96",
-    "semantic_hash": "dd02ab9b6d20656b6f049b870e24cc96"
+    "mtime": 1794166203.655377,
+    "seen": 1794166292.5950038,
+    "ast_hash": "df76ababc0f75ebd1012ac54ca703c47",
+    "semantic_hash": ""
   },
   "app/store/settings/useSettingStore.ts": {
     "mtime": 1791451386.1797218,
@@ -1764,9 +1764,9 @@
     "semantic_hash": ""
   },
   ".claude/memory/invoice-table-restyle.md": {
-    "mtime": 1794163912.9016185,
-    "seen": 1794164726.8960087,
-    "ast_hash": "c548dcbaa4ac1b31f90eca7a9fb0863a",
+    "mtime": 1794165470.9785154,
+    "seen": 1794166292.595031,
+    "ast_hash": "2c40d76561387699257fa7c62b01753d",
     "semantic_hash": ""
   },
   "yarn.lock": {

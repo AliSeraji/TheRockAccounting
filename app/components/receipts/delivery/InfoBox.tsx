@@ -4,6 +4,7 @@ import { convertToPersianDigits } from '~/lib/utils';
 interface Props {
   buyer?: string;
   project?: string;
+  projectLabel: string;
   address?: string;
 }
 
@@ -31,12 +32,13 @@ function InfoRow({
 export default function InfoBox({
   buyer,
   project,
+  projectLabel,
   address,
 }: Props): React.ReactNode {
   return (
     <div className="mb-3 grid grid-cols-[3fr_1.5fr] gap-x-6 gap-y-2 px-1 text-2xs">
       <InfoRow label="نام شخص حقیقی / حقوقی" value={buyer} />
-      <InfoRow label="پروژه" value={project} />
+      <InfoRow label={projectLabel} value={project} />
       <InfoRow label="آدرس" value={address} className="col-span-2" />
     </div>
   );

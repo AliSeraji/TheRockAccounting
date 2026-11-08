@@ -138,9 +138,9 @@
     "semantic_hash": "3314a72a07a5fbbe52c8654b1b228fc3"
   },
   "app/components/data-table/DataTableFooter.tsx": {
-    "mtime": 1794163310.789356,
-    "seen": 1794163883.439445,
-    "ast_hash": "9d2ee0a40b581d6d8fce27de01bdd162",
+    "mtime": 1794165318.964115,
+    "seen": 1794165464.364399,
+    "ast_hash": "f9053d33318cd65562aa4205013b747f",
     "semantic_hash": ""
   },
   "app/components/data-table/DataTableRow.tsx": {
@@ -150,10 +150,10 @@
     "semantic_hash": ""
   },
   "app/components/data-table/TablePagination.tsx": {
-    "mtime": 1791554607.992333,
-    "seen": 1792749016.448205,
-    "ast_hash": "aabe86c290b4d303b7b696b3b244c42a",
-    "semantic_hash": "aabe86c290b4d303b7b696b3b244c42a"
+    "mtime": 1794165315.7995415,
+    "seen": 1794165464.3644037,
+    "ast_hash": "70ecd4d59d7b3766ffc6f3112a739261",
+    "semantic_hash": ""
   },
   "app/components/data-table/constants.ts": {
     "mtime": 1794163276.4910936,
@@ -1752,9 +1752,9 @@
     "semantic_hash": ""
   },
   "app/components/floating-table/styles.ts": {
-    "mtime": 1794162733.563572,
-    "seen": 1794163883.43946,
-    "ast_hash": "a70e9127c84b543a681451b80ae5ce8b",
+    "mtime": 1794165311.565963,
+    "seen": 1794165464.3644166,
+    "ast_hash": "2dcdf7fa4a5a00b5e15de466b5d027fd",
     "semantic_hash": ""
   },
   "app/components/ui/badge.tsx": {

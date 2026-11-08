@@ -1,13 +1,14 @@
 import type React from 'react';
+import { splitNoteLines } from '~/lib/utils';
+import { NoteList } from '../NoteList';
 
-export const Note = (): React.ReactNode => {
+// The delivery note set in settings; nothing when it is empty.
+export const Note = ({ note }: { note: string }): React.ReactNode => {
+  if (splitNoteLines(note).length === 0) return null;
+
   return (
     <div className="mb-2 rounded-md border border-slate-200 px-3 py-2 text-2xs [-webkit-print-color-adjust:exact] [print-color-adjust:exact]">
-      <p className="leading-relaxed text-slate-700">
-        کالای مشروحه فوق بدون عیب و نقص تحویل اینجانب:
-        ................................ راننده خودرو شماره ....................
-        گردید که در آدرس فوق تحویل خریدار نمایم.
-      </p>
+      <NoteList text={note} className="leading-relaxed text-slate-700" />
     </div>
   );
 };

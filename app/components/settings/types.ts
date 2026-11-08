@@ -1,7 +1,6 @@
 export type SectionId =
   | 'company'
   | 'invoice'
-  | 'numbering'
   | 'backup'
   | 'appearance'
   | 'danger';
