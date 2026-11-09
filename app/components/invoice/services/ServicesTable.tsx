@@ -3,7 +3,7 @@ import { useInvoiceForm } from '~/store/useInvoiceForm';
 import { useIsMobile } from '~/hooks/use-mobile';
 import { handleArrowNavigation } from '~/lib/utils';
 import FloatingTable from '../../floating-table/FloatingTable';
-import TotalTiles from '../../floating-table/TotalTiles';
+import TotalBar from '../../floating-table/TotalBar';
 import { MIN_TABLE_WIDTH } from '../../floating-table/styles';
 import ServiceRowCards from '../row-cards/ServiceRowCards';
 import { serviceTotalStats } from '../row-cards/summary';
@@ -26,10 +26,11 @@ export default function ServicesTable(): React.ReactNode {
   return (
     <FloatingTable
       columns={servicesTableItems}
+      track
       className={MIN_TABLE_WIDTH}
       onKeyDown={handleArrowNavigation}
       footer={
-        <TotalTiles
+        <TotalBar
           title="جمع خدمات"
           stats={serviceTotalStats(totalServicesAmount)}
         />

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { TableCell } from '~/components/ui/table';
 import FloatingTable from '~/components/floating-table/FloatingTable';
 import FloatingRow from '~/components/floating-table/FloatingRow';
-import TotalTiles from '~/components/floating-table/TotalTiles';
+import TotalBar from '~/components/floating-table/TotalBar';
 import { MIN_TABLE_WIDTH } from '~/components/floating-table/styles';
 import {
   ROW_NUMBER_COLUMN,
@@ -17,8 +17,8 @@ export type DetailColumn<T> = FloatingColumn & {
   strong?: boolean;
 };
 
-// A read-only version of the invoice tables: the same floating rows after
-// a row number, with the totals as tiles underneath.
+// A read-only version of the invoice tables: the same header and floating
+// rows, with the totals bar underneath.
 export default function DetailsTable<T extends { id: number }>({
   columns,
   rows,
@@ -33,8 +33,9 @@ export default function DetailsTable<T extends { id: number }>({
   return (
     <FloatingTable
       columns={[ROW_NUMBER_COLUMN, ...columns]}
+      track
       className={MIN_TABLE_WIDTH}
-      footer={<TotalTiles title={title} stats={stats} />}
+      footer={<TotalBar title={title} stats={stats} />}
     >
       {rows.map((row, index) => (
         <FloatingRow key={row.id} number={index + 1}>

@@ -3,7 +3,7 @@ import { useStoneInvoice } from '~/store/useInvoiceForm';
 import { useIsMobile } from '~/hooks/use-mobile';
 import { handleArrowNavigation } from '~/lib/utils';
 import FloatingTable from '../floating-table/FloatingTable';
-import TotalTiles from '../floating-table/TotalTiles';
+import TotalBar from '../floating-table/TotalBar';
 import { MIN_TABLE_WIDTH } from '../floating-table/styles';
 import StoneRowCards from './row-cards/StoneRowCards';
 import { stoneTotalStats } from './row-cards/summary';
@@ -24,9 +24,10 @@ export default function InvoiceTable(): React.ReactNode {
   return (
     <FloatingTable
       columns={invoiceTableItems}
+      track
       className={MIN_TABLE_WIDTH}
       onKeyDown={handleArrowNavigation}
-      footer={<TotalTiles stats={stoneTotalStats(totals)} />}
+      footer={<TotalBar stats={stoneTotalStats(totals)} />}
     >
       {items.map((item, index) => (
         <Row

@@ -3,7 +3,7 @@ import { useBlockInvoice } from '~/store/useInvoiceForm';
 import { useIsMobile } from '~/hooks/use-mobile';
 import { handleArrowNavigation } from '~/lib/utils';
 import FloatingTable from '../../floating-table/FloatingTable';
-import TotalTiles from '../../floating-table/TotalTiles';
+import TotalBar from '../../floating-table/TotalBar';
 import { MIN_TABLE_WIDTH } from '../../floating-table/styles';
 import BlockRowCards from '../row-cards/BlockRowCards';
 import { blockTotalStats } from '../row-cards/summary';
@@ -24,9 +24,10 @@ export default function BlockTable(): React.ReactNode {
   return (
     <FloatingTable
       columns={blockTableItems}
+      track
       className={MIN_TABLE_WIDTH}
       onKeyDown={handleArrowNavigation}
-      footer={<TotalTiles stats={blockTotalStats(totals)} />}
+      footer={<TotalBar stats={blockTotalStats(totals)} />}
     >
       {items.map((item, index) => (
         <BlockRow

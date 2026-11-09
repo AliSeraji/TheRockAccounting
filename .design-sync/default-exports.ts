@@ -164,6 +164,6 @@ export { default as FloatingHeader } from '../app/components/floating-table/Floa
 export { default as FloatingRow } from '../app/components/floating-table/FloatingRow';
 export { default as NumberCell } from '../app/components/floating-table/NumberCell';
 export { default as DeleteCell } from '../app/components/floating-table/DeleteCell';
-export { default as TotalTiles } from '../app/components/floating-table/TotalTiles';
+export { default as TotalBar } from '../app/components/floating-table/TotalBar';
 export { default as RowCountBadge } from '../app/components/floating-table/RowCountBadge';
 export { default as InvoiceTableCard } from '../app/components/floating-table/InvoiceTableCard';

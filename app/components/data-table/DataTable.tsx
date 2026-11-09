@@ -65,11 +65,13 @@ export default function DataTable<T extends DataTableItem>({
     );
   }
 
-  // Desktop: floating rows on the cream body of the list's card.
+  // Desktop: floating rows on the cream body of the list's card, under the
+  // same segmented header as the invoice tables.
   return (
     <div className="rounded-b-lg bg-slate-50 px-3 pt-3 pb-1">
       <FloatingTable
         columns={[LIST_NUMBER_COLUMN, ...columns]}
+        track
         footer={
           <DataTableFooter
             currentPage={currentPage}

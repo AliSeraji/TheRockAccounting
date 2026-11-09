@@ -29,18 +29,17 @@ const Row = memo(function Row({
 }): React.ReactNode {
   const { stones, updateStone } = useStoneStockLink(rowItem, update);
 
+  // A blank row hints at what each number field takes.
+  const blank = !isFilledStone(rowItem);
   const field = (name: InvoiceRowField) => ({
     value: String(rowItem[name]),
     onChange: (value: string) => update(rowItem.id, name, value),
+    placeholder: blank ? '۰' : undefined,
   });
   const removeRow = () => remove(rowItem.id);
 
   return (
-    <FloatingRow
-      number={index + 1}
-      blank={!isFilledStone(rowItem)}
-      className="min-h-13.5"
-    >
+    <FloatingRow number={index + 1} blank={blank} className="min-h-13.5">
       <TableCell className={cn(CELL, STONE_COLUMNS.code.width)}>
         <StoneCodeInput
           suggestions={stones}

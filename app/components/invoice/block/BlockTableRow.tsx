@@ -29,17 +29,16 @@ const BlockRow = memo(function BlockRow({
 }): React.ReactNode {
   const { blocks, blockTypes, updateCode } = useBlockStockLink(rowItem, update);
 
+  // A blank row hints at what each number field takes.
+  const blank = !isFilledBlock(rowItem);
   const field = (name: BlockRowField) => ({
     value: String(rowItem[name]),
     onChange: (value: string) => update(rowItem.id, name, value),
+    placeholder: blank ? '۰' : undefined,
   });
 
   return (
-    <FloatingRow
-      number={index + 1}
-      blank={!isFilledBlock(rowItem)}
-      className="min-h-13.5"
-    >
+    <FloatingRow number={index + 1} blank={blank} className="min-h-13.5">
       <TableCell className={cn(CELL, BLOCK_COLUMNS.code.width)}>
         <StoneCodeInput
           suggestions={blocks}

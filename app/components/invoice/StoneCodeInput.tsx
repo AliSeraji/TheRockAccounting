@@ -7,6 +7,7 @@ interface StoneCodeInputProps {
   value: string;
   suggestions: StoneSuggestion[];
   onChange: (value: string) => void;
+  placeholder?: string;
   className?: string;
 }
 
@@ -15,6 +16,7 @@ export default function StoneCodeInput({
   value,
   suggestions,
   onChange,
+  placeholder,
   className,
 }: StoneCodeInputProps): ReactNode {
   return (
@@ -26,6 +28,7 @@ export default function StoneCodeInput({
       renderOption={(stone) => stone.code}
       onSelect={(stone) => onChange(stone.code)}
       isSelected={(stone) => searchKey(stone.code) === searchKey(value)}
+      placeholder={placeholder}
       className={className}
       popoverClassName="w-45"
     />
