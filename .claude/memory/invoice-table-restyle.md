@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: edc188ea-9e12-4d3d-966e-81b6ab0f78fd
-  modified: 2026-11-09T17:28:27.209Z
+  modified: 2026-11-09T17:47:11.439Z
 ---
 
 On 2026-11-08 the user picked **D · ردیف‌های شناور** (floating rows) from five mockups on a Design canvas. The canvas was deleted the same day, so the built code is now the reference. The other options were A ledger, B bronze band, C grouped columns and E formula.
@@ -28,7 +28,7 @@ On 2026-11-08 the user picked **D · ردیف‌های شناور** (floating ro
   - `invoice/TableHeader.tsx` and `data-table/DataTableHeader.tsx` were deleted.
   - The lists' desktop pagination is a white pill too (`TablePagination` with `floating`, from `DataTableFooter`). The current page reuses the selected-row look (`rowStateClass`). Phone pagination is unchanged. Its prev/next arrows point toward the page numbers, which is unchanged from before and was not fixed.
 
-**Round 2 (2026-11-09):** the user's staff struggled with the built design. The fields were too faint to see, the small two-line header was unclear, and the total tiles were too big. The user asked for the smallest modern fix and wants to choose. Mockups are on https://claude.ai/artifact/F4KtBc7Grb3df3Mf1Avvwk:
+**Round 2 (2026-11-09):** the user's staff struggled with the built design. The fields were too faint to see, the small two-line header was unclear, and the total tiles were too big. The user asked for the smallest modern fix and wants to choose. Mockups were on a Design canvas, which was deleted on 2026-11-09 after the choice, so the built code is the reference:
 - **A:** a light header bar with one-line labels such as «قطر (سانت)», outlined white fields with placeholders, and a slim totals row aligned under its columns.
 - **B:** a dark header bar, filled fields with an underline, and compact total pills at the left end.
 - **C:** no header row, a small label inside each field, and one slim dark totals bar.

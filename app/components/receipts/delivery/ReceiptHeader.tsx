@@ -21,8 +21,8 @@ function MetaRow({
 }): React.ReactNode {
   return (
     <div className="flex flex-row items-center justify-between gap-2">
-      <span className="w-10 text-2xs font-bold text-slate-900">{label}:</span>
-      <span className="w-14 text-2xs text-slate-900">
+      <span className="w-12 text-xs font-bold text-slate-900">{label}:</span>
+      <span className="w-17 text-xs text-slate-900">
         {convertToPersianDigits(value)}
       </span>
       <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-brand-700 text-brand-50">
@@ -56,8 +56,8 @@ export default function ReceiptHeader({
   return (
     <div className="mb-3 grid grid-cols-[1fr_auto_1fr] items-center gap-x-3 gap-y-2 [-webkit-print-color-adjust:exact] [print-color-adjust:exact]">
       <div className="flex flex-col gap-1.5 self-start pt-1">
-        <h1 className="text-xs font-bold text-slate-900">شرکت {companyName}</h1>
-        <span className="w-fit rounded-sm bg-brand-100 px-2 py-1 text-2xs font-bold text-brand-950">
+        <h1 className="text-sm font-bold text-slate-900">شرکت {companyName}</h1>
+        <span className="w-fit rounded-sm bg-brand-100 px-2 py-1 text-xs font-bold text-brand-950">
           رسید تحویل بار
         </span>
       </div>

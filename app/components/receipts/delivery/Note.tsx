@@ -7,7 +7,7 @@ export const Note = ({ note }: { note: string }): React.ReactNode => {
   if (splitNoteLines(note).length === 0) return null;
 
   return (
-    <div className="mb-2 rounded-md border border-slate-200 px-3 py-2 text-2xs [-webkit-print-color-adjust:exact] [print-color-adjust:exact]">
+    <div className="mb-2 rounded-md border border-slate-200 px-3 py-2 text-xs [-webkit-print-color-adjust:exact] [print-color-adjust:exact]">
       <NoteList text={note} className="leading-relaxed text-slate-700" />
     </div>
   );

@@ -13,7 +13,7 @@ export default function LowerTable({
   startIdx: number;
 }): ReactNode {
   return (
-    <Table className="w-full border-collapse mb-4 text-[10px]">
+    <Table className="w-full border-collapse mb-4 text-xs">
       <Header />
       <Body services={services} startIdx={startIdx} />
     </Table>

@@ -40,7 +40,7 @@ export default function SalesInfoBox({
   nationalId,
 }: Props): React.ReactNode {
   return (
-    <div className="mb-4 grid grid-cols-[3fr_1.5fr] gap-x-8 gap-y-2.5 px-1 text-2xs">
+    <div className="mb-4 grid grid-cols-[3fr_1.5fr] gap-x-8 gap-y-2.5 px-1 text-xs">
       <InfoRow label="نام شخص/مشتری" value={buyer} />
       <InfoRow label="شناسه ملی / کد اقتصادی" value={nationalId} />
       <InfoRow label={projectLabel} value={project} />

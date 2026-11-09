@@ -29,7 +29,7 @@ const blockSalesTableItems: InvoiceTableItem[] = [
 ];
 
 const cellClass =
-  'border-s border-slate-200 first:border-s-0 p-2 text-2xs text-center text-slate-900';
+  'border-s border-slate-200 first:border-s-0 p-2 text-xs text-center text-slate-900';
 
 const footerCellClass =
   'border-t border-s border-slate-300 first:border-s-0 p-2 text-center text-slate-900';
@@ -49,7 +49,7 @@ export default function BlockSalesTable({
 }: BlockSalesTableProps): React.ReactNode {
   return (
     <div className="mb-2 overflow-hidden rounded-md border border-slate-300 [-webkit-print-color-adjust:exact] [print-color-adjust:exact]">
-      <Table className="w-full border-spacing-0 text-[10px]">
+      <Table className="w-full border-spacing-0 text-xs">
         <SalesTableHeader items={blockSalesTableItems} />
         <TableBody>
           {items.map((item, index) => (
@@ -90,7 +90,7 @@ export default function BlockSalesTable({
           ))}
         </TableBody>
         {isLastPage && (
-          <TableFooter className="border-0 bg-white text-2xs">
+          <TableFooter className="border-0 bg-white text-xs">
             <TableRow className="border-0 font-bold">
               <TableCell colSpan={6} className={footerCellClass}>
                 جمع فاکتور
@@ -109,7 +109,7 @@ export default function BlockSalesTable({
               </TableCell>
               <TableCell className={footerCellClass}></TableCell>
               <TableCell
-                className={`${footerCellClass} bg-brand-100 text-2xs text-brand-950`}
+                className={`${footerCellClass} bg-brand-100 text-xs text-brand-950`}
               >
                 {formatRialAmount(convertToPersianDigits(totals.totalAmount))}
               </TableCell>
