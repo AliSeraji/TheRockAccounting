@@ -14,7 +14,7 @@ export default function UpperTable({
   startIndex,
 }: TableProps): ReactNode {
   return (
-    <Table className="w-full border-collapse mb-2 text-[10px]">
+    <Table className="w-full border-collapse mb-2 text-xs">
       <Header />
       <Body items={items} startIndex={startIndex} />
     </Table>

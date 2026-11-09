@@ -51,9 +51,9 @@ function MetaRow({
 }): React.ReactNode {
   return (
     <div className="flex flex-row justify-between items-center gap-2">
-      <span className="w-18 font-bold text-2xs text-slate-900">{label}:</span>
+      <span className="w-22 font-bold text-xs text-slate-900">{label}:</span>
       <span
-        className={cn(`w-14 text-2xs text-slate-900 ${isBold && `font-bold`}`)}
+        className={cn(`w-17 text-xs text-slate-900 ${isBold && `font-bold`}`)}
       >
         {convertToPersianDigits(value)}
       </span>
@@ -96,13 +96,13 @@ export default function SalesReceiptHeader({
       <div className="flex flex-col gap-3 self-start pt-2">
         <h1 className="text-md font-bold text-slate-900">{companyName}</h1>
         {companyAddress && (
-          <div className="flex items-start gap-2 text-2xs text-slate-700">
+          <div className="flex items-start gap-2 text-xs text-slate-700">
             <MapPin className="size-4 shrink-0 text-brand-600" />
             <span>{convertToPersianDigits(companyAddress)}</span>
           </div>
         )}
         {phones && (
-          <div className="flex items-center gap-2 text-2xs text-slate-700">
+          <div className="flex items-center gap-2 text-xs text-slate-700">
             <Phone className="size-4 shrink-0 text-brand-600" />
             <span dir="ltr">{convertToPersianDigits(phones)}</span>
           </div>

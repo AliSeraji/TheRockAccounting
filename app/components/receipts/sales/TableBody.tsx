@@ -9,7 +9,7 @@ interface SalesTableRowProps {
 }
 
 const cellClass =
-  'border-s border-slate-200 first:border-s-0 p-2 text-2xs text-center text-slate-900';
+  'border-s border-slate-200 first:border-s-0 p-2 text-xs text-center text-slate-900';
 
 export default function SalesTableBody({
   rowItems,

@@ -13,7 +13,7 @@ export const DeliveryTableFooter = ({
   totalArea,
 }: DeliveryTableFooterProps): React.ReactNode => {
   return (
-    <TableFooter className="border-0 bg-white text-2xs">
+    <TableFooter className="border-0 bg-white text-xs">
       <TableRow className="border-0 font-bold">
         <TableCell colSpan={6} className={cellClass}>
           متراژ کل

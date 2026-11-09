@@ -16,7 +16,7 @@ export default function SalesTableFooter({
   totals?: InvoiceTotals;
 }): React.ReactNode {
   return (
-    <TableFooter className="border-0 bg-white text-2xs">
+    <TableFooter className="border-0 bg-white text-xs">
       <TableRow className="border-0 font-bold">
         <TableCell colSpan={3} className={`${cellClass}`}>
           جمع فاکتور
@@ -34,7 +34,7 @@ export default function SalesTableFooter({
         </TableCell>
         <TableCell className={cellClass}></TableCell>
         <TableCell
-          className={`${cellClass} bg-brand-100 text-2xs text-brand-950`}
+          className={`${cellClass} bg-brand-100 text-xs text-brand-950`}
         >
           {formatRialAmount(convertToPersianDigits(totals?.totalAmount || ''))}
         </TableCell>

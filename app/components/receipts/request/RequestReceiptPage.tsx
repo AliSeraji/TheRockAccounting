@@ -44,7 +44,7 @@ export default function RequestReceiptPage({
         <LowerTable services={services} startIdx={startIndex} />
       )}
 
-      <div className="text-center text-[10px] text-gray-500 mt-2">
+      <div className="text-center text-xs text-gray-500 mt-2">
         صفحه {convertToPersianDigits(pageNumber)} از{' '}
         {convertToPersianDigits(totalPages)}
       </div>

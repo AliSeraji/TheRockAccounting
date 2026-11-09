@@ -83,7 +83,7 @@ export default function SalesReceiptsPage({
         <>
           <div className="my-3 flex items-center gap-4">
             <span className="h-px flex-1 bg-brand-400" />
-            <span className="text-2xs font-bold text-slate-900">خدمات سنگ</span>
+            <span className="text-xs font-bold text-slate-900">خدمات سنگ</span>
             <span className="h-px flex-1 bg-brand-400" />
           </div>
           <SalesServicesTable
@@ -105,7 +105,7 @@ export default function SalesReceiptsPage({
         additionalNote={data.additionalNote}
       />
 
-      <div className="flex flex-row w-full justify-center text-2xs">
+      <div className="flex flex-row w-full justify-center text-xs">
         <p className="py-2 rounded-sm bg-brand-100 mb-1 mt-1 p-2">
           <span className="font-bold">مبلغ قابل پرداخت: </span>
           <span className="text-slate-700">{totalInWords}</span>
@@ -116,7 +116,7 @@ export default function SalesReceiptsPage({
         <SalesSignature signature={signature} seal={seal} />
 
         {showPageNumbers && (
-          <div className="text-center text-2xs text-gray-500 mt-4">
+          <div className="text-center text-xs text-gray-500 mt-4">
             صفحه {convertToPersianDigits(pageNumber)} از{' '}
             {convertToPersianDigits(totalPages)}
           </div>

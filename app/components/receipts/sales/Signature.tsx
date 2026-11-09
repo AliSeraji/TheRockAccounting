@@ -13,7 +13,7 @@ export default function SalesSignature({
     <div className="flex justify-between mt-8 pt-4">
       <div className="text-center">
         <div className="relative flex flex-row h-14 w-32">
-          <span className="absolute bottom-0 -translate-x-3/5 text-black text-2xs">
+          <span className="absolute bottom-0 -translate-x-3/5 text-black text-xs">
             امضاء فروشنده
           </span>
           {seal && (
@@ -35,7 +35,7 @@ export default function SalesSignature({
       </div>
       <div className="text-center">
         <div className="relative flex flex-row h-14 w-32">
-          <span className="absolute bottom-0 -translate-x-4/5  text-black text-2xs">
+          <span className="absolute bottom-0 -translate-x-4/5  text-black text-xs">
             امضاء خریدار
           </span>
         </div>

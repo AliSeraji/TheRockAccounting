@@ -4,7 +4,7 @@ import { TableHead, TableHeader, TableRow } from '~/components/ui/table';
 
 export default function Header(): ReactNode {
   return (
-    <TableHeader className="w-full border-collapse mb-2 text-[10px]">
+    <TableHeader className="w-full border-collapse mb-2 text-xs">
       <TableRow className="bg-gray-200">
         {requestUpperTableItems.map((item) => {
           return (

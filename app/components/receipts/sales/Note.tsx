@@ -79,7 +79,7 @@ export default function SalesNote({
   const receivedAmount = parseFloat(received || '0') || 0;
 
   return (
-    <div className="mb-2 grid grid-cols-[1fr_38%] items-start gap-4 text-2xs text-slate-900 [-webkit-print-color-adjust:exact] [print-color-adjust:exact]">
+    <div className="mb-2 grid grid-cols-[1fr_38%] items-start gap-4 text-xs text-slate-900 [-webkit-print-color-adjust:exact] [print-color-adjust:exact]">
       <div className="flex flex-col rounded-md border border-slate-200 px-3">
         <div className="flex items-center gap-1.5 border-b border-slate-200 py-2 font-bold">
           <NotepadText className="size-3.5 text-brand-600" />
