@@ -7,7 +7,14 @@ import {
   TableHeader,
   TableRow,
 } from '../ui/table';
+import FloatingTable from '../floating-table/FloatingTable';
+import FloatingRow from '../floating-table/FloatingRow';
+import {
+  ROW_NUMBER_COLUMN,
+  type FloatingColumn,
+} from '../floating-table/columns';
 import { cn, convertToPersianDigits } from '~/lib/utils';
+import { useIsMobile } from '~/hooks/use-mobile';
 import { useInvoicesStore } from '~/store/invoices/useInvoicesStore';
 import { useWarehouseStore } from '~/store/warehouse/useWarehouse';
 import type { StockMovement, WarehouseId } from '~/store/warehouse/types';
@@ -23,6 +30,15 @@ import { formatDateTime, formatNumber, stockUnit } from './format';
 const headClass =
   'border border-slate-300 p-2 text-xs text-center text-slate-800 whitespace-nowrap';
 const cellClass = 'border border-slate-200 p-2 text-center text-slate-700';
+
+// The desktop stock card's columns after the row number.
+const COLUMNS = {
+  number: { ...ROW_NUMBER_COLUMN, width: 'w-[8%]' },
+  date: { label: 'تاریخ', width: 'w-[26%]' },
+  description: { label: 'شرح', width: 'w-[34%]', align: 'start' },
+  change: { label: 'تغییر', width: 'w-[16%]' },
+  balance: { label: 'مانده', width: 'w-[16%]' },
+} satisfies Record<string, FloatingColumn>;
 
 const sectionTitle = (id: WarehouseId) =>
   WAREHOUSE_SECTIONS.find((s) => s.id === id)?.title ?? '';
@@ -45,8 +61,12 @@ const describe = (
 const amountClass = (value: string) =>
   value.startsWith('-') ? 'text-red-700' : 'text-emerald-700';
 
+const signedDelta = (delta: string) =>
+  convertToPersianDigits(delta.startsWith('-') ? delta : `+${delta}`);
+
 // One item's stock card: its movements, oldest first, with the balance after
-// each.
+// each. Desktop shows floating rows under the segmented header; phones keep
+// the bordered grid.
 export default function StockCard({
   warehouse,
   itemId,
@@ -56,6 +76,7 @@ export default function StockCard({
 }): ReactNode {
   const movements = useWarehouseStore((state) => state.movements);
   const invoices = useInvoicesStore((state) => state.invoices);
+  const isMobile = useIsMobile();
   const invoiceNumber = ({ ref }: StockMovement) =>
     ref?.type === 'invoice'
       ? invoices.find((invoice) => invoice.id === ref.id)?.data.invoiceNumber
@@ -76,6 +97,72 @@ export default function StockCard({
       <p className="rounded-lg bg-slate-50 px-3 py-6 text-center text-sm text-slate-500">
         هنوز گردشی برای این مورد ثبت نشده است.
       </p>
+    );
+  }
+
+  if (!isMobile) {
+    return (
+      <div className="rounded-xl bg-slate-50 p-2">
+        <FloatingTable
+          track
+          columns={[
+            COLUMNS.number,
+            COLUMNS.date,
+            COLUMNS.description,
+            { ...COLUMNS.change, unit: stockUnit(warehouse) },
+            COLUMNS.balance,
+          ]}
+        >
+          {rows.map(({ movement, balance }, index) => (
+            <FloatingRow
+              key={movement.id}
+              number={index + 1}
+              numberWidth={COLUMNS.number.width}
+            >
+              <TableCell
+                className={cn(
+                  'px-2 text-center text-xs whitespace-nowrap text-slate-700',
+                  COLUMNS.date.width
+                )}
+              >
+                {formatDateTime(movement.date)}
+              </TableCell>
+              <TableCell
+                className={cn(
+                  'px-3 py-2 text-start whitespace-normal text-slate-800',
+                  COLUMNS.description.width
+                )}
+              >
+                <div>{describe(movement, invoiceNumber(movement))}</div>
+                {movement.note && (
+                  <div className="mt-0.5 text-xs text-slate-500">
+                    {movement.note}
+                  </div>
+                )}
+              </TableCell>
+              <TableCell
+                className={cn('px-2 text-center', COLUMNS.change.width)}
+              >
+                <span
+                  dir="ltr"
+                  className={cn('font-semibold', amountClass(movement.delta))}
+                >
+                  {signedDelta(movement.delta)}
+                </span>
+              </TableCell>
+              <TableCell
+                className={cn(
+                  'px-2 text-center font-semibold text-slate-800',
+                  balance.startsWith('-') && 'text-red-700',
+                  COLUMNS.balance.width
+                )}
+              >
+                {formatNumber(balance)}
+              </TableCell>
+            </FloatingRow>
+          ))}
+        </FloatingTable>
+      </div>
     );
   }
 
@@ -111,11 +198,7 @@ export default function StockCard({
                   dir="ltr"
                   className={cn('font-semibold', amountClass(movement.delta))}
                 >
-                  {convertToPersianDigits(
-                    movement.delta.startsWith('-')
-                      ? movement.delta
-                      : `+${movement.delta}`
-                  )}
+                  {signedDelta(movement.delta)}
                 </span>
               </TableCell>
               <TableCell

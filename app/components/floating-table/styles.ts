@@ -20,16 +20,16 @@ export const CELL = 'px-1 py-0';
 // scrolling sideways instead of squeezing.
 export const MIN_TABLE_WIDTH = 'min-w-200 lg:min-w-0';
 
-// The inputs' looks, merged over ui/input, which already gives the brand
+// The inputs' looks: white boxes with a clear outline, so a row shows at a
+// glance where to type. Merged over ui/input, which already gives the brand
 // focus border and ring.
 export const FIELD_INPUT =
-  'h-8.5 rounded-lg border-transparent bg-slate-50 px-1 text-center text-sm shadow-none hover:border-slate-200 focus-visible:bg-white';
+  'h-8.5 rounded-lg border-slate-300 bg-white px-1 text-center text-sm shadow-none hover:border-slate-400';
 
-export const CODE_INPUT =
-  'h-7.5 rounded-[7px] border-transparent bg-slate-100 px-1 text-center font-medium text-slate-800 hover:border-slate-200 focus-visible:bg-white md:text-[13px]';
+export const CODE_INPUT = `${FIELD_INPUT} font-medium text-slate-800 md:text-[13px]`;
 
 export const TEXT_INPUT =
-  'h-8.5 rounded-lg border-transparent bg-transparent px-2 text-start text-sm font-medium hover:border-slate-200 focus-visible:bg-white';
+  'h-8.5 rounded-lg border-slate-300 bg-white px-2.5 text-start text-sm font-medium shadow-none hover:border-slate-400';
 
 // A computed value (an area, a total) that reads as text.
 export const RESULT_INPUT =

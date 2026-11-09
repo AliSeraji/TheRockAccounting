@@ -11,3 +11,4 @@
 - [Field style redesign](field-style-redesign.md) — 2026-11-05 dropdown/search/input restyle: user picked G (segmented) + changes; mobile filters must stay unchanged
 - [Prefer shadcn components](prefer-shadcn-components.md) — use ui/ primitives (Button, Card, Badge…), reuse shared components, no copied code; shadcn CLI quirks
 - [Invoice table restyle](invoice-table-restyle.md) — 2026-11-08 desktop floating rows (mockup D) on invoice tables, saved view and all lists; desktop only; shared floating-table/
+- [Units written out](units-written-out.md) — write «مترمربع», not «م²», in UI labels and totals

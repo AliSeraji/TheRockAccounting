@@ -15,11 +15,13 @@ export default function NumberCell({
   isPrice = false,
   addItem,
   removeItem,
+  placeholder,
 }: {
   column: FloatingColumn;
   look?: 'field' | 'result' | 'total';
   value: string;
   onChange: (value: string) => void;
+  placeholder?: string;
   isPrice?: boolean;
   addItem?: () => void;
   removeItem?: () => void;
@@ -34,6 +36,7 @@ export default function NumberCell({
         isPrice={isPrice}
         addItem={addItem}
         removeItem={removeItem}
+        placeholder={readOnly ? undefined : placeholder}
         className={cn(
           readOnly ? RESULT_INPUT : FIELD_INPUT,
           look === 'total' && 'font-bold text-slate-900'

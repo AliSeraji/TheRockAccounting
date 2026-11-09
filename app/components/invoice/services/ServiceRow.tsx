@@ -26,21 +26,23 @@ const ServiceRow = memo(function ServiceRow({
   remove: (id: number) => void;
   addService: () => void;
 }): React.ReactNode {
+  // A blank row hints at what each number field takes.
+  const blank = !isFilledService(serviceItem);
   const field = (name: ServiceRowField) => ({
     value: String(serviceItem[name]),
     onChange: (value: string) => update(serviceItem.id, name, value),
+    placeholder: blank ? '۰' : undefined,
   });
   const removeRow = () => remove(serviceItem.id);
 
   return (
-    <FloatingRow
-      number={index + 1}
-      blank={!isFilledService(serviceItem)}
-      className="min-h-13.5"
-    >
+    <FloatingRow number={index + 1} blank={blank} className="min-h-13.5">
       <TableCell className={cn(CELL, SERVICE_COLUMNS.service.width)}>
         <ServiceTypeInput
-          {...field(SERVICE_ROW_FIELDS.SERVICE_TYPE)}
+          value={serviceItem.serviceType}
+          onChange={(value) =>
+            update(serviceItem.id, SERVICE_ROW_FIELDS.SERVICE_TYPE, value)
+          }
           className={TEXT_INPUT}
         />
       </TableCell>

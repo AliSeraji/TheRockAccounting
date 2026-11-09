@@ -15,8 +15,8 @@ export type InvoiceTableItem = {
 export const STONE_COLUMNS = {
   code: { label: 'کد', width: 'w-[9%]' },
   type: { label: 'نوع سنگ', width: 'w-[15%]', align: 'start' },
-  thickness: { label: 'قطر', unit: 'سانتی‌متر', width: 'w-[7%]' },
-  quantity: { label: 'تعداد', unit: 'عدد', width: 'w-[7%]' },
+  thickness: { label: 'قطر', unit: 'سانت', width: 'w-[7%]' },
+  quantity: { label: 'تعداد', width: 'w-[7%]' },
   width: { label: 'عرض', unit: 'متر', width: 'w-[7%]' },
   length: { label: 'طول', unit: 'متر', width: 'w-[7%]' },
   area: { label: 'متراژ', unit: 'مترمربع', width: 'w-[10%]' },
