@@ -6,18 +6,22 @@ import {
   TableFooter,
   TableRow,
 } from '~/components/ui/table';
-import type { InvoiceTableItem } from '~/components/invoice/common';
+import {
+  RECEIPT_ROW_NUMBER,
+  RECEIPT_ROW_NUMBER_CELL,
+  type InvoiceTableItem,
+} from '~/components/invoice/common';
 import { cleanTrailingZeros, convertToPersianDigits } from '~/lib/utils';
 import type { BlockInvoiceItem, BlockInvoiceTotals } from '~/store/types';
 import { DeliveryTableHeader } from './Header';
 
 const blockDeliveryTableItems: InvoiceTableItem[] = [
-  { label: 'ردیف', width: 'w-[6%]' },
-  { label: 'کد کوپ', width: 'w-[12%]' },
-  { label: 'نوع کوپ سنگ', width: 'w-[22%]' },
-  { label: 'طول', width: 'w-[10%]' },
-  { label: 'عرض', width: 'w-[10%]' },
-  { label: 'ارتفاع', width: 'w-[10%]' },
+  RECEIPT_ROW_NUMBER,
+  { label: 'کد کوپ', width: 'w-[13%]' },
+  { label: 'نوع کوپ سنگ', width: 'w-[30%]' },
+  { label: 'طول', width: 'w-[8%]' },
+  { label: 'عرض', width: 'w-[8%]' },
+  { label: 'ارتفاع', width: 'w-[8%]' },
   { label: 'وزن (تن)', width: 'w-[14%]' },
   { label: 'متراژ (مترمکعب)', width: 'w-[16%]' },
 ];
@@ -48,7 +52,7 @@ export default function BlockDeliveryTable({
         <TableBody>
           {items.map((item, index) => (
             <TableRow key={item.id} className="border-0 even:bg-slate-50">
-              <TableCell className={cellClass}>
+              <TableCell className={`${cellClass} ${RECEIPT_ROW_NUMBER_CELL}`}>
                 {convertToPersianDigits(startIndex + index + 1)}
               </TableCell>
               <TableCell className={cellClass}>

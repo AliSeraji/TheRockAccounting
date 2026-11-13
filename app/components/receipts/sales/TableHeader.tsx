@@ -1,5 +1,8 @@
 import type React from 'react';
-import { salesTableItems } from '~/components/invoice/common';
+import {
+  ReceiptColumnLabel,
+  salesTableItems,
+} from '~/components/invoice/common';
 import { TableHead, TableHeader, TableRow } from '~/components/ui/table';
 
 interface SalesTableHeaderProps {
@@ -15,9 +18,9 @@ export default function SalesTableHeader({
         {items.map((item) => (
           <TableHead
             key={item.label}
-            className={`border-s border-brand-500 first:border-s-0 last:border-e-0 p-2 text-xs font-normal text-white text-center ${item.width}`}
+            className={`border-s border-brand-500 first:border-s-0 last:border-e-0 p-2 text-xs font-normal text-white text-center ${item.width} ${item.vertical ? 'px-1' : ''}`}
           >
-            {item.label}
+            <ReceiptColumnLabel item={item} />
           </TableHead>
         ))}
       </TableRow>

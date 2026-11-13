@@ -149,7 +149,6 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
                 setPhone(value);
               }}
               className={FIELD_CLASS}
-              placeholder="مشتری "
             />
           </div>
           <div className="flex flex-col space-y-2 md:col-span-2">
@@ -158,7 +157,7 @@ const InvoiceInfo = memo(function InvoiceInfo(): React.ReactNode {
               value={convertToPersianDigits(address)}
               onChange={(e) => setAddress(convertToEnDigits(e.target.value))}
               className={FIELD_CLASS}
-              placeholder="آدرس تحویل بار "
+              placeholder="محل تحویل بار "
             />
           </div>
         </div>

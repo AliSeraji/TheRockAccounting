@@ -2,6 +2,7 @@ import type React from 'react';
 import { TableBody, TableCell, TableRow } from '~/components/ui/table';
 import { convertToPersianDigits, formatRialAmount } from '~/lib/utils';
 import type { InvoiceDataType } from '~/store/types';
+import { RECEIPT_ROW_NUMBER_CELL } from '~/components/invoice/common';
 
 interface SalesTableRowProps {
   rowItems: InvoiceDataType['items'];
@@ -19,7 +20,7 @@ export default function SalesTableBody({
     <TableBody>
       {rowItems.map((item, index) => (
         <TableRow key={item.id} className="border-0 even:bg-slate-50">
-          <TableCell className={cellClass}>
+          <TableCell className={`${cellClass} ${RECEIPT_ROW_NUMBER_CELL}`}>
             {convertToPersianDigits(startIndex + index + 1)}
           </TableCell>
           <TableCell

@@ -8,12 +8,16 @@ import {
 } from '~/components/ui/table';
 import { convertToPersianDigits, formatRialAmount } from '~/lib/utils';
 import type { ServiceItem } from '~/store/types';
-import type { InvoiceTableItem } from '~/components/invoice/common';
+import {
+  RECEIPT_ROW_NUMBER,
+  RECEIPT_ROW_NUMBER_CELL,
+  type InvoiceTableItem,
+} from '~/components/invoice/common';
 import SalesTableHeader from './TableHeader';
 
 const salesServicesTableItems: InvoiceTableItem[] = [
-  { label: 'ردیف', width: 'w-[5%]' },
-  { label: 'شرح خدمات', width: 'w-[25%]' },
+  RECEIPT_ROW_NUMBER,
+  { label: 'شرح خدمات', width: 'w-[27%]' },
   { label: 'توضیحات', width: 'w-[27%]' },
   { label: 'مقدار', width: 'w-[8%]' },
   { label: 'بهاء واحد (ریال)', width: 'w-[15%]' },
@@ -46,7 +50,7 @@ export default function SalesServicesTable({
         <TableBody>
           {services.map((service, index) => (
             <TableRow key={service.id} className="border-0 even:bg-slate-50">
-              <TableCell className={cellClass}>
+              <TableCell className={`${cellClass} ${RECEIPT_ROW_NUMBER_CELL}`}>
                 {convertToPersianDigits(startIndex + index + 1)}
               </TableCell>
               <TableCell

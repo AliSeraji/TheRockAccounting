@@ -12,8 +12,6 @@ import { findCustomerByNationalId } from '~/store/customers/helpers';
 import type { Customer } from '~/store/customers/types';
 import { useInvoiceForm } from '~/store/useInvoiceForm';
 
-const placeholder = 'شناسه ملی یا کد اقتصادی خریدار';
-
 const idsOf = (customer: Customer): string[] =>
   [customer.nationalId, customer.economicCode]
     .map((id) => convertToEnDigits(id))
@@ -52,7 +50,6 @@ export default function NationalIdInput(): ReactNode {
           value={convertToPersianDigits(nationalId)}
           readOnly
           inputMode="numeric"
-          placeholder={placeholder}
           className={cn(
             buyerInputClass,
             'bg-slate-50 text-slate-500 cursor-default'
@@ -80,7 +77,6 @@ export default function NationalIdInput(): ReactNode {
               detail={idsOf(customer).join(' / ')}
             />
           )}
-          placeholder={placeholder}
           className={buyerInputClass}
         />
       )}
