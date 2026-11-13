@@ -5,7 +5,7 @@ import { CardFooter } from '../ui/card';
 
 // The add-row button at the foot of an invoice table's card. justify-end puts
 // it on the left in RTL, under the table's delete column. It is bronze on
-// desktop, beside the floating rows, and dark brown on phones.
+// every screen size.
 export default function AddRowFooter({
   label,
   onAdd,
@@ -18,7 +18,7 @@ export default function AddRowFooter({
       <Button
         onClick={onAdd}
         size="sm"
-        className="gap-1.5 bg-slate-700 hover:bg-slate-800 hover:cursor-pointer md:bg-brand-900 md:hover:bg-brand-950"
+        className="gap-1.5 bg-brand-900 hover:bg-brand-950 hover:cursor-pointer"
       >
         <Plus className="w-4 h-4" />
         {label}

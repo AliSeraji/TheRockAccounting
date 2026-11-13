@@ -19,7 +19,6 @@ export const SALE_RATE_OPTIONS: readonly SaleRate[] = [
   'قیمت مصرف‌کننده',
   'قیمت همکار',
   'قیمت عمده',
-  'قیمت ویژه',
 ];
 
 export const roleColors: Record<AccountRole, string> = {

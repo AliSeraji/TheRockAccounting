@@ -1,7 +1,7 @@
 # Graph Report - TheRockAccounting  (2026-11-13)
 
 ## Corpus Check
-- 295 files · ~80,901 words
+- 295 files · ~80,900 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 6 file(s) not represented in the graph (top: (none) 4, .css 1, .ico 1)
 
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ca5a0eca`
+- Built from commit: `dfdadf09`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 

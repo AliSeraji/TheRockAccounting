@@ -36,10 +36,10 @@
     "semantic_hash": "82e9cc56de1addf650fdc241a4d943fb"
   },
   ".design-sync/previews/Table.tsx": {
-    "mtime": 1794250796.7765934,
-    "seen": 1794566411.3075771,
-    "ast_hash": "07c5bd433d6051ff416f4171ab03bce9",
-    "semantic_hash": "07c5bd433d6051ff416f4171ab03bce9"
+    "mtime": 1794570789.3977816,
+    "seen": 1794570801.470747,
+    "ast_hash": "ca04b76d1d4c79d2b9ce15fb018c5ac5",
+    "semantic_hash": ""
   },
   ".vscode/settings.json": {
     "mtime": 1767557855.7468934,
@@ -84,9 +84,9 @@
     "semantic_hash": ""
   },
   "app/components/customers/constants.ts": {
-    "mtime": 1794250796.7785969,
-    "seen": 1794566411.3075871,
-    "ast_hash": "cd6bf6971c52bf08e621758e995dd0ee",
+    "mtime": 1794570787.1129477,
+    "seen": 1794570801.4707577,
+    "ast_hash": "52ccdf2585e0d9ef78a0de4a85cbf472",
     "semantic_hash": ""
   },
   "app/components/customers/fields.tsx": {
@@ -174,9 +174,9 @@
     "semantic_hash": ""
   },
   "app/components/invoice/ExplanaitionCard.tsx": {
-    "mtime": 1794250796.784105,
-    "seen": 1794566411.3076184,
-    "ast_hash": "840583b216d022df8808f32898309324",
+    "mtime": 1794568475.6754322,
+    "seen": 1794570801.4707906,
+    "ast_hash": "063ba508c901175136f32524f1bcf43d",
     "semantic_hash": ""
   },
   "app/components/invoice/InvoiceActions.tsx": {
@@ -186,9 +186,9 @@
     "semantic_hash": ""
   },
   "app/components/invoice/InvoiceInfo.tsx": {
-    "mtime": 1794250796.784105,
-    "seen": 1794566411.3076198,
-    "ast_hash": "9813c0ba0c40e568c4bf36ad5cd45eb2",
+    "mtime": 1794568630.1649494,
+    "seen": 1794570801.4707925,
+    "ast_hash": "ef593196bc82d60f60047d27752542cd",
     "semantic_hash": ""
   },
   "app/components/invoice/InvoiceItemCards.tsx": {
@@ -1128,9 +1128,9 @@
     "semantic_hash": ""
   },
   "app/store/customers/types.ts": {
-    "mtime": 1794250796.8081038,
-    "seen": 1794566411.3077924,
-    "ast_hash": "1950963199bda48d67396f935c409080",
+    "mtime": 1794570785.4743674,
+    "seen": 1794570801.470966,
+    "ast_hash": "6777ed8405cc11cc0148eab47260166f",
     "semantic_hash": ""
   },
   "app/store/customers/useCustomers.ts": {
@@ -1380,9 +1380,9 @@
     "semantic_hash": "05322aaed9d75ae166340e63c1f8ef92"
   },
   "app/components/invoice/BuyerInput.tsx": {
-    "mtime": 1794250796.7831008,
-    "seen": 1794566411.3076172,
-    "ast_hash": "0efc6404f374c42a404f694f4b36f5bb",
+    "mtime": 1794568657.261334,
+    "seen": 1794570801.4707897,
+    "ast_hash": "6c99956c67b49de84a9bcd4a6e8ad4dd",
     "semantic_hash": ""
   },
   "app/components/invoice/SuggestInput.tsx": {
@@ -1398,9 +1398,9 @@
     "semantic_hash": ""
   },
   "app/components/invoice/NationalIdInput.tsx": {
-    "mtime": 1794250796.784105,
-    "seen": 1794566411.3076227,
-    "ast_hash": "455aa771efd037a054a793ae82a5c86c",
+    "mtime": 1794568552.342065,
+    "seen": 1794570801.470795,
+    "ast_hash": "36f9387c370ed2c8d3bddf362a944367",
     "semantic_hash": ""
   },
   "app/components/invoice/customerPicker.tsx": {
@@ -1446,9 +1446,9 @@
     "semantic_hash": ""
   },
   "app/components/invoice/AddRowFooter.tsx": {
-    "mtime": 1794250796.7831008,
-    "seen": 1794566411.307616,
-    "ast_hash": "4d60ae9be1a0cf797ead98f85fa1ac90",
+    "mtime": 1794570930.2153504,
+    "seen": 1794570943.4879258,
+    "ast_hash": "ff2c45ac8c0ec1255a418e3b08d2344c",
     "semantic_hash": ""
   },
   ".claude/memory/MEMORY.md": {
@@ -1476,9 +1476,9 @@
     "semantic_hash": ""
   },
   ".claude/memory/invoice-add-row-footer.md": {
-    "mtime": 1794250796.7712495,
-    "seen": 1794566411.3078282,
-    "ast_hash": "8cd3cb3e7d0ddc87b51f971ba656ca66",
+    "mtime": 1794570937.699532,
+    "seen": 1794570943.4881468,
+    "ast_hash": "a4b51b0c856e028395f68612058dcc08",
     "semantic_hash": ""
   },
   ".claude/memory/invoice-tablist-option-c-trial.md": {
