@@ -12,4 +12,6 @@ On 2026-10-30 the add-row `+` moved out of the totals row of the stone, block an
 
 **Why:** the + in the borderless totals cell looked misplaced; bottom-left keeps it near the old + and the delete buttons.
 
+On 2026-11-13 the user asked for the button to be the same bronze (`bg-brand-900`) on phones as on desktop. It had been dark brown below `md`. Don't give it a separate mobile color again.
+
 **How to apply:** new editable invoice-style tables should reuse `AddRowFooter` with the same placement instead of putting add buttons inside the table. Related: [[page-header-glass-scroll]], [[block-invoice-tab]].

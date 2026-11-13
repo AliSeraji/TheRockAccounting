@@ -11,8 +11,7 @@ export type AccountRole =
 export type SaleRate =
   | 'قیمت مصرف‌کننده'
   | 'قیمت همکار'
-  | 'قیمت عمده'
-  | 'قیمت ویژه';
+  | 'قیمت عمده';
 
 export type Customer = {
   // A UUID (`newId` in ~/lib/id). Empty while the customer is unsaved.

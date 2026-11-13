@@ -61,7 +61,7 @@ const customers = [
     role: 'بازاریاب',
     mobile: '',
     city: 'تهران',
-    rate: 'قیمت ویژه',
+    rate: 'قیمت عمده',
     active: true,
     date: '۱۴۰۴/۰۵/۱۲',
   },
