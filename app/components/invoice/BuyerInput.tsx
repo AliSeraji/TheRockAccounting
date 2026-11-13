@@ -56,7 +56,6 @@ export default function BuyerInput(): ReactNode {
         renderOption={(customer) => (
           <CustomerOption customer={customer} detail={customer.mobile} />
         )}
-        placeholder="نام خریدار یا جستجو در مشتریان"
         className={buyerInputClass}
       />
     </div>

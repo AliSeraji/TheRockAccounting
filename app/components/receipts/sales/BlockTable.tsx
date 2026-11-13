@@ -6,7 +6,11 @@ import {
   TableFooter,
   TableRow,
 } from '~/components/ui/table';
-import type { InvoiceTableItem } from '~/components/invoice/common';
+import {
+  RECEIPT_ROW_NUMBER,
+  RECEIPT_ROW_NUMBER_CELL,
+  type InvoiceTableItem,
+} from '~/components/invoice/common';
 import {
   cleanTrailingZeros,
   convertToPersianDigits,
@@ -16,16 +20,16 @@ import type { BlockInvoiceItem, BlockInvoiceTotals } from '~/store/types';
 import SalesTableHeader from './TableHeader';
 
 const blockSalesTableItems: InvoiceTableItem[] = [
-  { label: 'ردیف', width: 'w-[5%]' },
+  RECEIPT_ROW_NUMBER,
   { label: 'کد کوپ', width: 'w-[9%]' },
-  { label: 'نوع کوپ سنگ', width: 'w-[15%]' },
-  { label: 'طول', width: 'w-[7%]' },
-  { label: 'عرض', width: 'w-[7%]' },
-  { label: 'ارتفاع', width: 'w-[7%]' },
+  { label: 'نوع کوپ سنگ', width: 'w-[19%]' },
+  { label: 'طول', width: 'w-[6%]' },
+  { label: 'عرض', width: 'w-[6%]' },
+  { label: 'ارتفاع', width: 'w-[6%]' },
   { label: 'وزن (تن)', width: 'w-[8%]' },
-  { label: 'متراژ (مترمکعب)', width: 'w-[10%]' },
-  { label: 'بهاء (ریال)', width: 'w-[12%]' },
-  { label: 'مبلغ کل (ریال)', width: 'w-[20%]' },
+  { label: 'متراژ (مترمکعب)', width: 'w-[11%]' },
+  { label: 'بهاء (ریال)', width: 'w-[13%]' },
+  { label: 'مبلغ کل (ریال)', width: 'w-[19%]' },
 ];
 
 const cellClass =
@@ -54,7 +58,7 @@ export default function BlockSalesTable({
         <TableBody>
           {items.map((item, index) => (
             <TableRow key={item.id} className="border-0 even:bg-slate-50">
-              <TableCell className={cellClass}>
+              <TableCell className={`${cellClass} ${RECEIPT_ROW_NUMBER_CELL}`}>
                 {convertToPersianDigits(startIndex + index + 1)}
               </TableCell>
               <TableCell className={cellClass}>

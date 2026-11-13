@@ -28,7 +28,6 @@ export default function ExplanationCard(): React.ReactNode {
             value={additionalNote}
             onValueChange={setAdditionalNote}
             className="min-h-20"
-            placeholder="توضیحات"
           />
         </div>
         <div className="flex flex-col space-y-2">
@@ -37,7 +36,6 @@ export default function ExplanationCard(): React.ReactNode {
             value={secondAdditionalNote}
             onValueChange={setSecondAdditionalNote}
             className="min-h-20"
-            placeholder="توضیحات"
           />
         </div>
       </CardContent>
